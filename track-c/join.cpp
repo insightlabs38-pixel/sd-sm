@@ -206,24 +206,96 @@ struct Worker {
 
 static void parse_range(const char *p, const char *end, const std::vector<uint16_t> &regions,
                         unsigned unmatched, Worker &w) {
+    struct Pending {
+        uint64_t id;
+        Field name, note;
+        int64_t amount;
+        unsigned group;
+    };
     try {
+        std::array<Pending, 16> batch;
         while (p < end) {
-            bom(p, end);
-            uint64_t id = number(p, end);
-            comma(p, end);
-            Field name = text_field(p, end, true);
-            comma(p, end);
-            Field note = text_field(p, end, false);
-            comma(p, end);
-            uint64_t region = number(p, end);
-            comma(p, end);
-            int64_t amount = cents(p, end);
-            newline(p, end);
-            unsigned group = region < regions.size() && regions[region] != UINT16_MAX ? regions[region] : unmatched;
-            uint32_t name_id = w.names.intern(name);
-            w.groups[group].add(id, amount, name, note, w.names.first_in_group(name_id, group));
+            unsigned count = 0;
+            const size_t mask = w.names.table.size() - 1;
+            do {
+                bom(p, end);
+                uint64_t id = number(p, end);
+                comma(p, end);
+                Field name = text_field(p, end, true);
+                __builtin_prefetch(&w.names.table[name.hash & mask], 0, 1);
+                comma(p, end);
+                Field note = text_field(p, end, false);
+                comma(p, end);
+                uint64_t region = number(p, end);
+                comma(p, end);
+                int64_t amount = cents(p, end);
+                newline(p, end);
+                unsigned group = region < regions.size() && regions[region] != UINT16_MAX ? regions[region] : unmatched;
+                batch[count++] = Pending{id, name, note, amount, group};
+            } while (count < batch.size() && p < end);
+            for (unsigned i = 0; i < count; ++i) {
+                const Pending &r = batch[i];
+                uint32_t name_id = w.names.intern(r.name);
+                w.groups[r.group].add(r.id, r.amount, r.name, r.note,
+                                      w.names.first_in_group(name_id, r.group));
+            }
         }
     } catch (...) { w.error = std::current_exception(); }
+}
+
+static std::vector<Group> merge_workers(const std::vector<Worker> &workers, unsigned group_count) {
+    std::vector<Group> groups(group_count);
+    for (const Worker &w : workers) {
+        for (unsigned g = 0; g < group_count; ++g) {
+            const Group &src = w.groups[g];
+            if (!src.count) continue;
+            Group &dst = groups[g];
+            if (!dst.count || src.min < dst.min) dst.min = src.min;
+            if (!dst.count || src.max > dst.max) dst.max = src.max;
+            dst.count += src.count;
+            dst.id_sum += src.id_sum;
+            dst.sum += src.sum;
+            dst.name_bytes += src.name_bytes;
+            dst.note_bytes += src.note_bytes;
+        }
+    }
+    if (workers.size() == 1) {
+        for (unsigned g = 0; g < group_count; ++g)
+            groups[g].distinct = workers.front().groups[g].distinct;
+        return groups;
+    }
+    constexpr unsigned shards = 6;
+    std::array<std::array<uint32_t, 256>, shards> distinct{};
+    std::array<std::exception_ptr, shards> errors{};
+    std::vector<std::thread> jobs;
+    jobs.reserve(shards);
+    for (unsigned shard = 0; shard < shards; ++shard) {
+        jobs.emplace_back([&, shard] {
+            try {
+                Names merged(1 << 15);
+                for (const Worker &w : workers) {
+                    for (const Field &slot : w.names.table) {
+                        if (slot.id == UINT32_MAX || ((slot.hash >> 16) % shards) != shard) continue;
+                        uint32_t id = merged.intern(slot);
+                        for (unsigned word = 0; word < 4; ++word) {
+                            uint64_t &dst = merged.seen[id][word];
+                            uint64_t fresh = w.names.seen[slot.id][word] & ~dst;
+                            dst |= fresh;
+                            while (fresh) {
+                                ++distinct[shard][word * 64 + __builtin_ctzll(fresh)];
+                                fresh &= fresh - 1;
+                            }
+                        }
+                    }
+                }
+            } catch (...) { errors[shard] = std::current_exception(); }
+        });
+    }
+    for (auto &job : jobs) job.join();
+    for (const auto &error : errors) if (error) std::rethrow_exception(error);
+    for (unsigned shard = 0; shard < shards; ++shard)
+        for (unsigned g = 0; g < group_count; ++g) groups[g].distinct += distinct[shard][g];
+    return groups;
 }
 
 int main() {
@@ -300,38 +372,7 @@ int main() {
             jobs.emplace_back([&, i] { parse_range(cuts[i], cuts[i + 1], regions, unmatched, workers[i]); });
         for (auto &job : jobs) job.join();
         for (const auto &w : workers) if (w.error) std::rethrow_exception(w.error);
-        std::vector<Group> groups(unmatched + 1);
-        Names &global_names = workers.front().names;
-        for (size_t wi = 0; wi < workers.size(); ++wi) {
-            const Worker &w = workers[wi];
-            for (unsigned g = 0; g <= unmatched; ++g) {
-                const Group &src = w.groups[g];
-                if (!src.count) continue;
-                Group &dst = groups[g];
-                if (!dst.count || src.min < dst.min) dst.min = src.min;
-                if (!dst.count || src.max > dst.max) dst.max = src.max;
-                dst.count += src.count;
-                dst.id_sum += src.id_sum;
-                dst.sum += src.sum;
-                dst.name_bytes += src.name_bytes;
-                dst.note_bytes += src.note_bytes;
-                if (!wi) dst.distinct = src.distinct;
-            }
-            if (!wi) continue;
-            for (const Field &slot : w.names.table) {
-                if (slot.id == UINT32_MAX) continue;
-                uint32_t id = global_names.intern(slot);
-                for (unsigned word = 0; word < 4; ++word) {
-                    uint64_t &dst = global_names.seen[id][word];
-                    uint64_t fresh = w.names.seen[slot.id][word] & ~dst;
-                    dst |= fresh;
-                    while (fresh) {
-                        ++groups[word * 64 + __builtin_ctzll(fresh)].distinct;
-                        fresh &= fresh - 1;
-                    }
-                }
-            }
-        }
+        std::vector<Group> groups = merge_workers(workers, unmatched + 1);
         std::vector<unsigned> order;
         for (unsigned i = 0; i < country.size(); ++i) if (groups[i].count) order.push_back(i);
         std::sort(order.begin(), order.end(), [&](unsigned a, unsigned b) { return country[a] < country[b]; });

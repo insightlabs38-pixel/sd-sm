@@ -72,10 +72,13 @@ The 500-document crossover also reduced the 100,000-document synthetic workload 
 - Developer qualification `41116820675` passed seven deterministic differential seeds, hash-collision and phrase cases, full seed-1 expected hash, full seed-2/3 independent Python references, restricted offline Docker, and ASan/UBSan. Three-run mean full times: seed 1 1.860 to 1.550 s (16.7% lower), seed 2 1.863 to 1.653 s (11.3% lower), seed 3 1.817 to 1.583 s (12.8% lower); peak RSS decreased about 3 MiB. These are GitHub-runner measurements, not board scores.
 - BEST/LATEST official board result: none; no board score or run ID is claimed. Commit `34dee9b16ab17362b12e75289151a0a9750b2cb8` preserves the prior champion for rollback.
 
+## Current developer candidate review — October 30, 2026
 
-## Official board receipts — feed snapshot 2026-10-30 22:40 UTC
+- Developer `main` HEAD `9f2286a83c131b8f3bca89d06eb27940cefd612b`, source blob `dc2ceedad12a72007d225c6d85566122b534ef36`, passed eight differential seeds, collision and phrase cases, two full-seed exact comparisons, and pinned offline Docker in CI [41138170073]. The paired three-run medians were 1.42 to 1.40 s (seed 1) and 1.42 to 1.41 s (seed 2); peak RSS was unchanged within measurement resolution. The source adds 31 physical lines. Using latest official T/M/S/D and a conservative S estimate, estimated K is flat to slightly lower; keep the scored source. The verified tape/cache alternatives that regressed are documented above.
 
-HighVelocity (`highvelocity-7f330e`) is registered. At this snapshot the board watch was healthy at submission HEAD `3e6b84d7e642181423fbec9e571644f11e7e430f`, with no queued or in-flight team run. The receipts below are actual live-board records; all five gates (build, check, correctness, sandbox, timeout) passed. Earlier “no board run/registration” notes are historical and superseded by this section. GitHub Actions IDs elsewhere are CI, not board runs.
+## Official board receipts — raw-feed snapshot 2026-10-30 22:46:49 UTC
+
+HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `647f752a64d4d914814e5f3cbf2a12bb1b838828`, healthy, with no queued or in-flight run at this snapshot. Both records below are live-board receipts; all build, check, correctness, sandbox, and timeout gates passed. Earlier “no board run/registration” statements are historical and superseded here. GitHub Actions IDs elsewhere are CI IDs, not board IDs.
 
 - **BEST:** `run-b247a4fdb6e7`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=1.119754 s, M=528,723,968 bytes, S=721, D=1, K=6.916684, points=41.994897.
-- **LATEST:** `run-b247a4fdb6e7`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=1.119754 s, M=528,723,968 bytes, S=721, D=1, K=6.916684, points=41.994897.
+- **LATEST:** `run-4a9856e6f91f`; commit `647f752a64d4d914814e5f3cbf2a12bb1b838828`; T=1.139945 s, M=528,650,240 bytes, S=721, D=1, K=6.855347, points=41.801471.

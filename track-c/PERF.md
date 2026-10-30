@@ -60,10 +60,14 @@ Every step from the reference to your final version, each with the live-board ru
 - CI `41117431767` compared six to three parser workers on the reclamation candidate: five paired full runs were about 0.22 s / 59,600 KiB versus 0.21 s / 37,400 KiB. The wider 5-run phase profile measured 3 workers at 212.3 ms and 37,744 KiB versus 4 workers at 202.6 ms and 45,236 KiB; three workers trade roughly 5% time for lower memory. Full output stayed byte-exact. `41117745508` failed on an incorrectly escaped test fixture; corrected fixture commit passed in `41117768919`.
 - BEST/LATEST official board result: none; no board score or run ID is claimed. Parent submission commit `34dee9b16ab17362b12e75289151a0a9750b2cb8` preserves the previous candidate.
 
+## Champion reconciliation — October 30, 2026
 
-## Official board receipts — feed snapshot 2026-10-30 22:40 UTC
+- Restored the board-best source from `34dee9b` (blob `bdf2a15bc53d541b550536d292e43fc729575dbf`), with its matching build recipe and README. It produced actual board K=11.907003, while the newer page-reclamation source at `647f752` produced K=10.989252. This preserves the measured best candidate for the frozen submission.
+- Developer `main` HEAD `64155450435a2140e76cf7cd3e1b8f6dd4c31a0f`, source blob `0c0a214316a0dd4ba0e6d6ed81522c572930c25d`, is source-identical to CI-tested commit `8980c770`; full-output, Docker and correctness checks passed in [41138936609]. The matched two-worker four-shard run measured the same 0.26 s median as its two-worker six-shard baseline and reduced RSS 30,152 to 28,900 KiB. Its worker profile was 2 workers: 247.787 ms / 28,968 KiB, 3 workers: 242.042 ms / 36,336 KiB. Estimated from the latest official baseline, T≈0.194 s, M≈27.4 MB, S≈522, D=1, K≈11.45, still below the board-best K=11.907; do not promote.
 
-HighVelocity (`highvelocity-7f330e`) is registered. At this snapshot the board watch was healthy at submission HEAD `3e6b84d7e642181423fbec9e571644f11e7e430f`, with no queued or in-flight team run. The receipts below are actual live-board records; all five gates (build, check, correctness, sandbox, timeout) passed. Earlier “no board run/registration” notes are historical and superseded by this section. GitHub Actions IDs elsewhere are CI, not board runs.
+## Official board receipts — raw-feed snapshot 2026-10-30 22:46:49 UTC
+
+HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `647f752a64d4d914814e5f3cbf2a12bb1b838828`, healthy, with no queued or in-flight run at this snapshot. Both records below are live-board receipts; all build, check, correctness, sandbox, and timeout gates passed. Earlier “no board run/registration” statements are historical and superseded here. GitHub Actions IDs elsewhere are CI IDs, not board IDs.
 
 - **BEST:** `run-c17efe9d57cc`; commit `34dee9b16ab17362b12e75289151a0a9750b2cb8`; T=0.144661 s, M=50,839,552 bytes, S=469, D=1, K=11.907003, points=53.790124.
-- **LATEST:** `run-9fb67b121973`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=0.199498 s, M=35,336,192 bytes, S=518, D=1, K=10.743154, points=51.556590.
+- **LATEST:** `run-a81439346c6e`; commit `647f752a64d4d914814e5f3cbf2a12bb1b838828`; T=0.189439 s, M=35,909,632 bytes, S=518, D=1, K=10.989252, points=52.048406.

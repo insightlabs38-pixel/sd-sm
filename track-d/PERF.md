@@ -28,10 +28,13 @@
 - Eight-bit generation stamps reduce per-query scratch; wrap resets both direction stamps. Parser input scratch is released after CSR construction. No new runtime dependency. The source is 14 physical lines longer than the previous official version.
 - Official board BEST/LATEST: unavailable; the team has no registration entry and no board run IDs exist. No official score is claimed.
 
+## Frontier branch review — October 30, 2026
 
-## Official board receipts — feed snapshot 2026-10-30 22:40 UTC
+- The exact-mask challenger on `d/epoch8-radix-mask-qualification` passed official full-output, differential, and Docker gates in CI [41132963841], but matched median wall time at 1.32 s, increased RSS 227,320 to 227,356 KiB, and increased source from 308 to 316 counted lines. Estimated K is 0.39% lower; keep `main` source blob `b7ed495b38db2fb1e63165fb8bb1a610e281ae4d`; no open frontier PR or `frontier/*` branch was visible at this check.
 
-HighVelocity (`highvelocity-7f330e`) is registered. At this snapshot the board watch was healthy at submission HEAD `3e6b84d7e642181423fbec9e571644f11e7e430f`, with no queued or in-flight team run. The receipts below are actual live-board records; all five gates (build, check, correctness, sandbox, timeout) passed. Earlier “no board run/registration” notes are historical and superseded by this section. GitHub Actions IDs elsewhere are CI, not board runs.
+## Official board receipts — raw-feed snapshot 2026-10-30 22:46:49 UTC
 
-- **BEST:** `run-66624734543b`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=0.810478 s, M=233,476,096 bytes, S=398, D=1, K=8.870050, points=47.396303.
-- **LATEST:** `run-66624734543b`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=0.810478 s, M=233,476,096 bytes, S=398, D=1, K=8.870050, points=47.396303.
+HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `647f752a64d4d914814e5f3cbf2a12bb1b838828`, healthy, with no queued or in-flight run at this snapshot. Both records below are live-board receipts; all build, check, correctness, sandbox, and timeout gates passed. Earlier “no board run/registration” statements are historical and superseded here. GitHub Actions IDs elsewhere are CI IDs, not board IDs.
+
+- **BEST:** `run-5238cf62c77d`; commit `647f752a64d4d914814e5f3cbf2a12bb1b838828`; T=0.781331 s, M=233,762,816 bytes, S=398, D=1, K=9.031763, points=47.788628.
+- **LATEST:** `run-5238cf62c77d`; commit `647f752a64d4d914814e5f3cbf2a12bb1b838828`; T=0.781331 s, M=233,762,816 bytes, S=398, D=1, K=9.031763, points=47.788628.

@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <exception>
-#include <memory>
 #include <thread>
 #include <fcntl.h>
 #include <stdexcept>
@@ -30,16 +29,6 @@ struct File {
     }
     ~File() { munmap(const_cast<char *>(data), size); }
 };
-
-static void discard_consumed(const char *&cursor, const char *end) {
-    static const uintptr_t page = static_cast<uintptr_t>(sysconf(_SC_PAGESIZE));
-    uintptr_t lo = (reinterpret_cast<uintptr_t>(cursor) + page - 1) & ~(page - 1);
-    uintptr_t hi = reinterpret_cast<uintptr_t>(end) & ~(page - 1);
-    if (hi > lo) {
-        (void)madvise(reinterpret_cast<void *>(lo), hi - lo, MADV_DONTNEED);
-        cursor = reinterpret_cast<const char *>(hi);
-    }
-}
 
 struct Field {
     const char *raw = nullptr;
@@ -122,31 +111,7 @@ struct Names {
     std::vector<Field> table;
     std::vector<std::array<uint64_t, 4>> seen;
     size_t used = 0;
-    bool own_names;
-    std::vector<std::unique_ptr<char[]>> arena;
-    char *arena_cursor = nullptr;
-    size_t arena_remaining = 0;
-    explicit Names(size_t capacity = 1 << 18, bool own = false)
-        : table(capacity), own_names(own) { seen.reserve(capacity); }
-    const char *keep(const Field &f) {
-        constexpr size_t block = 1 << 20;
-        if (!f.raw_len) return f.raw;
-        if (f.raw_len > block) {
-            arena.emplace_back(new char[f.raw_len]);
-            std::memcpy(arena.back().get(), f.raw, f.raw_len);
-            return arena.back().get();
-        }
-        if (f.raw_len > arena_remaining) {
-            arena.emplace_back(new char[block]);
-            arena_cursor = arena.back().get();
-            arena_remaining = block;
-        }
-        char *dst = arena_cursor;
-        std::memcpy(dst, f.raw, f.raw_len);
-        arena_cursor += f.raw_len;
-        arena_remaining -= f.raw_len;
-        return dst;
-    }
+    explicit Names(size_t capacity = 1 << 18) : table(capacity) { seen.reserve(capacity); }
     void grow() {
         std::vector<Field> next(table.size() * 2);
         for (const auto &slot : table) {
@@ -166,7 +131,6 @@ struct Names {
         }
         uint32_t id = static_cast<uint32_t>(seen.size());
         table[i] = f;
-        if (own_names) table[i].raw = keep(f);
         table[i].id = id;
         seen.push_back({0, 0, 0, 0});
         ++used;
@@ -237,7 +201,7 @@ struct Worker {
     std::vector<Group> groups;
     Names names;
     std::exception_ptr error;
-    explicit Worker(size_t group_count) : groups(group_count), names(1 << 17, true) { }
+    explicit Worker(size_t group_count) : groups(group_count), names(1 << 17) { }
 };
 
 static void parse_range(const char *p, const char *end, const std::vector<uint16_t> &regions,
@@ -250,7 +214,6 @@ static void parse_range(const char *p, const char *end, const std::vector<uint16
     };
     try {
         std::array<Pending, 16> batch;
-        const char *reclaimed = p;
         while (p < end) {
             unsigned count = 0;
             const size_t mask = w.names.table.size() - 1;
@@ -264,21 +227,18 @@ static void parse_range(const char *p, const char *end, const std::vector<uint16
                 Field note = text_field(p, end, false);
                 comma(p, end);
                 uint64_t region = number(p, end);
-                if (region < regions.size()) __builtin_prefetch(&regions[region], 0, 1);
                 comma(p, end);
                 int64_t amount = cents(p, end);
                 newline(p, end);
-                batch[count++] = Pending{id, name, note, amount, static_cast<uint32_t>(region)};
+                unsigned group = region < regions.size() && regions[region] != UINT16_MAX ? regions[region] : unmatched;
+                batch[count++] = Pending{id, name, note, amount, group};
             } while (count < batch.size() && p < end);
             for (unsigned i = 0; i < count; ++i) {
                 const Pending &r = batch[i];
                 uint32_t name_id = w.names.intern(r.name);
-                unsigned group = r.group < regions.size() && regions[r.group] != UINT16_MAX
-                                     ? regions[r.group] : unmatched;
-                w.groups[group].add(r.id, r.amount, r.name, r.note,
-                                    w.names.first_in_group(name_id, group));
+                w.groups[r.group].add(r.id, r.amount, r.name, r.note,
+                                      w.names.first_in_group(name_id, r.group));
             }
-            if (p - reclaimed >= (1 << 20)) discard_consumed(reclaimed, p);
         }
     } catch (...) { w.error = std::current_exception(); }
 }
@@ -375,7 +335,7 @@ int main() {
         p += 29;
         newline(p, end);
         const char *record_start = p;
-        unsigned threads = end - p < (1 << 20) ? 1 : 3;
+        unsigned threads = end - p < (1 << 20) ? 1 : 6;
         std::vector<const char *> cuts(threads + 1);
         cuts[0] = record_start;
         cuts[threads] = end;
@@ -387,12 +347,7 @@ int main() {
                 const char *b = record_start + (end - record_start) * (i + 1) / threads;
                 jobs.emplace_back([&, i, a, b] {
                     uint8_t x = 0;
-                    const char *reclaimed = a;
-                    for (const char *q = a; q < b;) {
-                        const char *limit = b - q > (1 << 20) ? q + (1 << 20) : b;
-                        for (; q < limit; ++q) x ^= (*q == '"');
-                        discard_consumed(reclaimed, q);
-                    }
+                    for (const char *q = a; q < b; ++q) x ^= (*q == '"');
                     parity[i] = x;
                 });
             }

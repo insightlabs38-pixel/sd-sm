@@ -4,12 +4,12 @@ Dependency-free C++20 implementation of the [Speed Demon 2026 Track A specificat
 
 ## Approach
 
-Four newline-aligned mmap partitions are parsed concurrently. Each worker uses a compact, collision-checked endpoint dictionary and exact per-hour counters, then emits packed group/latency records. After the workers join, endpoint IDs are reconciled by full-string equality, counts are merged, and latencies are scattered into contiguous group spans. Three output workers independently compute exact nearest-rank percentiles and serialize disjoint hour ranges in deterministic byte order.
+Five newline-aligned mmap partitions are parsed concurrently. Each worker uses a compact, collision-checked endpoint dictionary and exact per-hour counters, then emits packed group/latency records. The endpoint boundary scan uses bounded `memchr`. After workers join, endpoint IDs are reconciled by full-string equality, counts are merged, and latencies are scattered into contiguous group spans. Four output workers independently compute exact nearest-rank percentiles and serialize disjoint hour ranges in deterministic byte order.
 
 ## Dependencies
 
 No third-party runtime libraries. Build with C++20, pthreads and the pinned Docker toolchain. The default input is `/data/requests.log`, and the only output is `/out/summary.txt`. `SD_DATA_DIR` and `SD_OUT_DIR` optionally override these directories for local testing.
 
-## With another 24 hours
+## Performance evidence
 
-Profile on the official scoring hardware, tune parse/output worker counts, compare lower-overhead group remapping and exact selection kernels, and run broader heldout-seed and Docker sandbox tests. Preserve a verified rollback.
+The latest developer exactness and sandbox run is [41096594772](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41096594772). Local synthetic worker-scaling measurements and official integration evidence are recorded in [PERF.md](PERF.md); local timings are not board scores.

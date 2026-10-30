@@ -19,7 +19,7 @@ namespace {
 constexpr uint32_t kHours = 72;
 constexpr uint32_t kEndpoints = 1842;
 constexpr uint32_t kGroups = kHours * kEndpoints;
-constexpr uint32_t kParseWorkers = 4;
+constexpr uint32_t kParseWorkers = 5;
 constexpr uint32_t kOutputWorkers = 4;
 
 struct Record { uint32_t group, latency; };
@@ -66,7 +66,7 @@ struct Worker {
       p += 28;
       while (*p != ' ') ++p;
       const char *const endpoint = ++p;
-      while (*p != ' ') ++p;
+      p = static_cast<const char *>(std::memchr(p, ' ', static_cast<size_t>(end - p)));
       const std::string_view name(endpoint, static_cast<size_t>(p - endpoint));
       const uint64_t hash = hasher(name);
       uint32_t pos = static_cast<uint32_t>(hash) & 4095;

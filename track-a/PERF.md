@@ -38,3 +38,11 @@
 - GitHub Actions run [41087414448](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41087414448) passed tiny/sample/full seed-1, sample seed-2, the allowlist check and the offline Docker sandbox. The same CI commit is `a877750`.
 - Developer synthetic measurements: parallel scatter with three output workers 0.1223 s vs prior sequential scatter 0.1321 s; four output workers measured 0.1082 s vs three at 0.1134 s on that host. These are synthetic/local, not board timings.
 - No official board run ID or score is claimed.
+
+
+## Five-worker parser and bounded delimiter scan, October 30, 2026
+
+- Promoted `sd-ta` main HEAD `704958d60f9f16a4d97ff01d0f676644bee78172`, source blob `0b775cab4d0c6525d676fd0d8ef5340656027fcc`. The prior official A candidate remains in parent release commit `fb2e1fc` for rollback.
+- Five parser workers beat four on the developer's 4-CPU-quota host across three synthetic full-size distributions. Reported medians: uniform endpoints 0.09064 s vs 0.09550 s (about 5.1% faster); Zipf-skewed 0.08265 s vs 0.08920 s (about 7.3% faster). A fifth worker adds about 1.6 MiB of group metadata. Synthetic measurements are not official scoring results.
+- Latest GitHub Actions run [41096594772](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41096594772) passed tiny/sample/full seed-1 exactness, sample seed 2, allowlist validation and offline restricted Docker execution on the exact current HEAD.
+- No official board run ID or K score is claimed.

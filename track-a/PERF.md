@@ -1,17 +1,25 @@
 # Track A performance log
 
-## Initial exact C++ baseline, October 30, 2026
+## Exact C++ baseline, October 30, 2026
 
-- Design: single mmap parse, endpoint interning, count/scatter, exact local sorting or multiselect.
-- Local compiler: GCC 14.2, `-O3 -std=c++20 -static-libstdc++ -static-libgcc`.
-- Synthetic differential tests: 12 cases covering empty and small files, 1,000 to 310,000 records, four seeds, unsigned-32-bit latency extremes, duplicated lines, all status classes, month/hour boundaries, and endpoint ordering. All passed against a Python integer oracle.
-- Local 310,000-record synthetic run: 0.05 s wall and 36,544 KiB peak RSS on the available development container. This is **not** an official benchmark or a scoring-box measurement.
-- Official public seed-1 and holdout hashes: pending GitHub CI. No board run ID exists yet; Luna records actual board IDs after integration.
+- Design: mmap parse, full-byte endpoint interning, count/scatter, exact local sorting or multiselect.
+- Compiler: GCC 14.2, `-O3 -std=c++20 -static-libstdc++ -static-libgcc`.
+- Local differential tests: 12 cases, empty through 310,000 records, four seeds, uint32 extremes, duplicates, statuses, boundaries, bytewise endpoint order. All passed against Python oracle.
+- Official worked example: byte-exact locally. Official seed-1 and unseen-seed hashes await GitHub CI.
+- Initial 310,000-record synthetic run: 0.05 s wall, 36,544 KiB peak RSS, local development container only.
 
-## Integrator validation, October 30, 2026
+## Local full-size synthetic comparisons
 
-- Candidate source: `sd-ta` remote HEAD `3d32b31c4fb32258f1a1b11828ea21e633147d5c`.
-- Developer synthetic differential suite: 12 cases across four seeds, including empty input and uint32 latency extremes; all passed.
-- Organizer generator/reference: seed-1 `tiny`, `sample`, and `full` outputs, plus seed-42 `sample`, matched byte-for-byte. Sample SHA-256 `ca6311bbeb536fa55d85265bf6fd3d24cc9586f13de1ac73bd2a23ac3893aac3`; full SHA-256 `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3` (also matches the published full-data hash).
-- Offline allowlisted Docker build passed; image size 79 MB. Full-data sandbox run passed with the required single output file and exact hash. Local container elapsed time 1.09 s including startup; `memory.peak` 40,443,904 bytes. Seed-42 sample SHA-256 `835c36377118af19264750c9b1031225ead44a8555e913c22d31a827dbe486c8`. These are local checks, not board measurements.
-- Board run IDs: none yet; submission repo is not registered and the board app is not confirmed installed. No official score claimed.
+- Generated 3,100,000 legal-format lines (~204 MiB) with a Zipf-skewed endpoint distribution. This is **not** the official dataset or scoring hardware.
+- 20 randomized-order, single-core pinned trials: initial unordered-map baseline median 0.3103 s, exact full-key flat hash table median 0.2645 s. Variance and cross-run contention remain significant.
+- Sorting/selection threshold 256 is an additional local candidate; performance varied within host noise. All 12 synthetic differential cases passed after combining it with the flat table.
+- Two-pass direct scatter challenger measured 0.4944 s median versus 0.3252 s one-pass on 12 local trials; rejected for now.
+- No official board run ID exists yet. Luna records actual board IDs after verified integration.
+
+## Luna integration validation, October 30, 2026
+
+- Promoted candidate source: `sd-ta` HEAD `a0dc2f45b6cc57421a5afae6f3c0dc7000621be3`; prior official Track A is retained in parent commit `8eb291667c6745b310689ebf0f68034278bcef1f` for rollback.
+- All 12 developer synthetic differential tests passed. Organizer reference matched on official seed-1 full data (SHA-256 `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3`, also the published hash) and seed-42 sample (SHA-256 `835c36377118af19264750c9b1031225ead44a8555e913c22d31a827dbe486c8`).
+- Offline allowlisted Docker build passed; image size 79 MB. Full-data sandbox check produced exactly `summary.txt` with the expected hash. This local container run took 1.42 s including startup.
+- Twelve alternating single-core local runs on full seed-1: previous official binary median 0.4228 s; new binary median 0.3973 s (+6.4% speed). Local cgroup peak memory samples were 40,443,904 and 40,591,360 bytes respectively. These measurements are not scoring-box results.
+- Board run IDs: none. The official repo is not present in the live board registry yet; no official score claimed.

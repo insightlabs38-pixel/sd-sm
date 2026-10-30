@@ -1,15 +1,5 @@
 # Track C: Join
 
-The task, the input files and the exact output format are in the [spec](https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/c-join.md).
+A byte-oriented C++17 parser reads the hostile CSV, maps region ids through a dense table, and aggregates country statistics. Global exact-name interning uses an open-addressed table, with four 64-bit country-presence words per distinct name; quotes are decoded logically for hashing, equality, and byte counts without per-row allocations. Input files are memory-mapped read-only, and output is written only to `/out/aggregates.txt`.
 
-## Approach
-
-How your solution works, in plain prose.
-
-## Dependencies
-
-None.
-
-## With another 24 hours
-
-What you would do next.
+No third-party runtime dependencies. Further work: benchmark full-scale seeds and evaluate a streaming name representation, SIMD parsing, and safe parallel record partitioning against the complete K coefficient.

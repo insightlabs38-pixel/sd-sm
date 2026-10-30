@@ -4,7 +4,7 @@ A C++20, standard-library-only solution to [Track B](https://github.com/hackatho
 
 ## Approach
 
-Queries are parsed before the corpus. A case-insensitive ASCII token dictionary selects only query-visible terms, with byte-exact comparison and no Unicode normalization. A single corpus scan builds ascending per-term document postings and a compact document-delimited tape of selected term IDs. Boolean expressions use sorted-set intersection, union and difference in strict left-to-right order. Phrase queries normally choose their least-frequent term as a candidate filter and verify exact consecutive token IDs in each candidate document. High-frequency phrases are deduplicated and evaluated by a shared token-level Aho-Corasick automaton over the compact tape, using a direct root-transition table and sparse deeper-state maps to avoid repeated scans. Output is deterministic and includes the exact 64-bit sum and first ten IDs.
+Queries are parsed before the corpus. A case-insensitive ASCII token dictionary selects only query-visible terms, with byte-exact comparison and no Unicode normalization. A single corpus scan builds ascending per-term document postings and a compact document-delimited tape of selected term IDs. Boolean expressions use sorted-set intersection, union and difference in strict left-to-right order. Phrase queries normally choose their least-frequent term as a candidate filter and verify exact consecutive token IDs in each candidate document. High-frequency phrases are deduplicated and evaluated by a shared token-level Aho-Corasick automaton over the compact tape, avoiding repeated scans. Corpus indexing uses four workers and merges byte ranges in document order. Large query batches are evaluated in four workers and emitted in original order. Output includes the exact 64-bit sum and first ten IDs.
 
 ## Validation
 
@@ -14,6 +14,6 @@ The [public exactness workflow](https://github.com/insightlabs38-pixel/sd-tb/act
 
 None beyond the C++ standard library and system C runtime. Build image is the pinned, organizer-allowlisted `gcc:15`; runtime image is the pinned `debian:13-slim`.
 
-## With another 24 hours
+## Performance evidence
 
-Profile the organizer full corpus, compare selective positional indexing and query-batch evaluation against the measured hybrid baseline, and explore SIMD tokenization. The phrase automaton is already implemented. Replace the placeholder `team` value before official submission.
+The paired two-seed query evaluation comparison is documented in [PERF.md](PERF.md) and developer workflow [41090220430](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41090220430). It showed 26–31% lower full-seed runtime with similar peak RSS. These are GitHub-runner measurements, not official board scores.

@@ -60,3 +60,9 @@
 - On this local three-CPU host, ten interleaved full seed-1 runs of the previous official source and candidate both matched that hash. Median runtime fell from 0.3185 s to 0.2859 s (10.2%); sampled process VmHWM fell from 283,052 to 280,480 KiB (0.9%). This is local evidence, not scoring-box T/M.
 - A separate seven-run CI comparison on current code versus CRC predecessor `8c754fc` measured 0.092090 s to 0.091419 s (0.7%); runner timing only. The candidate adds one physical source line, uses CRC32 only as a fingerprint, and retains exact full-byte equality. No runtime dependency was added.
 - Official board BEST/LATEST: unavailable; the team has no registration entry and no board run IDs exist. No official score is claimed.
+
+## Integrator qualification: compact fingerprints and packed worker groups (October 30, 2026)
+
+- Imported developer `sd-ta` commit `7e5ee07a69a79673caeb779c1d2c0ac0b28d0d2a`, source blob `1878916aae2fe295387899b9b0522f777aacdc71`. Previous official champion is recoverable from submission commit `34dee9b16ab17362b12e75289151a0a9750b2cb8` (source SHA-256 `6933358b689202d3f0e4d0abd79c5c85ec3510316a171609b6210fc613ab822d`).
+- GitHub Actions `41120735228` passed current-head exactness, adversarial CRC-alias tests, Docker allowlist and offline container full-output validation. Earlier paired full seed-1 run `41120372612` measured 13-run median 0.105081 s before packed local keys and 0.103475 s after (1.5% lower); all official hashes and synthetic oracle passed. This is runner-local evidence, not a board score; timing gain is small and may be within noise.
+- BEST/LATEST official board result: none (repository/team not present in board feed at this integration); no board run ID or score is claimed. Prior verified source remains available at the parent checkpoint.

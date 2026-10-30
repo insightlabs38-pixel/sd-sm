@@ -78,3 +78,11 @@ HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submiss
 
 - **BEST:** `run-52a21f98657c`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.073125 s, M=50,302,976 bytes, S=325, D=1, K=21.755557, points=66.878511.
 - **LATEST:** `run-52a21f98657c`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.073125 s, M=50,302,976 bytes, S=325, D=1, K=21.755557, points=66.878511.
+
+
+## Official board receipts — raw-feed snapshot 2026-10-30 22:58:54 UTC
+
+HighVelocity (`highvelocity-7f330e`) was registered; watcher was healthy at `40847ba5fde8714895533f7b47ce8fee48baa09e`, and the dispatch queue was idle after scoring. All five gates (build, check, correctness, sandbox, timeout) passed; failure was null. BEST and LATEST below are the board's records at this snapshot. These board run IDs are distinct from GitHub Actions IDs.
+
+- **BEST:** `run-52a21f98657c`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.073125 s, M=50,302,976 bytes, S=325, D=1, K=21.755557, points=66.878511.
+- **LATEST:** `run-bc89bd32b183`; commit `40847ba5fde8714895533f7b47ce8fee48baa09e`; T=0.074765 s, M=49,328,128 bytes, S=325, D=1, K=21.600002, points=66.722690.

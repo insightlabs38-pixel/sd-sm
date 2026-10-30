@@ -86,3 +86,18 @@ HighVelocity (`highvelocity-7f330e`) was registered; watcher was healthy at `408
 
 - **BEST:** `run-52a21f98657c`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.073125 s, M=50,302,976 bytes, S=325, D=1, K=21.755557, points=66.878511.
 - **LATEST:** `run-bc89bd32b183`; commit `40847ba5fde8714895533f7b47ce8fee48baa09e`; T=0.074765 s, M=49,328,128 bytes, S=325, D=1, K=21.600002, points=66.722690.
+
+
+## Official board results — raw-feed snapshot 2026-10-30 23:10:48 UTC
+
+HighVelocity (`highvelocity-7f330e`) remained registered. The watcher was healthy at `01d4852e1271d5bec3d6de9aaa7641f8616730cb` with an idle queue. Both records passed build, check, correctness, sandbox, and timeout gates; failure was null. These are live-board measurements; BEST and LATEST are separately reported, and run IDs are not GitHub Actions IDs.
+
+- **BEST:** `run-c25251fd5cdb`; commit `01d4852e1271d5bec3d6de9aaa7641f8616730cb`; T=0.072742 s, M=50,122,752 bytes, S=325, D=1, K=21.828419, points=66.951114.
+- **LATEST:** `run-c25251fd5cdb`; commit `01d4852e1271d5bec3d6de9aaa7641f8616730cb`; T=0.072742 s, M=50,122,752 bytes, S=325, D=1, K=21.828419, points=66.951114.
+
+
+## Rejected developer candidate — `sd-ta` `5542976336d1f088973ff7a09a85d83bd977bd9b`
+
+- Current-head CI [41142583488](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41142583488) passed exactness and restricted offline Docker; the full seed-1 reference hash matched. CI paired medians against its developer champion were 0.084978 s to 0.085132 s (candidate 0.18% slower).
+- Integrator paired 13-run local full seed-1 trials against official source scored at `01d4852`: median T 0.296801 s to 0.304545 s (candidate 2.61% slower); sampled median RSS 287,211,520 to 287,608,832 bytes (+0.14%). All output hashes matched. These are local measurements, not board T/M.
+- Candidate reduces source code by six counted nonblank lines in the track source; with D unchanged at 1 and the measured T/M ratios, the approximate K ratio is 0.990 (about K=21.60 versus board BEST 21.828 at `run-c25251fd5cdb`). Exact scc S was not measured for the candidate, so this is an estimate. Not promoted; the scored A champion remains unchanged.

@@ -1,15 +1,9 @@
 # Track D: Traverse
 
-The task, the input files and the exact output format are in the [spec](https://github.com/hackathon-raptors/speed-demon-2026/blob/main/specs/d-traverse.md).
+Exact directed shortest-path distances using CSR storage, a bounded forward search for short paths, and bidirectional Dijkstra for longer paths. The queue is a 64-bit monotone radix heap. Independent workers keep per-query distance state; answers are written in input order.
 
-## Approach
+## Validation
 
-How your solution works, in plain prose.
+The official full seed-1 output matches SHA-256 `a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e`. Developer CI run [41085036796](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41085036796) passed official generated cases, differential tests, and pinned offline Docker execution. Its runtime and memory figures are GitHub-runner measurements, not board scores.
 
-## Dependencies
-
-None.
-
-## With another 24 hours
-
-What you would do next.
+No third-party runtime dependencies; build uses the pinned, organizer-allowlisted GCC image.

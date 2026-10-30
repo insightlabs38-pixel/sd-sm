@@ -72,9 +72,9 @@
 - Restored the source/build/docs from board-best commit `34dee9b` (source blob `5b60b456af12216116149afab37869fb64daada9`) after the latest official run at `647f752` measured K=21.074231 versus the actual best K=21.532045 at `34dee9b`. The repeated score is the deciding evidence; the earlier local CRC/packing comparisons remain runner-only.
 - Developer `main` HEAD `624fcec` passed current-head exactness and restricted Docker in CI [41136084173]. Its 13-run local median was 0.111769 s before and 0.111210 s after (0.5% lower), with no peak-memory measurement; the candidate adds 25 physical source lines over the integrated code. Its estimated net K is not positive after source-size cost and unknown memory, so it remains unpromoted.
 
-## Official board receipts — raw-feed snapshot 2026-10-30 22:46:49 UTC
+## Official board receipts — raw-feed snapshot 2026-10-30 22:52:25 UTC
 
-HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `647f752a64d4d914814e5f3cbf2a12bb1b838828`, healthy, with no queued or in-flight run at this snapshot. Both records below are live-board receipts; all build, check, correctness, sandbox, and timeout gates passed. Earlier “no board run/registration” statements are historical and superseded here. GitHub Actions IDs elsewhere are CI IDs, not board IDs.
+HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `3059e71b54cd02e920e995d186a369b4be9c0aeb`, healthy, with no queued or in-flight run at this snapshot. BEST and LATEST are both this successful live-board run; build, check, correctness, sandbox, and timeout gates all passed. These are board IDs, not CI IDs. Earlier “no board run/registration” notes are historical and superseded here.
 
-- **BEST:** `run-90ee8a1d0862`; commit `34dee9b16ab17362b12e75289151a0a9750b2cb8`; T=0.075128 s, M=49,508,352 bytes, S=325, D=1, K=21.532045, points=66.654264.
-- **LATEST:** `run-190d36c5ccfc`; commit `647f752a64d4d914814e5f3cbf2a12bb1b838828`; T=0.078008 s, M=50,061,312 bytes, S=326, D=1, K=21.074231, points=66.187587.
+- **BEST:** `run-52a21f98657c`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.073125 s, M=50,302,976 bytes, S=325, D=1, K=21.755557, points=66.878511.
+- **LATEST:** `run-52a21f98657c`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.073125 s, M=50,302,976 bytes, S=325, D=1, K=21.755557, points=66.878511.

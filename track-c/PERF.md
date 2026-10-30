@@ -65,9 +65,9 @@ Every step from the reference to your final version, each with the live-board ru
 - Restored the board-best source from `34dee9b` (blob `bdf2a15bc53d541b550536d292e43fc729575dbf`), with its matching build recipe and README. It produced actual board K=11.907003, while the newer page-reclamation source at `647f752` produced K=10.989252. This preserves the measured best candidate for the frozen submission.
 - Developer `main` HEAD `64155450435a2140e76cf7cd3e1b8f6dd4c31a0f`, source blob `0c0a214316a0dd4ba0e6d6ed81522c572930c25d`, is source-identical to CI-tested commit `8980c770`; full-output, Docker and correctness checks passed in [41138936609]. The matched two-worker four-shard run measured the same 0.26 s median as its two-worker six-shard baseline and reduced RSS 30,152 to 28,900 KiB. Its worker profile was 2 workers: 247.787 ms / 28,968 KiB, 3 workers: 242.042 ms / 36,336 KiB. Estimated from the latest official baseline, T≈0.194 s, M≈27.4 MB, S≈522, D=1, K≈11.45, still below the board-best K=11.907; do not promote.
 
-## Official board receipts — raw-feed snapshot 2026-10-30 22:46:49 UTC
+## Official board receipts — raw-feed snapshot 2026-10-30 22:52:25 UTC
 
-HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `647f752a64d4d914814e5f3cbf2a12bb1b838828`, healthy, with no queued or in-flight run at this snapshot. Both records below are live-board receipts; all build, check, correctness, sandbox, and timeout gates passed. Earlier “no board run/registration” statements are historical and superseded here. GitHub Actions IDs elsewhere are CI IDs, not board IDs.
+HighVelocity (`highvelocity-7f330e`) is registered. The watcher reported submission HEAD `3059e71b54cd02e920e995d186a369b4be9c0aeb`, healthy, with no queued or in-flight run at this snapshot. BEST and LATEST are both this successful live-board run; build, check, correctness, sandbox, and timeout gates all passed. These are board IDs, not CI IDs. Earlier “no board run/registration” notes are historical and superseded here.
 
-- **BEST:** `run-c17efe9d57cc`; commit `34dee9b16ab17362b12e75289151a0a9750b2cb8`; T=0.144661 s, M=50,839,552 bytes, S=469, D=1, K=11.907003, points=53.790124.
-- **LATEST:** `run-a81439346c6e`; commit `647f752a64d4d914814e5f3cbf2a12bb1b838828`; T=0.189439 s, M=35,909,632 bytes, S=518, D=1, K=10.989252, points=52.048406.
+- **BEST:** `run-b7259ab42416`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-b7259ab42416`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.

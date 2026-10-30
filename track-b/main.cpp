@@ -51,14 +51,6 @@ static inline bool token_char(unsigned char c) {
     c = lower_ascii(c);
     return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
 }
-struct FoldHash {
-    using is_transparent = void;
-    size_t operator()(string_view s) const noexcept {
-        uint64_t h = 14695981039346656037ULL;
-        for (unsigned char c : s) { h ^= lower_ascii(c); h *= 1099511628211ULL; }
-        return static_cast<size_t>(h);
-    }
-};
 struct FoldEqual {
     using is_transparent = void;
     bool operator()(string_view a, string_view b) const noexcept {
@@ -66,6 +58,72 @@ struct FoldEqual {
         for (size_t i = 0; i < a.size(); ++i)
             if (lower_ascii(static_cast<unsigned char>(a[i])) != lower_ascii(static_cast<unsigned char>(b[i]))) return false;
         return true;
+    }
+};
+
+class FlatDictionary {
+    struct Slot {
+        uint32_t hash = 0;
+        uint32_t id = 0;
+    };
+    vector<Slot> slots;
+    vector<string_view> keys;
+
+    static uint32_t fingerprint(string_view word) {
+        uint32_t hash = 2166136261u;
+        for (unsigned char c : word) {
+            hash ^= lower_ascii(c);
+            hash *= 16777619u;
+        }
+        return hash ? hash : 1;
+    }
+    void rehash(size_t capacity) {
+        vector<Slot> fresh(capacity);
+        for (const Slot &slot : slots) {
+            if (!slot.hash) continue;
+            size_t i = slot.hash & (capacity - 1);
+            while (fresh[i].hash) i = (i + 1) & (capacity - 1);
+            fresh[i] = slot;
+        }
+        slots.swap(fresh);
+    }
+public:
+    void reserve(size_t count) {
+        keys.reserve(count);
+        size_t capacity = 16;
+        while (capacity < count * 2) capacity *= 2;
+        rehash(capacity);
+    }
+    pair<uint32_t, bool> intern(string_view word) {
+        if (slots.empty()) rehash(16);
+        if ((keys.size() + 1) * 10 >= slots.size() * 7)
+            rehash(slots.size() * 2);
+        const uint32_t hash = fingerprint(word);
+        size_t i = hash & (slots.size() - 1);
+        for (;;) {
+            Slot &slot = slots[i];
+            if (!slot.hash) {
+                uint32_t id = static_cast<uint32_t>(keys.size());
+                keys.push_back(word);
+                slot = {hash, id};
+                return {id, true};
+            }
+            if (slot.hash == hash && FoldEqual{}(keys[slot.id], word))
+                return {slot.id, false};
+            i = (i + 1) & (slots.size() - 1);
+        }
+    }
+    uint32_t lookup(string_view word) const {
+        if (slots.empty()) return numeric_limits<uint32_t>::max();
+        const uint32_t hash = fingerprint(word);
+        size_t i = hash & (slots.size() - 1);
+        for (;;) {
+            const Slot &slot = slots[i];
+            if (!slot.hash) return numeric_limits<uint32_t>::max();
+            if (slot.hash == hash && FoldEqual{}(keys[slot.id], word))
+                return slot.id;
+            i = (i + 1) & (slots.size() - 1);
+        }
     }
 };
 
@@ -91,7 +149,7 @@ struct Result {
 };
 
 class Engine {
-    unordered_map<string_view, uint32_t, FoldHash, FoldEqual> dictionary;
+    FlatDictionary dictionary;
     vector<vector<uint32_t>> postings;
     vector<uint32_t> seen;
     vector<uint32_t> tape;
@@ -144,8 +202,10 @@ class Engine {
             nodes[state].outputs.push_back(pid);
         }
         if (pattern_results.empty()) return;
+        vector<uint32_t> root_edges(postings.size() + 1, 0);
         queue<uint32_t> bfs;
         for (const auto &[tok, next] : nodes[0].edges) {
+            root_edges[tok] = next;
             nodes[next].fail = 0;
             bfs.push(next);
         }
@@ -166,9 +226,15 @@ class Engine {
             uint32_t state = 0;
             for (uint32_t i = offsets[doc]; i < offsets[doc + 1]; ++i) {
                 uint32_t tok = tape[i];
-                while (state && !nodes[state].edges.contains(tok)) state = nodes[state].fail;
-                auto edge = nodes[state].edges.find(tok);
-                state = edge == nodes[state].edges.end() ? 0 : edge->second;
+                while (state) {
+                    auto edge = nodes[state].edges.find(tok);
+                    if (edge != nodes[state].edges.end()) {
+                        state = edge->second;
+                        break;
+                    }
+                    state = nodes[state].fail;
+                }
+                if (!state) state = root_edges[tok];
                 for (uint32_t pid : nodes[state].outputs) {
                     if (last[pid] != doc) {
                         last[pid] = doc;
@@ -181,12 +247,11 @@ class Engine {
 
 
     uint32_t intern(string_view word) {
-        auto it = dictionary.find(word);
-        if (it != dictionary.end()) return it->second;
-        uint32_t id = static_cast<uint32_t>(postings.size());
-        dictionary.emplace(word, id);
-        postings.emplace_back();
-        seen.push_back(numeric_limits<uint32_t>::max());
+        auto [id, fresh] = dictionary.intern(word);
+        if (fresh) {
+            postings.emplace_back();
+            seen.push_back(numeric_limits<uint32_t>::max());
+        }
         return id;
     }
 
@@ -247,8 +312,8 @@ class Engine {
                 if (s == line_end) break;
                 const char *start = s;
                 do { ++s; } while (s < line_end && token_char(static_cast<unsigned char>(*s)));
-                auto it = dictionary.find(string_view(start, s - start));
-                uint32_t id = it == dictionary.end() ? 0 : it->second + 1;
+                uint32_t term = dictionary.lookup(string_view(start, s - start));
+                uint32_t id = term == numeric_limits<uint32_t>::max() ? 0 : term + 1;
                 tape.push_back(id);
                 if (id && seen[id - 1] != doc) {
                     seen[id - 1] = doc;
@@ -290,6 +355,49 @@ class Engine {
             Result r;
             for (uint32_t id : initial) r.add(id);
             return r;
+        }
+        // A final AND/NOT suffix can only remove documents from its AND terms.
+        size_t last_or = q.ops.size();
+        for (size_t i = 0; i < q.ops.size(); ++i)
+            if (q.ops[i] == 'O') last_or = i;
+        size_t anchor = last_or == q.ops.size() ? 0 : q.terms.size();
+        for (size_t i = 0; i < q.ops.size(); ++i) {
+            if (q.ops[i] != 'A' || (last_or != q.ops.size() && i <= last_or))
+                continue;
+            if (anchor == q.terms.size() ||
+                postings[q.terms[i + 1]].size() < postings[q.terms[anchor]].size())
+                anchor = i + 1;
+        }
+        if (anchor != q.terms.size()) {
+            const auto &candidates = postings[q.terms[anchor]];
+            uint64_t merge_work = initial.size();
+            for (size_t i = 1; i < q.terms.size(); ++i)
+                merge_work += postings[q.terms[i]].size();
+            if (candidates.empty() ||
+                (candidates.size() <= 8192 &&
+                 candidates.size() * (q.terms.size() * 12) < merge_work)) {
+                Result result;
+                for (uint32_t doc : candidates) {
+                    bool match = anchor == 0 ||
+                        binary_search(initial.begin(), initial.end(), doc);
+                    if (!match && last_or == q.ops.size()) continue;
+                    for (size_t step = 0; step < q.ops.size(); ++step) {
+                        const auto &rhs = postings[q.terms[step + 1]];
+                        bool present = step + 1 == anchor ||
+                            binary_search(rhs.begin(), rhs.end(), doc);
+                        switch (q.ops[step]) {
+                            case 'A': match = match && present; break;
+                            case 'O': match = match || present; break;
+                            case 'N': match = match && !present; break;
+                            default: throw runtime_error("invalid boolean operator");
+                        }
+                        if (!match && (last_or == q.ops.size() || step >= last_or))
+                            break;
+                    }
+                    if (match) result.add(doc);
+                }
+                return result;
+            }
         }
         work.assign(initial.begin(), initial.end());
         for (size_t step = 0; step < q.ops.size(); ++step) {

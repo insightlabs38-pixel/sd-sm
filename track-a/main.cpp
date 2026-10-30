@@ -20,7 +20,7 @@ constexpr uint32_t kHours = 72;
 constexpr uint32_t kEndpoints = 1842;
 constexpr uint32_t kGroups = kHours * kEndpoints;
 constexpr uint32_t kParseWorkers = 4;
-constexpr uint32_t kOutputWorkers = 3;
+constexpr uint32_t kOutputWorkers = 4;
 
 struct Record { uint32_t group, latency; };
 struct Group { uint32_t count = 0, errors = 0, cursor = 0; };
@@ -175,12 +175,37 @@ int main() {
     prefix += group.count;
   }
   std::vector<uint32_t> latencies(prefix);
+  std::array<std::vector<uint32_t>, kParseWorkers> cursors;
   for (uint32_t w = 0; w < kParseWorkers; ++w) {
-    for (const Record &record : workers[w].records) {
-      const uint32_t key = (record.group / kEndpoints) * kEndpoints + remaps[w][record.group % kEndpoints];
-      latencies[groups[key].cursor++] = record.latency;
+    cursors[w].assign(kGroups, 0);
+    for (uint32_t hour = 0; hour < kHours; ++hour) {
+      for (uint32_t id = 0; id < workers[w].names.size(); ++id) {
+        const uint32_t key = hour * kEndpoints + remaps[w][id];
+        cursors[w][key] = workers[w].groups[hour * kEndpoints + id].count;
+      }
     }
   }
+  for (uint32_t key = 0; key < kGroups; ++key) {
+    uint32_t offset = groups[key].cursor;
+    for (uint32_t w = 0; w < kParseWorkers; ++w) {
+      const uint32_t count = cursors[w][key];
+      cursors[w][key] = offset;
+      offset += count;
+    }
+    groups[key].cursor = offset;
+  }
+  auto scatter = [&](uint32_t w) {
+    std::vector<uint32_t> &cursor = cursors[w];
+    for (const Record &record : workers[w].records) {
+      const uint32_t key = (record.group / kEndpoints) * kEndpoints + remaps[w][record.group % kEndpoints];
+      latencies[cursor[key]++] = record.latency;
+    }
+  };
+  std::array<std::thread, kParseWorkers - 1> scatter_threads;
+  for (uint32_t w = 1; w < kParseWorkers; ++w)
+    scatter_threads[w - 1] = std::thread(scatter, w);
+  scatter(0);
+  for (auto &thread : scatter_threads) thread.join();
   workers.clear();
   workers.shrink_to_fit();
 

@@ -30,3 +30,11 @@
 - The four parse workers and three percentile-output workers pass the official full seed-1 hash `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3` and the seed-42 sample hash `835c36377118af19264750c9b1031225ead44a8555e913c22d31a827dbe486c8` in the board-equivalent sandbox. Full invocation took 2.18 s including container startup; sample invocation took 2.01 s. These local timings are not board measurements.
 - Developer randomized 20-run synthetic medians: one-thread flat/scatter 0.2604 s; parse+output parallel 0.1171 s (~55% lower). The 204 MiB synthetic dataset is not official input or scoring hardware. Developer-reported parallel peak RSS was ~253,748 KiB.
 - Offline allowlisted Docker build passed; image size 79 MB. No live board run ID exists; no board score is claimed.
+
+## Verified parallel-scatter promotion, October 30, 2026
+
+- Promoted `sd-ta` main HEAD `a877750cb57c3ea59307f1d54e4dcb4647475fc2`, source after the prior official A champion `e946711`; parent history retains that candidate for rollback.
+- Independent native checks matched the organizer full seed-1 SHA-256 `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3` and sample seed-42 SHA-256 `835c36377118af19264750c9b1031225ead44a8555e913c22d31a827dbe486c8`.
+- GitHub Actions run [41087414448](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41087414448) passed tiny/sample/full seed-1, sample seed-2, the allowlist check and the offline Docker sandbox. The same CI commit is `a877750`.
+- Developer synthetic measurements: parallel scatter with three output workers 0.1223 s vs prior sequential scatter 0.1321 s; four output workers measured 0.1082 s vs three at 0.1134 s on that host. These are synthetic/local, not board timings.
+- No official board run ID or score is claimed.

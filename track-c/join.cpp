@@ -31,12 +31,14 @@ struct File {
 };
 
 struct Field {
-    const char *raw;
-    uint32_t raw_len;
-    uint32_t len;
-    uint32_t hash;
-    bool quoted;
+    const char *raw = nullptr;
+    uint32_t raw_len : 31;
+    uint32_t quoted : 1;
+    uint32_t len = 0;
+    uint32_t hash = 0;
+    uint32_t id = UINT32_MAX;
 };
+static_assert(sizeof(Field) == 24, "name slot layout");
 
 static constexpr uint32_t FNV_OFFSET = 2166136261U;
 static constexpr uint32_t FNV_PRIME = 16777619U;
@@ -105,21 +107,16 @@ static bool equal_field(const Field &f, const Field &g) {
     return a == ae && b == be;
 }
 
-struct NameSlot {
-    Field field;
-    uint32_t id = UINT32_MAX;
-};
-
 struct Names {
-    std::vector<NameSlot> table;
+    std::vector<Field> table;
     std::vector<std::array<uint64_t, 4>> seen;
     size_t used = 0;
-    explicit Names(size_t capacity = 1 << 18) : table(capacity) { }
+    explicit Names(size_t capacity = 1 << 18) : table(capacity) { seen.reserve(capacity); }
     void grow() {
-        std::vector<NameSlot> next(table.size() * 2);
+        std::vector<Field> next(table.size() * 2);
         for (const auto &slot : table) {
             if (slot.id == UINT32_MAX) continue;
-            size_t i = slot.field.hash & (next.size() - 1);
+            size_t i = slot.hash & (next.size() - 1);
             while (next[i].id != UINT32_MAX) i = (i + 1) & (next.size() - 1);
             next[i] = slot;
         }
@@ -129,11 +126,12 @@ struct Names {
         if ((used + 1) * 10 >= table.size() * 9) grow();
         size_t i = f.hash & (table.size() - 1);
         while (table[i].id != UINT32_MAX) {
-            if (table[i].field.hash == f.hash && equal_field(table[i].field, f)) return table[i].id;
+            if (table[i].hash == f.hash && equal_field(table[i], f)) return table[i].id;
             i = (i + 1) & (table.size() - 1);
         }
         uint32_t id = static_cast<uint32_t>(seen.size());
-        table[i] = {f, id};
+        table[i] = f;
+        table[i].id = id;
         seen.push_back({0, 0, 0, 0});
         ++used;
         return id;
@@ -320,9 +318,9 @@ int main() {
                 if (!wi) dst.distinct = src.distinct;
             }
             if (!wi) continue;
-            for (const NameSlot &slot : w.names.table) {
+            for (const Field &slot : w.names.table) {
                 if (slot.id == UINT32_MAX) continue;
-                uint32_t id = global_names.intern(slot.field);
+                uint32_t id = global_names.intern(slot);
                 for (unsigned word = 0; word < 4; ++word) {
                     uint64_t &dst = global_names.seen[id][word];
                     uint64_t fresh = w.names.seen[slot.id][word] & ~dst;

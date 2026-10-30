@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <fcntl.h>
+#include <nmmintrin.h>
 #include <string>
 #include <string_view>
 #include <sys/mman.h>
@@ -20,16 +21,18 @@ constexpr uint32_t kEndpoints = 1842;
 constexpr uint32_t kGroups = kHours * kEndpoints;
 constexpr uint32_t kParseWorkers = 5;
 constexpr uint32_t kOutputWorkers = 4;
+constexpr uint8_t kMethodSkip[26] = {0, 0, 0, 7, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 8};
 
 struct Record { uint32_t group, latency; };
 struct Group { uint32_t count = 0, errors = 0, cursor = 0; };
+struct WorkerGroup { uint32_t count = 0, errors = 0; };
 struct Slot { uint64_t hash = 0; uint32_t id_plus_one = 0; };
 
 [[noreturn]] void fail(const char *message) {
   std::perror(message);
   std::exit(1);
 }
-uint64_t endpoint_hash(std::string_view name) {
+__attribute__((target("sse4.2"))) uint64_t endpoint_hash(std::string_view name) {
   const size_t n = name.size();
   uint64_t a = 0, b = 0, c = 0;
   if (n < 8) std::memcpy(&a, name.data(), n);
@@ -38,11 +41,9 @@ uint64_t endpoint_hash(std::string_view name) {
     std::memcpy(&b, name.data() + (n - 8) / 2, 8);
     std::memcpy(&c, name.data() + n - 8, 8);
   }
-  uint64_t h = (n + 0x9e3779b97f4a7c15ULL) * 0xbf58476d1ce4e5b9ULL;
-  h = (h ^ a) * 0x94d049bb133111ebULL;
-  h = (h ^ (h >> 30) ^ b) * 0xbf58476d1ce4e5b9ULL;
-  h = (h ^ (h >> 27) ^ c) * 0x94d049bb133111ebULL;
-  return h ^ (h >> 31);
+  uint64_t h = _mm_crc32_u64(n, a);
+  h = _mm_crc32_u64(h, b);
+  return _mm_crc32_u64(h, c);
 }
 uint32_t hour_index(const char *p) {
   const uint32_t day = (p[8] - '0') * 10 + (p[9] - '0');
@@ -65,7 +66,7 @@ void write_all(int fd, const std::string &out) {
 struct Worker {
   std::array<Slot, 4096> dictionary {};
   std::vector<std::string_view> names;
-  std::vector<Group> groups = std::vector<Group>(kGroups);
+  std::vector<WorkerGroup> groups = std::vector<WorkerGroup>(kGroups);
   std::array<std::array<char, 13>, kHours> hours {};
   std::array<uint8_t, kHours> seen {};
   std::vector<Record> records;
@@ -77,8 +78,8 @@ struct Worker {
       const char *const line = p;
       const uint32_t hour = hour_index(p);
       p += 28;
-      while (*p != ' ') ++p;
-      const char *const endpoint = ++p;
+      p += *p == 'P' ? (p[1] == 'O' ? 5 : p[1] == 'U' ? 4 : 6) : kMethodSkip[*p - 'A'];
+      const char *const endpoint = p;
       p = static_cast<const char *>(std::memchr(p, ' ', static_cast<size_t>(end - p)));
       const std::string_view name(endpoint, static_cast<size_t>(p - endpoint));
       const uint64_t hash = endpoint_hash(name);
@@ -101,7 +102,7 @@ struct Worker {
       while (*p != '\n') latency = latency * 10 + static_cast<uint32_t>(*p++ - '0');
       ++p;
       const uint32_t key = hour * kEndpoints + id;
-      Group &group = groups[key];
+      WorkerGroup &group = groups[key];
       ++group.count;
       group.errors += error;
       if (!seen[hour]) {
@@ -173,7 +174,7 @@ int main() {
     for (uint32_t hour = 0; hour < kHours; ++hour) {
       if (worker.seen[hour]) std::memcpy(hours[hour].data(), worker.hours[hour].data(), 13);
       for (uint32_t id = 0; id < worker.names.size(); ++id) {
-        const Group &src = worker.groups[hour * kEndpoints + id];
+        const WorkerGroup &src = worker.groups[hour * kEndpoints + id];
         Group &dst = groups[hour * kEndpoints + remaps[w][id]];
         dst.count += src.count;
         dst.errors += src.errors;

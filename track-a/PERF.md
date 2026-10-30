@@ -52,3 +52,11 @@
 - Candidate `sd-ta` main HEAD `5b98bcee29a6e9e51149edc5c36665a74990e9ea`, source blob `b2afeeeda365791bfefae00ad4cd0c4653471a4c`; rollback is this release's parent Track A source (`00838f7`).
 - GitHub Actions [41105415380](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41105415380) passed tiny/sample/full seed-1 hashes, seed-2 differential, allowlist validation and restricted offline Docker. Full output SHA-256: `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3`.
 - Seven-run full-input paired median versus the selection-equivalent `47e3db0` source: 0.132078 s to 0.120100 s (9.1% lower). This is a developer CI runner measurement, not scoring hardware. No official board run ID or score is available.
+
+## CRC endpoint fingerprint and compact parser state, October 30, 2026
+
+- Candidate: `sd-ta` main HEAD `2ce5a1fc4a46e78106ac9bf80d6218bebc07ad5b`, source blob `5b60b456af12216116149afab37869fb64daada9`. Previous official release `1c235c35cc93ea146cf794254eecd56fab8f9948` remains the rollback point.
+- Current-head CI [41112488117](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41112488117) passed synthetic differential cases, official seed-1 tiny/sample/full hashes, sample seed 2 against the reference, Docker allowlist, offline build and restricted Docker tiny execution. Full output SHA-256: `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3`.
+- On this local three-CPU host, ten interleaved full seed-1 runs of the previous official source and candidate both matched that hash. Median runtime fell from 0.3185 s to 0.2859 s (10.2%); sampled process VmHWM fell from 283,052 to 280,480 KiB (0.9%). This is local evidence, not scoring-box T/M.
+- A separate seven-run CI comparison on current code versus CRC predecessor `8c754fc` measured 0.092090 s to 0.091419 s (0.7%); runner timing only. The candidate adds one physical source line, uses CRC32 only as a fingerprint, and retains exact full-byte equality. No runtime dependency was added.
+- Official board BEST/LATEST: unavailable; the team has no registration entry and no board run IDs exist. No official score is claimed.

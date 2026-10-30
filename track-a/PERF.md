@@ -46,3 +46,9 @@
 - Five parser workers beat four on the developer's 4-CPU-quota host across three synthetic full-size distributions. Reported medians: uniform endpoints 0.09064 s vs 0.09550 s (about 5.1% faster); Zipf-skewed 0.08265 s vs 0.08920 s (about 7.3% faster). A fifth worker adds about 1.6 MiB of group metadata. Synthetic measurements are not official scoring results.
 - Latest GitHub Actions run [41096594772](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41096594772) passed tiny/sample/full seed-1 exactness, sample seed 2, allowlist validation and offline restricted Docker execution on the exact current HEAD.
 - No official board run ID or K score is claimed.
+
+## Sampled endpoint hash promotion, October 30, 2026
+
+- Candidate `sd-ta` main HEAD `5b98bcee29a6e9e51149edc5c36665a74990e9ea`, source blob `b2afeeeda365791bfefae00ad4cd0c4653471a4c`; rollback is this release's parent Track A source (`00838f7`).
+- GitHub Actions [41105415380](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41105415380) passed tiny/sample/full seed-1 hashes, seed-2 differential, allowlist validation and restricted offline Docker. Full output SHA-256: `495ca09682b9673ef836a506496177680bb4a3af54255174befddb1f83481cd3`.
+- Seven-run full-input paired median versus the selection-equivalent `47e3db0` source: 0.132078 s to 0.120100 s (9.1% lower). This is a developer CI runner measurement, not scoring hardware. No official board run ID or score is available.

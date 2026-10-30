@@ -12,4 +12,4 @@ No third-party runtime libraries. Build with C++20, pthreads and the pinned Dock
 
 ## Performance evidence
 
-The latest developer exactness and sandbox run is [41096594772](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41096594772). Local synthetic worker-scaling measurements and official integration evidence are recorded in [PERF.md](PERF.md); local timings are not board scores.
+Current-head differential, official tiny/sample/full, seed-2 sample, and restricted Docker checks passed in [41112488117](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41112488117). Local synthetic worker-scaling measurements and official integration evidence are recorded in [PERF.md](PERF.md); local timings are not board scores.

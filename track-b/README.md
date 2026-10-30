@@ -8,7 +8,7 @@ Queries are parsed before the corpus. A case-insensitive ASCII token dictionary 
 
 ## Validation
 
-The combined full-seed workflows [41093166652](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41093166652) and [41094072407](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41094072407) passed differential oracles, exact full-seed-1/2 outputs and pinned offline Docker execution. The current source passed [exactness/Docker run 41095024159](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41095024159) and [parallel sanitizer run 41094997130](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41094997130). Runner measurements are not official board scores.
+Fused token hashing passed seven-seed differential and collision checks, exact full seed-1/2 comparisons, and an offline pinned Docker sample run in [41109851588](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41109851588). Runner measurements are not official board scores; the integration log records current measurements in [PERF.md](PERF.md).
 
 ## Dependencies
 

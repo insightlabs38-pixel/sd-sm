@@ -1,9 +1,7 @@
 # Track D: Traverse
 
-Exact directed shortest-path distances using CSR storage, a bounded forward search for short paths, and bidirectional Dijkstra for longer paths. The queue is a 64-bit monotone radix heap whose buckets are redistributed in place. Independent workers keep per-query distance state; answers are written in input order.
+Exact directed shortest-path distances with CSR and bidirectional Dijkstra using a monotone 64-bit radix heap. The bounded forward probe continues into bidirectional search without discarding settled state. Per-query scratch uses 8-bit generation stamps with exact wrap resets; parser scratch is released after CSR construction. Independent workers preserve query order.
 
-## Validation
-
-The official full seed-1 output matches SHA-256 `a23dbdf0a3e49cc8901310a9ee1dc6a9a569a85297b6da75c2a7002cb2ed277e`. Developer CI run [41085036796](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41085036796) passed official generated cases, differential tests, and pinned offline Docker execution. Its runtime and memory figures are GitHub-runner measurements, not board scores.
+Current source passed the 66,000-query epoch-wrap regression, 83 differential cases, official full output hash and restricted Docker comparison in [CI run 41110514088](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41110514088). Timing and memory evidence is in [PERF.md](PERF.md); CI numbers are not official board results.
 
 No third-party runtime dependencies; build uses the pinned, organizer-allowlisted GCC image.

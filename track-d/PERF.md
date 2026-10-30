@@ -27,3 +27,11 @@
 - Matched seven-run full seed-1 qualification [41110514088](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41110514088) passed the published full output hash, 83 differential cases, 66,000-query epoch-wrap regression, official generated cases, and Docker full-output comparison. Median runtime fell from 1.01 to 0.97 s (4.0%); median peak RSS fell from 238,328 to 227,320 KiB (4.6%). GitHub runner values, not board T/M.
 - Eight-bit generation stamps reduce per-query scratch; wrap resets both direction stamps. Parser input scratch is released after CSR construction. No new runtime dependency. The source is 14 physical lines longer than the previous official version.
 - Official board BEST/LATEST: unavailable; the team has no registration entry and no board run IDs exist. No official score is claimed.
+
+
+## Official board receipts — feed snapshot 2026-10-30 22:40 UTC
+
+HighVelocity (`highvelocity-7f330e`) is registered. At this snapshot the board watch was healthy at submission HEAD `3e6b84d7e642181423fbec9e571644f11e7e430f`, with no queued or in-flight team run. The receipts below are actual live-board records; all five gates (build, check, correctness, sandbox, timeout) passed. Earlier “no board run/registration” notes are historical and superseded by this section. GitHub Actions IDs elsewhere are CI, not board runs.
+
+- **BEST:** `run-66624734543b`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=0.810478 s, M=233,476,096 bytes, S=398, D=1, K=8.870050, points=47.396303.
+- **LATEST:** `run-66624734543b`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=0.810478 s, M=233,476,096 bytes, S=398, D=1, K=8.870050, points=47.396303.

@@ -59,3 +59,11 @@ Every step from the reference to your final version, each with the live-board ru
 - Five paired full-run trials in CI `41117096779` comparing the pre-reclamation source to the arena/page-reclamation candidate reduced peak RSS from about 249,800 KiB to 59,600 KiB; elapsed time moved from 0.26 s to 0.22–0.24 s. The candidate owns interned names before discarding consumed mmap pages; note bytes are consumed within the parsed batch before reclaim. This is runner-local evidence, not official-board performance.
 - CI `41117431767` compared six to three parser workers on the reclamation candidate: five paired full runs were about 0.22 s / 59,600 KiB versus 0.21 s / 37,400 KiB. The wider 5-run phase profile measured 3 workers at 212.3 ms and 37,744 KiB versus 4 workers at 202.6 ms and 45,236 KiB; three workers trade roughly 5% time for lower memory. Full output stayed byte-exact. `41117745508` failed on an incorrectly escaped test fixture; corrected fixture commit passed in `41117768919`.
 - BEST/LATEST official board result: none; no board score or run ID is claimed. Parent submission commit `34dee9b16ab17362b12e75289151a0a9750b2cb8` preserves the previous candidate.
+
+
+## Official board receipts — feed snapshot 2026-10-30 22:40 UTC
+
+HighVelocity (`highvelocity-7f330e`) is registered. At this snapshot the board watch was healthy at submission HEAD `3e6b84d7e642181423fbec9e571644f11e7e430f`, with no queued or in-flight team run. The receipts below are actual live-board records; all five gates (build, check, correctness, sandbox, timeout) passed. Earlier “no board run/registration” notes are historical and superseded by this section. GitHub Actions IDs elsewhere are CI, not board runs.
+
+- **BEST:** `run-c17efe9d57cc`; commit `34dee9b16ab17362b12e75289151a0a9750b2cb8`; T=0.144661 s, M=50,839,552 bytes, S=469, D=1, K=11.907003, points=53.790124.
+- **LATEST:** `run-9fb67b121973`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=0.199498 s, M=35,336,192 bytes, S=518, D=1, K=10.743154, points=51.556590.

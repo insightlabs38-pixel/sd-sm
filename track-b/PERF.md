@@ -71,3 +71,11 @@ The 500-document crossover also reduced the 100,000-document synthetic workload 
 - Imported developer `sd-tb` source from `main` HEAD `a40baadb378f2c93a8ee4368ec292c85101cc96f`; production source blob `505fa18787f55c72c0c14dcdd403be585b855d48`. The top commit adds an isolated 16-bit tape experiment only; it is not included in this submission. Previous official source is recoverable from submission commit `34dee9b16ab17362b12e75289151a0a9750b2cb8` (blob `1492bb104bc2825411d69b48dd56709d5423adc1`).
 - Developer qualification `41116820675` passed seven deterministic differential seeds, hash-collision and phrase cases, full seed-1 expected hash, full seed-2/3 independent Python references, restricted offline Docker, and ASan/UBSan. Three-run mean full times: seed 1 1.860 to 1.550 s (16.7% lower), seed 2 1.863 to 1.653 s (11.3% lower), seed 3 1.817 to 1.583 s (12.8% lower); peak RSS decreased about 3 MiB. These are GitHub-runner measurements, not board scores.
 - BEST/LATEST official board result: none; no board score or run ID is claimed. Commit `34dee9b16ab17362b12e75289151a0a9750b2cb8` preserves the prior champion for rollback.
+
+
+## Official board receipts — feed snapshot 2026-10-30 22:40 UTC
+
+HighVelocity (`highvelocity-7f330e`) is registered. At this snapshot the board watch was healthy at submission HEAD `3e6b84d7e642181423fbec9e571644f11e7e430f`, with no queued or in-flight team run. The receipts below are actual live-board records; all five gates (build, check, correctness, sandbox, timeout) passed. Earlier “no board run/registration” notes are historical and superseded by this section. GitHub Actions IDs elsewhere are CI, not board runs.
+
+- **BEST:** `run-b247a4fdb6e7`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=1.119754 s, M=528,723,968 bytes, S=721, D=1, K=6.916684, points=41.994897.
+- **LATEST:** `run-b247a4fdb6e7`; commit `3e6b84d7e642181423fbec9e571644f11e7e430f`; T=1.119754 s, M=528,723,968 bytes, S=721, D=1, K=6.916684, points=41.994897.

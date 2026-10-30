@@ -135,9 +135,8 @@ struct Heap {
         uint64_t minimum = std::numeric_limits<uint64_t>::max();
         for (const auto& e : buckets[i]) minimum = std::min(minimum, e.distance);
         last = minimum;
-        std::vector<HeapNode> moved;
-        moved.swap(buckets[i]);
-        for (const auto& e : moved) buckets[index(e.distance ^ last)].push_back(e);
+        for (const auto& e : buckets[i]) buckets[index(e.distance ^ last)].push_back(e);
+        buckets[i].clear();
     }
     const HeapNode& top() { prepare(); return buckets[0].back(); }
     HeapNode pop() {

@@ -1,6 +1,6 @@
 # Track D: Traverse
 
-Exact directed shortest-path distances using CSR storage, a bounded forward search for short paths, and bidirectional Dijkstra for longer paths. The queue is a 64-bit monotone radix heap. Independent workers keep per-query distance state; answers are written in input order.
+Exact directed shortest-path distances using CSR storage, a bounded forward search for short paths, and bidirectional Dijkstra for longer paths. The queue is a 64-bit monotone radix heap whose buckets are redistributed in place. Independent workers keep per-query distance state; answers are written in input order.
 
 ## Validation
 

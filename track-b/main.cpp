@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <atomic>
 #include <array>
 #include <charconv>
 #include <cstdint>
@@ -115,9 +116,9 @@ public:
             i = (i + 1) & (slots.size() - 1);
         }
     }
-    uint32_t lookup(string_view word) const {
+    uint32_t lookup(string_view word, uint32_t known_hash = 0) const {
         if (slots.empty()) return numeric_limits<uint32_t>::max();
-        const uint32_t hash = fingerprint(word);
+        const uint32_t hash = known_hash ? known_hash : fingerprint(word);
         size_t i = hash & (slots.size() - 1);
         for (;;) {
             const Slot &slot = slots[i];
@@ -373,8 +374,15 @@ class Engine {
                         while (s < line_end && !token_char(static_cast<unsigned char>(*s))) ++s;
                         if (s == line_end) break;
                         const char *start = s;
-                        do { ++s; } while (s < line_end && token_char(static_cast<unsigned char>(*s)));
-                        uint32_t term = dictionary.lookup(string_view(start, s - start));
+                        uint32_t hash = 2166136261u;
+                        do {
+                            const unsigned char c = static_cast<unsigned char>(*s);
+                            hash ^= static_cast<unsigned char>(c | 0x20u);
+                            hash *= 16777619u;
+                            ++s;
+                        } while (s < line_end && token_char(static_cast<unsigned char>(*s)));
+                        if (!hash) hash = 1;
+                        uint32_t term = dictionary.lookup(string_view(start, s - start), hash);
                         uint32_t id = term == numeric_limits<uint32_t>::max() ? 0 : term + 1;
                         c.tape.push_back(id);
                         if (id && c.seen[id - 1] != doc) {
@@ -562,16 +570,20 @@ public:
         const size_t workers = queries.size() >= 1000
             ? min<size_t>(4, max(1u, thread::hardware_concurrency())) : 1;
         vector<exception_ptr> errors(workers);
+        atomic<size_t> next_query{0};
         auto evaluate = [&](size_t worker) {
             try {
                 vector<uint32_t> work, tmp;
-                const size_t first = queries.size() * worker / workers;
-                const size_t last = queries.size() * (worker + 1) / workers;
-                for (size_t qi = first; qi < last; ++qi) {
+                for (;;) {
+                    const size_t first = next_query.fetch_add(64, memory_order_relaxed);
+                    if (first >= queries.size()) break;
+                    const size_t last = min(first + 64, queries.size());
+                    for (size_t qi = first; qi < last; ++qi) {
                     const Query &q = queries[qi];
                     results[qi] = precomputed_pattern[qi] >= 0
                         ? pattern_results[precomputed_pattern[qi]]
                         : (q.phrase ? run_phrase(q) : run_bool(q, work, tmp));
+                    }
                 }
             } catch (...) {
                 errors[worker] = current_exception();

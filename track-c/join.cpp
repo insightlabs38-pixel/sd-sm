@@ -77,6 +77,8 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
 
 static bool equal_field(const Field &f, const Field &g) {
     if (f.len != g.len) return false;
+    if (f.raw_len == f.len && g.raw_len == g.len)
+        return std::memcmp(f.raw, g.raw, f.len) == 0;
     const char *a = f.raw, *b = g.raw;
     const char *ae = a + f.raw_len, *be = b + g.raw_len;
     while (a < ae && b < be) {
@@ -286,8 +288,9 @@ int main() {
         for (auto &job : jobs) job.join();
         for (const auto &w : workers) if (w.error) std::rethrow_exception(w.error);
         std::vector<Group> groups(unmatched + 1);
-        Names global_names;
-        for (const auto &w : workers) {
+        Names &global_names = workers.front().names;
+        for (size_t wi = 0; wi < workers.size(); ++wi) {
+            const Worker &w = workers[wi];
             for (unsigned g = 0; g <= unmatched; ++g) {
                 const Group &src = w.groups[g];
                 if (!src.count) continue;
@@ -299,16 +302,19 @@ int main() {
                 dst.sum += src.sum;
                 dst.name_bytes += src.name_bytes;
                 dst.note_bytes += src.note_bytes;
+                if (!wi) dst.distinct = src.distinct;
             }
+            if (!wi) continue;
             for (const NameSlot &slot : w.names.table) {
                 if (slot.id == UINT32_MAX) continue;
                 uint32_t id = global_names.intern(slot.field);
                 for (unsigned word = 0; word < 4; ++word) {
-                    uint64_t bits = w.names.seen[slot.id][word];
-                    while (bits) {
-                        unsigned group = word * 64 + __builtin_ctzll(bits);
-                        if (global_names.first_in_group(id, group)) ++groups[group].distinct;
-                        bits &= bits - 1;
+                    uint64_t &dst = global_names.seen[id][word];
+                    uint64_t fresh = w.names.seen[slot.id][word] & ~dst;
+                    dst |= fresh;
+                    while (fresh) {
+                        ++groups[word * 64 + __builtin_ctzll(fresh)].distinct;
+                        fresh &= fresh - 1;
                     }
                 }
             }

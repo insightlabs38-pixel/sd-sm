@@ -17,6 +17,8 @@
 #include <unistd.h>
 
 // Real distances stay below 2^53, so INF plus any distance cannot wrap.
+// Bucket width 2^5 stays below the smallest common edge weight, so a bucket rarely needs re-draining.
+static constexpr unsigned SHIFT_MAX = 5;
 static constexpr uint64_t INF = uint64_t(1) << 62;
 
 // Uninitialized, lazily faulted storage, so memory is committed only where it is written.
@@ -24,10 +26,11 @@ template <class T> struct Array {
     T* p = nullptr;
     size_t bytes = 0;
     Array() = default;
-    explicit Array(size_t n) : bytes(n * sizeof(T) + 1) {
+    explicit Array(size_t n, bool sparse = false) : bytes(n * sizeof(T) + 1) {
         void* q = mmap(nullptr, bytes, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
         if (q == MAP_FAILED) { perror("mmap"); std::exit(2); }
         p = static_cast<T*>(q);
+        if (sparse) madvise(q, bytes, MADV_NOHUGEPAGE); // prefix-filled arrays would round up to whole huge pages
     }
     Array(Array&& o) noexcept : p(o.p), bytes(o.bytes) { o.p = nullptr; }
     Array& operator=(Array&& o) noexcept { release(); p = o.p; bytes = o.bytes; o.p = nullptr; return *this; }
@@ -90,6 +93,12 @@ struct MappedFile {
 
 // Search CSR with 4-byte edges: head in the high bits, weight in the low bits; weights that do not fit
 // store the all-ones marker and live in a sorted escape table keyed by edge index.
+static unsigned id_bits(uint32_t n) {
+    unsigned bits = 1;
+    while (bits < 32 && (uint64_t(1) << bits) < n) ++bits;
+    return bits;
+}
+
 struct Packed {
     Array<uint32_t> off, adj;
     std::vector<std::pair<uint32_t, uint32_t>> escapes;
@@ -97,9 +106,7 @@ struct Packed {
     uint32_t mask = 0;
     Packed() = default;
     Packed(uint32_t n, size_t m) : off(size_t(n) + 1), adj(m) {
-        unsigned node_bits = 1;
-        while (node_bits < 32 && (uint64_t(1) << node_bits) < n) ++node_bits;
-        wbits = 32 - node_bits;
+        wbits = 32 - id_bits(n);
         mask = (uint32_t(1) << wbits) - 1;
     }
     uint32_t pack(uint32_t head, uint32_t w) const { return head << wbits | std::min(w, mask); }
@@ -111,16 +118,17 @@ struct Packed {
     }
 };
 
-struct Triple { uint32_t u, v, w; };
+// A bin entry packs the tail's low bits with the head, so it takes 8 bytes instead of 12.
+struct Entry { uint32_t key, w; };
 
 // One thread's edges partitioned by u >> shift into short chunk runs, so each bucket can later become CSR in cache.
 class Binner {
     static constexpr uint32_t CHUNK = 256;
-    Array<Triple> pool_;
+    Array<Entry> pool_;
     size_t used_ = 0;
-    std::vector<Triple*> fill_, limit_;
-    std::vector<std::vector<std::pair<const Triple*, uint32_t>>> runs_;
-    unsigned shift_;
+    std::vector<Entry*> fill_, limit_;
+    std::vector<std::vector<std::pair<const Entry*, uint32_t>>> runs_;
+    unsigned shift_, bits_;
     void open_chunk(size_t b) {
         close(b);
         fill_[b] = pool_.p + used_;
@@ -129,28 +137,25 @@ class Binner {
     }
     void close(size_t b) {
         if (!limit_[b]) return;
-        Triple* start = limit_[b] - CHUNK;
+        Entry* start = limit_[b] - CHUNK;
         if (fill_[b] != start) runs_[b].push_back({start, static_cast<uint32_t>(fill_[b] - start)});
     }
 public:
-    Binner(unsigned shift, size_t buckets, size_t max_edges)
-        : pool_(max_edges + (buckets + 1) * CHUNK), fill_(buckets, nullptr), limit_(buckets, nullptr), runs_(buckets), shift_(shift) {}
+    Binner(unsigned shift, unsigned bits, size_t buckets, size_t max_edges)
+        : pool_(max_edges + (buckets + 1) * CHUNK, true), fill_(buckets, nullptr), limit_(buckets, nullptr), runs_(buckets), shift_(shift), bits_(bits) {}
     void add(uint32_t u, uint32_t v, uint32_t w) {
         size_t b = u >> shift_;
         if (fill_[b] == limit_[b]) open_chunk(b);
-        *fill_[b]++ = {u, v, w};
+        *fill_[b]++ = {static_cast<uint32_t>((uint64_t(u) & ((uint64_t(1) << shift_) - 1)) << bits_) | v, w};
     }
+    void discard() { madvise(pool_.p, pool_.bytes, MADV_DONTNEED); }
     void finish() { for (size_t b = 0; b < runs_.size(); ++b) { close(b); limit_[b] = nullptr; } }
-    const std::vector<std::pair<const Triple*, uint32_t>>& runs(size_t b) const { return runs_[b]; }
+    const std::vector<std::pair<const Entry*, uint32_t>>& runs(size_t b) const { return runs_[b]; }
 };
 
-static unsigned bucket_shift(uint32_t n) {
-    unsigned shift = 0;
-    while ((n >> shift) > 256) ++shift;
-    return shift;
-}
+static unsigned bucket_shift(uint32_t n) { return std::min(11u, 32 - id_bits(n)); }
 
-// Builds CSR keyed by Triple::u (head Triple::v) from the per-thread bins, one bucket at a time.
+// Builds CSR from the per-thread bins, one bucket at a time.
 static Packed bins_to_csr(const std::vector<Binner>& bins, uint32_t n, unsigned shift, unsigned threads) {
     size_t buckets = (static_cast<size_t>(n) + (size_t(1) << shift) - 1) >> shift;
     std::vector<size_t> base(buckets + 1, 0);
@@ -162,20 +167,22 @@ static Packed bins_to_csr(const std::vector<Binner>& bins, uint32_t n, unsigned 
     std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
     g.off[n] = static_cast<uint32_t>(base[buckets]);
     std::atomic<size_t> next{0};
+    const unsigned bits = id_bits(n);
+    const uint32_t head_mask = static_cast<uint32_t>((uint64_t(1) << bits) - 1);
     parallel(threads, [&](unsigned t) {
         std::vector<uint32_t> cursor(size_t(1) << shift);
         for (size_t b; (b = next.fetch_add(1)) < buckets;) {
             size_t lo = b << shift, hi = std::min<size_t>(n, lo + (size_t(1) << shift));
             std::fill(cursor.begin(), cursor.begin() + (hi - lo), 0);
-            for (const Binner& bin : bins) for (auto& run : bin.runs(b)) for (uint32_t i = 0; i < run.second; ++i) ++cursor[run.first[i].u - lo];
+            for (const Binner& bin : bins) for (auto& run : bin.runs(b)) for (uint32_t i = 0; i < run.second; ++i) ++cursor[uint64_t(run.first[i].key) >> bits];
             uint32_t sum = static_cast<uint32_t>(base[b]);
             for (size_t k = lo; k < hi; ++k) { uint32_t c = cursor[k - lo]; g.off[k] = cursor[k - lo] = sum; sum += c; }
             for (const Binner& bin : bins)
                 for (auto& run : bin.runs(b))
                     for (uint32_t i = 0; i < run.second; ++i) {
-                        const Triple& e = run.first[i];
-                        uint32_t pos = cursor[e.u - lo]++;
-                        g.adj[pos] = g.pack(e.v, e.w);
+                        const Entry& e = run.first[i];
+                        uint32_t pos = cursor[uint64_t(e.key) >> bits]++;
+                        g.adj[pos] = g.pack(e.key & head_mask, e.w);
                         if (e.w >= g.mask) escapes[t].push_back({pos, e.w});
                     }
         }
@@ -195,7 +202,7 @@ static std::vector<Binner> parse_edges(const char* begin, const char* end, uint3
     }
     size_t buckets = (static_cast<size_t>(n) + (size_t(1) << shift) - 1) >> shift;
     std::vector<Binner> bins;
-    for (unsigned t = 0; t < threads; ++t) bins.emplace_back(shift, buckets, static_cast<size_t>(cut[t + 1] - cut[t]) / 6 + 1);
+    for (unsigned t = 0; t < threads; ++t) bins.emplace_back(shift, id_bits(n), buckets, static_cast<size_t>(cut[t + 1] - cut[t]) / 6 + 1);
     parallel(threads, [&](unsigned t) {
         Binner& bin = bins[t];
         const char* p = cut[t];
@@ -266,7 +273,7 @@ static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
     g.n = n;
     Claims claims(n);
     std::vector<Region> regions(threads + 1);
-    for (unsigned t = 0; t <= threads; ++t) { regions[t].order = Array<uint32_t>(n); regions[t].degree = Array<uint32_t>(n); }
+    for (unsigned t = 0; t <= threads; ++t) { regions[t].order = Array<uint32_t>(n, true); regions[t].degree = Array<uint32_t>(n, true); }
     for (unsigned t = 0; t < threads; ++t) {
         for (uint32_t i = 0, r = static_cast<uint32_t>(uint64_t(n) * t / threads); i < n; ++i, r = r + 1 == n ? 0 : r + 1)
             if (raw.off[r + 1] - raw.off[r] >= 2) {
@@ -316,30 +323,35 @@ static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
     return g;
 }
 
-static inline uint32_t bump(uint32_t& x) { return __atomic_fetch_add(&x, 1u, __ATOMIC_RELAXED); }
-
-static void add_reverse(Graph& g, unsigned threads) {
-    uint32_t n = g.n, m = g.fwd.off[n];
-    g.rev = Packed(n, m);
-    memset(g.rev.off.p, 0, (size_t(n) + 1) * sizeof(uint32_t));
-    blocked(threads, m, [&](size_t lo, size_t hi) { for (size_t i = lo; i < hi; ++i) bump(g.rev.off[g.fwd.head(g.fwd.adj[i])]); });
-    Array<uint32_t> cursor(n);
+// dst[k] = sum of src[0..k); returns the total. src may equal dst; copy, if given, also receives dst.
+static uint32_t scan(const uint32_t* src, uint32_t* dst, size_t n, unsigned threads, uint32_t* copy = nullptr) {
     std::vector<uint32_t> start(threads + 1, 0);
     parallel(threads, [&](unsigned t) {
         uint32_t sum = 0;
-        for (size_t k = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; k < hi; ++k) sum += g.rev.off[k];
+        for (size_t k = n * t / threads, hi = n * (t + 1) / threads; k < hi; ++k) sum += src[k];
         start[t + 1] = sum;
     });
     for (unsigned t = 0; t < threads; ++t) start[t + 1] += start[t];
     parallel(threads, [&](unsigned t) {
         uint32_t sum = start[t];
-        for (size_t k = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; k < hi; ++k) {
-            uint32_t c = g.rev.off[k];
-            g.rev.off[k] = cursor[k] = sum;
+        for (size_t k = n * t / threads, hi = n * (t + 1) / threads; k < hi; ++k) {
+            uint32_t c = src[k];
+            dst[k] = sum;
+            if (copy) copy[k] = sum;
             sum += c;
         }
     });
-    g.rev.off[n] = start[threads];
+    return start[threads];
+}
+
+static inline uint32_t bump(uint32_t& x) { return __atomic_fetch_add(&x, 1u, __ATOMIC_RELAXED); }
+
+static void add_reverse(Graph& g, unsigned threads) {
+    uint32_t n = g.n, m = g.fwd.off[n];
+    g.rev = Packed(n, m);
+    blocked(threads, m, [&](size_t lo, size_t hi) { for (size_t i = lo; i < hi; ++i) bump(g.rev.off[g.fwd.head(g.fwd.adj[i])]); });
+    Array<uint32_t> cursor(n);
+    g.rev.off[n] = scan(g.rev.off.p, g.rev.off.p, n, threads, cursor.p);
     std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
     parallel(threads, [&](unsigned t) {
         for (size_t u = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; u < hi; ++u)
@@ -364,6 +376,7 @@ static Graph read_graph(const std::string& path, unsigned threads) {
         unsigned shift = bucket_shift(n);
         std::vector<Binner> bins = parse_edges(p, end, n, shift, threads);
         Packed raw = bins_to_csr(bins, n, shift, threads);
+        parallel(threads, [&](unsigned t) { bins[t].discard(); });
         bins.clear();
         g = reorder(raw, n, threads);
     }
@@ -386,16 +399,23 @@ static std::vector<Query> read_queries(const std::string& path, const Graph& g) 
 }
 
 struct HeapNode { uint64_t distance; uint32_t node; };
-// Monotone queue: keys within B of the minimum sit in exact-key buckets, larger jumps in a binary heap.
+// Bucketed monotone queue: width 2^shift buckets in a ring; larger jumps wait in a binary heap.
 struct Heap {
-    static constexpr unsigned B = 4096;
+    static constexpr unsigned B = 2048;
     std::array<std::vector<uint32_t>, B> bucket;
     std::array<uint64_t, B / 64> occupied{};
     std::vector<HeapNode> far;
     uint64_t cur = 0;
     size_t near = 0;
-    bool from_far = false;
+    unsigned shift = 0, node_bits = 32;
     static bool later(const HeapNode& a, const HeapNode& b) { return a.distance > b.distance; }
+    void configure(uint32_t n) {
+        unsigned bits = 1;
+        while (bits < 32 && (uint64_t(1) << bits) < n) ++bits;
+        shift = std::min(SHIFT_MAX, 32 - bits);
+        node_bits = 32 - shift;
+    }
+    uint32_t node_mask() const { return static_cast<uint32_t>((uint64_t(1) << node_bits) - 1); }
     void clear() {
         for (size_t w = 0; w < occupied.size(); ++w)
             for (uint64_t bits = occupied[w]; bits; bits &= bits - 1) bucket[w * 64 + __builtin_ctzll(bits)].clear();
@@ -404,44 +424,41 @@ struct Heap {
         cur = 0;
         near = 0;
     }
-    bool empty() const { return near == 0 && far.empty(); }
-    void push(uint64_t d, uint32_t v) {
-        if (d - cur >= B) { far.push_back({d, v}); std::push_heap(far.begin(), far.end(), later); return; }
-        unsigned b = d & (B - 1);
-        bucket[b].push_back(v);
+    void put(uint64_t d, uint32_t v) {
+        unsigned b = (d >> shift) & (B - 1);
+        bucket[b].push_back(v | static_cast<uint32_t>((d & ((uint64_t(1) << shift) - 1)) << node_bits));
         occupied[b >> 6] |= 1ull << (b & 63);
         ++near;
     }
-    HeapNode top() {
+    void push(uint64_t d, uint32_t v) {
+        if ((d >> shift) - cur >= B) { far.push_back({d, v}); std::push_heap(far.begin(), far.end(), later); return; }
+        put(d, v);
+    }
+    // Positions cur on the first nonempty bucket and returns its smallest possible key; INF if empty.
+    uint64_t lower_bound() {
         if (near) {
             unsigned b = cur & (B - 1), w = b >> 6;
             uint64_t bits = occupied[w] & (~0ull << (b & 63));
             while (!bits) { w = (w + 1) & (B / 64 - 1); bits = occupied[w]; }
-            unsigned idx = (w << 6) | __builtin_ctzll(bits);
-            uint64_t key = cur + ((idx - b) & (B - 1));
-            if (far.empty() || far.front().distance > key) { cur = key; from_far = false; return {key, bucket[idx].back()}; }
+            cur += (((w << 6) | __builtin_ctzll(bits)) - b) & (B - 1);
+        } else if (!far.empty()) {
+            cur = far.front().distance >> shift;
+        } else {
+            return INF;
         }
-        from_far = true;
-        return far.front();
-    }
-    // Removes the entry returned by the preceding top().
-    void drop(const HeapNode& t) {
-        if (from_far) {
+        while (!far.empty() && (far.front().distance >> shift) - cur < B) {
+            HeapNode x = far.front();
             std::pop_heap(far.begin(), far.end(), later);
             far.pop_back();
-            if (near == 0) cur = t.distance;
-            return;
+            put(x.distance, x.node);
         }
-        unsigned b = t.distance & (B - 1);
-        bucket[b].pop_back();
-        if (bucket[b].empty()) occupied[b >> 6] &= ~(1ull << (b & 63));
-        --near;
+        return cur << shift;
     }
 };
 
 // Distances live in fixed pages materialized on first write and recycled per query, so memory tracks the search, not n.
 class Distances {
-    static constexpr unsigned SHIFT = 9, SIZE = 1u << SHIFT;
+    static constexpr unsigned SHIFT = 7, SIZE = 1u << SHIFT;
     std::vector<uint64_t*> dir_;
     std::vector<uint32_t> used_;
     std::vector<uint64_t*> spare_;
@@ -476,39 +493,39 @@ struct Side {
     const Packed& csr;
     Distances dist;
     Heap heap;
-    HeapNode top_{};
-    bool cached_ = false;
-    Side(const Packed& c, uint32_t n) : csr(c), dist(n) {}
-    void start(uint32_t s) { cached_ = false; dist.reset(); heap.clear(); dist.lower(s, 0); heap.push(0, s); }
-    // Returns the live minimum, discarding outdated entries; cached until this side next steps.
-    bool live_top(HeapNode& t) {
-        if (!cached_) {
-            for (;;) {
-                if (heap.empty()) return false;
-                top_ = heap.top();
-                if (dist.get(top_.node) == top_.distance) break;
-                heap.drop(top_);
-            }
-            cached_ = true;
-        }
-        t = top_;
-        return true;
-    }
-    // Settles the next vertex and relaxes its edges; `best` improves wherever the opposite search has a label.
-    void step(const Side& other, HeapNode top, uint64_t& best) {
-        uint32_t u = top.node;
-        uint64_t d = top.distance;
-        cached_ = false;
-        heap.drop(top);
-        for (uint32_t i = csr.off[u], last = csr.off[u + 1]; i < last; ++i) {
-            uint32_t e = csr.adj[i], v = csr.head(e), w = e & csr.mask;
-            if (w == csr.mask) w = csr.weight(i);
-            uint64_t nd = d + w;
-            if (dist.lower(v, nd)) {
-                heap.push(nd, v);
-                best = std::min(best, nd + other.dist.get(v));
+    Side(const Packed& c, uint32_t n) : csr(c), dist(n) { heap.configure(n); }
+    void start(uint32_t s) { dist.reset(); heap.clear(); dist.lower(s, 0); heap.push(0, s); }
+    // Settles every vertex of the current bucket (re-draining entries it adds) and returns how many were expanded.
+    size_t drain(const Side& other, uint64_t& best) {
+        std::vector<uint32_t>& bk = heap.bucket[heap.cur & (Heap::B - 1)];
+        const uint64_t base = heap.cur << heap.shift;
+        const unsigned nbits = heap.node_bits, wbits = csr.wbits;
+        const uint32_t node_mask = heap.node_mask(), wmask = csr.mask;
+        const uint32_t* off = csr.off.p;
+        const uint32_t* adj = csr.adj.p;
+        size_t count = 0;
+        while (!bk.empty()) {
+            uint32_t entry = bk.back();
+            bk.pop_back();
+            --heap.near;
+            uint32_t u = entry & node_mask;
+            uint64_t d = base | (uint64_t(entry) >> nbits);
+            if (dist.get(u) != d) continue;
+            ++count;
+            for (uint32_t i = off[u], last = off[u + 1]; i < last; ++i) {
+                uint32_t e = adj[i], v = e >> wbits, w = e & wmask;
+                if (w == wmask) w = csr.weight(i);
+                uint64_t nd = d + w;
+                if (dist.lower(v, nd)) {
+                    heap.push(nd, v);
+                    uint64_t meet = nd + other.dist.get(v);
+                    if (meet < best) best = meet;
+                }
             }
         }
+        unsigned b = heap.cur & (Heap::B - 1);
+        heap.occupied[b >> 6] &= ~(1ull << (b & 63));
+        return count;
     }
 };
 
@@ -523,16 +540,19 @@ struct Worker {
         bwd.dist.reset();
         fwd.start(s);
         uint64_t best = INF;
-        HeapNode ft, bt;
-        for (uint32_t settled = 0; settled < probe; ++settled) {
-            if (!fwd.live_top(ft)) return -1;
-            if (ft.node == t) return static_cast<int64_t>(ft.distance);
-            fwd.step(bwd, ft, best);
+        for (size_t settled = 0; settled < probe;) {
+            uint64_t f = fwd.heap.lower_bound();
+            uint64_t known = fwd.dist.get(t);
+            if (known < f) return static_cast<int64_t>(known);
+            if (f == INF) return -1;
+            settled += fwd.drain(bwd, best);
         }
         bwd.start(t);
         best = std::min(best, fwd.dist.get(t));
-        while (fwd.live_top(ft) && bwd.live_top(bt) && ft.distance + bt.distance < best) {
-            if (ft.distance <= bt.distance) fwd.step(bwd, ft, best); else bwd.step(fwd, bt, best);
+        for (;;) {
+            uint64_t f = fwd.heap.lower_bound(), b = bwd.heap.lower_bound();
+            if (f == INF || b == INF || f + b >= best) break;
+            if (f <= b) fwd.drain(bwd, best); else bwd.drain(fwd, best);
         }
         return best == INF ? -1 : static_cast<int64_t>(best);
     }

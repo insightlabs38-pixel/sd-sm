@@ -528,3 +528,8 @@ All five gates passed on restored source blob `7def6ac05e18fcf871310f37abade9ca1
 
 - After matching the developer's `-march=x86-64-v3` compile target, all five gates passed, but the candidate source blob `4ca129b0ca9596554d052aadb9d5e751496cc754` scored T=0.106733 s, M=21,266,432 B, S=536, D=1, K=16.174523, points=60.441574. This is far below the known-good BEST `run-8f98e6ec4091`, K=20.413289.
 - Reject for promotion. Restored champion source blob `7def6ac05e18fcf871310f37abade9ca1a904760` and original official Dockerfile from parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb`. Candidate remains in commit `6b8e8c7ce01eb50f1063be84119cc111c03ff5cb`; it came from developer main, so no PR is eligible to merge.
+
+
+## Official rollback latest — run-0ab335e21341 (2026-10-31 19:02 UTC)
+
+All five gates passed on restored champion source `7def6ac05e18fcf871310f37abade9ca1a904760` with the original official Dockerfile. **LATEST:** T=0.084718 s, M=12,656,640 B, S=537, D=1, K=20.134776, points=65.197340. **BEST** remains `run-8f98e6ec4091` (K=20.413289).

@@ -492,3 +492,8 @@ All five gates passed on commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. **LA
 
 - All five gates passed for candidate blob `fd1db93b387442b018e9c368db6a5c46d6d89844`, but its **LATEST** score was T=0.142037 s, M=98,885,632 B, S=818, D=1, K=22.583292, points=67.689362. This is below the champion BEST `run-68c15954870c` (K=24.163880); source-size savings did not offset measured T/M.
 - Restored champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` from parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. PR #5 remains open and unmerged; candidate source is retained in official commit `5b1f942cac523c62dcda40eca63586732c6a7959`.
+
+
+## Official latest after champion rollback — run-bc7637ed7a02 (2026-10-31 18:37 UTC)
+
+All five gates passed. **LATEST:** T=0.124132 s, M=98,762,752 B, S=862, D=1, K=23.974029, points=68.987051. **BEST** remains `run-68c15954870c` (K=24.163880); the D PR #5 source-size trial is rejected for promotion and stays in history at `5b1f942`.

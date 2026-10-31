@@ -500,3 +500,8 @@ All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` using the pr
 - Trial from open PR #8 failed the official build stage: check=true, build=false; public feed reports `docker build failed (exit 1)`. No correctness/sandbox result or T/M/S/D/K was produced. The public feed provides no build-log tail; no cause is inferred.
 - Restored known-good source blob `7def6ac05e18fcf871310f37abade9ca1a904760` from parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. **BEST:** `run-955f007ac420`, K=20.321199. **LATEST:** `run-adcadeec9db2`, failed build / unscored.
 - PR #8 stays open and unmerged pending developer diagnosis. Candidate source remains available in official history at `5b1f942cac523c62dcda40eca63586732c6a7959`.
+
+
+## Official rollback result — run-8f98e6ec4091 (2026-10-31 18:37 UTC)
+
+After restoring known-good source blob `7def6ac05e18fcf871310f37abade9ca1a904760`, all five gates passed. **BEST/LATEST:** T=0.082831 s, M=12,500,992 B, S=537, D=1, K=20.413289, points=65.495649. This replaces the prior BEST `run-955f007ac420` (K=20.321199) on the same source. The failed PR #8 build remains LATEST only for its prior trial commit; it is not the current source result.

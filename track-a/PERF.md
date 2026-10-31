@@ -305,3 +305,9 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 - Imported `sd-ta/main` HEAD `3bd56063faa081e6dfef77afeb99044ede01dfe5`, source blob `e0c5e2fbbf9baebe5af62aa79feacfd24d94f8d2`; rollback remains in parent `952084e36d4a8309c21c175f7208a40fe40c2702`.
 - CI `41174690609`, `41175038825`, and `41175190484` passed published hashes, holdout differentials, synthetic oracle, edge sanitizers, Docker allowlist and offline execution. Final 31-run paired full-seed medians: sparse 0.085658 s vs AVX2 0.083057 s; cgroup peaks 41,553,920 vs 41,005,056 B. Around ten extra counted lines; estimated +1.2–1.3% K versus sparse, not an official score.
 - Official board result pending; no run ID or score claimed.
+
+
+## Official board snapshot and rejected AVX2 trial — 2026-10-31 06:18:39 UTC
+
+- **BEST:** `run-aad4ae1ad447`; T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422.
+- **LATEST:** `run-51141caaeccd` on `bd1e696b8a738a9f6d52c2faa16d9a6244c64d5e`; all five gates passed. AVX2 candidate T=0.067907 s, M=41,631,744 B, S=337, D=1, K=23.319418, points=68.385886. Against BEST, K fell 2.40%, time rose 3.05%, memory rose about 1.0%, and S rose by 16. Candidate rejected; packed source restored from parent `952084e36d4a8309c21c175f7208a40fe40c2702`.

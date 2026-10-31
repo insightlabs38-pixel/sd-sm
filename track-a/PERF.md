@@ -385,3 +385,7 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 ## Official latest — 2026-10-31 12:40:38 UTC
 
 - **BEST:** `run-2e35ec2bc727`, K=44.826321. **LATEST:** `run-9aa98021de01` on `0923ede528139a79896a6bfe1bb67934f74c5951`, all five gates passed: T=0.022471 s, M=20,774,912 B, S=442, D=1, K=44.727231, points=82.528601. Same promoted source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`; 0.22% below BEST, consistent with run variation.
+
+## Official same-source rerun — 2026-10-31 13:17 UTC
+
+- Run `run-405c0127303d` on `b0e30144ba58e2c3b3c86c8b1fd26dffa1e655b5` passed all five gates: T=0.022681 s, M=20,664,320 B, S=442, D=1, K=44.567239. BEST remains `run-2e35ec2bc727` (K=44.826321). Source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is unchanged; this is a repeat measurement, not a new candidate.

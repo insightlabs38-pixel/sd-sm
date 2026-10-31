@@ -541,3 +541,8 @@ All five gates passed. **LATEST:** T=0.021560 s, M=20,811,776 B, S=460, D=1, K=4
 ## Official latest — run-be9e7d11d1b2 (2026-10-31 19:02 UTC)
 
 All five gates passed. **LATEST:** T=0.021633 s, M=21,106,688 B, S=460, D=1, K=45.169817, points=82.742416. **Correctness-qualified BEST** remains `run-b7ad796c1836` (K=45.481911).
+
+
+## Official latest — run-e916246a1d9c (2026-10-31 19:08 UTC)
+
+All five gates passed. **LATEST:** T=0.022484 s, M=21,565,440 B, S=460, D=1, K=44.116624, points=82.230113. **Correctness-qualified BEST** remains `run-b7ad796c1836` (K=45.481911).

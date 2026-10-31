@@ -533,3 +533,8 @@ All five gates passed on restored source blob `7def6ac05e18fcf871310f37abade9ca1
 ## Official rollback latest — run-0ab335e21341 (2026-10-31 19:02 UTC)
 
 All five gates passed on restored champion source `7def6ac05e18fcf871310f37abade9ca1a904760` with the original official Dockerfile. **LATEST:** T=0.084718 s, M=12,656,640 B, S=537, D=1, K=20.134776, points=65.197340. **BEST** remains `run-8f98e6ec4091` (K=20.413289).
+
+
+## Official latest — run-e081c61ac0cb (2026-10-31 19:08 UTC)
+
+All five gates passed. **LATEST:** T=0.083898 s, M=12,500,992 B, S=537, D=1, K=20.283067, points=65.356682. **BEST** remains `run-8f98e6ec4091` (K=20.413289).

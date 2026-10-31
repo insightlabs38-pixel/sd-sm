@@ -512,3 +512,12 @@ All five gates passed. **LATEST:** T=0.133651 s, M=98,807,808 B, S=862, D=1, K=2
 ## Official latest — run-ffd3342069fb (2026-10-31 19:02 UTC)
 
 All five gates passed on the champion source. **LATEST:** T=0.129919 s, M=98,672,640 B, S=862, D=1, K=23.438286, points=68.496293. **BEST** remains `run-68c15954870c` (K=24.163880).
+
+
+## Official latest — run-016d47de2a5e (2026-10-31 19:08 UTC)
+
+All five gates passed on the then-current champion source. **LATEST:** T=0.131148 s, M=99,233,792 B, S=862, D=1, K=23.301763, points=68.369439. **BEST** remains `run-68c15954870c` (K=24.163880).
+
+## Candidate submitted for official evaluation
+
+This commit replaces D with developer main blob `d53a4e39a379c744724d4aac87b6a3925411d9cf` (671 lines, 29,391 bytes; champion was 693 lines, 30,661 bytes). Developer verification reports 88 differential cases, tiny/sample/full hash checks, holdout seeds, and pinned offline Docker passing. Matched 31-pair four-vCPU medians improved 0.250009→0.249562 s, 6-worker 0.252153→0.249022 s, and 12-worker 0.258902→0.255439 s; those are proxy measurements, not board scores. **BEST remains `run-68c15954870c`** pending this official run.

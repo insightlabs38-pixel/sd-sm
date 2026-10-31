@@ -553,3 +553,7 @@ Run `run-6e9ec3791593`; all five gates passed. T=0.133873 s, M=98,717,696 bytes,
 ## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
 
 Run `run-37fdcc496c04`; all five gates passed. T=0.152867 s, M=99,086,336 bytes, S=862, D=1, K=21.589467, points=66.712096. **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-37fdcc496c04`. Next official frontier trial is D PR #5, source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`; exact-head CI passed byte-equality at 1/4/12 threads, 83 differential and 60 stress cases, ASan/UBSan and TSan. Fifteen interleaved rounds measured 0.240 vs 0.243 s (tie) and 74.83 vs 74.74 MB; the expected gain is source-size reduction, about +0.8% K.
+
+## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
+
+Run `run-8af02b0a1b7b`; all five gates passed. T=0.129822 s, M=98,594,816 bytes, S=818, D=1, K=23.635765, points=68.678483. **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-8af02b0a1b7b`; D PR #5's size-only refactor did not beat BEST. Next D frontier trial is PR #3, source blob `4a249d728c074febe26502db752e1c97c5d1a279`; exact source matches successful CI `41156592344` and pinned Docker passed across 1/4/12 workers. Local 4-core speed was 0.265→0.259 s, 12-thread peak memory stayed about 81 MB; its +51 formatted lines and modest expected gain must still win complete official K.

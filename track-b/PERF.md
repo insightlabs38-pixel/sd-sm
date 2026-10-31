@@ -557,3 +557,7 @@ Run `run-e69497fa31df`; all five gates passed. T=0.233890 s, M=51,953,664 bytes,
 ## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
 
 Run `run-83ba2924142d`; all five gates passed. T=0.237968 s, M=50,094,080 bytes, S=925, D=1, K=23.155679, points=68.232876. **BEST:** `run-dcebadac870d`, K=23.250490. **LATEST:** `run-83ba2924142d`. Next official frontier trial is B PR #5 (6 workers), exact head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `510c2a13dccb26c712ff2239000817dd5b4a900a`; qualification logs exercise the exact 6/12-worker source revisions, full references, sanitizers, and offline Docker. Local runner results are not official scaling evidence.
+
+## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
+
+Run `run-0ae89c59b073`; all five gates passed. T=0.358443 s, M=50,008,064 bytes, S=781, D=1, K=19.358853, points=64.343981. **BEST:** `run-dcebadac870d`, K=23.250490. **LATEST:** `run-0ae89c59b073`; B PR #5 is rejected on complete K, retaining the earlier champion source. PR #6's exact source had weaker local K and higher peak memory than PR #5, so no board trial is planned.

@@ -593,3 +593,7 @@ PR #2 was promoted and merged to `sd-ta/main` as `82493a17ff0d784abbaa35f23590e1
 ## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
 
 Run `run-b69ecc476b37`; all five gates passed. T=0.019740 s, M=21,311,488 bytes, S=574, D=1, K=45.653206, points=82.973564. **BEST:** `run-f5acb6219cc9`, K=46.487453 (qualified A PR #2). **LATEST:** `run-b69ecc476b37`.
+
+## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
+
+Run `run-1d2fdbfbdd62`; all five gates passed. T=0.016499 s, M=21,671,936 bytes, S=574, D=1, K=49.769039, points=84.847963. **BEST = LATEST:** this repeat scores the same qualified A PR #2 source at K=49.769039; prior `run-f5acb6219cc9` was K=46.487453. PR #3's updated head `ac9ff0330732506848426209b86d9f5739d662f6` has the same source blob as its earlier official trial (`c91b9689...`), already measured at K=41.912918, so it is not resubmitted. The new PR head also adds a tracked `.pyc`; do not promote it.

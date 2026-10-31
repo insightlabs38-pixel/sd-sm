@@ -5,11 +5,10 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <limits>
 #include <memory>
+#include <numeric>
 #include <string>
 #include <thread>
-#include <utility>
 #include <vector>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -99,9 +98,11 @@ static unsigned id_bits(uint64_t n) {
     return bits;
 }
 
+using Escapes = std::vector<std::pair<uint32_t, uint64_t>>;
+
 struct Packed {
     Array<uint32_t> off, adj;
-    std::vector<std::pair<uint32_t, uint64_t>> escapes;
+    Escapes escapes;
     unsigned wbits = 0;
     uint32_t mask = 0, dead = 0; // `dead` is a head one past the last id: an edge that leads nowhere
     Packed() = default;
@@ -110,7 +111,15 @@ struct Packed {
         mask = (uint32_t(1) << wbits) - 1;
         dead = n << wbits;
     }
-    uint32_t pack(uint32_t head, uint64_t w) const { return head << wbits | static_cast<uint32_t>(std::min<uint64_t>(w, mask)); }
+    void put(size_t i, uint32_t head, uint64_t w, Escapes& fresh) {
+        adj[i] = head << wbits | static_cast<uint32_t>(std::min<uint64_t>(w, mask));
+        if (w >= mask) fresh.push_back({i, w});
+    }
+    // Folds per-thread escapes (each already sorted, in ascending thread order) into the table.
+    void adopt(const std::vector<Escapes>& parts) {
+        for (auto& e : parts) escapes.insert(escapes.end(), e.begin(), e.end());
+        std::sort(escapes.begin(), escapes.end());
+    }
     uint32_t head(uint32_t e) const { return e >> wbits; }
     uint64_t escape(uint32_t i) const { return std::lower_bound(escapes.begin(), escapes.end(), std::make_pair(i, uint64_t(0)))->second; }
     uint64_t weight(uint32_t i) const {
@@ -122,13 +131,15 @@ struct Packed {
 // A bin entry packs the tail's low bits with the head, so it takes 8 bytes instead of 12.
 struct Entry { uint32_t key, w; };
 
+using Run = std::pair<const Entry*, uint32_t>;
+
 // One thread's edges partitioned by u >> shift into short chunk runs, so each bucket can later become CSR in cache.
 class Binner {
     static constexpr uint32_t CHUNK = 256;
     Array<Entry> pool_;
     size_t used_ = 0;
     std::vector<Entry*> fill_, limit_;
-    std::vector<std::vector<std::pair<const Entry*, uint32_t>>> runs_;
+    std::vector<std::vector<Run>> runs_;
     unsigned shift_, bits_;
     void open_chunk(size_t b) {
         close(b);
@@ -151,7 +162,7 @@ public:
     }
     void discard() { madvise(pool_.p, pool_.bytes, MADV_DONTNEED); }
     void finish() { for (size_t b = 0; b < runs_.size(); ++b) { close(b); limit_[b] = nullptr; } }
-    const std::vector<std::pair<const Entry*, uint32_t>>& runs(size_t b) const { return runs_[b]; }
+    const std::vector<Run>& runs(size_t b) const { return runs_[b]; }
 };
 
 static unsigned bucket_shift(uint32_t n) { return std::min(11u, 32 - id_bits(n)); }
@@ -165,7 +176,7 @@ static Packed bins_to_csr(const std::vector<Binner>& bins, uint32_t n, unsigned 
         for (const Binner& bin : bins) for (auto& run : bin.runs(b)) base[b + 1] += run.second;
     }
     Packed g(n, base[buckets]);
-    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> escapes(threads);
+    std::vector<Escapes> escapes(threads);
     g.off[n] = static_cast<uint32_t>(base[buckets]);
     std::atomic<size_t> next{0};
     const unsigned bits = id_bits(n);
@@ -183,13 +194,11 @@ static Packed bins_to_csr(const std::vector<Binner>& bins, uint32_t n, unsigned 
                     for (uint32_t i = 0; i < run.second; ++i) {
                         const Entry& e = run.first[i];
                         uint32_t pos = cursor[uint64_t(e.key) >> bits]++;
-                        g.adj[pos] = g.pack(e.key & head_mask, e.w);
-                        if (e.w >= g.mask) escapes[t].push_back({pos, e.w});
+                        g.put(pos, e.key & head_mask, e.w, escapes[t]);
                     }
         }
     });
-    for (auto& e : escapes) g.escapes.insert(g.escapes.end(), e.begin(), e.end());
-    std::sort(g.escapes.begin(), g.escapes.end());
+    g.adopt(escapes);
     return g;
 }
 
@@ -246,15 +255,11 @@ static void bypass_edges(Packed& raw, uint32_t n, const Bits& bypass, unsigned t
                 ways[x] = (e > b ? raw.adj[b] : raw.dead) | (uint64_t(e > b + 1 ? raw.adj[b + 1] : raw.dead) << 32);
             }
     });
-    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> fresh(threads);
+    std::vector<Escapes> fresh(threads);
     std::vector<std::vector<uint32_t>> stale(threads);
     parallel(threads, [&](unsigned t) {
         std::vector<Walk> walks, onward;
         std::vector<uint32_t> starts;
-        auto finish = [&](uint32_t edge, uint32_t head, uint64_t w) {
-            raw.adj[edge] = raw.pack(head, w);
-            if (w >= raw.mask) fresh[t].push_back({edge, w});
-        };
         size_t lo = size_t(n) * t / threads, hi = size_t(n) * (t + 1) / threads;
         for (size_t block = lo; block < hi; block += BLOCK) {
             size_t top = std::min(hi, block + BLOCK);
@@ -285,12 +290,12 @@ static void bypass_edges(Packed& raw, uint32_t n, const Bits& bypass, unsigned t
                         uint32_t y = raw.head(e);
                         if (y != w.prev && y != w.at) { ++ahead; next = y; word = e; which = k; }
                     }
-                    if (ahead > 1) { finish(w.edge, w.at, w.weight); continue; }
+                    if (ahead > 1) { raw.put(w.edge, w.at, w.weight, fresh[t]); continue; }
                     if (ahead == 0 || next == w.root) { raw.adj[w.edge] = raw.dead; continue; }
                     w.weight += (word & raw.mask) == raw.mask ? raw.escape(raw.off[w.at] + which) : (word & raw.mask);
                     w.prev = w.at;
                     w.at = next;
-                    if (!test(bypass, next) || ++w.steps == 64) finish(w.edge, next, w.weight);
+                    if (!test(bypass, next) || ++w.steps == 64) raw.put(w.edge, next, w.weight, fresh[t]);
                     else onward.push_back(w);
                 }
                 walks.swap(onward);
@@ -300,11 +305,10 @@ static void bypass_edges(Packed& raw, uint32_t n, const Bits& bypass, unsigned t
     std::vector<uint32_t> gone;
     for (auto& v : stale) gone.insert(gone.end(), v.begin(), v.end());
     std::sort(gone.begin(), gone.end());
-    std::vector<std::pair<uint32_t, uint64_t>> merged;
-    for (auto& e : raw.escapes) if (!std::binary_search(gone.begin(), gone.end(), e.first)) merged.push_back(e);
-    for (auto& v : fresh) merged.insert(merged.end(), v.begin(), v.end());
-    std::sort(merged.begin(), merged.end());
-    raw.escapes.swap(merged);
+    raw.escapes.erase(std::remove_if(raw.escapes.begin(), raw.escapes.end(),
+                                     [&](auto& e) { return std::binary_search(gone.begin(), gone.end(), e.first); }),
+                      raw.escapes.end());
+    raw.adopt(fresh);
 }
 
 // One BFS region: nodes in discovery order and their out-degrees.
@@ -314,21 +318,13 @@ struct Region {
     uint64_t edges = 0;
 };
 
-class Claims {
-    std::vector<uint64_t> bits_;
-public:
-    explicit Claims(uint32_t n) : bits_((n + 63) / 64, 0) {}
-    bool take(uint32_t v) {
-        uint64_t bit = 1ull << (v & 63);
-        uint64_t* word = &bits_[v >> 6];
-        if (__atomic_load_n(word, __ATOMIC_RELAXED) & bit) return false;
-        return !(__atomic_fetch_or(word, bit, __ATOMIC_RELAXED) & bit);
-    }
-    uint64_t word(size_t i) const { return bits_[i]; }
-    size_t words() const { return bits_.size(); }
-};
+static bool take(Bits& bits, uint32_t v) {
+    uint64_t bit = 1ull << (v & 63), *word = &bits[v >> 6];
+    if (__atomic_load_n(word, __ATOMIC_RELAXED) & bit) return false;
+    return !(__atomic_fetch_or(word, bit, __ATOMIC_RELAXED) & bit);
+}
 
-static void grow(const Packed& raw, Claims& claims, Region& r) {
+static void grow(const Packed& raw, Bits& claims, Region& r) {
     uint32_t len = r.len;
     uint64_t edges = r.edges;
     uint32_t* order = r.order.p;
@@ -341,7 +337,7 @@ static void grow(const Packed& raw, Claims& claims, Region& r) {
         for (uint32_t i = raw.off[u]; i < raw.off[u + 1]; ++i) {
             if (raw.adj[i] == raw.dead) continue;
             ++live;
-            if (claims.take(raw.head(raw.adj[i]))) order[len++] = raw.head(raw.adj[i]);
+            if (take(claims, raw.head(raw.adj[i]))) order[len++] = raw.head(raw.adj[i]);
         }
         degree[head] = live;
         edges += live;
@@ -361,22 +357,22 @@ static Graph reorder(Packed& raw, uint32_t n, const std::vector<uint8_t>& termin
             if (!terminal[x] && raw.off[x + 1] - raw.off[x] <= 2) bypass[x >> 6] |= 1ull << (x & 63);
     });
     bypass_edges(raw, n, bypass, threads);
-    Claims claims(n);
+    Bits claims((size_t(n) + 63) / 64, 0);
     std::vector<Region> regions(threads + 1);
     for (unsigned t = 0; t <= threads; ++t) { regions[t].order = Array<uint32_t>(n, true); regions[t].degree = Array<uint32_t>(n, true); }
     for (unsigned t = 0; t < threads; ++t) {
         for (uint32_t i = 0, r = static_cast<uint32_t>(uint64_t(n) * t / threads); i < n; ++i, r = r + 1 == n ? 0 : r + 1)
             if (!test(bypass, r) && raw.off[r + 1] - raw.off[r] >= 2) {
-                if (claims.take(r)) regions[t].order[regions[t].len++] = r;
+                if (take(claims, r)) regions[t].order[regions[t].len++] = r;
                 break;
             }
     }
     parallel(threads, [&](unsigned t) { grow(raw, claims, regions[t]); });
     Region& rest = regions[threads];
-    for (size_t w = 0; w < claims.words(); ++w)
-        for (uint64_t free = ~claims.word(w); free; free &= free - 1) {
+    for (size_t w = 0; w < claims.size(); ++w)
+        for (uint64_t free = ~claims[w]; free; free &= free - 1) {
             uint32_t v = static_cast<uint32_t>(w * 64 + __builtin_ctzll(free));
-            if (v < n && !test(bypass, v) && claims.take(v)) { rest.order[rest.len++] = v; grow(raw, claims, rest); }
+            if (v < n && !test(bypass, v) && take(claims, v)) { rest.order[rest.len++] = v; grow(raw, claims, rest); }
         }
 
     std::vector<uint32_t> base(threads + 2, 0);
@@ -398,43 +394,19 @@ static Graph reorder(Packed& raw, uint32_t n, const std::vector<uint8_t>& termin
     });
     g.fwd.off[g.n] = static_cast<uint32_t>(ebase[threads + 1]);
     regions.clear();
-    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> escapes(threads);
+    std::vector<Escapes> escapes(threads);
     parallel(threads, [&](unsigned t) {
         for (size_t k = size_t(g.n) * t / threads, hi = size_t(g.n) * (t + 1) / threads; k < hi; ++k) {
             if (k + 8 < hi) __builtin_prefetch(&raw.adj[raw.off[order[k + 8]]]);
             uint32_t o = order[k], pos = g.fwd.off[k];
             for (uint32_t i = raw.off[o]; i < raw.off[o + 1]; ++i) {
                 if (raw.adj[i] == raw.dead) continue;
-                uint64_t w = raw.weight(i);
-                g.fwd.adj[pos] = g.fwd.pack(g.perm[raw.head(raw.adj[i])], w);
-                if (w >= g.fwd.mask) escapes[t].push_back({pos, w});
-                ++pos;
+                g.fwd.put(pos++, g.perm[raw.head(raw.adj[i])], raw.weight(i), escapes[t]);
             }
         }
     });
-    for (auto& e : escapes) g.fwd.escapes.insert(g.fwd.escapes.end(), e.begin(), e.end());
+    g.fwd.adopt(escapes);
     return g;
-}
-
-// dst[k] = sum of src[0..k); returns the total. src may equal dst; copy, if given, also receives dst.
-static uint32_t scan(const uint32_t* src, uint32_t* dst, size_t n, unsigned threads, uint32_t* copy = nullptr) {
-    std::vector<uint32_t> start(threads + 1, 0);
-    parallel(threads, [&](unsigned t) {
-        uint32_t sum = 0;
-        for (size_t k = n * t / threads, hi = n * (t + 1) / threads; k < hi; ++k) sum += src[k];
-        start[t + 1] = sum;
-    });
-    for (unsigned t = 0; t < threads; ++t) start[t + 1] += start[t];
-    parallel(threads, [&](unsigned t) {
-        uint32_t sum = start[t];
-        for (size_t k = n * t / threads, hi = n * (t + 1) / threads; k < hi; ++k) {
-            uint32_t c = src[k];
-            dst[k] = sum;
-            if (copy) copy[k] = sum;
-            sum += c;
-        }
-    });
-    return start[threads];
 }
 
 static inline uint32_t bump(uint32_t& x) { return __atomic_fetch_add(&x, 1u, __ATOMIC_RELAXED); }
@@ -444,19 +416,28 @@ static void add_reverse(Graph& g, unsigned threads) {
     g.rev = Packed(n, m);
     blocked(threads, m, [&](size_t lo, size_t hi) { for (size_t i = lo; i < hi; ++i) bump(g.rev.off[g.fwd.head(g.fwd.adj[i])]); });
     Array<uint32_t> cursor(n);
-    g.rev.off[n] = scan(g.rev.off.p, g.rev.off.p, n, threads, cursor.p);
-    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> escapes(threads);
+    std::vector<uint32_t> start(threads + 1, 0);
+    parallel(threads, [&](unsigned t) {
+        for (size_t k = size_t(n) * t / threads, hi = size_t(n) * (t + 1) / threads; k < hi; ++k) start[t + 1] += g.rev.off[k];
+    });
+    for (unsigned t = 0; t < threads; ++t) start[t + 1] += start[t];
+    g.rev.off[n] = start[threads];
+    parallel(threads, [&](unsigned t) {
+        uint32_t sum = start[t];
+        for (size_t k = size_t(n) * t / threads, hi = size_t(n) * (t + 1) / threads; k < hi; ++k) {
+            uint32_t c = g.rev.off[k];
+            g.rev.off[k] = cursor[k] = sum;
+            sum += c;
+        }
+    });
+    std::vector<Escapes> escapes(threads);
     parallel(threads, [&](unsigned t) {
         for (size_t u = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; u < hi; ++u)
             for (uint32_t i = g.fwd.off[u]; i < g.fwd.off[u + 1]; ++i) {
-                uint64_t w = g.fwd.weight(i);
-                uint32_t pos = bump(cursor[g.fwd.head(g.fwd.adj[i])]);
-                g.rev.adj[pos] = g.rev.pack(static_cast<uint32_t>(u), w);
-                if (w >= g.rev.mask) escapes[t].push_back({pos, w});
+                g.rev.put(bump(cursor[g.fwd.head(g.fwd.adj[i])]), static_cast<uint32_t>(u), g.fwd.weight(i), escapes[t]);
             }
     });
-    for (auto& e : escapes) g.rev.escapes.insert(g.rev.escapes.end(), e.begin(), e.end());
-    std::sort(g.rev.escapes.begin(), g.rev.escapes.end());
+    g.rev.adopt(escapes);
 }
 
 struct Query { uint32_t from, to; };
@@ -506,12 +487,9 @@ struct Heap {
     unsigned shift = 0, node_bits = 32;
     static bool later(const HeapNode& a, const HeapNode& b) { return a.distance > b.distance; }
     void configure(uint32_t n) {
-        unsigned bits = 1;
-        while (bits < 32 && (uint64_t(1) << bits) < n) ++bits;
-        shift = std::min(SHIFT_MAX, 32 - bits);
+        shift = std::min(SHIFT_MAX, 32 - id_bits(n));
         node_bits = 32 - shift;
     }
-    uint32_t node_mask() const { return static_cast<uint32_t>((uint64_t(1) << node_bits) - 1); }
     void clear() {
         for (size_t w = 0; w < occupied.size(); ++w)
             for (uint64_t bits = occupied[w]; bits; bits &= bits - 1) bucket[w * 64 + __builtin_ctzll(bits)].clear();
@@ -520,15 +498,12 @@ struct Heap {
         cur = 0;
         near = 0;
     }
-    void put(uint64_t d, uint32_t v) {
+    void push(uint64_t d, uint32_t v) {
+        if ((d >> shift) - cur >= B) { far.push_back({d, v}); std::push_heap(far.begin(), far.end(), later); return; }
         unsigned b = (d >> shift) & (B - 1);
         bucket[b].push_back(v | static_cast<uint32_t>((d & ((uint64_t(1) << shift) - 1)) << node_bits));
         occupied[b >> 6] |= 1ull << (b & 63);
         ++near;
-    }
-    void push(uint64_t d, uint32_t v) {
-        if ((d >> shift) - cur >= B) { far.push_back({d, v}); std::push_heap(far.begin(), far.end(), later); return; }
-        put(d, v);
     }
     // Positions cur on the first nonempty bucket and returns its smallest possible key; INF if empty.
     uint64_t lower_bound() {
@@ -546,7 +521,7 @@ struct Heap {
             HeapNode x = far.front();
             std::pop_heap(far.begin(), far.end(), later);
             far.pop_back();
-            put(x.distance, x.node);
+            push(x.distance, x.node);
         }
         return cur << shift;
     }
@@ -557,13 +532,11 @@ class Distances {
     static constexpr unsigned SHIFT = 7, SIZE = 1u << SHIFT;
     std::vector<uint64_t*> dir_;
     std::vector<uint32_t> used_;
-    std::vector<uint64_t*> spare_;
-    std::vector<std::unique_ptr<uint64_t[]>> store_;
+    std::vector<std::unique_ptr<uint64_t[]>> store_; // the first used_.size() pages are in use
     std::array<uint64_t, SIZE> blank_;
     uint64_t* acquire(uint32_t page) {
-        uint64_t* p;
-        if (spare_.empty()) { store_.emplace_back(new uint64_t[SIZE]); p = store_.back().get(); }
-        else { p = spare_.back(); spare_.pop_back(); }
+        if (used_.size() == store_.size()) store_.emplace_back(new uint64_t[SIZE]);
+        uint64_t* p = store_[used_.size()].get();
         std::fill(p, p + SIZE, INF);
         used_.push_back(page);
         return dir_[page] = p;
@@ -580,7 +553,7 @@ public:
         return true;
     }
     void reset() {
-        for (uint32_t page : used_) { spare_.push_back(dir_[page]); dir_[page] = blank_.data(); }
+        for (uint32_t page : used_) dir_[page] = blank_.data();
         used_.clear();
     }
 };
@@ -596,7 +569,7 @@ struct Side {
         std::vector<uint32_t>& bk = heap.bucket[heap.cur & (Heap::B - 1)];
         const uint64_t base = heap.cur << heap.shift;
         const unsigned nbits = heap.node_bits, wbits = csr.wbits;
-        const uint32_t node_mask = heap.node_mask(), wmask = csr.mask;
+        const uint32_t node_mask = static_cast<uint32_t>((uint64_t(1) << nbits) - 1), wmask = csr.mask;
         const uint32_t* off = csr.off.p;
         const uint32_t* adj = csr.adj.p;
         size_t count = 0;
@@ -627,13 +600,12 @@ struct Side {
 };
 
 struct Worker {
-    const Graph& graph;
     Side fwd, bwd;
     uint32_t probe;
-    Worker(const Graph& g, uint32_t p) : graph(g), fwd(g.fwd, g.n), bwd(g.rev, g.n), probe(p) {}
+    Worker(const Graph& g, uint32_t p) : fwd(g.fwd, g.n), bwd(g.rev, g.n), probe(p) {}
     int64_t solve(uint32_t s, uint32_t t) {
         if (s == t) return 0;
-        if (graph.fwd.off[s] == graph.fwd.off[s + 1] || graph.rev.off[t] == graph.rev.off[t + 1]) return -1;
+        if (fwd.csr.off[s] == fwd.csr.off[s + 1] || bwd.csr.off[t] == bwd.csr.off[t + 1]) return -1;
         bwd.dist.reset();
         fwd.start(s);
         uint64_t best = INF;
@@ -663,22 +635,23 @@ static void write_results(const std::string& path, const std::vector<int64_t>& a
     if (!f || fwrite(text.data(), 1, text.size(), f) != text.size() || fclose(f) != 0) { perror(path.c_str()); std::exit(2); }
 }
 
+static std::string option(const char* name, const char* fallback) {
+    const char* v = getenv(name);
+    return v ? v : fallback;
+}
+
 int main() {
-    const char* env_data = getenv("SD_DATA");
-    const char* env_out = getenv("SD_OUT");
-    std::string data = env_data ? env_data : "/data";
-    std::string out = env_out ? env_out : "/out";
+    std::string data = option("SD_DATA", "/data"), out = option("SD_OUT", "/out");
     unsigned threads = std::min(12u, std::max(1u, std::thread::hardware_concurrency()));
-    if (const char* env = getenv("SD_THREADS")) threads = std::max(1, std::min(64, atoi(env)));
-    uint32_t probe = 256;
-    if (const char* env = getenv("SD_PROBE")) probe = static_cast<uint32_t>(std::max(0, atoi(env)));
+    if (getenv("SD_THREADS")) threads = std::max(1, std::min(64, atoi(getenv("SD_THREADS"))));
+    uint32_t probe = std::max(0, atoi(option("SD_PROBE", "256").c_str()));
     std::vector<Query> queries = read_queries(data + "/queries.txt");
     Graph g = read_graph(data + "/graph.txt", queries, threads);
     for (Query& q : queries) { q.from = g.perm[q.from]; q.to = g.perm[q.to]; }
     g.perm.release();
     std::vector<int64_t> answers(queries.size(), -1);
     std::vector<uint32_t> schedule(queries.size());
-    for (uint32_t i = 0; i < schedule.size(); ++i) schedule[i] = i;
+    std::iota(schedule.begin(), schedule.end(), 0);
     std::sort(schedule.begin(), schedule.end(), [&](uint32_t a, uint32_t b) { return queries[a].from < queries[b].from; });
     std::atomic<size_t> next{0};
     parallel(std::min<size_t>(threads, std::max<size_t>(1, queries.size())), [&](unsigned) {

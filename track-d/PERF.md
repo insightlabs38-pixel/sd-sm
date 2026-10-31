@@ -257,3 +257,10 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - **BEST:** `run-68c15954870c`; T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
 - **LATEST:** `run-a82509b051ec`; T=0.126333 s, M=98,807,808 B, S=862, D=1, K=23.762103, points=68.794244.
+
+
+## Controlled size-only trial prepared — 2026-10-31
+
+- Candidate imported from `sd-td` PR #5 head `94286d5ce85421fa082de37c92e4b3cf4f2e34df`; exact source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`. The official contraction source and rollback remain in parent commit `498f27fb07731088b3746ed823d5c123bcc816ff`.
+- CI [41168086045](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41168086045) passed seed-1 byte identity at 1/4/12 threads, 83 differential and 60 stress cases, ASan/UBSan, TSan, and pinned Docker. Fifteen interleaved full runs tied at 0.240 vs 0.243 s; 12-thread cgroup peak 74.83 vs 74.74 MB. The source removes 44 formatted lines (855 to 811); estimated +0.8% K is size-based only.
+- Official board result pending; do not merge PR #5 or claim a score until every gate passes and D beats BEST.

@@ -210,3 +210,9 @@ Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All f
 - Staged only `track-d/d_traverse.cpp` from `sd-td` branch `frontier/d-claude-architecture-3`, head `93393b485782ca0edcf4e5e9ffa21b9deb7283ca`, source blob `4a249d728c074febe26502db752e1c97c5d1a279`. Existing Dockerfile and manifest are retained. Official rollback is parent commit `0629dacf5c60ddc1e986c185b9bf45b64d6fd105`, with source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60` and BEST run `run-1cbdf9e4a82e` (K=23.855961).
 - Developer qualification [CI 41156592344](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41156592344) passed differential, stress, sanitizer, official output-hash, and pinned-container checks at 1/4/12 workers. The branch records matched local timing and memory as exploratory evidence; the expected scoring-box effect is near break-even, so this push is a controlled submission-machine trial, not a claimed improvement.
 - Official board run ID and axes: pending. Do not treat the prior D BEST as a score for this candidate.
+
+
+## Donation renumbering trial — rejected and rolled back (2026-10-31)
+
+- Official LATEST trial `run-03c554a03f7a` on commit `062d7e54614520ed5991920db8bd63579998b663` passed all five gates but measured T=0.148357 s, M=98,512,896 bytes, S=779, D=1, K=22.276367, points=67.392218. The then-current official BEST `run-1cbdf9e4a82e` on commit `03742f51c5f91e7313584860fb6de63ad83fbae4` was T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845. The trial's K was 6.6% lower, so it is not promoted.
+- Restored the known-good source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60` from official rollback commit `0629dacf5c60ddc1e986c185b9bf45b64d6fd105`. The rejected trial remains recoverable in commit `062d7e54614520ed5991920db8bd63579998b663` and developer PR #3; no PR #3 merge.

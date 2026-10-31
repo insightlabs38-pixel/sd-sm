@@ -4,16 +4,16 @@ A C++20, standard-library-only solution to [Track B](https://github.com/hackatho
 
 ## Approach
 
-Queries select a collision-safe ASCII token dictionary. Up to four workers scan disjoint document ranges with AVX2 byte classification and CRC32C fingerprints with exact packed short keys and full-byte long-token verification. Document-local batches prefetch dictionary probes, whose slots include Boolean column IDs. Boolean terms populate reusable 2,048-document bitmaps with rows allocated only for terms present in the block; compact plans apply every operator strictly left to right. Population counts compute exact counts and ID sums without materializing answer lists. Phrase queries use sampled rare anchors and verify adjacency in document-local token buffers. Sampling changes work selection only. Workers merge count, sum and first-ten summaries in document order. No corpus-wide postings, positions, token tape or phrase automaton is retained.
+Queries are parsed before the corpus. A collision-safe ASCII token dictionary retains only query-visible terms. Four workers scan disjoint document ranges. Boolean membership is accumulated in sparse 2,048-document bitmaps and evaluated left-to-right; phrase queries use a sampled rare-term anchor, then verify exact adjacent tokens while each document is in memory. The scan keeps neither a corpus-wide postings index nor a corpus-wide token tape. Workers reduce count, 64-bit ID sum, and the first ten IDs in document order, preserving query output order.
 
 ## Validation
 
-[Pinned production qualification](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41149282228) passes three full seeds, published sample/full hashes, an independent tiny reference, ASan/UBSan, TSan, expanded differential/adversarial oracles and restricted offline Docker. The oracle covers 338,000-term dictionary growth, all token lengths/alignment offsets and deliberate short/long CRC32C collisions. See PERF.md for full T/M/S/D/K comparisons. Runner measurements are not official board scores.
+The three-seed qualification [CI 41157659217](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41157659217) passed the published full seed-1 hash, independent full seed-2/3 Python references, randomized and adversarial differential tests, deliberate CRC32C collision cases, tiny/sample hashes, and pinned offline Docker. Three interleaved Docker measurements per seed gave runner-local median times of 0.579/0.573/0.575 s versus 0.677/0.671/0.668 s for the preceding streaming candidate; candidate peak memory was about 43 MiB. These are developer-runner measurements, not official board scores. See PERF.md for official results when available.
 
 ## Dependencies
 
 None beyond the C++ standard library and system C runtime. Build image is the pinned, organizer-allowlisted `gcc:15`; runtime image is the pinned `debian:13-slim`.
 
-## With another 24 hours
+## Further work
 
-Profile the streaming scan, compare block sizes by the full coefficient, and test faster dictionary probes and phrase-anchor layouts. The official integrator owns promotion and board measurements.
+Use official board evidence to assess this candidate against the prior champion, then tune bounded scan and bitmap costs only when exact multi-seed tests and the full score coefficient justify the change.

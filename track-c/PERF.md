@@ -567,3 +567,7 @@ All five gates passed on exact CI-tested source blob `59974fd6328c2fabb1154ac4cc
 ## Frontier PR #11 head trial
 
 Now testing current open PR head source blob `78503e708dccdbf484bb5dc1223a02705cfabb81` with matching PGO Dockerfile/generator. Roll back to parent `8df4a7a5` context if it fails or loses K.
+
+## Official board run — 2026-10-31 19:46 UTC
+
+Run `run-9722acb5cb38` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.096269 s, M=13,807,616 bytes, S=553, D=1, K=18.480714, points=61.504923. This exact PR #11 head added `#pragma GCC target("arch=x86-64-v3")` and regressed versus its previously tested predecessor. **BEST** remains `run-15adbc1f561c`, K=20.508340 (tested packed 48-byte source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`, Dockerfile, and generator context). Restore that tested revision; keep the PR-head regression informative and rejected.

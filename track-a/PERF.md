@@ -575,3 +575,11 @@ All five gates passed, but the candidate regressed: T=0.021915 s, M=24,838,144 B
 ## Official latest — run-b8ebedebd8ce (2026-10-31 19:42 UTC)
 
 All five gates passed on restored A champion. **LATEST:** T=0.021866 s, M=20,934,656 B, S=460, D=1, K=45.002111, points=82.661644. **BEST** remains `run-0577d3068f59` (K=45.837056).
+
+## Official board run — 2026-10-31 19:46 UTC
+
+Run `run-b8ebedebd8ce` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.021866 s, M=20,934,656 bytes, S=460, D=1, K=45.002111, points=80.306588. **BEST** remains `run-0577d3068f59`, K=45.837056 (same source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`).
+
+### Frontier PR #2 official trial
+
+Staged `sd-ta` PR #2 exact head `50b33bb7d0085acf296e5f34a55e30b4958fb07d` (source blob `24926c0187974683c9e96ebac46d48073d5907d5`) for official scoring. Exact-head CI run `41232109362` passed, including size regressions and ThreadSanitizer at 6 and 12 workers. Developer-reported 4-vCPU local CPU time 180→115 ms and wall time 52–60→36–39 ms; these are not official-box measurements. Known-good rollback remains source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`.

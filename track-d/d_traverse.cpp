@@ -577,6 +577,7 @@ int main() {
     if (const char* env = getenv("SD_PROBE")) probe = static_cast<uint32_t>(std::max(0, atoi(env)));
     Graph g = read_graph(data + "/graph.txt", threads);
     std::vector<Query> queries = read_queries(data + "/queries.txt", g);
+    g.perm.release();
     std::vector<int64_t> answers(queries.size(), -1);
     std::vector<uint32_t> schedule(queries.size());
     for (uint32_t i = 0; i < schedule.size(); ++i) schedule[i] = i;

@@ -613,3 +613,12 @@ Run `run-4af82d38aa0a`; all five gates passed on the unchanged C champion source
 ## Official board result — champion-only commit ac7ea0e (2026-10-31 21:15:54 UTC)
 
 Run `run-c797af1d84e8`; all five gates passed. T=0.077881 s, M=14,204,928 B, S=552, D=1, K=20.436196, points=65.520002. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890).
+
+
+## Official board result — commit 260134e (2026-10-31 21:23:17 UTC)
+
+Run `run-932de2fd192c`; all five gates passed. T=0.076685 s, M=14,290,944 B, S=552, D=1, K=20.570091, points=65.661811. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890). This scored the prior C source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`.
+
+## Mainline AVX2 quote-scan candidate — awaiting official validation
+
+Promoted developer main source blob `6b3f574b308b97bab15a23930ec9a09f6d18a666` after two independent full-PGO CI runs, [41243264138](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41243264138) and [41243555329](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41243555329). Both passed full seed-1 SHA-256, holdout full seeds 11/29, hostile parser cases, ASan/UBSan/TSan, pinned offline Docker, sandbox and independent references. The guarded AVX2/SSE2 quote scanner with scalar tail measured 109.171→104.134 ms (RSS 16,892→16,592 KiB) and 110.434→105.698 ms (RSS 17,020→16,572 KiB) on paired 12-trial developer runners; the estimated complete-K proxy was +2.15% in both trials. Source lines grew 469→488; formatter S and official cgroup M/K remain pending. Current official candidate is unchanged until board validation. Previous official C source remains in parent `260134e` for rollback.

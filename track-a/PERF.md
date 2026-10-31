@@ -639,3 +639,8 @@ Run `run-ae9dd9cbff75`; all five gates passed. T=0.017357 s, M=21,176,320 B, S=5
 ## Developer-main page-cache incremental trial (not submitted)
 
 Exact head `dffb9732e29da8f759cc54f37c38c5308fb96a40` advises newly completed page-aligned output ranges each hour. CI `41242567022` passed official hashes, differential tests, ASan/UBSan, TSan, offline Docker and full-input measurements against the exact qualified base. Local 31-run full-input median was 0.040140 s vs 0.040003 s (ratio 1.0034); RSS 238,052 vs 238,244 KiB; cgroup peak max 6,791,168 vs 7,512,064 B over five runs. These measurements are essentially neutral and code adds three net lines, so no official trial is planned. Keep source blob `24926c0187974683c9e96ebac46d48073d5907d5`.
+
+
+## Official board result — commit 260134e (2026-10-31 21:23:17 UTC)
+
+Run `run-be642e5327e0`; all five gates passed. T=0.018885 s, M=21,188,608 B, S=574, D=1, K=46.729231, points=83.479432. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).

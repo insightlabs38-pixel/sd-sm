@@ -630,3 +630,12 @@ Run `run-1b5d6f0f85e2`; all five gates passed. T=0.017067 s, M=22,142,976 B, S=5
 ## Developer-main batch-eviction experiment (not submitted)
 
 Current A main `e96477afdefbb530e105d19329ebdfa53d6fbe89` batches output `posix_fadvise` calls every four hours. Exact-head CI `41242381794` passed correctness, sanitizer, offline Docker and measurement steps. The workflow’s 31-run full-input median was 0.034935 s vs its six-worker baseline 0.034117 s (ratio 1.024); RSS was 247,588 vs 238,020 KiB, and five-run cgroup peak max was 17,633,280 vs 7,823,360 bytes. Reject pending stronger evidence; no official score claimed.
+
+
+## Official board result — champion-only commit ac7ea0e (2026-10-31 21:15:54 UTC)
+
+Run `run-ae9dd9cbff75`; all five gates passed. T=0.017357 s, M=21,176,320 B, S=574, D=1, K=48.748379, points=84.398009. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+## Developer-main page-cache incremental trial (not submitted)
+
+Exact head `dffb9732e29da8f759cc54f37c38c5308fb96a40` advises newly completed page-aligned output ranges each hour. CI `41242567022` passed official hashes, differential tests, ASan/UBSan, TSan, offline Docker and full-input measurements against the exact qualified base. Local 31-run full-input median was 0.040140 s vs 0.040003 s (ratio 1.0034); RSS 238,052 vs 238,244 KiB; cgroup peak max 6,791,168 vs 7,512,064 B over five runs. These measurements are essentially neutral and code adds three net lines, so no official trial is planned. Keep source blob `24926c0187974683c9e96ebac46d48073d5907d5`.

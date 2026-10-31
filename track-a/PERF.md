@@ -361,3 +361,12 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 
 - Candidate source blob `ea7cdf2a960168dd13a729baedca7ad3b990dde6` from `sd-ta/main` latest source commit `ff2073649af1fe8f2d0b33883c765e16458cdbe2`; latest documentation head `f1e501c88073b993c3253bdd74b195d7875e7677`. Default parser workers are capped at six physical P-cores; `SD_THREADS` remains available for validation.
 - Exact-source CI `41200171027` passed official hashes, seed-2/3 differential, adversarial ordering, ASan/UBSan, TSan and restricted offline Docker. Paired 31-run full medians: 0.041953 s before vs 0.041843 s after; median cgroup peak 6.93 vs 6.14 MB, with a prior 14.06 MB maximum outlier. Developer proxy estimates +2.6% K; this is not an official six-P-core measurement. Candidate board result is pending. Rollback to prior exact scored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is commit `7f6c7fd`.
+
+
+## Six-core default official trial — rejected, 2026-10-31
+
+- Run `run-183210913374` scored `ca8f1811fcefc6fdb6cc5678754f7387791f5f31`; all five gates passed. Candidate LATEST: T=0.028955 s, M=16,785,408 B, S=443, D=1, K=41.105096, points=80.694784. BEST remains `run-383d474cf6f7`, K=44.644027 on the prior source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`; the new default lost 7.93% K despite lower M. Restore that scored source; six-core-cap candidate `ea7cdf2a960168dd13a729baedca7ad3b990dde6` remains recoverable in `ca8f181`.
+
+## Official latest — 2026-10-31 12:21:24 UTC
+
+- **BEST:** `run-383d474cf6f7`, K=44.644027. **LATEST:** `run-183210913374`, T=0.028955 s, M=16,785,408 B, S=443, D=1, K=41.105096; all gates passed. Source is now restored to the BEST candidate pending a rescore.

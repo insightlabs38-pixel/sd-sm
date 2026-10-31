@@ -332,3 +332,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official candidate result — 2026-10-31 12:15:45 UTC
 
 - Board run `run-26bebca7d52d` scored `187269afc6efbeee7ac01b4f623f7c7f049ea44b`; all five gates passed. **LATEST and new BEST:** T=0.128998 s, M=10,719,232 B, S=518, D=1, K=16.959803, points=61.471040. Prior BEST `run-2e4a2fbbc969` had K=12.280222. K improved 38.11%, with 5.2% lower T and 78.9% lower M despite the larger source axis; promote source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33`. Rollback is parent commit `2b5afc9`, source blob `bdf2a15bc53d541b550536d292e43fc729575dbf`.
+
+
+## Official latest — 2026-10-31 12:21:24 UTC
+
+- **BEST:** `run-26bebca7d52d`, K=16.959803. **LATEST:** `run-c9eb30305694` on `ca8f1811fcefc6fdb6cc5678754f7387791f5f31`; all five gates passed. T=0.130200 s, M=10,522,624 B, S=518, D=1, K=16.943952, points=61.450736. This 0.09% difference is within run variation; retain the same source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33`.

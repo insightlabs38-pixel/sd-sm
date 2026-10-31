@@ -324,3 +324,12 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - Candidate source blob `2a7f4af8b6005b717f067d79be75a406a037d1a9` from `sd-td/main` HEAD `a78664ef5d8ce7b3986f54328430df793664d697`. It combines the developer's separately qualified four-worker graph-construction cap and exact-key bucket width 128. Their isolated pinned-Docker/full-output A/B runs are recorded above; their runner estimates are not official scores.
 - The combined exact source compiled with the official submission Dockerfile's GCC flags and passed 88 differential fixtures across 1/4/12 workers and six probe limits. Full-seed and official-board gates remain pending on this exact combined source. The parent commit preserves official BEST source `be15ac2e635af157cc8db71d2df5e218d0a78446` for rollback.
+
+
+## Combined-main official trial — rejected, 2026-10-31
+
+- Run `run-351558723173` scored `ca8f1811fcefc6fdb6cc5678754f7387791f5f31`; all five gates passed. Candidate LATEST: T=0.180488 s, M=77,778,944 B, S=823, D=1, K=21.000086, points=66.111054. BEST remains `run-68c15954870c`, K=24.163880. Despite 21.0% lower memory and 4.5% fewer source lines than BEST, T rose 47.6% and K fell 13.09%; reject the combined main candidate and restore source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` from parent `2b5afc9`. The trial source remains recoverable in `ca8f181`.
+
+## Official latest — 2026-10-31 12:21:24 UTC
+
+- **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-351558723173`, T=0.180488 s, M=77,778,944 B, S=823, D=1, K=21.000086; all gates passed. Known-good source is restored pending rescore.

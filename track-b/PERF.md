@@ -348,3 +348,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official candidate result — 2026-10-31 12:15:45 UTC
 
 - Board run `run-b198debee5e1` scored `187269afc6efbeee7ac01b4f623f7c7f049ea44b`; all five gates passed. Candidate LATEST: T=0.433684 s, M=29,081,600 B, S=874, D=1, K=17.753865, points=62.464646. BEST remains `run-04a7116196c9`, K=21.392007. Despite 32.1% lower memory, K fell 17.01% versus BEST, with slower T and 14 more source lines. Reject the 1024-block candidate and restore known-good source blob `30dcb9f6a6472f390a9513f5739fd040bd1bd3c9` from parent commit `2b5afc9`; the rejected `b49b7ed50b672c072709e93272a77e2a18f7e169` candidate remains recoverable in commit `187269a`.
+
+
+## Official latest — 2026-10-31 12:21:24 UTC
+
+- **BEST:** `run-04a7116196c9`, T=0.300165 s, M=42,844,160 B, S=860, D=1, K=21.392007. **LATEST:** `run-7449c0cc2695` on `ca8f1811fcefc6fdb6cc5678754f7387791f5f31`, T=0.300804 s, M=45,936,640 B, S=860, D=1, K=21.185901; all five gates passed. This is the known-good scanner source after the rejected block-size trial; the 0.96% K difference is ordinary single-run variation.

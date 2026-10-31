@@ -342,3 +342,9 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official latest — 2026-10-31 12:26:53 UTC
 
 - BEST remains `run-26bebca7d52d`, K=16.959803. LATEST `run-ed1504154f56` on `f3b24e34ddb937f3bca3317cfd5d79bf021509fa` passed all gates: T=0.128603 s, M=10,866,688 B, S=518, D=1, K=16.939478, points=61.445001. The 0.12% difference is within run variation; keep source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33`.
+
+
+## Staged exact-name prefetch trial — pending official board
+
+- Candidate source blob `dad49158dad5f90d32ab5eb307eb9a62e138723e` from `sd-tc/main` HEAD `b29de1927e809a2d0bf89ea0d6e236dcef3d2e85`. It prefetches the exact-name shard slot while the CSV parser processes the intervening note/amount fields. Exact-source CI `41201156576` and paired comparison `41201287339` passed.
+- Across 12 paired full-seed runner trials, baseline `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` median was 146.629 ms / 16,918 KiB; candidate was 140.258 ms / 16,916 KiB. This is developer-runner evidence, not scoring-box T/M/K. Candidate adds four source lines; board result is pending. Parent `476d415` preserves C BEST source `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` for rollback.

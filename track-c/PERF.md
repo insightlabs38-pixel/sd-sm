@@ -632,3 +632,8 @@ Run `run-ac0bb7bc352e`; all five gates passed. T=0.074156 s, M=14,467,072 B, S=5
 ## Official board result — commit 62eaaeb (2026-10-31 23:10:08 UTC)
 
 Run `run-2984194a5a86`; all five gates passed. T=0.081396 s, M=14,643,200 B, S=552, D=1, K=19.868949, points=64.908744. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890). This measured the restored known-good source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`; runtime variation worsened the repeated score, with no source change.
+
+
+## Official board result — commit 97ebf28 (2026-10-31 23:15:08 UTC)
+
+Run `run-33cbfdcb15ee`; all five gates passed. T=0.074595 s, M=14,184,448 B, S=552, D=1, K=20.887491, points=65.994313. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890).

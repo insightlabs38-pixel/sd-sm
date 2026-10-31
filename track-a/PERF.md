@@ -655,6 +655,11 @@ Run `run-cc8e89b28794`; all five gates passed. T=0.022193 s, M=20,975,616 B, S=5
 
 Run `run-aaa6c2267f2d`; all five gates passed. T=0.019977 s, M=21,442,560 B, S=574, D=1, K=45.325974, points=82.817357. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
 
-## Frontier PR #3 candidate — official validation pending
+## Frontier PR #3 candidate — rejected by official score
 
-Imported only track-a/main.cpp from PR #3 head `ac9ff0330732506848426209b86d9f5739d662f6`; source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` exactly matches the source tested by CI `41233423569` (run head `db4c98a`). Developer CI reports all gates passed, 4-vCPU median 0.780x the pinned champion, with memory.peak 6.02 vs 5.73 MB. That is promising runtime evidence with a modest memory increase; official six-P-core T/M/S/D/K is pending. The PR also contains a generated pyc test artifact; it is excluded from the official import. Previous A champion remains in parent `62eaaeb` for rollback.
+Imported only track-a/main.cpp from PR #3 head `ac9ff0330732506848426209b86d9f5739d662f6`; source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` exactly matches the source tested by CI `41233423569` (run head `db4c98a`). Developer CI reports all gates passed, 4-vCPU median 0.780x the pinned champion, with memory.peak 6.02 vs 5.73 MB. That is promising runtime evidence with a modest memory increase; official run on commit 97ebf28 passed all gates but scored K=46.473909, below BEST K=49.769039; candidate rejected, prior source retained for rollback. The PR also contains a generated pyc test artifact; it is excluded from the official import. Previous A champion remains in parent `62eaaeb` for rollback.
+
+
+## Official board result — commit 97ebf28 (2026-10-31 23:15:08 UTC)
+
+Run `run-63dc03eb17bc`; all five gates passed. T=0.019015 s, M=21,131,264 B, S=584, D=1, K=46.473909, points=83.360460. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039). The PR #3 source candidate was not promoted.

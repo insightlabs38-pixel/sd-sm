@@ -606,3 +606,12 @@ Run `run-1fa5e49b227a`; all five gates passed. T=0.241481 s, M=51,261,440 B, S=9
 ## Official board result — commit 62eaaeb (2026-10-31 23:10:08 UTC)
 
 Run `run-d7dca2163975`; all five gates passed. T=0.296217 s, M=49,061,888 B, S=925, D=1, K=20.841081, points=65.946012. **LATEST**; **BEST** remains `run-dcebadac870d` (K=23.250490).
+
+
+## Official board result — commit 97ebf28 (2026-10-31 23:15:08 UTC)
+
+Run `run-86c43d2bc561`; all five gates passed. T=0.238310 s, M=51,306,496 B, S=925, D=1, K=23.028650, points=68.113424. **LATEST**; **BEST** remains `run-dcebadac870d` (K=23.250490).
+
+## Frontier PR #5 — official validation pending
+
+PR #5 head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `510c2a13dccb26c712ff2239000817dd5b4a900a`, exactly matches `main.cpp` tested by successful qualification CI `41159913998` (run source commit `1b53682`). Differential/full seeds, ASan/UBSan, TSan and pinned offline Docker checks passed. Developer-run full seeds 1/2/3 measured T=0.610445/0.620926/0.606104 s and M=41,934,848/41,828,352/41,570,304 B at S=781, D=1; these local numbers are not official scoring-box evidence. PR #6 is dominated locally (slower and higher memory), so #5 is tested first. Official T/M/S/D/K pending; previous B champion remains in parent `97ebf28` for rollback.

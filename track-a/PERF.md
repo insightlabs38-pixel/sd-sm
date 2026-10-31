@@ -262,3 +262,8 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 
 - Scored commit `f91d9c075066881eb480cd7d27a9f33bfdc43350`; build, check, correctness, timeout and sandbox gates all passed. T=0.065495 s, M=44,552,192 B, S=319, D=1, K=23.618804, points=68.662895.
 - Against prior BEST `run-925ee63e320b` (T=0.066078 s, M=44,474,368 B, S=321, K=23.500561), K improved 0.50%, T improved 0.88%, and measured S fell by 2. A source trial is therefore promoted; parent source remains the rollback checkpoint.
+
+
+## Official baseline before Track B hybrid trial — raw feed 2026-10-31 04:14 UTC
+
+On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, latest run `run-d53d14fca94c` passed all five gates: T=0.065558 s, M=43,933,696 B, S=319, D=1, K=23.673550, points=68.713170. BEST is the same run. The baseline precedes the controlled Track B trial.

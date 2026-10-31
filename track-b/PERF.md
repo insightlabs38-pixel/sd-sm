@@ -270,3 +270,14 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 ## Unchanged B source rescored — run `run-ed9009e37ba4`
 
 - Scored on commit `f91d9c075066881eb480cd7d27a9f33bfdc43350`; all five gates passed. T=0.484438 s, M=47,280,128 B, S=742, D=1, K=16.969925, points=61.483996. This set a new BEST on the existing B source, up from `run-de8c2b3fc7da` K=16.912119; no B code was changed.
+
+
+## Official baseline before six-worker hybrid trial — raw feed 2026-10-31 04:14 UTC
+
+On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, LATEST `run-061719b36232` passed all five gates: T=0.480930 s, M=49,573,888 B, S=742, D=1, K=16.871093, points=61.357161. BEST remains `run-ed9009e37ba4` on `f91d9c0`: T=0.484438 s, M=47,280,128 B, S=742, D=1, K=16.969925, points=61.483996.
+
+## Controlled six-worker hybrid trial — official score pending
+
+- Imported Track B source blob `e97e6f5e0045d64771180d59c57b3115cc742abb` from PR #7 head `ca9fb5fabeeed55830243f533d965667c4e72275`. Its exact source blob was present in qualification commit `7dad9d2`; CI run [41165413401](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41165413401) passed three full-seed references/hashes, expanded differential/adversarial tests, ASan/UBSan, TSan, and pinned offline Docker. Candidate Dockerfile and manifest match the official files; D=1.
+- Developer five-run trimmed full-seed measurements: T=0.334020/0.331050/0.335371 s; M=37,122,048/37,105,664/37,085,184 B; S=857; K_local=20.289576/20.380386/20.248668. These are runner results, not official scores; reported K gain is about 4% over the same-run official source.
+- Prior official source blob `4b386e5587b690f2b12a9f2cd6d9d59cb178594d` is preserved in parent commit `ec1140f` for rollback. Merge PR #7 only if the official run passes all gates and beats BEST.

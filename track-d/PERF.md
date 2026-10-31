@@ -239,3 +239,8 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 - Official run `run-68c15954870c` on submission commit `f91d9c075066881eb480cd7d27a9f33bfdc43350` passed all five gates. T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
 - Against prior BEST `run-1cbdf9e4a82e` (T=0.132055 s, M=98,439,168 B, S=728, K=23.855961), K improved 1.29%, T improved 7.38%, and M was effectively flat. PR #4 was merged to development main as `708739017c667e52c7ab69a0244edd9c3f875bee`; official parent `a30276e` retains the rollback source.
 - The current public S3 board feed does not retain the older PR #3 trial in its BEST/LATEST records or 50-event tape, so its historical run remains unverified from that feed.
+
+
+## Official baseline before Track B trial — raw feed 2026-10-31 04:14 UTC
+
+On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, LATEST `run-8c6b68249ccd` passed all five gates: T=0.123800 s, M=98,553,856 B, S=862, D=1, K=24.016322, points=69.025325. BEST remains `run-68c15954870c` on `f91d9c0`: T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.

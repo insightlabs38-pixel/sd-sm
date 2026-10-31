@@ -262,3 +262,8 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 
 - Candidate source blob `ff0988db10568f3453c6f1f51564353c7a6130fc` scored as `run-fc7105cf4e5c` on commit `f91d9c075066881eb480cd7d27a9f33bfdc43350`. All five gates passed, but T=0.243243 s, M=17,969,152 B, S=578, D=1, K=10.956696, points=51.983981.
 - Versus prior BEST `run-2e4a2fbbc969` (T=0.136063 s, M=50,782,208 B, S=469, K=12.280222), K fell 10.78%; lower memory did not offset 78.8% slower T and the larger S. Reverted to source blob `bdf2a15bc53d541b550536d292e43fc729575dbf` and the prior Dockerfile. The candidate remains recoverable in commit `f91d9c0`.
+
+
+## Official baseline before Track B trial — raw feed 2026-10-31 04:14 UTC
+
+On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, LATEST `run-7079d672ee40` passed all five gates: T=0.139381 s, M=51,015,680 B, S=469, D=1, K=12.122049, points=54.178801. BEST remains `run-2e4a2fbbc969` (K=12.280222, points=54.460311). The baseline includes the rollback from the regressed C trial.

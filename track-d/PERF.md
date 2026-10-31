@@ -162,9 +162,9 @@ Watcher healthy at `09ee42d8656b9b599401140eb38d5d76b07a7566`, queue idle; all f
 - **LATEST:** `run-8a414d83e226`, commit `09ee42d8656b9b599401140eb38d5d76b07a7566`; T=0.133086 s, M=98,922,496 bytes, S=727, D=1, K=23.745005, points=68.778613.
 
 
-## D frontier PR #2 memory-release follow-up — pending official score
+## D frontier PR #2 memory-release follow-up — official BEST
 
-Latest PR head `f726b0da448c469ee2625125d29e7c12824d04db` changes only `g.perm.release()` after query translation; source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60`. CI [41154994513](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41154994513) passed random/adversarial differential, official generated/full seed-1 outputs, and pinned Docker sample/full byte comparison. This frees graph permutation storage before solving queries. The parent source scored K=23.745005 on `run-8a414d83e226`; the official follow-up result below improved M by 8,192 bytes and T by 0.6%, with source S increasing from 727 to 728.
+Latest PR head `f726b0da448c469ee2625125d29e7c12824d04db` changes only `g.perm.release()` after query translation; source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60`. CI [41154994513](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41154994513) passed random/adversarial differential, official generated/full seed-1 outputs, and pinned Docker sample/full byte comparison. This frees graph permutation storage before solving queries. The original frontier source scored K=23.745005 on `run-8a414d83e226`; memory-release follow-up scored K=23.812720 on `run-d3f15b874887`, then K=23.855961 on the exact same source in `run-1cbdf9e4a82e`.
 
 
 ## Official board results — raw feed observed 2026-10-31 01:31:36 UTC
@@ -173,3 +173,11 @@ Watcher healthy at `ed14252dd1ed2a882887dffd6bb61950f03a1c85`, queue idle; all f
 
 - **BEST:** `run-d3f15b874887`, commit `ed14252dd1ed2a882887dffd6bb61950f03a1c85`; T=0.132280 s, M=98,914,304 bytes, S=728, D=1, K=23.812720, points=68.840450.
 - **LATEST:** `run-d3f15b874887`, commit `ed14252dd1ed2a882887dffd6bb61950f03a1c85`; T=0.132280 s, M=98,914,304 bytes, S=728, D=1, K=23.812720, points=68.840450.
+
+
+## Official board results — raw feed observed 2026-10-31 01:36:50 UTC
+
+Watcher healthy at `03742f51c5f91e7313584860fb6de63ad83fbae4`, queue idle; all five gates passed for all tracks, failure null.
+
+- **BEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.
+- **LATEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.

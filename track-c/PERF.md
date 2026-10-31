@@ -241,7 +241,7 @@ Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All f
 
 ## Official rollback snapshot — raw feed 2026-10-31 01:55 UTC
 
-`run-4b4cc28df120` scored commit `4567e5529f0418efdd26c132701f1bf296bcb49d`; all five gates passed, failure null. This commit restores the exact C source blob measured as BEST. The restored source compiled with official static GCC flags and passed the organizer Track C suite (14 tests). **LATEST:** T=0.138231 s, M=52,301,824 bytes, S=469, D=1, K=12.111905, points=54.160623. **BEST:** `run-2e4a2fbbc969`, K=12.280222, points=54.460311.
+`run-4b4cc28df120` scored commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; all five gates passed, failure null. This commit restores the exact C source blob measured as BEST. The restored source compiled with official static GCC flags and passed the organizer Track C suite (14 tests). **LATEST:** T=0.138231 s, M=52,301,824 bytes, S=469, D=1, K=12.111905, points=54.160623. **BEST:** `run-2e4a2fbbc969`, K=12.280222, points=54.460311.
 
 ## Official board snapshot — raw feed 2026-10-31 02:00:12 UTC
 
@@ -251,3 +251,13 @@ Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All f
 ## Official board results — raw feed observed 2026-10-31 03:05:10 UTC
 
 The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Run `run-6c39970c0495` on this commit passed build, check, correctness, timeout and sandbox gates. LATEST: T=0.138119 s, M=52,023,296 bytes, S=469, D=1, K=12.129762, points=54.192613. BEST remains `run-2e4a2fbbc969`: T=0.136063 s, M=50,782,208 bytes, S=469, D=1, K=12.280222, points=54.460311. This run did not replace BEST; retain the current source and track rollback history.
+
+
+## Board baseline before multi-track trial — raw S3 feed 2026-10-31 03:49:18 UTC
+
+- **BEST:** `run-2e4a2fbbc969`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.136063 s, M=50,782,208 B, S=469, D=1, K=12.280222, points=54.460311.
+- **LATEST:** `run-5a8a10bf4170`, official HEAD `a30276e460e00aa279aa41cca913a10a90a1a6a8`; T=0.138776 s, M=51,122,176 B, S=469, D=1, K=12.143378, points=54.216975. All five gates passed.
+
+## C source trial — pending official board
+
+- Imported developer main `c7d3912d299077613152f516cf499b2a4502ac44`, source blob `ff0988db10568f3453c6f1f51564353c7a6130fc`; the identical source blob passed CI `41164459698` at `81a6db3344235ab150a137d6e3d9accbfe013860` (tiny/sample/full oracle, pinned offline Docker, and sandbox hash gates). Five local full-data rounds reported 0.18 s vs 0.19 s and 24,648 vs 24,420 KiB RSS; coarse timer granularity and source growth make this a trial only. Imported its pinned x86-64-v3 Dockerfile; board-measured S/T/M/K will decide. **Official run: pending.** Rollback: parent `a30276e`.

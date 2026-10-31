@@ -227,3 +227,14 @@ Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All f
 ## Official board results — raw feed observed 2026-10-31 03:05:10 UTC
 
 The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Run `run-7c68bd0fe260` on this commit passed build, check, correctness, timeout and sandbox gates. LATEST: T=0.132803 s, M=98,938,880 bytes, S=728, D=1, K=23.764604, points=68.796529. BEST remains `run-1cbdf9e4a82e`: T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845. This run did not replace BEST; retain the current source and track rollback history.
+
+
+## Board baseline before multi-track trial — raw S3 feed 2026-10-31 03:49:18 UTC
+
+- **BEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 B, S=728, D=1, K=23.855961, points=68.879845.
+- **LATEST:** `run-25ef61c7d0e6`, official HEAD `a30276e460e00aa279aa41cca913a10a90a1a6a8`; T=0.142934 s, M=98,377,728 B, S=728, D=1, K=22.932996, points=68.023039. All five gates passed.
+
+## D PR #4 contraction trial — pending official board
+
+- PR `sd-td#4`, head `dddb9bb64c4b0838a658dec641b01cdbfa39405f`; source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. Source-qualified run `41164595746` on commit `0645e3755abd1b8dfe0b756645848cfeadca2e2c` passed Python reference/output hashes, stress, ASan/UBSan, TSan, and pinned Docker at 1/4/12 workers.
+- Developer's interleaved local comparison: 0.245 vs 0.271 s (4-core; 41 rounds) and 74.8 vs 81.5 MB at 12 threads; formatted lines 855 vs 721. The board run decides the transfer. **Official run: pending.** Rollback: parent `a30276e`; prior source remains in Git history.

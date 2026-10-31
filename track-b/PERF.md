@@ -260,3 +260,9 @@ Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All f
 ## Official board results — raw feed observed 2026-10-31 03:05:10 UTC
 
 The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Run `run-e7ef1e703252` on this commit passed build, check, correctness, timeout and sandbox gates. LATEST: T=0.489432 s, M=50,085,888 bytes, S=742, D=1, K=16.689584, points=61.122275. BEST remains `run-de8c2b3fc7da`: T=0.488654 s, M=47,063,040 bytes, S=742, D=1, K=16.912119, points=61.409902. This run did not replace BEST; retain the current source and track rollback history.
+
+
+## Board baseline before multi-track trial — raw S3 feed 2026-10-31 03:49:18 UTC
+
+- **BEST:** `run-de8c2b3fc7da`, commit `8d5bc54c93a054ba70e651a7d9b802fcf9140276`; T=0.488654 s, M=47,063,040 B, S=742, D=1, K=16.912119, points=61.409902.
+- **LATEST:** `run-4fbd4821490a`, official HEAD `a30276e460e00aa279aa41cca913a10a90a1a6a8`; T=0.508939 s, M=47,771,648 B, S=742, D=1, K=16.522199, points=60.903392. All five gates passed. B PRs #5/#6 were reviewed but not included: their reported seed-1 local K (15.218973 / 14.881114) is below the official BEST and remains a scoring-box experiment only.

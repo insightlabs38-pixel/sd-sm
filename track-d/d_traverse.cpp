@@ -93,7 +93,7 @@ struct MappedFile {
 
 // Search CSR with 4-byte edges: head in the high bits, weight in the low bits; weights that do not fit
 // store the all-ones marker and live in a sorted escape table keyed by edge index.
-static unsigned id_bits(uint32_t n) {
+static unsigned id_bits(uint64_t n) {
     unsigned bits = 1;
     while (bits < 32 && (uint64_t(1) << bits) < n) ++bits;
     return bits;
@@ -101,20 +101,21 @@ static unsigned id_bits(uint32_t n) {
 
 struct Packed {
     Array<uint32_t> off, adj;
-    std::vector<std::pair<uint32_t, uint32_t>> escapes;
+    std::vector<std::pair<uint32_t, uint64_t>> escapes;
     unsigned wbits = 0;
-    uint32_t mask = 0;
+    uint32_t mask = 0, dead = 0; // `dead` is a head one past the last id: an edge that leads nowhere
     Packed() = default;
     Packed(uint32_t n, size_t m) : off(size_t(n) + 1), adj(m) {
-        wbits = 32 - id_bits(n);
+        wbits = 32 - id_bits(uint64_t(n) + 1); // room for one past the last id, used as a marker
         mask = (uint32_t(1) << wbits) - 1;
+        dead = n << wbits;
     }
-    uint32_t pack(uint32_t head, uint32_t w) const { return head << wbits | std::min(w, mask); }
+    uint32_t pack(uint32_t head, uint64_t w) const { return head << wbits | static_cast<uint32_t>(std::min<uint64_t>(w, mask)); }
     uint32_t head(uint32_t e) const { return e >> wbits; }
-    uint32_t weight(uint32_t i) const {
+    uint64_t escape(uint32_t i) const { return std::lower_bound(escapes.begin(), escapes.end(), std::make_pair(i, uint64_t(0)))->second; }
+    uint64_t weight(uint32_t i) const {
         uint32_t w = adj[i] & mask;
-        if (w != mask) return w;
-        return std::lower_bound(escapes.begin(), escapes.end(), std::make_pair(i, uint32_t(0)))->second;
+        return w != mask ? w : escape(i);
     }
 };
 
@@ -164,7 +165,7 @@ static Packed bins_to_csr(const std::vector<Binner>& bins, uint32_t n, unsigned 
         for (const Binner& bin : bins) for (auto& run : bin.runs(b)) base[b + 1] += run.second;
     }
     Packed g(n, base[buckets]);
-    std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
+    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> escapes(threads);
     g.off[n] = static_cast<uint32_t>(base[buckets]);
     std::atomic<size_t> next{0};
     const unsigned bits = id_bits(n);
@@ -226,6 +227,86 @@ struct Graph {
     Array<uint32_t> perm; // original id -> search id
 };
 
+// A raw edge whose walk through bypassable vertices is still going.
+struct Walk { uint32_t edge, root, prev, at; uint64_t weight; unsigned steps; };
+
+constexpr size_t BLOCK = 512;
+using Bits = std::vector<uint64_t>;
+static bool test(const Bits& bits, uint32_t v) { return bits[v >> 6] >> (v & 63) & 1; }
+
+// Rewrites raw edges in place. A vertex with out-degree <= 2 that is not a query endpoint is skipped while exactly one
+// way leads on, so only surviving heads remain; `dead` edges lead nowhere. Walks of a block advance one hop per round,
+// so their cache misses overlap, and read only a snapshot of the bypassable vertices' edges.
+static void bypass_edges(Packed& raw, uint32_t n, const Bits& bypass, unsigned threads) {
+    Array<uint64_t> ways(n);
+    blocked(threads, n, [&](size_t lo, size_t hi) {
+        for (size_t x = lo; x < hi; ++x)
+            if (test(bypass, x)) {
+                uint32_t b = raw.off[x], e = raw.off[x + 1];
+                ways[x] = (e > b ? raw.adj[b] : raw.dead) | (uint64_t(e > b + 1 ? raw.adj[b + 1] : raw.dead) << 32);
+            }
+    });
+    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> fresh(threads);
+    std::vector<std::vector<uint32_t>> stale(threads);
+    parallel(threads, [&](unsigned t) {
+        std::vector<Walk> walks, onward;
+        std::vector<uint32_t> starts;
+        auto finish = [&](uint32_t edge, uint32_t head, uint64_t w) {
+            raw.adj[edge] = raw.pack(head, w);
+            if (w >= raw.mask) fresh[t].push_back({edge, w});
+        };
+        size_t lo = size_t(n) * t / threads, hi = size_t(n) * (t + 1) / threads;
+        for (size_t block = lo; block < hi; block += BLOCK) {
+            size_t top = std::min(hi, block + BLOCK);
+            uint32_t first = raw.off[block], last = raw.off[top];
+            starts.resize(last - first);
+            size_t count = 0;
+            for (uint32_t i = first; i < last; ++i) {
+                starts[count] = i;
+                count += test(bypass, raw.head(raw.adj[i]));
+            }
+            walks.clear();
+            uint32_t u = block;
+            for (size_t k = 0; k < count; ++k) {
+                uint32_t i = starts[k], y = raw.head(raw.adj[i]);
+                while (raw.off[u + 1] <= i) ++u;
+                if ((raw.adj[i] & raw.mask) == raw.mask) stale[t].push_back(i);
+                if (y == u) raw.adj[i] = raw.dead;
+                else walks.push_back({i, u, u, y, raw.weight(i), 0});
+            }
+            while (!walks.empty()) {
+                for (const Walk& w : walks) __builtin_prefetch(&ways[w.at]);
+                onward.clear();
+                for (Walk& w : walks) {
+                    uint32_t ahead = 0, next = w.at, word = 0, which = 0;
+                    for (unsigned k = 0; k < 2; ++k) {
+                        uint32_t e = static_cast<uint32_t>(ways[w.at] >> (32 * k));
+                        if (e == raw.dead) continue;
+                        uint32_t y = raw.head(e);
+                        if (y != w.prev && y != w.at) { ++ahead; next = y; word = e; which = k; }
+                    }
+                    if (ahead > 1) { finish(w.edge, w.at, w.weight); continue; }
+                    if (ahead == 0 || next == w.root) { raw.adj[w.edge] = raw.dead; continue; }
+                    w.weight += (word & raw.mask) == raw.mask ? raw.escape(raw.off[w.at] + which) : (word & raw.mask);
+                    w.prev = w.at;
+                    w.at = next;
+                    if (!test(bypass, next) || ++w.steps == 64) finish(w.edge, next, w.weight);
+                    else onward.push_back(w);
+                }
+                walks.swap(onward);
+            }
+        }
+    });
+    std::vector<uint32_t> gone;
+    for (auto& v : stale) gone.insert(gone.end(), v.begin(), v.end());
+    std::sort(gone.begin(), gone.end());
+    std::vector<std::pair<uint32_t, uint64_t>> merged;
+    for (auto& e : raw.escapes) if (!std::binary_search(gone.begin(), gone.end(), e.first)) merged.push_back(e);
+    for (auto& v : fresh) merged.insert(merged.end(), v.begin(), v.end());
+    std::sort(merged.begin(), merged.end());
+    raw.escapes.swap(merged);
+}
+
 // One BFS region: nodes in discovery order and their out-degrees.
 struct Region {
     Array<uint32_t> order, degree;
@@ -256,27 +337,36 @@ static void grow(const Packed& raw, Claims& claims, Region& r) {
     for (; head < len; ++head) {
         if (head + 16 < len) __builtin_prefetch(&raw.off[order[head + 16]]);
         if (head + 8 < len) __builtin_prefetch(&raw.adj[raw.off[order[head + 8]]]);
-        uint32_t u = order[head], b = raw.off[u], e = raw.off[u + 1];
-        degree[head] = e - b;
-        edges += e - b;
-        for (uint32_t i = b; i < e; ++i)
+        uint32_t u = order[head], live = 0;
+        for (uint32_t i = raw.off[u]; i < raw.off[u + 1]; ++i) {
+            if (raw.adj[i] == raw.dead) continue;
+            ++live;
             if (claims.take(raw.head(raw.adj[i]))) order[len++] = raw.head(raw.adj[i]);
+        }
+        degree[head] = live;
+        edges += live;
     }
     r.len = len;
     r.expanded = head;
     r.edges = edges;
 }
 
-// Search ids follow concurrent BFS regions grown from scattered seeds, so graph neighbours stay close in memory.
-static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
+// Search ids follow concurrent BFS regions grown from scattered seeds over the surviving vertices, so neighbours stay
+// close in memory. Query endpoints survive; other low-degree vertices are replaced by shortcut edges.
+static Graph reorder(Packed& raw, uint32_t n, const std::vector<uint8_t>& terminal, unsigned threads) {
     Graph g;
-    g.n = n;
+    Bits bypass((size_t(n) + 63) / 64, 0);
+    blocked(threads, bypass.size(), [&](size_t lo, size_t hi) {
+        for (size_t x = lo * 64; x < std::min<size_t>(n, hi * 64); ++x)
+            if (!terminal[x] && raw.off[x + 1] - raw.off[x] <= 2) bypass[x >> 6] |= 1ull << (x & 63);
+    });
+    bypass_edges(raw, n, bypass, threads);
     Claims claims(n);
     std::vector<Region> regions(threads + 1);
     for (unsigned t = 0; t <= threads; ++t) { regions[t].order = Array<uint32_t>(n, true); regions[t].degree = Array<uint32_t>(n, true); }
     for (unsigned t = 0; t < threads; ++t) {
         for (uint32_t i = 0, r = static_cast<uint32_t>(uint64_t(n) * t / threads); i < n; ++i, r = r + 1 == n ? 0 : r + 1)
-            if (raw.off[r + 1] - raw.off[r] >= 2) {
+            if (!test(bypass, r) && raw.off[r + 1] - raw.off[r] >= 2) {
                 if (claims.take(r)) regions[t].order[regions[t].len++] = r;
                 break;
             }
@@ -286,15 +376,16 @@ static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
     for (size_t w = 0; w < claims.words(); ++w)
         for (uint64_t free = ~claims.word(w); free; free &= free - 1) {
             uint32_t v = static_cast<uint32_t>(w * 64 + __builtin_ctzll(free));
-            if (v < n && claims.take(v)) { rest.order[rest.len++] = v; grow(raw, claims, rest); }
+            if (v < n && !test(bypass, v) && claims.take(v)) { rest.order[rest.len++] = v; grow(raw, claims, rest); }
         }
 
     std::vector<uint32_t> base(threads + 2, 0);
     std::vector<uint64_t> ebase(threads + 2, 0);
     for (unsigned t = 0; t <= threads; ++t) { base[t + 1] = base[t] + regions[t].len; ebase[t + 1] = ebase[t] + regions[t].edges; }
-    Array<uint32_t> order(n), degree(n);
+    g.n = base[threads + 1];
+    Array<uint32_t> order(g.n);
     g.perm = Array<uint32_t>(n);
-    g.fwd = Packed(n, ebase[threads + 1]);
+    g.fwd = Packed(g.n, ebase[threads + 1]);
     parallel(threads + 1, [&](unsigned t) {
         const Region& r = regions[t];
         uint64_t sum = ebase[t];
@@ -305,17 +396,19 @@ static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
             sum += r.degree[i];
         }
     });
-    g.fwd.off[n] = static_cast<uint32_t>(ebase[threads + 1]);
+    g.fwd.off[g.n] = static_cast<uint32_t>(ebase[threads + 1]);
     regions.clear();
-    std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
+    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> escapes(threads);
     parallel(threads, [&](unsigned t) {
-        for (size_t k = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; k < hi; ++k) {
+        for (size_t k = size_t(g.n) * t / threads, hi = size_t(g.n) * (t + 1) / threads; k < hi; ++k) {
             if (k + 8 < hi) __builtin_prefetch(&raw.adj[raw.off[order[k + 8]]]);
             uint32_t o = order[k], pos = g.fwd.off[k];
-            for (uint32_t i = raw.off[o]; i < raw.off[o + 1]; ++i, ++pos) {
-                uint32_t w = raw.weight(i);
+            for (uint32_t i = raw.off[o]; i < raw.off[o + 1]; ++i) {
+                if (raw.adj[i] == raw.dead) continue;
+                uint64_t w = raw.weight(i);
                 g.fwd.adj[pos] = g.fwd.pack(g.perm[raw.head(raw.adj[i])], w);
                 if (w >= g.fwd.mask) escapes[t].push_back({pos, w});
+                ++pos;
             }
         }
     });
@@ -352,11 +445,12 @@ static void add_reverse(Graph& g, unsigned threads) {
     blocked(threads, m, [&](size_t lo, size_t hi) { for (size_t i = lo; i < hi; ++i) bump(g.rev.off[g.fwd.head(g.fwd.adj[i])]); });
     Array<uint32_t> cursor(n);
     g.rev.off[n] = scan(g.rev.off.p, g.rev.off.p, n, threads, cursor.p);
-    std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
+    std::vector<std::vector<std::pair<uint32_t, uint64_t>>> escapes(threads);
     parallel(threads, [&](unsigned t) {
         for (size_t u = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; u < hi; ++u)
             for (uint32_t i = g.fwd.off[u]; i < g.fwd.off[u + 1]; ++i) {
-                uint32_t w = g.fwd.weight(i), pos = bump(cursor[g.fwd.head(g.fwd.adj[i])]);
+                uint64_t w = g.fwd.weight(i);
+                uint32_t pos = bump(cursor[g.fwd.head(g.fwd.adj[i])]);
                 g.rev.adj[pos] = g.rev.pack(static_cast<uint32_t>(u), w);
                 if (w >= g.rev.mask) escapes[t].push_back({pos, w});
             }
@@ -365,7 +459,9 @@ static void add_reverse(Graph& g, unsigned threads) {
     std::sort(g.rev.escapes.begin(), g.rev.escapes.end());
 }
 
-static Graph read_graph(const std::string& path, unsigned threads) {
+struct Query { uint32_t from, to; };
+
+static Graph read_graph(const std::string& path, const std::vector<Query>& queries, unsigned threads) {
     MappedFile file(path);
     const char* p = file.data;
     const char* end = p + file.size;
@@ -378,22 +474,22 @@ static Graph read_graph(const std::string& path, unsigned threads) {
         Packed raw = bins_to_csr(bins, n, shift, threads);
         parallel(threads, [&](unsigned t) { bins[t].discard(); });
         bins.clear();
-        g = reorder(raw, n, threads);
+        std::vector<uint8_t> terminal(n, 0);
+        for (const Query& q : queries) terminal[q.from] = terminal[q.to] = 1;
+        g = reorder(raw, n, terminal, threads);
     }
     add_reverse(g, threads);
     return g;
 }
 
-struct Query { uint32_t from, to; };
-
-static std::vector<Query> read_queries(const std::string& path, const Graph& g) {
+static std::vector<Query> read_queries(const std::string& path) {
     MappedFile file(path);
     std::vector<Query> result;
     const char* p = file.data;
     const char* end = p + file.size;
     while (p < end) {
         uint32_t s = number(p, end), t = number(p, end);
-        result.push_back({g.perm[s], g.perm[t]});
+        result.push_back({s, t});
     }
     return result;
 }
@@ -513,7 +609,8 @@ struct Side {
             if (dist.get(u) != d) continue;
             ++count;
             for (uint32_t i = off[u], last = off[u + 1]; i < last; ++i) {
-                uint32_t e = adj[i], v = e >> wbits, w = e & wmask;
+                uint32_t e = adj[i], v = e >> wbits;
+                uint64_t w = e & wmask;
                 if (w == wmask) w = csr.weight(i);
                 uint64_t nd = d + w;
                 if (dist.lower(v, nd)) {
@@ -575,8 +672,9 @@ int main() {
     if (const char* env = getenv("SD_THREADS")) threads = std::max(1, std::min(64, atoi(env)));
     uint32_t probe = 256;
     if (const char* env = getenv("SD_PROBE")) probe = static_cast<uint32_t>(std::max(0, atoi(env)));
-    Graph g = read_graph(data + "/graph.txt", threads);
-    std::vector<Query> queries = read_queries(data + "/queries.txt", g);
+    std::vector<Query> queries = read_queries(data + "/queries.txt");
+    Graph g = read_graph(data + "/graph.txt", queries, threads);
+    for (Query& q : queries) { q.from = g.perm[q.from]; q.to = g.perm[q.to]; }
     g.perm.release();
     std::vector<int64_t> answers(queries.size(), -1);
     std::vector<uint32_t> schedule(queries.size());

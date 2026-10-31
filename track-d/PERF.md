@@ -574,6 +574,11 @@ Run `run-9dc94daabc82`; all five gates passed on the restored D champion source 
 Run `run-875f39c7d6bf`; all five gates passed. T=0.133503 s, M=99,045,376 B, S=862, D=1, K=23.104107, points=68.184459. **LATEST**; **BEST** remains `run-68c15954870c` at K=24.163880.
 
 
-## Official board result — commit c2397c9 (2026-10-31 20:25 UTC)
+## Official board result — commit c2397c9 (2026-10-31 20:26:59 UTC)
 
 Run `run-a6ce3d0c3345`; all five gates passed. T=0.139103 s, M=98,516,992 B, S=862, D=1, K=22.658495, points=67.761553. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).
+
+
+## Official board result — reserve-trial commit 74145b5 (2026-10-31 21:10:54 UTC)
+
+Run `run-4ba6216ffe99`; all five gates passed on the restored D champion source. T=0.139007 s, M=98,603,008 B, S=862, D=1, K=22.662362, points=67.765258. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).

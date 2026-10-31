@@ -614,10 +614,19 @@ Run `run-dc158b747f2c`; all five gates passed. T=0.019502 s, M=20,877,312 B, S=5
 Run `run-6142b9dc0cf7`; all five gates passed. T=0.019840 s, M=21,368,832 B, S=574, D=1, K=45.513540, points=82.907031. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` at K=49.769039.
 
 
-## Official board result — commit c2397c9 (2026-10-31 20:25 UTC)
+## Official board result — commit c2397c9 (2026-10-31 20:26:59 UTC)
 
 Run `run-d46f43822d2d`; all five gates passed. T=0.019889 s, M=21,893,120 B, S=574, D=1, K=45.237605, points=82.774980. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
 
 ## Developer-main reserve experiment (not promoted)
 
-Head `7cc853baacbbb5b81c221120558e891f824482d4` removes the unconditional 131,072-element reserve from the per-hour latency vector (source blob `6a3de1a8645ae929cd4181e979d4e97275175ea9`). Exact-head workflow `41241963933` passed differential tests, official hashes, seed-2/3 holdout samples, ASan/UBSan, TSan, offline Docker, runtime comparison and cgroup-memory measurement. Its log reported 31-run local medians 0.032782 s vs `six-worker-base` 0.039465 s (ratio 0.8307); RSS was 238,508 KiB vs 239,068 KiB, while five-run cgroup `memory.peak` max was 10.84 vs 9.52 MB, so memory evidence is mixed. The developer's newer main head `f4cfe46184d9ab26be62cdfcbde90c069fdc1305` restores the qualified source blob `24926c0187974683c9e96ebac46d48073d5907d5` and records that this trial did not establish a complete-K improvement. This candidate was not dispatched or officially scored; the qualified A source remains active.
+Head `7cc853baacbbb5b81c221120558e891f824482d4` removes the unconditional 131,072-element reserve from the per-hour latency vector (source blob `6a3de1a8645ae929cd4181e979d4e97275175ea9`). Exact-head workflow `41241963933` passed differential tests, official hashes, seed-2/3 holdout samples, ASan/UBSan, TSan, offline Docker, runtime comparison and cgroup-memory measurement. Its log reported 31-run local medians 0.032782 s vs `six-worker-base` 0.039465 s (ratio 0.8307); RSS was 238,508 KiB vs 239,068 KiB, while five-run cgroup `memory.peak` max was 10.84 vs 9.52 MB, so memory evidence is mixed. The newer A main head `f4cfe46184d9ab26be62cdfcbde90c069fdc1305` restored the qualified source after mixed local evidence. It was nevertheless dispatched as commit `74145b5`; the official run below failed to beat BEST, so the candidate remains rejected and unmerged.
+
+
+## Official board result — reserve experiment commit 74145b5 (2026-10-31 21:10:54 UTC)
+
+Run `run-1b5d6f0f85e2`; all five gates passed. T=0.017067 s, M=22,142,976 B, S=573, D=1, K=48.736620, points=84.392770. This exact A source (one-line reserve removal) is below BEST `run-1d2fdbfbdd62` (K=49.769039); **reject** and keep qualified source blob `24926c0187974683c9e96ebac46d48073d5907d5`, restored on official HEAD `89f8c72`.
+
+## Developer-main batch-eviction experiment (not submitted)
+
+Current A main `e96477afdefbb530e105d19329ebdfa53d6fbe89` batches output `posix_fadvise` calls every four hours. Exact-head CI `41242381794` passed correctness, sanitizer, offline Docker and measurement steps. The workflow’s 31-run full-input median was 0.034935 s vs its six-worker baseline 0.034117 s (ratio 1.024); RSS was 247,588 vs 238,020 KiB, and five-run cgroup peak max was 17,633,280 vs 7,823,360 bytes. Reject pending stronger evidence; no official score claimed.

@@ -600,6 +600,11 @@ Run `run-804f529ac682`; all five gates passed. T=0.074402 s, M=14,258,176 B, S=5
 Run `run-1eabfabdfaa6`; all five gates passed. T=0.074252 s, M=14,405,632 B, S=552, D=1, K=20.870991, points=65.977154. **LATEST**; **BEST** remains `run-804f529ac682` at K=20.892890.
 
 
-## Official board result — commit c2397c9 (2026-10-31 20:25 UTC)
+## Official board result — commit c2397c9 (2026-10-31 20:26:59 UTC)
 
 Run `run-f81420fd16be`; all five gates passed. T=0.075201 s, M=14,495,744 B, S=552, D=1, K=20.713033, points=65.812185. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890).
+
+
+## Official board result — reserve-trial commit 74145b5 (2026-10-31 21:10:54 UTC)
+
+Run `run-4af82d38aa0a`; all five gates passed on the unchanged C champion source. T=0.077486 s, M=14,053,376 B, S=552, D=1, K=20.532218, points=65.621793. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890).

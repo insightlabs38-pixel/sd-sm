@@ -339,3 +339,7 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 ## Official board snapshot — 2026-10-31 07:12:34 UTC
 
 - Same actual receipt: `run-9243aef5cd8c` on `aa84dc52fefa309db4dbc5c2b9aefc07863ea13a`; all gates passed. This is the latest scored A source trial; current branch has the known-good rollback source while its new score is pending.
+
+## Official board snapshot — 2026-10-31 07:17:07 UTC
+
+- `run-29c6b4ffe48d` scored exact rollback HEAD `15cc7c6f38a26d0f3515727d6d217ba4d95094b9`; all five gates passed. LATEST: T=0.068730 s, M=41,545,728 B, S=321, D=1, K=23.358782, points=68.422510. BEST remains `run-aad4ae1ad447` (K=23.892877); this is the verified known-good source, with ordinary run variance below BEST.

@@ -570,3 +570,8 @@ Submitted source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` from exact open
 ## Frontier PR #3 official result — run-92205f3fba85 (2026-10-31 19:37 UTC)
 
 All five gates passed, but the candidate regressed: T=0.021915 s, M=24,838,144 B, S=584, D=1, K=41.912918, points=81.117395. This is below BEST `run-0577d3068f59` (K=45.837056), with higher memory and source size. **Reject PR #3 for promotion** and restore source `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`; PR remains open and unmerged.
+
+
+## Official latest — run-b8ebedebd8ce (2026-10-31 19:42 UTC)
+
+All five gates passed on restored A champion. **LATEST:** T=0.021866 s, M=20,934,656 B, S=460, D=1, K=45.002111, points=82.661644. **BEST** remains `run-0577d3068f59` (K=45.837056).

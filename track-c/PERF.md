@@ -558,3 +558,12 @@ All five gates passed. **LATEST:** T=0.085472 s, M=12,312,576 B, S=537, D=1, K=2
 ## Frontier PR #11 official trial queued
 
 Testing exact PR branch revision `59e47be4236db4fc246673fec87e25bbd7231780` (source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`) with its matching PGO Dockerfile and generator context. CI `41231997313` passed pinned offline GCC 15, sandbox, ASan/UBSan, TSan, collision checks, and full seeds 11/29 (three repeats). Paired full-PGO median 135.220→134.717 ms and RSS 17,660→17,084 KiB; local static Docker M 9,668,608→8,855,552 B. These are developer measurements, not official scoring axes. **BEST remains `run-8f98e6ec4091` (K=20.413289)** pending board evaluation. Preserve current source and Dockerfile in parent `492f9dd3` for rollback; merge PR #11 only if promoted.
+
+
+## Official PR #11 result — run-15adbc1f561c (2026-10-31 19:42 UTC)
+
+All five gates passed on exact CI-tested source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`, with PR PGO Dockerfile and generator context. T=0.076727 s, M=14,487,552 B, S=552, D=1, K=20.508340, points=65.596525. This exceeds prior BEST `run-8f98e6ec4091` (K=20.413289); record this as **BEST** for the tested revision. PR #11 current head `23bf44f9` adds `#pragma GCC target("arch=x86-64-v3")`; test that exact head before merging because CI and this official run predate the pragma. The PR base has since diverged from main.
+
+## Frontier PR #11 head trial
+
+Now testing current open PR head source blob `78503e708dccdbf484bb5dc1223a02705cfabb81` with matching PGO Dockerfile/generator. Roll back to parent `8df4a7a5` context if it fails or loses K.

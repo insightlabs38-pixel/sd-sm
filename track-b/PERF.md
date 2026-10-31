@@ -286,3 +286,10 @@ On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, LATEST `run-061719b
 - Official run `run-8558a8ee640d` on `a2f99921eaf302381af4fa63e6b131588c3fb572` passed build, check, correctness, timeout and sandbox gates. **BEST = LATEST:** T=0.393819 s, M=45,469,696 B, S=857, D=1, K=18.563313, points=63.432774.
 - Versus prior BEST `run-ed9009e37ba4` (T=0.484438 s, M=47,280,128 B, S=742, D=1, K=16.969925, points=61.483996), K improved 9.39%, T fell 18.71%, M fell 3.83%, while S rose 15.50%. This promotes the six-worker hybrid; rollback source remains in parent `ec1140f`.
 - Developer PR #7 was merged to `sd-tb/main` as `f28305ada8f78b4278a461e35b08d175be038d07`; main source blob matches the tested official source blob `e97e6f5e0045d64771180d59c57b3115cc742abb`.
+
+
+## Official board snapshot — 2026-10-31 04:21:29 UTC
+
+HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff8d662a8f342256a53b20e05a3e2a9af6231`; queue clear. All five gates passed.
+
+- **BEST = LATEST:** `run-fcc63900551a`; T=0.300767 s, M=44,257,280 B, S=857, D=1, K=21.356800, points=66.476809. This replaces `run-8558a8ee640d` (T=0.393819 s, M=45,469,696 B, K=18.563313); K rose 15.05%, T fell 23.63%, and memory fell 2.66% on the new measurement.

@@ -279,3 +279,10 @@ HighVelocity watcher healthy at `a2f99921eaf302381af4fa63e6b131588c3fb572`; `run
 - Candidate imported from `sd-ta/main` HEAD `0c861331cf8ac4493d1e848a8c459cb8209db789`; source uses a 24-bit group/error field plus full 32-bit latency, with compile-time 7-byte size check. Current official source remains recoverable from parent commit `a62ff8d662a8f342256a53b20e05a3e2a9af6231`.
 - Qualification [CI 41167517902](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41167517902) passed published seed-1 hashes, seed-2/3 sample differential, synthetic oracle, and restricted offline Docker. Thirteen-run paired seed-1 comparison: group-first 0.111273 s, x86-64-v3 champion 0.110813 s; charged cgroup peak 40,919,040 B vs 44,109,824 B. Estimated K +1.25% from T/M/S/D; this is a CI estimate, not an official result.
 - The two packed field layouts were effectively tied; group-first was retained. Six-byte sparse overflow and reserve-slack experiments were rejected. Official board result pending; no run ID or score claimed.
+
+
+## Official board snapshot — 2026-10-31 04:21:29 UTC
+
+HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff8d662a8f342256a53b20e05a3e2a9af6231`; queue clear. All five gates passed.
+
+- **BEST = LATEST:** `run-34af1c8a1977`; T=0.065349 s, M=44,040,192 B, S=319, D=1, K=23.699898, points=68.737324. New BEST versus `run-d53d14fca94c` (K=23.673550).

@@ -553,3 +553,8 @@ All five gates passed. **LATEST:** T=0.084327 s, M=12,537,856 B, S=537, D=1, K=2
 ## Official latest — run-662f71c28451 (2026-10-31 19:29 UTC)
 
 All five gates passed. **LATEST:** T=0.085472 s, M=12,312,576 B, S=537, D=1, K=20.156569, points=65.220831. **BEST** remains `run-8f98e6ec4091` (K=20.413289).
+
+
+## Frontier PR #11 official trial queued
+
+Testing exact PR branch revision `59e47be4236db4fc246673fec87e25bbd7231780` (source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`) with its matching PGO Dockerfile and generator context. CI `41231997313` passed pinned offline GCC 15, sandbox, ASan/UBSan, TSan, collision checks, and full seeds 11/29 (three repeats). Paired full-PGO median 135.220→134.717 ms and RSS 17,660→17,084 KiB; local static Docker M 9,668,608→8,855,552 B. These are developer measurements, not official scoring axes. **BEST remains `run-8f98e6ec4091` (K=20.413289)** pending board evaluation. Preserve current source and Dockerfile in parent `492f9dd3` for rollback; merge PR #11 only if promoted.

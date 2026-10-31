@@ -1,5 +1,5 @@
 # Track C: Join
 
-The official Track C champion is the dependency-free C++17 exact aggregator with source blob `7def6ac05e18fcf871310f37abade9ca1a904760`, retained from parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb`. It maps unknown record region IDs through the frozen range to `_UNMATCHED` and keeps exact name comparisons. BEST is `run-8f98e6ec4091` (K=20.413289).
+A byte-oriented C++17 parser reads the hostile CSV, maps region ids through a dense table, and aggregates country statistics. Global exact-name interning uses CRC32C over canonical raw CSV name bytes, exact raw-byte collision checks, and four 64-bit country-presence words per name. Escaped quotes are counted for logical byte lengths without per-row allocations. Integer fields use a guarded eight-digit SWAR fast path with a scalar fallback for longer values. Input files are memory-mapped read-only, and output is written only to `/out/aggregates.txt`.
 
-The developer-main SSE2 candidate (`4ca129b0ca9596554d052aadb9d5e751496cc754`) passed CI but scored K=16.174523 in official run `run-814a3a4d2917` after the Docker target was aligned. It is rejected; the champion and original Dockerfile are restored. No PR was promoted.
+No third-party runtime dependencies. Further work: benchmark full-scale seeds and evaluate a streaming name representation, SIMD parsing, and safe parallel record partitioning against the complete K coefficient.

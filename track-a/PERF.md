@@ -565,3 +565,8 @@ All five gates passed. **LATEST:** T=0.021266 s, M=20,938,752 B, S=460, D=1, K=4
 ## Frontier PR #3 trial
 
 Submitted source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` from exact open PR head `5b931802c42bd4c028f18513cbf56bc6b4c1424a`. Exact source and build context match successful CI `41233423569` at `db4c98a`; 4-vCPU paired median was 0.780x the pinned champion, while `memory.peak` rose 5.73→6.02 MB. This is local evidence, not official K. Rollback source is `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`; **BEST remains `run-0577d3068f59`** pending official scoring. Merge PR #3 only if promoted.
+
+
+## Frontier PR #3 official result — run-92205f3fba85 (2026-10-31 19:37 UTC)
+
+All five gates passed, but the candidate regressed: T=0.021915 s, M=24,838,144 B, S=584, D=1, K=41.912918, points=81.117395. This is below BEST `run-0577d3068f59` (K=45.837056), with higher memory and source size. **Reject PR #3 for promotion** and restore source `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`; PR remains open and unmerged.

@@ -343,3 +343,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - **BEST:** `run-04a7116196c9`, T=0.300165 s, M=42,844,160 B, S=860, D=1, K=21.392007, points=66.512577.
 - **LATEST:** `run-3cb698d73c4f` on `2b5afc9408dcd202ca3f113e100d02fc673d04ee`; all five gates passed. T=0.311329 s, M=43,327,488 B, S=860, D=1, K=21.004956, points=66.116088.
 - Candidate source blob `b49b7ed50b672c072709e93272a77e2a18f7e169` is from `sd-tb/main` HEAD `c6ed9465a5f49db6473461369097e5d49ae46b9f`; exact-source qualification CI `41196378364` passed. CI’s paired three-seed comparison found 1024-document blocks faster and lower-memory than 2048 blocks, while maintaining exact output. Candidate board result is pending; parent commit retains the known-good source for rollback.
+
+
+## Official candidate result — 2026-10-31 12:15:45 UTC
+
+- Board run `run-b198debee5e1` scored `187269afc6efbeee7ac01b4f623f7c7f049ea44b`; all five gates passed. Candidate LATEST: T=0.433684 s, M=29,081,600 B, S=874, D=1, K=17.753865, points=62.464646. BEST remains `run-04a7116196c9`, K=21.392007. Despite 32.1% lower memory, K fell 17.01% versus BEST, with slower T and 14 more source lines. Reject the 1024-block candidate and restore known-good source blob `30dcb9f6a6472f390a9513f5739fd040bd1bd3c9` from parent commit `2b5afc9`; the rejected `b49b7ed50b672c072709e93272a77e2a18f7e169` candidate remains recoverable in commit `187269a`.

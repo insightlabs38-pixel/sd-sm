@@ -327,3 +327,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - **BEST:** `run-2e4a2fbbc969`, T=0.136063 s, M=50,782,208 B, S=469, D=1, K=12.280222, points=54.460311.
 - **LATEST:** `run-14944aa00726` on `2b5afc9408dcd202ca3f113e100d02fc673d04ee`; all five gates passed. T=0.139937 s, M=51,236,864 B, S=469, D=1, K=12.087480, points=54.116788.
 - Candidate source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` is from `sd-tc/main` HEAD `eb1ab4a2979106afd223d8c638fda89a66adcaed`; exact-source qualification CI `41197476950` passed. Paired runner median changed 148.067 to 147.923 ms and peak RSS 18,980 to 16,920 KiB; these are developer-runner measurements, not board T/M/K. Candidate board result is pending; parent commit retains the known-good source for rollback.
+
+
+## Official candidate result — 2026-10-31 12:15:45 UTC
+
+- Board run `run-26bebca7d52d` scored `187269afc6efbeee7ac01b4f623f7c7f049ea44b`; all five gates passed. **LATEST and new BEST:** T=0.128998 s, M=10,719,232 B, S=518, D=1, K=16.959803, points=61.471040. Prior BEST `run-2e4a2fbbc969` had K=12.280222. K improved 38.11%, with 5.2% lower T and 78.9% lower M despite the larger source axis; promote source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33`. Rollback is parent commit `2b5afc9`, source blob `bdf2a15bc53d541b550536d292e43fc729575dbf`.

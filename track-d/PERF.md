@@ -312,3 +312,9 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - **BEST:** `run-68c15954870c`, T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
 - **LATEST:** `run-350691c56e3c` on `2b5afc9408dcd202ca3f113e100d02fc673d04ee`; all five gates passed. T=0.125848 s, M=99,028,992 B, S=862, D=1, K=23.797203, points=68.826295.
 - Track D source was not changed in this candidate trial. The current official source remains the known-good rollback candidate while its newer development-main composition awaits an exact-source qualification.
+
+
+## Official candidate result — 2026-10-31 12:15:45 UTC
+
+- Track D source was unchanged in commit `187269a`. Board run `run-1b1341c90c11` passed all five gates: T=0.132667 s, M=99,127,296 B, S=862, D=1, K=23.172956, points=68.249072. BEST remains `run-68c15954870c`, K=24.163880.
+- Historical PR #3 donation trial source `4a249d728c074febe26502db752e1c97c5d1a279` scored as `run-03c554a03f7a` on commit `062d7e5`: T=0.148357 s, M=98,512,896 B, S=779, D=1, K=22.276367. It was 6.6% below then-BEST K=23.855961 and was rolled back; PR #3 is not promoted or merged.

@@ -2,7 +2,6 @@
 #include <array>
 #include <atomic>
 #include <cstdint>
-#include <nmmintrin.h>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -57,52 +56,69 @@ static_assert(sizeof(Field) == 24, "name slot layout");
 
 static constexpr uint32_t HASH_OFFSET = 5381U;
 
-// Quoted text has a unique CSV spelling, so raw-byte hashes preserve logical equality.
-static uint32_t hash_bytes(const char *p, size_t n) {
-    uint32_t h = HASH_OFFSET;
-    while (n >= 8) {
-        uint64_t word;
-        std::memcpy(&word, p, 8);
-        h = static_cast<uint32_t>(_mm_crc32_u64(h, word));
-        p += 8;
-        n -= 8;
-    }
-    while (n--) h = _mm_crc32_u8(h, static_cast<unsigned char>(*p++));
-    return h;
-}
-
 static Field text_field(const char *&p, const char *end, bool need_hash) {
     Field f{};
     f.quoted = p < end && *p == '"';
     if (f.quoted) {
         ++p;
         f.raw = p;
-        for (;;) {
-            const char *q = static_cast<const char *>(memchr(p, '"', end - p));
-            if (!q) throw std::runtime_error("unclosed quote");
-            f.len += static_cast<uint32_t>(q - p);
-            if (q + 1 < end && q[1] == '"') {
-                ++f.len;
-                p = q + 2;
-                continue;
+        if (!need_hash) {
+            for (;;) {
+                const char *q = static_cast<const char *>(memchr(p, '"', end - p));
+                if (!q) throw std::runtime_error("unclosed quote");
+                f.len += static_cast<uint32_t>(q - p);
+                if (q + 1 < end && q[1] == '"') {
+                    ++f.len;
+                    p = q + 2;
+                    continue;
+                }
+                f.raw_len = static_cast<uint32_t>(q - f.raw);
+                p = q + 1;
+                return f;
             }
-            f.raw_len = static_cast<uint32_t>(q - f.raw);
-            p = q + 1;
-            f.hash = need_hash ? hash_bytes(f.raw, f.raw_len) : HASH_OFFSET;
-            return f;
         }
+        uint32_t h = HASH_OFFSET;
+        while (p < end) {
+            unsigned char c = static_cast<unsigned char>(*p++);
+            if (c == '"') {
+                if (p < end && *p == '"') ++p;
+                else {
+                    f.raw_len = static_cast<uint32_t>(p - f.raw - 1);
+                    f.hash = h;
+                    return f;
+                }
+            }
+            ++f.len;
+            if (need_hash) h = ((h << 5) + h) ^ c;
+        }
+        throw std::runtime_error("unclosed quote");
     }
     f.raw = p;
-    while (p < end && *p != ',' && *p != '\r' && *p != '\n') ++p;
-    f.raw_len = f.len = static_cast<uint32_t>(p - f.raw);
-    f.hash = need_hash ? hash_bytes(f.raw, f.len) : HASH_OFFSET;
+    uint32_t h = HASH_OFFSET;
+    while (p < end && *p != ',' && *p != '\r' && *p != '\n') {
+        unsigned char c = static_cast<unsigned char>(*p++);
+        ++f.len;
+        if (need_hash) h = ((h << 5) + h) ^ c;
+    }
+    f.raw_len = f.len;
+    f.hash = h;
     return f;
 }
 
 template <class A, class B>
 static bool equal_field(const A &f, const B &g) {
-    // Valid CSV has a unique raw spelling for each logical value.
-    return f.raw_len == g.raw_len && std::memcmp(f.raw, g.raw, f.raw_len) == 0;
+    if (f.len != g.len) return false;
+    if (f.raw_len == f.len && g.raw_len == g.len)
+        return std::memcmp(f.raw, g.raw, f.len) == 0;
+    const char *a = f.raw, *b = g.raw;
+    const char *ae = a + f.raw_len, *be = b + g.raw_len;
+    while (a < ae && b < be) {
+        unsigned char x = *a++, y = *b++;
+        if (f.quoted && x == '"' && a < ae && *a == '"') ++a;
+        if (g.quoted && y == '"' && b < be && *b == '"') ++b;
+        if (x != y) return false;
+    }
+    return a == ae && b == be;
 }
 
 struct SharedNames {
@@ -111,7 +127,9 @@ struct SharedNames {
     static uint32_t spread(uint32_t h) { return h ^ (h >> 11) ^ (h >> 22); }
     struct Slot {
         const char *raw = nullptr;
-        uint32_t raw_len = 0;
+        uint32_t raw_len : 31;
+        uint32_t quoted : 1;
+        uint32_t len = 0;
         std::atomic<uint64_t> seen[4]{};
     };
     static_assert(sizeof(Slot) == 48, "compact shared name slot");
@@ -201,6 +219,8 @@ struct SharedNames {
                 slot = &s.pool[s.used];
                 slot->raw = s.keep(name);
                 slot->raw_len = name.raw_len;
+                slot->quoted = name.quoted;
+                slot->len = name.len;
                 s.index[empty].store((name.hash & 0xffff0000U) | ++s.used,
                                      std::memory_order_release);
             }
@@ -211,24 +231,6 @@ struct SharedNames {
 };
 
 static uint64_t number(const char *&p, const char *end) {
-    if (end - p >= 8) { // SWAR ASCII fast path, with scalar fallback for long integers.
-        uint64_t w;
-        std::memcpy(&w, p, 8);
-        const uint64_t bad = ((w + 0x4646464646464646ULL) |
-                              (w - 0x3030303030303030ULL)) & 0x8080808080808080ULL;
-        const unsigned digits = bad ? __builtin_ctzll(bad) / 8 : 8;
-        if (digits && (digits < 8 || p + 8 == end ||
-                       static_cast<unsigned>(static_cast<unsigned char>(p[8])) - '0' > 9)) {
-            uint64_t x = (w << ((8 - digits) * 8)) |
-                         (digits == 8 ? 0 : 0x3030303030303030ULL >> (digits * 8));
-            x -= 0x3030303030303030ULL;
-            x = (x * 10 + (x >> 8)) & 0x00ff00ff00ff00ffULL;
-            x = (x * 100 + (x >> 16)) & 0x0000ffff0000ffffULL;
-            x = (x * 10000 + (x >> 32)) & 0xffffffffULL;
-            p += digits;
-            return x;
-        }
-    }
     const char *start = p;
     uint64_t n = 0;
     while (p < end) {
@@ -307,14 +309,10 @@ static void parse_range(const char *p, const char *end, const std::vector<uint8_
         while (p < end) {
             unsigned count = 0;
             do {
-                if (static_cast<unsigned char>(*p) == 0xef) bom(p, end);
+                bom(p, end);
                 uint64_t id = number(p, end);
                 comma(p, end);
                 Field name = text_field(p, end, true);
-                uint32_t spread = SharedNames::spread(name.hash);
-                auto &shard = names.shards[spread & ((1 << SharedNames::shard_bits) - 1)];
-                __builtin_prefetch(&shard.index[(spread >> SharedNames::shard_bits) &
-                                                (SharedNames::slots_per_shard - 1)], 0, 1);
                 comma(p, end);
                 Field note = text_field(p, end, false);
                 comma(p, end);

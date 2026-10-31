@@ -370,3 +370,13 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official same-source rerun — 2026-10-31 13:17 UTC
 
 - Run `run-fdb7d388d133` on `b0e30144ba58e2c3b3c86c8b1fd26dffa1e655b5` passed all five gates: T=0.148486 s, M=10,461,184 B, S=518, D=1, K=15.884959. BEST remains `run-26bebca7d52d` (K=16.959803). Source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` is unchanged; this lower run is ordinary scoring variation, not a new candidate.
+
+
+## Official latest before guarded-BOM CRC trial — 2026-10-31 13:23:53 UTC
+
+- BEST remains `run-26bebca7d52d`, K=16.959803. LATEST `run-9da1c936d35e` on `f1bcd2033e061028929c445c964768331d1a6f5e` passed all five gates: T=0.137903 s, M=10,522,624 B, S=518, D=1, K=16.463924, points=60.826667. Existing source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` was unchanged in that run.
+
+## Guarded-BOM CRC candidate — staged for official board trial, 2026-10-31
+
+- Candidate source blob `efcc37be6d82c3e341eaa3d66f2e7af82338ee07` from `sd-tc/main` HEAD `9a3f26ee245a35ad97d4cad75297e0148f6d4738`. The source replaces quoted-name hashing with CRC32C over the unique raw CSV encoding and checks for a BOM before invoking the full BOM handler. It does not change region-ID parsing/mapping; IDs through 9,999,999 remain supported and unknown IDs still map to the unmatched group.
+- Independent source-identical CI `41206065495` passed full seed-1 hash, holdout seeds, hostile cases, offline Docker and sandbox. Across 12 paired runner trials, T median was 136.822→134.671 ms, RSS 16,920→16,852 KiB, physical source lines 460→454; estimated complete-K proxy +1.08% (runner evidence only). The candidate Dockerfile uses the same pinned allowlisted images with explicit `-march=x86-64-v3` for CRC intrinsics. Official board T/M/S/D/K pending. Parent preserves C BEST source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` for rollback.

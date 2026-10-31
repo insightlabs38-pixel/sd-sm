@@ -588,3 +588,8 @@ Run `run-2de5259cd705`; all five gates passed. T=0.231307 s, M=18,325,504 bytes,
 ## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
 
 Run `run-46bba325d2ca`; all five gates passed. T=0.075070 s, M=14,110,720 B, S=552, D=1, K=20.843017, points=65.948029. **BEST = LATEST:** K=20.843017, ahead of prior qualified BEST `run-15adbc1f561c` (K=20.508340). This was the restored, previously tested C champion source and runtime/size context; no open frontier PR supplied this winning source.
+
+
+## Official board result — commit 3c9845a (2026-10-31 20:15:02 UTC)
+
+Run `run-804f529ac682`; all five gates passed. T=0.074402 s, M=14,258,176 B, S=552, D=1, K=20.892890, points=65.999926. **BEST = LATEST:** K=20.892890, improving on same champion-source run `run-46bba325d2ca` (K=20.843017) and prior BEST `run-15adbc1f561c` (K=20.508340). Source blob remains `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`.

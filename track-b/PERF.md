@@ -566,3 +566,8 @@ Run `run-0ae89c59b073`; all five gates passed. T=0.358443 s, M=50,008,064 bytes,
 ## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
 
 Run `run-ca66bb3d645f`; all five gates passed. T=0.260087 s, M=51,748,864 B, S=925, D=1, K=22.005670, points=67.126730. **BEST** remains `run-dcebadac870d` at K=23.250490; **LATEST** is this champion-source repeat.
+
+
+## Official board result — commit 3c9845a (2026-10-31 20:15:02 UTC)
+
+Run `run-48eb79091057`; all five gates passed. T=0.249572 s, M=51,339,264 B, S=925, D=1, K=22.500192, points=67.609311. **LATEST** is this restored champion-source run; **BEST** remains `run-dcebadac870d` at K=23.250490.

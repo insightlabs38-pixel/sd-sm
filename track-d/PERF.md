@@ -562,3 +562,8 @@ Run `run-8af02b0a1b7b`; all five gates passed. T=0.129822 s, M=98,594,816 bytes,
 ## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
 
 Run `run-f3a17140e30a`; all five gates passed on D PR #3 head source. T=0.166259 s, M=98,877,440 B, S=779, D=1, K=21.027371, points=66.139249. This is below qualified BEST `run-68c15954870c` (K=24.163880); **LATEST** is the rejected PR #3 trial. Restore the known-good D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`; leave PR #3 open and unmerged.
+
+
+## Official board result — commit 3c9845a (2026-10-31 20:15:02 UTC)
+
+Run `run-9dc94daabc82`; all five gates passed on the restored D champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. T=0.155857 s, M=99,172,352 B, S=862, D=1, K=21.377665, points=66.498013. **LATEST** remains below **BEST** `run-68c15954870c` (K=24.163880); the D PR #3 regression is retained as an informative prior trial and remains open/unmerged.

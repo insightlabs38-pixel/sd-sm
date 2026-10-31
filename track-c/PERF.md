@@ -516,3 +516,9 @@ All five gates passed on restored source blob `7def6ac05e18fcf871310f37abade9ca1
 - Current developer main HEAD `0a65827a4d09bbb397cb3dea20990c214346d863` restores the SSE2 quote-scanning source, blob `4ca129b0ca9596554d052aadb9d5e751496cc754`. That exact source was qualified by CI [41229750254](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41229750254): full seed-1 hash, holdout seeds, quote-boundary, offline Docker and sandbox checks passed.
 - Developer paired runner medians were 103.962→100.798 ms (RSS 17,146→17,158 KiB, proxy +1.18%) and independent replication 140.930→132.367 ms (RSS 17,070→17,112 KiB, proxy +2.77%). The proxy compares against developer source `f875b5d`; it is not an official board measurement. Source and D differences are recorded by the developer; official T/M/S/D/K remain pending.
 - Candidate is imported from developer main, not an open PR. Rollback is the known-good source in parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb`. The separate open PR #8 source failed official Docker build (`run-adcadeec9db2`) and remains unmerged.
+
+
+## Official first build attempt for current-main SSE2 source — run-ab5d43ee092f (2026-10-31 18:50 UTC)
+
+- Check passed, Docker build failed (exit 1; public feed has no tail). No correctness/sandbox result or T/M/S/D/K was produced. The source-identical developer CI passed, but build configs differ: developer `track-c/Dockerfile` uses `-march=x86-64-v3`, while official Dockerfile omitted it. The current source uses SSE4.2 CRC intrinsics; align the official compiler target with the verified developer build for a controlled retest. No private board log was accessed and no hidden failure detail is claimed.
+- Keep known-good source blob `7def6ac05e18fcf871310f37abade9ca1a904760` from parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb` as rollback. Candidate score remains pending after build configuration repair.

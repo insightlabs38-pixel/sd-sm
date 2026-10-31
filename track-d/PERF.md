@@ -497,3 +497,8 @@ All five gates passed on commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. **LA
 ## Official latest after champion rollback — run-bc7637ed7a02 (2026-10-31 18:37 UTC)
 
 All five gates passed. **LATEST:** T=0.124132 s, M=98,762,752 B, S=862, D=1, K=23.974029, points=68.987051. **BEST** remains `run-68c15954870c` (K=24.163880); the D PR #5 source-size trial is rejected for promotion and stays in history at `5b1f942`.
+
+
+## Official latest — run-9d862fe07f96 (2026-10-31 18:50 UTC)
+
+All five gates passed on the restored champion. **LATEST:** T=0.126545 s, M=98,881,536 B, S=862, D=1, K=23.738649, points=68.772800. **BEST** remains `run-68c15954870c` (K=24.163880).

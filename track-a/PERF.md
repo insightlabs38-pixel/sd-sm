@@ -526,3 +526,8 @@ All five gates passed on the unchanged promoted source. **LATEST:** T=0.021403 s
 ## Official latest — run-45c895744595 (2026-10-31 18:44 UTC)
 
 All five gates passed. **LATEST:** T=0.021607 s, M=20,467,712 B, S=460, D=1, K=45.475724, points=82.888981. **Correctness-qualified BEST** remains `run-b7ad796c1836` (K=45.481911); raw board BEST `run-b447dc4b353e` is excluded for the TSan race.
+
+
+## Official latest — run-b9b31b4c4e0e (2026-10-31 18:50 UTC)
+
+All five gates passed. **LATEST:** T=0.021573 s, M=21,127,168 B, S=460, D=1, K=45.223814, points=82.768360. **Correctness-qualified BEST** remains `run-b7ad796c1836` (K=45.481911).

@@ -311,3 +311,9 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 
 - **BEST:** `run-aad4ae1ad447`; T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422.
 - **LATEST:** `run-51141caaeccd` on `bd1e696b8a738a9f6d52c2faa16d9a6244c64d5e`; all five gates passed. AVX2 candidate T=0.067907 s, M=41,631,744 B, S=337, D=1, K=23.319418, points=68.385886. Against BEST, K fell 2.40%, time rose 3.05%, memory rose about 1.0%, and S rose by 16. Candidate rejected; packed source restored from parent `952084e36d4a8309c21c175f7208a40fe40c2702`.
+
+
+## Official board snapshot — 2026-10-31 06:23:31 UTC
+
+- **BEST:** `run-aad4ae1ad447`; T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422.
+- **LATEST:** `run-5b4376b4939e` on `8e70985f8a07fc6b5adaa9435c4d6b83638a2665`; all five gates passed. T=0.070456 s, M=41,459,712 B, S=321, D=1, K=23.080456, points=68.162220.

@@ -138,3 +138,10 @@ Watcher was healthy at `0ae75f36afd0ddec3e9d07e8d9a5ea3300aeacca` (last checked 
 
 - **BEST:** `run-d9a6b26a1de8`, commit `73d8cecee9e50825a4f416b77c11fec448955782`; T=0.067238 s, M=44,072,960 bytes, S=321, D=1, K=23.339245, points=68.404340.
 - **LATEST:** `run-f8862173d0fd`, commit `0ae75f36afd0ddec3e9d07e8d9a5ea3300aeacca`; T=0.069971 s, M=43,937,792 bytes, S=321, D=1, K=22.892960, points=67.985098.
+
+
+## Official board results — raw feed observed 2026-10-31 00:34:36 UTC
+
+Watcher healthy at `8233a6406105e8580d72bc059d91e48eb88e0868`, queue idle; all five gates passed for BEST and LATEST, failure null.
+
+- **BEST = LATEST:** `run-12d646b0e089`, commit `8233a6406105e8580d72bc059d91e48eb88e0868`; T=0.066496 s, M=44,417,024 bytes, S=321, D=1, K=23.432627, points=68.491049.

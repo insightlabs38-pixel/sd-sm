@@ -413,3 +413,12 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official latest — 2026-10-31 16:33 UTC
 
 - LATEST `run-df74e256f12e` on official commit `0ef3758e08e015c6f1ba97b9d36966ec151efc40` passed all five board gates: T=0.244353 s, M=49,971,200 B, S=925, D=1, K=22.862372, points=67.956065. BEST remains `run-5accd9f1743a`, K=23.105063; promoted source blob `76946cc77205b4f115aa32bed459e0980c8d143c` unchanged.
+
+
+## Full-team board results — 2026-10-31 16:39–16:45 UTC
+
+All five gates passed. The promoted B source blob `76946cc77205b4f115aa32bed459e0980c8d143c` was unchanged across these runs.
+
+- **BEST / LATEST:** `run-c050e7922fc2` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.237908 s, M=49,979,392 B, S=925, D=1, K=23.169218, points=68.245826. This is the current BEST.
+- Previous receipts: `run-a34171117109` on `92c095f030bd9519de41ab7201a944cc9d94cbd6`: T=0.242076 s, M=50,561,024 B, S=925, K=22.915801; `run-df74e256f12e` on `0ef3758e08e015c6f1ba97b9d36966ec151efc40`: K=22.862372.
+- The latest K is 0.23% above the previous BEST `run-5accd9f1743a` (K=23.105063). Source did not change; this is a new board measurement, not a claimed source optimization.

@@ -409,3 +409,13 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 
 - LATEST `run-a4f58a34118c` on `1657706f033d676bb97f0df87e3386978b694387` passed all five gates: T=0.023361 s, M=20,926,464 B, S=442, D=1, K=43.803233, points=82.075308. BEST remains `run-2e35ec2bc727`, K=44.826321. Track A source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` was unchanged.
 
+## Official latest — 2026-10-31 15:21 UTC
+
+- LATEST `run-f9bae0db8920` on `480a8e3def26af26e10298d6b043bf2195c82ec3` passed check/build/correctness/timeout/sandbox: T=0.022646 s, M=20,787,200 B, S=442, D=1, K=44.548810, points=82.441805. BEST remains `run-2e35ec2bc727`, K=44.826321. The scored A source blob was `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`.
+
+## Streaming hour-epoch architecture — official trial staged, 2026-10-31
+
+- Candidate from open `sd-ta` PR #1, commit `fe290bbd1f0959bbf05654075177a8f9d6d5b1dc`; exact source/Docker blobs `2d60fab7bc533d01c31167ca0cd5d66216013ec9` / `c934107df70396661fe1d2c29b9f579fcf9edcb2`. Both blobs match successful exact-source CI `41182862751` (commit `e170a65`): seed-1 hashes, seed-2/3 references, reordered inputs, endpoint/latency/group edge tests, ASan/UBSan and allowlisted offline Docker passed.
+- CI paired 31-run full medians: champion 0.103322 s vs candidate 0.047562 s on its 4-vCPU runner; cgroup peaks 41,041,920 vs 6,348,800 B; reported S 321 vs 441. Strong candidate evidence, but not scoring-box evidence.
+- This commit stages the candidate for official measurement. No score is claimed yet; parent `480a8e3def26af26e10298d6b043bf2195c82ec3` retains the previously scored A champion blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`.
+

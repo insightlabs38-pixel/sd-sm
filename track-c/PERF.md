@@ -391,3 +391,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - Candidate source blob `b5e2c905648d759a15c34ea2e5bd6eed130e9386` from `sd-tc/main` (commit `83f7b034d453af66be0660369a192d830d43eb3f`) passed exact-source CI `41210875048`: full seed-1 hash, holdout seeds, collision/overflow/long-integer cases, offline Docker, sandbox, and an eight-digit-ID fixture. Its paired runner medians were 79.544→77.514 ms and RSS 17,094→17,172 KiB; those runner measurements did not predict the scoring-box result.
 - Official LATEST `run-58ac60385064` on submission `1657706f033d676bb97f0df87e3386978b694387` passed check/build/correctness/timeout/sandbox, with T=0.106212 s, M=21,200,896 B, S=518, D=1, K=16.307500, points=60.619369. Compared with BEST `run-cc78d8d94587` (K=17.102716, T=0.126735 s, M=10,743,808 B), K fell 4.65% and memory nearly doubled despite lower T.
 - Reject this candidate and restore the BEST source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` and its prior Dockerfile (blob `63226602c9a43a0a3584038708a213a7132834b6`). The rejected trial remains recoverable from parent commit `1657706f033d676bb97f0df87e3386978b694387`.
+
+## Official latest — 2026-10-31 15:21 UTC
+
+- LATEST `run-39536802a1c6` on `480a8e3def26af26e10298d6b043bf2195c82ec3` passed all five gates: T=0.133971 s, M=10,772,480 B, S=518, D=1, K=16.625567, points=61.038824. BEST remains `run-cc78d8d94587`, K=17.102716. This run used the restored unchanged source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33`; the lower same-source score is a repeat, not a code change.
+

@@ -392,3 +392,7 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - LATEST `run-11de9ca0c6e3` on `1657706f033d676bb97f0df87e3386978b694387` passed all five gates: T=0.238881 s, M=50,245,632 B, S=925, D=1, K=23.097428, points=68.178181. BEST remains `run-5accd9f1743a`, K=23.105063. Promoted B source blob `76946cc77205b4f115aa32bed459e0980c8d143c` was unchanged.
 
+## Official latest — 2026-10-31 15:21 UTC
+
+- LATEST `run-9a2ea67093b5` on `480a8e3def26af26e10298d6b043bf2195c82ec3` passed all five gates: T=0.240934 s, M=54,124,544 B, S=925, D=1, K=22.659284, points=67.762309. BEST remains `run-5accd9f1743a`, K=23.105063. Promoted source blob `76946cc77205b4f115aa32bed459e0980c8d143c` was unchanged; this is a lower same-source repeat.
+

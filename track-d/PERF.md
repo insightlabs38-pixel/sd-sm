@@ -382,3 +382,13 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - LATEST `run-1538c1476074` on `1657706f033d676bb97f0df87e3386978b694387` passed all five gates: T=0.129054 s, M=98,549,760 B, S=862, D=1, K=23.522566, points=68.574234. BEST remains `run-68c15954870c`, K=24.163880. Track D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` was unchanged.
 
+## Official latest — 2026-10-31 15:21 UTC
+
+- LATEST `run-b8b15b4f8a36` on `480a8e3def26af26e10298d6b043bf2195c82ec3` passed all five gates: T=0.125451 s, M=96,890,880 B, S=862, D=1, K=23.939104, points=68.955395. BEST remains `run-68c15954870c`, K=24.163880. The scored D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` was unchanged.
+
+## Contraction-champion size refactor — official trial staged, 2026-10-31
+
+- Candidate from open `sd-td` PR #5, commit `94286d5ce85421fa082de37c92e4b3cf4f2e34df`, source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`. Its PR base source blob is exactly the scored official champion `be15ac2e635af157cc8db71d2df5e218d0a78446`; it removes repeated packing/claims code without changing the graph algorithm.
+- Exact-source CI `41168086045` passed official full seed-1 hashes at 1/4/12 threads, 83 differential and 60 stress fixtures under native, ASan/UBSan and TSan, plus pinned offline Docker. The report gives interleaved medians 0.240/0.243 s (treated as a tie), peaks 74.83/74.74 MB, and source 855→811 formatted lines; expected K gain is about 0.8% from S only.
+- Official trial pending. Parent `480a8e3def26af26e10298d6b043bf2195c82ec3` preserves rollback to the scored champion. This is not yet a promoted PR.
+

@@ -478,3 +478,10 @@ All five gates passed on official commit `c4cb49fedd910dd65dc0719c113b06fa2e9c24
 ## Full-team board result — 2026-10-31 17:30 UTC
 
 All five gates passed on rollback HEAD `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` with the unchanged hybrid12 source. **LATEST:** `run-bb9bb994b149`, T=0.240934 s, M=49,946,624 B, S=925, D=1, K=23.026282, points=68.111191. BEST remains `run-c050e7922fc2`, K=23.169218.
+
+
+## Official board results — 2026-10-31 18:17 UTC
+
+On official commit `a91a77e9ad3a54d93385b3bfc5231da589395f1c`, unchanged Track B source passed all five gates.
+- **BEST/LATEST:** `run-dcebadac870d`; T=0.236395 s, M=49,901,568 B, S=925, D=1, K=23.250490, points=68.321605.
+- This replaces the prior BEST `run-c050e7922fc2`, K=23.169218. Track B source was unchanged; this receipt reflects a new full-team scoring run.

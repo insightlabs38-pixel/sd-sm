@@ -18,6 +18,6 @@ Measurements and rejected experiments are in `PERF.md`.
 
 No third-party runtime libraries. Build with C++20, pthreads and the pinned Docker toolchain. The default input is `/data/requests.log` and the only output is `/out/summary.txt`; `SD_DATA_DIR`, `SD_OUT_DIR` and `SD_THREADS` override them for local testing.
 
-## Official scoring trial
+## Official scoring result
 
-Developer main candidate `79c8f22d59461e4cf3a39fccff8cab2070759cd9` passed correctness, sanitizer and restricted Docker CI. It is staged for official scoring; T/M/S/D/K are pending. The prior race-free source remains in the parent release commit for rollback.
+Developer main candidate `79c8f22d59461e4cf3a39fccff8cab2070759cd9`, source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`, is promoted. Official run `run-18b717b066d6` passed all five gates: T=0.021878 s, M=20,811,776 B, S=460, D=1, K=45.042769. The prior race-free source remains in parent release commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` for rollback.

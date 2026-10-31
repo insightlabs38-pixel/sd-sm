@@ -477,3 +477,11 @@ All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` using the pr
 - PR #7 head `dcb50168fcfb8b8b75b6eebc8c03976c589d056e`, source blob `dc7d92e9f2ab8e30bbd7b90a69360e22648c939a`; it combines certified record splitting, wide CRC32C tail hashing and guarded SWAR integer decoding. The PR remains open and mergeable; its rollback source is the current official C candidate from PR #5.
 - CI [41227918470](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41227918470) passed official tiny/sample/full hashes, seed 2/3, adversarial/overflow/long records, ASan/UBSan, TSan, pinned offline GCC Docker and sandbox.
 - Paired developer-runner median was 97.164→85.725 ms and sampled RSS 22,498→22,250 KiB across 12 trials; D remains 1. This does not establish official six-core T/M/S/K. Official BEST is K=20.321199; trial result pending.
+
+
+## Official rollback after failed Docker build — run-7c225263b59a (2026-10-31 18:17 UTC)
+
+- Candidate from open `sd-tc` PR #7 failed the official build stage: check=true, build=false; public feed reports Docker build exit 1. No T/M/S/D/K was produced. The feed does not expose a build-log tail, so no cause is inferred.
+- Restored the previously qualified Track C source from parent commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122`; its source matches the candidate that produced BEST `run-955f007ac420`.
+- **BEST:** `run-955f007ac420`, T=0.084295 s, M=12,238,848 B, S=537, D=1, K=20.321199, points=65.397466.
+- **LATEST:** `run-7c225263b59a` (failed build; no score). PR #7 remains open and unmerged pending developer correction. Candidate source and failed run remain in official Git history for review/rollback.

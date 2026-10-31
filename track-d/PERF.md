@@ -466,3 +466,11 @@ All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` with the unc
 ## Adjacency-order tournament — qualified but not promoted
 
 D main HEAD `c844d839fc98efec7029e952c65ae81b6cd8d704` records CI [41225764825](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41225764825): exact-output and Docker gates passed, with 195 full-seed executions. Reversed-order variants had weak, inconsistent wins at 4/6 workers and lost more often at 12; RSS was unchanged. Retain original adjacency order; no D source trial warranted.
+
+
+## Official board results — raw feed, 2026-10-31 18:17 UTC
+
+All five gates passed on official commit `a91a77e9ad3a54d93385b3bfc5231da589395f1c`.
+- **BEST:** `run-68c15954870c`; T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
+- **LATEST:** `run-eaacbe3f05c5`; T=0.123623 s, M=98,160,640 B, S=862, D=1, K=24.052733, points=69.058221.
+- Latest uses the same D source but is below BEST on K; no promotion warranted.

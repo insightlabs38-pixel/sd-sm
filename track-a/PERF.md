@@ -497,3 +497,11 @@ Commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` passed all five gates with res
 - Developer main HEAD `79c8f22d59461e4cf3a39fccff8cab2070759cd9`, source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`, uses atomic pair publication/acquire reads, exact endpoint-byte checks and up to twelve logical workers. CI [41227986546](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41227986546) passed official hashes, seed 2/3, disorder, ASan/UBSan, TSan, restricted Docker and paired comparisons.
 - CI's 31-run four-vCPU medians were 0.051800 s for `ff20736` and 0.049822 s for this candidate (3.82% faster); peak cgroup samples were 6,381,568 and 6,754,304 B. This is local evidence only; twelve-worker scaling and official K are unmeasured.
 - This differs from the failed six-worker threshold-16 trial. Preserve rollback source `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` in parent `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122`. Promote only if official gates pass and K beats correctness-qualified BEST.
+
+
+## Official promotion — run-18b717b066d6 (2026-10-31 18:17 UTC)
+
+- Promoted Track A source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a` from developer `sd-ta` main HEAD `79c8f22d59461e4cf3a39fccff8cab2070759cd9`. All five board gates passed.
+- Official **BEST/LATEST**: `run-18b717b066d6`, T=0.021878 s, M=20,811,776 B, S=460, D=1, K=45.042769, points=82.681254.
+- Prior correctness-qualified BEST was `run-2e35ec2bc727`, K=44.826321. K improved by 0.216448 (+0.48%). A higher raw board record remains excluded because its source had a confirmed TSan race.
+- Previous race-free source remains available at parent checkpoint `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122`.

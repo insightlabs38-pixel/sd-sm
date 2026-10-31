@@ -343,3 +343,10 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 ## Official board snapshot — 2026-10-31 07:17:07 UTC
 
 - `run-29c6b4ffe48d` scored exact rollback HEAD `15cc7c6f38a26d0f3515727d6d217ba4d95094b9`; all five gates passed. LATEST: T=0.068730 s, M=41,545,728 B, S=321, D=1, K=23.358782, points=68.422510. BEST remains `run-aad4ae1ad447` (K=23.892877); this is the verified known-good source, with ordinary run variance below BEST.
+
+
+## Official board snapshot — 2026-10-31 12:11:52 UTC
+
+- **BEST:** `run-aad4ae1ad447`, T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422.
+- **LATEST:** `run-e1cee7520ae4` on `2b5afc9408dcd202ca3f113e100d02fc673d04ee`; all five gates passed. T=0.068997 s, M=41,402,368 B, S=321, D=1, K=23.329665, points=68.395425.
+- Candidate trial source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is from `sd-ta/main` source at HEAD `765ed40783a534e3f5ae5f412ed9483000bd63a9` (latest source-changing ancestor `d9680bd`). Exact-source qualification CI `41183532479` passed. Candidate board result is pending; parent commit retains the known-good source for rollback.

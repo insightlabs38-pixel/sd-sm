@@ -305,3 +305,10 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official board snapshot — 2026-10-31 07:17:07 UTC
 
 - `run-fb981cbf92cb` scored exact HEAD `15cc7c6f38a26d0f3515727d6d217ba4d95094b9`; all five gates passed. LATEST: T=0.123407 s, M=98,594,816 B, S=862, D=1, K=24.052533, points=69.058041. BEST remains `run-68c15954870c` (K=24.163880).
+
+
+## Official board snapshot — 2026-10-31 12:11:52 UTC
+
+- **BEST:** `run-68c15954870c`, T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
+- **LATEST:** `run-350691c56e3c` on `2b5afc9408dcd202ca3f113e100d02fc673d04ee`; all five gates passed. T=0.125848 s, M=99,028,992 B, S=862, D=1, K=23.797203, points=68.826295.
+- Track D source was not changed in this candidate trial. The current official source remains the known-good rollback candidate while its newer development-main composition awaits an exact-source qualification.

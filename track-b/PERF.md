@@ -336,3 +336,10 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official board snapshot — 2026-10-31 07:17:07 UTC
 
 - `run-e4d246e15ac5` scored exact HEAD `15cc7c6f38a26d0f3515727d6d217ba4d95094b9`; all five gates passed. LATEST: T=0.302998 s, M=45,654,016 B, S=860, D=1, K=21.135129, points=66.250245. BEST remains `run-04a7116196c9` (K=21.392007).
+
+
+## Official board snapshot — 2026-10-31 12:11:52 UTC
+
+- **BEST:** `run-04a7116196c9`, T=0.300165 s, M=42,844,160 B, S=860, D=1, K=21.392007, points=66.512577.
+- **LATEST:** `run-3cb698d73c4f` on `2b5afc9408dcd202ca3f113e100d02fc673d04ee`; all five gates passed. T=0.311329 s, M=43,327,488 B, S=860, D=1, K=21.004956, points=66.116088.
+- Candidate source blob `b49b7ed50b672c072709e93272a77e2a18f7e169` is from `sd-tb/main` HEAD `c6ed9465a5f49db6473461369097e5d49ae46b9f`; exact-source qualification CI `41196378364` passed. CI’s paired three-seed comparison found 1024-document blocks faster and lower-memory than 2048 blocks, while maintaining exact output. Candidate board result is pending; parent commit retains the known-good source for rollback.

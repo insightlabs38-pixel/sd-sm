@@ -109,3 +109,17 @@ HighVelocity (`highvelocity-7f330e`) remained registered. Watcher was healthy at
 
 - **BEST:** `run-c25251fd5cdb`; commit `01d4852e1271d5bec3d6de9aaa7641f8616730cb`; T=0.072742 s, M=50,122,752 bytes, S=325, D=1, K=21.828419, points=66.951114.
 - **LATEST:** `run-9afdeb98f26b`; commit `157f1d478136fd0d7950aa2a82e121c087ec7ec7`; T=0.075135 s, M=49,733,632 bytes, S=325, D=1, K=21.511501, points=66.633535.
+
+
+## Official board results — raw-feed snapshot 2026-10-31 00:17:27 UTC
+
+HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `b8e654028f1fa9db3f4f50066d8eb60d559b9e67`, queue idle. All five gates passed and failure was null. BEST and LATEST are reported separately; these are live-board IDs, not GitHub Actions IDs.
+
+- **BEST:** `run-c25251fd5cdb`; commit `01d4852e1271d5bec3d6de9aaa7641f8616730cb`; T=0.072742 s, M=50,122,752 bytes, S=325, D=1, K=21.828419, points=66.951114.
+- **LATEST:** `run-059bcd1867c7`; commit `b8e654028f1fa9db3f4f50066d8eb60d559b9e67`; T=0.073655 s, M=49,848,320 bytes, S=325, D=1, K=21.716542, points=66.839533.
+
+
+## Verified `sd-ta` main candidate evaluated against the official source — October 31, 2026
+
+- Imported from developer HEAD `59a73a7c2d85d3f396313de528defafb82465572`, source blob `71fb370c88f6a5423898ad63ae7e3c644ca89444`; rollback is parent commit `b8e6540`. CI [41148649319](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41148649319) passed exactness and restricted offline Docker on this source. A separate paired 13-run full seed-1 local comparison against the then-official source matched the published hash each run: T median 0.232623 to 0.227738 s (2.1% lower), sampled RSS 287,203,328 to 281,677,824 bytes (1.9% lower). These are local, not board measurements.
+- Pinned clang-format 23.1.3 and scc 4.1.0 gave S=325 for the scored source and S=321 for the candidate; D remains 1. Applying the paired local T/M ratios and exact S delta to board BEST K=21.828419 gives estimated K≈22.19 (+1.6%). The estimate is not a board result; actual scoring of the integrated source is pending.

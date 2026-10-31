@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <atomic>
 #include <array>
 #include <charconv>
 #include <cstdint>
@@ -19,20 +20,21 @@ namespace {
 constexpr uint32_t kHours = 72;
 constexpr uint32_t kEndpoints = 1842;
 constexpr uint32_t kGroups = kHours * kEndpoints;
+constexpr uint32_t kLocalBits = 11, kLocalStride = 1u << kLocalBits;
 constexpr uint32_t kParseWorkers = 5;
-constexpr uint32_t kOutputWorkers = 4;
+constexpr uint32_t kOutputWorkers = 5;
 constexpr uint8_t kMethodSkip[26] = {0, 0, 0, 7, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 8};
 
 struct Record { uint32_t group, latency; };
 struct Group { uint32_t count = 0, errors = 0, cursor = 0; };
 struct WorkerGroup { uint32_t count = 0, errors = 0; };
-struct Slot { uint64_t hash = 0; uint32_t id_plus_one = 0; };
+struct Slot { uint32_t hash = 0, id_plus_one = 0; };
 
 [[noreturn]] void fail(const char *message) {
   std::perror(message);
   std::exit(1);
 }
-__attribute__((target("sse4.2"))) uint64_t endpoint_hash(std::string_view name) {
+__attribute__((target("sse4.2"))) uint32_t endpoint_hash(std::string_view name) {
   const size_t n = name.size();
   uint64_t a = 0, b = 0, c = 0;
   if (n < 8) std::memcpy(&a, name.data(), n);
@@ -41,9 +43,23 @@ __attribute__((target("sse4.2"))) uint64_t endpoint_hash(std::string_view name) 
     std::memcpy(&b, name.data() + (n - 8) / 2, 8);
     std::memcpy(&c, name.data() + n - 8, 8);
   }
-  uint64_t h = _mm_crc32_u64(n, a);
+  uint32_t h = _mm_crc32_u64(n, a);
   h = _mm_crc32_u64(h, b);
   return _mm_crc32_u64(h, c);
+}
+__attribute__((always_inline)) inline uint32_t intern(std::string_view name, std::array<Slot, 4096> &dictionary,
+                std::vector<std::string_view> &names) {
+  const uint32_t hash = endpoint_hash(name);
+  uint32_t pos = hash & 4095;
+  while (dictionary[pos].id_plus_one &&
+         !(dictionary[pos].hash == hash && names[dictionary[pos].id_plus_one - 1] == name))
+    pos = (pos + 1) & 4095;
+  if (dictionary[pos].id_plus_one) return dictionary[pos].id_plus_one - 1;
+  const uint32_t id = static_cast<uint32_t>(names.size());
+  if (id >= kEndpoints) fail("too many endpoints");
+  names.push_back(name);
+  dictionary[pos] = {hash, id + 1};
+  return id;
 }
 uint32_t hour_index(const char *p) {
   const uint32_t day = (p[8] - '0') * 10 + (p[9] - '0');
@@ -66,7 +82,7 @@ void write_all(int fd, const std::string &out) {
 struct Worker {
   std::array<Slot, 4096> dictionary {};
   std::vector<std::string_view> names;
-  std::vector<WorkerGroup> groups = std::vector<WorkerGroup>(kGroups);
+  std::vector<WorkerGroup> groups = std::vector<WorkerGroup>(kHours * kLocalStride);
   std::array<std::array<char, 13>, kHours> hours {};
   std::array<uint8_t, kHours> seen {};
   std::vector<Record> records;
@@ -82,26 +98,13 @@ struct Worker {
       const char *const endpoint = p;
       p = static_cast<const char *>(std::memchr(p, ' ', static_cast<size_t>(end - p)));
       const std::string_view name(endpoint, static_cast<size_t>(p - endpoint));
-      const uint64_t hash = endpoint_hash(name);
-      uint32_t pos = static_cast<uint32_t>(hash) & 4095;
-      while (dictionary[pos].id_plus_one &&
-             !(dictionary[pos].hash == hash && names[dictionary[pos].id_plus_one - 1] == name))
-        pos = (pos + 1) & 4095;
-      uint32_t id;
-      if (!dictionary[pos].id_plus_one) {
-        id = static_cast<uint32_t>(names.size());
-        if (id >= kEndpoints) fail("too many endpoints");
-        names.push_back(name);
-        dictionary[pos] = {hash, id + 1};
-      } else {
-        id = dictionary[pos].id_plus_one - 1;
-      }
+      const uint32_t id = intern(name, dictionary, names);
       const bool error = p[1] == '5';
       p += 5;
       uint32_t latency = 0;
       while (*p != '\n') latency = latency * 10 + static_cast<uint32_t>(*p++ - '0');
       ++p;
-      const uint32_t key = hour * kEndpoints + id;
+      const uint32_t key = (hour << kLocalBits) | id;
       WorkerGroup &group = groups[key];
       ++group.count;
       group.errors += error;
@@ -155,26 +158,13 @@ int main() {
     Worker &worker = workers[w];
     remaps[w].reserve(worker.names.size());
     for (const std::string_view name : worker.names) {
-      const uint64_t hash = endpoint_hash(name);
-      uint32_t pos = static_cast<uint32_t>(hash) & 4095;
-      while (dictionary[pos].id_plus_one &&
-             !(dictionary[pos].hash == hash && names[dictionary[pos].id_plus_one - 1] == name))
-        pos = (pos + 1) & 4095;
-      uint32_t id;
-      if (!dictionary[pos].id_plus_one) {
-        id = static_cast<uint32_t>(names.size());
-        if (id >= kEndpoints) fail("too many endpoints");
-        names.push_back(name);
-        dictionary[pos] = {hash, id + 1};
-      } else {
-        id = dictionary[pos].id_plus_one - 1;
-      }
+      const uint32_t id = intern(name, dictionary, names);
       remaps[w].push_back(id);
     }
     for (uint32_t hour = 0; hour < kHours; ++hour) {
       if (worker.seen[hour]) std::memcpy(hours[hour].data(), worker.hours[hour].data(), 13);
       for (uint32_t id = 0; id < worker.names.size(); ++id) {
-        const WorkerGroup &src = worker.groups[hour * kEndpoints + id];
+        const WorkerGroup &src = worker.groups[(hour << kLocalBits) | id];
         Group &dst = groups[hour * kEndpoints + remaps[w][id]];
         dst.count += src.count;
         dst.errors += src.errors;
@@ -187,17 +177,19 @@ int main() {
     group.cursor = prefix;
     prefix += group.count;
   }
-  std::vector<uint32_t> latencies(prefix);
   std::array<std::vector<uint32_t>, kParseWorkers> cursors;
   for (uint32_t w = 0; w < kParseWorkers; ++w) {
     cursors[w].assign(kGroups, 0);
     for (uint32_t hour = 0; hour < kHours; ++hour) {
       for (uint32_t id = 0; id < workers[w].names.size(); ++id) {
         const uint32_t key = hour * kEndpoints + remaps[w][id];
-        cursors[w][key] = workers[w].groups[hour * kEndpoints + id].count;
+        cursors[w][key] = workers[w].groups[(hour << kLocalBits) | id].count;
       }
     }
+    workers[w].groups.clear();
+    workers[w].groups.shrink_to_fit();
   }
+  std::vector<uint32_t> latencies(prefix);
   for (uint32_t key = 0; key < kGroups; ++key) {
     uint32_t offset = groups[key].cursor;
     for (uint32_t w = 0; w < kParseWorkers; ++w) {
@@ -210,7 +202,8 @@ int main() {
   auto scatter = [&](uint32_t w) {
     std::vector<uint32_t> &cursor = cursors[w];
     for (const Record &record : workers[w].records) {
-      const uint32_t key = (record.group / kEndpoints) * kEndpoints + remaps[w][record.group % kEndpoints];
+      const uint32_t key = (record.group >> kLocalBits) * kEndpoints +
+                           remaps[w][record.group & (kLocalStride - 1)];
       latencies[cursor[key]++] = record.latency;
     }
   };
@@ -226,13 +219,16 @@ int main() {
   for (uint32_t i = 0; i < order.size(); ++i) order[i] = i;
   std::sort(order.begin(), order.end(), [&](uint32_t a, uint32_t b) { return names[a] < names[b]; });
 
-  std::array<std::string, kOutputWorkers> parts;
-  auto produce = [&](uint32_t worker) {
-    std::string &output = parts[worker];
-    output.reserve(bytes / (20 * kOutputWorkers) + 4096);
-    for (uint32_t hour = worker * (kHours / kOutputWorkers);
-         hour < (worker + 1) * (kHours / kOutputWorkers); ++hour) {
-      for (const uint32_t id : order) {
+  std::array<std::string, kHours> parts;
+  std::atomic<uint32_t> next_hour{0};
+  auto produce = [&] {
+    while (true) {
+      const uint32_t hour = next_hour.fetch_add(1, std::memory_order_relaxed);
+      if (hour >= kHours) break;
+      std::string &output = parts[hour];
+      output.reserve(bytes / (20 * kHours) + 4096);
+      for (uint32_t j = 0; j < order.size(); ++j) {
+        const uint32_t id = order[j];
         const Group &group = groups[hour * kEndpoints + id];
         const uint32_t n = group.count;
         if (!n) continue;
@@ -268,8 +264,8 @@ int main() {
   };
   std::array<std::thread, kOutputWorkers - 1> output_threads;
   for (uint32_t i = 1; i < kOutputWorkers; ++i)
-    output_threads[i - 1] = std::thread(produce, i);
-  produce(0);
+    output_threads[i - 1] = std::thread(produce);
+  produce();
   for (auto &thread : output_threads) thread.join();
 
   const char *const out_dir = std::getenv("SD_OUT_DIR");

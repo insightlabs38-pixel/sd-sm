@@ -95,3 +95,17 @@ HighVelocity (`highvelocity-7f330e`) remained registered. Watcher was healthy at
 
 - **BEST:** `run-b7259ab42416`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
 - **LATEST:** `run-c780a5a2007f`; commit `157f1d478136fd0d7950aa2a82e121c087ec7ec7`; T=0.137002 s, M=50,987,008 bytes, S=469, D=1, K=12.228219, points=54.368160.
+
+
+## Official board results — raw-feed snapshot 2026-10-31 00:17:27 UTC
+
+HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `b8e654028f1fa9db3f4f50066d8eb60d559b9e67`, queue idle. All five gates passed and failure was null. BEST and LATEST are reported separately; these are live-board IDs, not GitHub Actions IDs.
+
+- **BEST:** `run-b7259ab42416`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-383872c272e3`; commit `b8e654028f1fa9db3f4f50066d8eb60d559b9e67`; T=0.141475 s, M=51,986,432 bytes, S=469, D=1, K=11.986729, points=53.935035.
+
+
+## Verified `sd-tc` main candidate evaluated against the official source — October 31, 2026
+
+- Imported developer HEAD `d6ec5b0c6a1e517032e53a2c843a264363ac94a8`, source blob `804516b935b4f544d7895291dc433de3e225b08c`. CI [41145051410](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41145051410) passed tiny/sample adversarial cases, official seed-1 full output, and restricted offline Docker. A separate paired 13-run full seed-1 local comparison against the official source matched the published hash each run: T median 0.687834 to 0.469036 s; process-sampled RSS 253,308,928 to 25,833,472 bytes. Because mmap page accounting differs across hosts, RSS is local evidence and is excluded from the conservative K estimate.
+- Pinned clang-format 23.1.3 and scc 4.1.0 measured S=469 for the board source and S=523 for this candidate; D remains 1. Using the local T ratio (0.6819), holding official board M unchanged, and applying the frozen formula to board BEST K=12.246449 gives conservative estimated K≈14.59. CI full-scale comparison also showed about 0.15 s / 28 MB versus 0.16–0.17 s / 30 MB against its prior development source. Actual board evaluation is pending.

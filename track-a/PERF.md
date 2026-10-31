@@ -185,3 +185,13 @@ Developer `sd-ta/main` commit `65f158ae8b817bc36f547c53b77333ce07c4fcec` simplif
 ## Later developer-main candidate review
 
 The follow-up `sd-ta/main` commit `388406ca0dcd93516dc292fc2cbe2789c599ff5d` separated parse and group counting. Its CI run [41154503918](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41154503918) passed exactness and Docker checks, but the 13-pair full seed-1 median was 0.108288 s (parent) vs 0.108528 s (candidate, ratio 1.0022); RSS was 275,748 vs 275,844 KiB and cgroup peak 43,827,200 vs 43,864,064 bytes. The slight regression and added operations do not support promotion; only the prior fixed-span index edit is imported.
+
+
+## Official latest board results — raw feed observed 2026-10-31 01:19:37 UTC
+
+Watcher healthy at `266578e73fec11894c067b8b11a0910657a8ccff`, queue idle; all five gates passed for all four tracks, failure null.
+
+- **BEST:** `run-925ee63e320b`, commit `8b137acc1b2f3a83c9b7c422088b7b966357232e`; T=0.066078 s, M=44,474,368 bytes, S=321, D=1, K=23.500561, points=68.553912.
+- **LATEST:** `run-4fc2b3bedf5d`, commit `266578e73fec11894c067b8b11a0910657a8ccff`; T=0.070131 s, M=44,830,720 bytes, S=320, D=1, K=22.785667, points=67.883087.
+
+The fixed-span UTC indexing challenger regressed on the official board; it is rolled back in the next commit. Retain `8b137ac` as the known-good A source.

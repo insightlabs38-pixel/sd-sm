@@ -267,3 +267,8 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 ## Official baseline before Track B hybrid trial — raw feed 2026-10-31 04:14 UTC
 
 On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, latest run `run-d53d14fca94c` passed all five gates: T=0.065558 s, M=43,933,696 B, S=319, D=1, K=23.673550, points=68.713170. BEST is the same run. The baseline precedes the controlled Track B trial.
+
+
+## Official board results after Track B trial — raw feed 2026-10-31 04:17:53 UTC
+
+HighVelocity watcher healthy at `a2f99921eaf302381af4fa63e6b131588c3fb572`; `run-5a28f49a0787` passed all five gates. **LATEST:** T=0.070086 s, M=43,745,280 B, S=319, D=1, K=22.915742, points=68.006696. **BEST:** `run-d53d14fca94c`, K=23.673550, points=68.713170.

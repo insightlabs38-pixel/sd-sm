@@ -7,6 +7,7 @@
 #include <cstring>
 #include <limits>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <thread>
 #include <utility>
@@ -226,13 +227,6 @@ struct Graph {
     Array<uint32_t> perm; // original id -> search id
 };
 
-// One BFS region: nodes in discovery order and their out-degrees.
-struct Region {
-    Array<uint32_t> order, degree;
-    uint32_t len = 0, expanded = 0;
-    uint64_t edges = 0;
-};
-
 class Claims {
     std::vector<uint64_t> bits_;
 public:
@@ -246,82 +240,6 @@ public:
     uint64_t word(size_t i) const { return bits_[i]; }
     size_t words() const { return bits_.size(); }
 };
-
-static void grow(const Packed& raw, Claims& claims, Region& r) {
-    uint32_t len = r.len;
-    uint64_t edges = r.edges;
-    uint32_t* order = r.order.p;
-    uint32_t* degree = r.degree.p;
-    uint32_t head = r.expanded;
-    for (; head < len; ++head) {
-        if (head + 16 < len) __builtin_prefetch(&raw.off[order[head + 16]]);
-        if (head + 8 < len) __builtin_prefetch(&raw.adj[raw.off[order[head + 8]]]);
-        uint32_t u = order[head], b = raw.off[u], e = raw.off[u + 1];
-        degree[head] = e - b;
-        edges += e - b;
-        for (uint32_t i = b; i < e; ++i)
-            if (claims.take(raw.head(raw.adj[i]))) order[len++] = raw.head(raw.adj[i]);
-    }
-    r.len = len;
-    r.expanded = head;
-    r.edges = edges;
-}
-
-// Search ids follow concurrent BFS regions grown from scattered seeds, so graph neighbours stay close in memory.
-static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
-    Graph g;
-    g.n = n;
-    Claims claims(n);
-    std::vector<Region> regions(threads + 1);
-    for (unsigned t = 0; t <= threads; ++t) { regions[t].order = Array<uint32_t>(n, true); regions[t].degree = Array<uint32_t>(n, true); }
-    for (unsigned t = 0; t < threads; ++t) {
-        for (uint32_t i = 0, r = static_cast<uint32_t>(uint64_t(n) * t / threads); i < n; ++i, r = r + 1 == n ? 0 : r + 1)
-            if (raw.off[r + 1] - raw.off[r] >= 2) {
-                if (claims.take(r)) regions[t].order[regions[t].len++] = r;
-                break;
-            }
-    }
-    parallel(threads, [&](unsigned t) { grow(raw, claims, regions[t]); });
-    Region& rest = regions[threads];
-    for (size_t w = 0; w < claims.words(); ++w)
-        for (uint64_t free = ~claims.word(w); free; free &= free - 1) {
-            uint32_t v = static_cast<uint32_t>(w * 64 + __builtin_ctzll(free));
-            if (v < n && claims.take(v)) { rest.order[rest.len++] = v; grow(raw, claims, rest); }
-        }
-
-    std::vector<uint32_t> base(threads + 2, 0);
-    std::vector<uint64_t> ebase(threads + 2, 0);
-    for (unsigned t = 0; t <= threads; ++t) { base[t + 1] = base[t] + regions[t].len; ebase[t + 1] = ebase[t] + regions[t].edges; }
-    Array<uint32_t> order(n), degree(n);
-    g.perm = Array<uint32_t>(n);
-    g.fwd = Packed(n, ebase[threads + 1]);
-    parallel(threads + 1, [&](unsigned t) {
-        const Region& r = regions[t];
-        uint64_t sum = ebase[t];
-        for (uint32_t i = 0; i < r.len; ++i) {
-            order[base[t] + i] = r.order[i];
-            g.perm[r.order[i]] = base[t] + i;
-            g.fwd.off[base[t] + i] = static_cast<uint32_t>(sum);
-            sum += r.degree[i];
-        }
-    });
-    g.fwd.off[n] = static_cast<uint32_t>(ebase[threads + 1]);
-    regions.clear();
-    std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
-    parallel(threads, [&](unsigned t) {
-        for (size_t k = n * size_t(t) / threads, hi = n * size_t(t + 1) / threads; k < hi; ++k) {
-            if (k + 8 < hi) __builtin_prefetch(&raw.adj[raw.off[order[k + 8]]]);
-            uint32_t o = order[k], pos = g.fwd.off[k];
-            for (uint32_t i = raw.off[o]; i < raw.off[o + 1]; ++i, ++pos) {
-                uint32_t w = raw.weight(i);
-                g.fwd.adj[pos] = g.fwd.pack(g.perm[raw.head(raw.adj[i])], w);
-                if (w >= g.fwd.mask) escapes[t].push_back({pos, w});
-            }
-        }
-    });
-    for (auto& e : escapes) g.fwd.escapes.insert(g.fwd.escapes.end(), e.begin(), e.end());
-    return g;
-}
 
 // dst[k] = sum of src[0..k); returns the total. src may equal dst; copy, if given, also receives dst.
 static uint32_t scan(const uint32_t* src, uint32_t* dst, size_t n, unsigned threads, uint32_t* copy = nullptr) {
@@ -342,6 +260,121 @@ static uint32_t scan(const uint32_t* src, uint32_t* dst, size_t n, unsigned thre
         }
     });
     return start[threads];
+}
+
+struct Slot { uint32_t node, id; };
+
+// Concurrent BFS renumbering. Ids come from per-thread blocks in discovery order, so neighbours stay close in memory;
+// idle threads take half of a busy thread's unexpanded frontier.
+class Renumber {
+    const Packed& raw_;
+    Claims claims_;
+    std::atomic<uint32_t> blocks_{0};
+    std::atomic<unsigned> idle_{0};
+    std::mutex lock_;
+    std::vector<std::vector<Slot>> pending_;
+    unsigned active_ = 0;
+    uint32_t block_;
+    struct Walker {
+        std::vector<Slot> queue;
+        uint32_t next = 0, left = 0;
+    };
+    Slot add(Walker& w, uint32_t v) {
+        if (!w.left) { w.next = blocks_.fetch_add(block_); w.left = block_; }
+        --w.left;
+        order[w.next] = v + 1;
+        perm[v] = w.next;
+        return {v, w.next++};
+    }
+    void donate(Walker& w, size_t head) {
+        size_t half = (w.queue.size() - head) / 2;
+        std::vector<Slot> give(w.queue.end() - half, w.queue.end());
+        w.queue.resize(w.queue.size() - half);
+        std::lock_guard<std::mutex> guard(lock_);
+        pending_.push_back(std::move(give));
+    }
+    void expand(Walker& w) {
+        for (size_t head = 0; head < w.queue.size(); ++head) {
+            if (head + 16 < w.queue.size()) __builtin_prefetch(&raw_.off[w.queue[head + 16].node]);
+            if (head + 8 < w.queue.size()) __builtin_prefetch(&raw_.adj[raw_.off[w.queue[head + 8].node]]);
+            Slot s = w.queue[head];
+            uint32_t b = raw_.off[s.node], e = raw_.off[s.node + 1];
+            degree[s.id] = e - b;
+            for (uint32_t i = b; i < e; ++i)
+                if (claims_.take(raw_.head(raw_.adj[i]))) w.queue.push_back(add(w, raw_.head(raw_.adj[i])));
+            if ((head & 255) == 0 && idle_.load(std::memory_order_relaxed) && w.queue.size() - head > 64) donate(w, head + 1);
+        }
+    }
+    void work() {
+        Walker w;
+        bool waiting = false;
+        for (;;) {
+            {
+                std::lock_guard<std::mutex> guard(lock_);
+                if (!pending_.empty()) { w.queue = std::move(pending_.back()); pending_.pop_back(); ++active_; }
+                else if (!active_) break;
+            }
+            if (w.queue.empty()) {
+                if (!waiting) { idle_.fetch_add(1); waiting = true; }
+                std::this_thread::yield();
+                continue;
+            }
+            if (waiting) { idle_.fetch_sub(1); waiting = false; }
+            expand(w);
+            w.queue.clear();
+            std::lock_guard<std::mutex> guard(lock_);
+            --active_;
+        }
+        if (waiting) idle_.fetch_sub(1);
+    }
+public:
+    Array<uint32_t> order, perm, degree; // order holds node + 1 (0 marks an unused id)
+    uint32_t used = 0;
+    Renumber(const Packed& raw, uint32_t n, unsigned threads)
+        : raw_(raw), claims_(n), block_(std::clamp<uint32_t>(n / (16 * threads), 1, 4096)),
+          order(size_t(n) + size_t(threads + 1) * block_), perm(n), degree(size_t(n) + size_t(threads + 1) * block_) {}
+    void run(uint32_t n, unsigned threads) {
+        Walker lead;
+        for (unsigned t = 0; t < threads; ++t)
+            for (uint32_t i = 0, r = static_cast<uint32_t>(uint64_t(n) * t / threads); i < n; ++i, r = r + 1 == n ? 0 : r + 1)
+                if (raw_.off[r + 1] - raw_.off[r] >= 2) {
+                    if (claims_.take(r)) pending_.push_back({add(lead, r)});
+                    break;
+                }
+        parallel(threads, [&](unsigned) { work(); });
+        for (size_t w = 0; w < claims_.words(); ++w)
+            for (uint64_t free = ~claims_.word(w); free; free &= free - 1) {
+                uint32_t v = static_cast<uint32_t>(w * 64 + __builtin_ctzll(free));
+                if (v < n && claims_.take(v)) { lead.queue = {add(lead, v)}; expand(lead); }
+            }
+        used = blocks_.load();
+    }
+};
+
+static Graph reorder(const Packed& raw, uint32_t n, unsigned threads) {
+    Graph g;
+    Renumber ids(raw, n, threads);
+    ids.run(n, threads);
+    g.n = ids.used;
+    g.perm = std::move(ids.perm);
+    g.fwd = Packed(g.n, raw.off[n]);
+    g.fwd.off[g.n] = scan(ids.degree.p, g.fwd.off.p, g.n, threads);
+    ids.degree.release();
+    std::vector<std::vector<std::pair<uint32_t, uint32_t>>> escapes(threads);
+    parallel(threads, [&](unsigned t) {
+        for (size_t k = size_t(g.n) * t / threads, hi = size_t(g.n) * (t + 1) / threads; k < hi; ++k) {
+            if (k + 8 < hi && ids.order[k + 8]) __builtin_prefetch(&raw.adj[raw.off[ids.order[k + 8] - 1]]);
+            if (!ids.order[k]) continue;
+            uint32_t o = ids.order[k] - 1, pos = g.fwd.off[k];
+            for (uint32_t i = raw.off[o]; i < raw.off[o + 1]; ++i, ++pos) {
+                uint32_t w = raw.weight(i);
+                g.fwd.adj[pos] = g.fwd.pack(g.perm[raw.head(raw.adj[i])], w);
+                if (w >= g.fwd.mask) escapes[t].push_back({pos, w});
+            }
+        }
+    });
+    for (auto& e : escapes) g.fwd.escapes.insert(g.fwd.escapes.end(), e.begin(), e.end());
+    return g;
 }
 
 static inline uint32_t bump(uint32_t& x) { return __atomic_fetch_add(&x, 1u, __ATOMIC_RELAXED); }

@@ -204,3 +204,9 @@ Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All f
 ## Official board snapshot — raw feed 2026-10-31 02:00:12 UTC
 
 Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All five gates passed, failure null. **BEST:** `run-1cbdf9e4a82e`, K=23.855961, points=68.879845. **LATEST:** `run-a99f3f4d4fc3`, T=0.135147 s, M=98,762,752 bytes, S=728, D=1, K=23.566011, points=68.614304.
+
+## Controlled official trial: qualified frontier donation PR #3 — 2026-10-31
+
+- Staged only `track-d/d_traverse.cpp` from `sd-td` branch `frontier/d-claude-architecture-3`, head `93393b485782ca0edcf4e5e9ffa21b9deb7283ca`, source blob `4a249d728c074febe26502db752e1c97c5d1a279`. Existing Dockerfile and manifest are retained. Official rollback is parent commit `0629dacf5c60ddc1e986c185b9bf45b64d6fd105`, with source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60` and BEST run `run-1cbdf9e4a82e` (K=23.855961).
+- Developer qualification [CI 41156592344](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41156592344) passed differential, stress, sanitizer, official output-hash, and pinned-container checks at 1/4/12 workers. The branch records matched local timing and memory as exploratory evidence; the expected scoring-box effect is near break-even, so this push is a controlled submission-machine trial, not a claimed improvement.
+- Official board run ID and axes: pending. Do not treat the prior D BEST as a score for this candidate.

@@ -318,3 +318,9 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - Track D source was unchanged in commit `187269a`. Board run `run-1b1341c90c11` passed all five gates: T=0.132667 s, M=99,127,296 B, S=862, D=1, K=23.172956, points=68.249072. BEST remains `run-68c15954870c`, K=24.163880.
 - Historical PR #3 donation trial source `4a249d728c074febe26502db752e1c97c5d1a279` scored as `run-03c554a03f7a` on commit `062d7e5`: T=0.148357 s, M=98,512,896 B, S=779, D=1, K=22.276367. It was 6.6% below then-BEST K=23.855961 and was rolled back; PR #3 is not promoted or merged.
+
+
+## Staged Track D source trial — 2026-10-31
+
+- Candidate source blob `2a7f4af8b6005b717f067d79be75a406a037d1a9` from `sd-td/main` HEAD `a78664ef5d8ce7b3986f54328430df793664d697`. It combines the developer's separately qualified four-worker graph-construction cap and exact-key bucket width 128. Their isolated pinned-Docker/full-output A/B runs are recorded above; their runner estimates are not official scores.
+- The combined exact source compiled with the official submission Dockerfile's GCC flags and passed 88 differential fixtures across 1/4/12 workers and six probe limits. Full-seed and official-board gates remain pending on this exact combined source. The parent commit preserves official BEST source `be15ac2e635af157cc8db71d2df5e218d0a78446` for rollback.

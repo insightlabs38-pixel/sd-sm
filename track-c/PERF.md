@@ -505,3 +505,14 @@ All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` using the pr
 ## Official rollback result — run-8f98e6ec4091 (2026-10-31 18:37 UTC)
 
 After restoring known-good source blob `7def6ac05e18fcf871310f37abade9ca1a904760`, all five gates passed. **BEST/LATEST:** T=0.082831 s, M=12,500,992 B, S=537, D=1, K=20.413289, points=65.495649. This replaces the prior BEST `run-955f007ac420` (K=20.321199) on the same source. The failed PR #8 build remains LATEST only for its prior trial commit; it is not the current source result.
+
+
+## Official latest — run-273326332bcf (2026-10-31 18:44 UTC)
+
+All five gates passed on restored source blob `7def6ac05e18fcf871310f37abade9ca1a904760`. **LATEST:** T=0.087211 s, M=12,734,464 B, S=537, D=1, K=19.820590, points=64.855828. **BEST** remains `run-8f98e6ec4091` (K=20.413289).
+
+## Track C main candidate staged — official trial pending
+
+- Current developer main HEAD `0a65827a4d09bbb397cb3dea20990c214346d863` restores the SSE2 quote-scanning source, blob `4ca129b0ca9596554d052aadb9d5e751496cc754`. That exact source was qualified by CI [41229750254](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41229750254): full seed-1 hash, holdout seeds, quote-boundary, offline Docker and sandbox checks passed.
+- Developer paired runner medians were 103.962→100.798 ms (RSS 17,146→17,158 KiB, proxy +1.18%) and independent replication 140.930→132.367 ms (RSS 17,070→17,112 KiB, proxy +2.77%). The proxy compares against developer source `f875b5d`; it is not an official board measurement. Source and D differences are recorded by the developer; official T/M/S/D/K remain pending.
+- Candidate is imported from developer main, not an open PR. Rollback is the known-good source in parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb`. The separate open PR #8 source failed official Docker build (`run-adcadeec9db2`) and remains unmerged.

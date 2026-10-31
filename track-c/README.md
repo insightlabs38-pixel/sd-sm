@@ -1,5 +1,5 @@
 # Track C: Join
 
-A byte-oriented C++17 implementation parses the hostile CSV and aggregates exact name/region groups. It maps unknown record region IDs through the frozen input range up to 9,999,999 to `_UNMATCHED`; exact name comparisons and the synchronized overflow path preserve correctness. No third-party runtime dependencies.
+Dependency-free C++17 CSV parser and exact aggregator for Track C. It handles quoted fields and escaped quotes, uses exact name comparisons with a synchronized overflow path, and maps unknown record region IDs through the frozen input range (up to 9,999,999) to `_UNMATCHED`.
 
-The current source is the known-good candidate restored from parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21` (blob `7def6ac05e18fcf871310f37abade9ca1a904760`). BEST/LATEST is `run-8f98e6ec4091` (T=0.082831 s, M=12,500,992 B, S=537, D=1, K=20.413289). PR #8's official trial failed Docker build (`run-adcadeec9db2`); its candidate remains in commit `5b1f942cac523c62dcda40eca63586732c6a7959`, and the PR remains open and unmerged.
+The known-good official source is retained in parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb` (blob `7def6ac05e18fcf871310f37abade9ca1a904760`), with BEST `run-8f98e6ec4091`, K=20.413289. A current-main SSE2 quote-scanning candidate (source blob `4ca129b0ca9596554d052aadb9d5e751496cc754`) is staged for official trial; its exact source passed developer CI [41229750254], but board scoring is pending.

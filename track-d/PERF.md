@@ -333,3 +333,9 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official latest — 2026-10-31 12:21:24 UTC
 
 - **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-351558723173`, T=0.180488 s, M=77,778,944 B, S=823, D=1, K=21.000086; all gates passed. Known-good source is restored pending rescore.
+
+
+## D PR #5 size-only candidate trial — pending official board
+
+- Staged exact open-PR source blob `fd1db93b387442b018e9c368db6a5c46d6d89844` from head `94286d5ce85421fa082de37c92e4b3cf4f2e34df`; this simplifies the known-good contraction implementation without an algorithm change. CI `41168086045` passed 83 differential fixtures, official full/sample/tiny output hashes and Docker at 1/4/12 threads. Exact source also compiled with the official submission Docker flags and passed 88 local differential cases.
+- Developer's 15-round matched run was a timing tie (0.240 vs 0.243 s); 12-thread peak memory 74.83 vs 74.74 MB. Counted source fell 855 to 811 lines, so the expected gain is primarily the source-size axis and remains a board trial, not a promotion claim. Parent `e210b5d` restores the `be15ac2` official BEST source. PR #5 remains open pending official scoring; merge it only if promoted.

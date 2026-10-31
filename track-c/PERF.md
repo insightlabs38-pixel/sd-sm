@@ -304,3 +304,7 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - **BEST:** `run-2e4a2fbbc969`; T=0.136063 s, M=50,782,208 B, S=469, D=1, K=12.280222, points=54.460311.
 - **LATEST:** `run-60614c3c28a0` on `8e70985f8a07fc6b5adaa9435c4d6b83638a2665`; all five gates passed. T=0.140332 s, M=51,019,776 B, S=469, D=1, K=12.080711, points=54.104624.
+
+## Official board receipt — 2026-10-31 06:59:47 UTC
+
+- Run `run-b0f2b558fb83` scored commit `f3bd76617870c71c81594817b54ad366113718bc`; all five gates passed. LATEST: T=0.139924 s, M=51,216,384 B, S=469, D=1, K=12.089008, points=54.119533. BEST remains `run-2e4a2fbbc969`: K=12.280222. This receipt is 1.557% below BEST; no Track C source change was included.

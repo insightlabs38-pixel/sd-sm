@@ -317,3 +317,7 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 
 - **BEST:** `run-aad4ae1ad447`; T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422.
 - **LATEST:** `run-5b4376b4939e` on `8e70985f8a07fc6b5adaa9435c4d6b83638a2665`; all five gates passed. T=0.070456 s, M=41,459,712 B, S=321, D=1, K=23.080456, points=68.162220.
+
+## Official board receipt — 2026-10-31 06:59:47 UTC
+
+- Run `run-c9a49ee2057b` scored commit `f3bd76617870c71c81594817b54ad366113718bc`; all five gates passed. LATEST: T=0.069081 s, M=41,443,328 B, S=321, D=1, K=23.310866, points=68.377920. BEST remains `run-aad4ae1ad447`: K=23.892877. This receipt is 2.436% below BEST; no Track A source change was included.

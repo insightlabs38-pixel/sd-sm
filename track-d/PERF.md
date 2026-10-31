@@ -358,7 +358,3 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official latest — 2026-10-31 12:40:45 UTC
 
 - **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-7a56c38522db` on `0923ede528139a79896a6bfe1bb67934f74c5951`, all five gates passed: T=0.131600 s, M=98,553,856 B, S=862, D=1, K=23.293721, points=68.361943. Same promoted source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`; 3.60% below BEST.
-
-## Settled-work direction balancing — staged for official board, 2026-10-31
-
-- Candidate source blob `d53a4e39a379c744724d4aac87b6a3925411d9cf` from `sd-td/main` (HEAD `4f9083c0534e1fe82bd758b12f9ad19a0ff6836e`). It chooses forward/backward expansion by cumulative settled states rather than the next key, retaining the existing exact stopping rule. Exact source passed CI `41203040328`: 88 differential fixtures; official tiny/sample/full hashes; holdout sample seeds 3/7; pinned offline Docker at 1/4/12 workers. In 31 paired full-seed CI rounds, median wall time improved 0.250009→0.249562 s (4 workers), 0.252153→0.249022 s (6), and 0.258902→0.255439 s (12); memory effectively unchanged. Estimated K gain 0.55–0.60% is developer-runner evidence, not official scoring-box evidence. Official board result pending; parent preserves D BEST source `be15ac2e635af157cc8db71d2df5e218d0a78446` for rollback.

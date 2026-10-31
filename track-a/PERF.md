@@ -597,3 +597,8 @@ Run `run-b69ecc476b37`; all five gates passed. T=0.019740 s, M=21,311,488 bytes,
 ## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
 
 Run `run-1d2fdbfbdd62`; all five gates passed. T=0.016499 s, M=21,671,936 bytes, S=574, D=1, K=49.769039, points=84.847963. **BEST = LATEST:** this repeat scores the same qualified A PR #2 source at K=49.769039; prior `run-f5acb6219cc9` was K=46.487453. PR #3's updated head `ac9ff0330732506848426209b86d9f5739d662f6` has the same source blob as its earlier official trial (`c91b9689...`), already measured at K=41.912918, so it is not resubmitted. The new PR head also adds a tracked `.pyc`; do not promote it.
+
+
+## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
+
+Run `run-69ce79d9c733`; all five gates passed. T=0.019080 s, M=21,590,016 B, S=574, D=1, K=46.315657, points=83.286392. **BEST** remains `run-1d2fdbfbdd62` at K=49.769039; this repeat of the qualified PR #2 source is **LATEST**, not a new best.

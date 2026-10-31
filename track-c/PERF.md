@@ -583,3 +583,8 @@ Run `run-7911aaf80ec0`; all five gates passed. T=0.086669 s, M=14,110,720 bytes,
 ## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
 
 Run `run-2de5259cd705`; all five gates passed. T=0.231307 s, M=18,325,504 bytes, S=515, D=1, K=11.387223, points=52.820891. **BEST:** `run-15adbc1f561c`, K=20.508340. **LATEST:** `run-2de5259cd705`; C PR #2's speculative split is rejected on official K, despite local correctness and runtime evidence. Restore the previously board-tested PR #11 predecessor context (join blob `59974fd...`, its Dockerfile and generator).
+
+
+## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
+
+Run `run-46bba325d2ca`; all five gates passed. T=0.075070 s, M=14,110,720 B, S=552, D=1, K=20.843017, points=65.948029. **BEST = LATEST:** K=20.843017, ahead of prior qualified BEST `run-15adbc1f561c` (K=20.508340). This was the restored, previously tested C champion source and runtime/size context; no open frontier PR supplied this winning source.

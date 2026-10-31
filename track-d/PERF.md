@@ -557,3 +557,8 @@ Run `run-37fdcc496c04`; all five gates passed. T=0.152867 s, M=99,086,336 bytes,
 ## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
 
 Run `run-8af02b0a1b7b`; all five gates passed. T=0.129822 s, M=98,594,816 bytes, S=818, D=1, K=23.635765, points=68.678483. **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-8af02b0a1b7b`; D PR #5's size-only refactor did not beat BEST. Next D frontier trial is PR #3, source blob `4a249d728c074febe26502db752e1c97c5d1a279`; exact source matches successful CI `41156592344` and pinned Docker passed across 1/4/12 workers. Local 4-core speed was 0.265→0.259 s, 12-thread peak memory stayed about 81 MB; its +51 formatted lines and modest expected gain must still win complete official K.
+
+
+## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
+
+Run `run-f3a17140e30a`; all five gates passed on D PR #3 head source. T=0.166259 s, M=98,877,440 B, S=779, D=1, K=21.027371, points=66.139249. This is below qualified BEST `run-68c15954870c` (K=24.163880); **LATEST** is the rejected PR #3 trial. Restore the known-good D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`; leave PR #3 open and unmerged.

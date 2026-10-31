@@ -561,3 +561,8 @@ Run `run-83ba2924142d`; all five gates passed. T=0.237968 s, M=50,094,080 bytes,
 ## Official board result — commit 555cd61, dispatch 2026-10-31 20:03 UTC
 
 Run `run-0ae89c59b073`; all five gates passed. T=0.358443 s, M=50,008,064 bytes, S=781, D=1, K=19.358853, points=64.343981. **BEST:** `run-dcebadac870d`, K=23.250490. **LATEST:** `run-0ae89c59b073`; B PR #5 is rejected on complete K, retaining the earlier champion source. PR #6's exact source had weaker local K and higher peak memory than PR #5, so no board trial is planned.
+
+
+## Official board result — trial commit 9743d05 (2026-10-31 20:09:57 UTC)
+
+Run `run-ca66bb3d645f`; all five gates passed. T=0.260087 s, M=51,748,864 B, S=925, D=1, K=22.005670, points=67.126730. **BEST** remains `run-dcebadac870d` at K=23.250490; **LATEST** is this champion-source repeat.

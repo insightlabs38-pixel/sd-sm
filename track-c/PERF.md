@@ -400,3 +400,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - LATEST `run-3e021bc33700` on `8298e2cbe0d21ffd4688bb23b625f988fdd4128d` passed all five gates: T=0.136147 s, M=10,846,208 B, S=518, D=1, K=16.469689, points=60.834270. BEST remains `run-cc78d8d94587`, K=17.102716. C source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` was unchanged.
 
+
+## Official latest — 2026-10-31 16:19 UTC
+
+- LATEST `run-2984955b27ba` on submission `d4b9c4d51f4d0c3fc2d58a1fc9bf6c66ef642ed9` passed all five board gates: T=0.129916 s, M=10,604,544 B, S=518, D=1, K=16.936174, points=61.440765. BEST remains `run-cc78d8d94587`, K=17.102716; restored C source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` unchanged. Qualification includes valid region IDs through 9,999,999; larger IDs are optional robustness cases.
+

@@ -413,9 +413,16 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 
 - LATEST `run-f9bae0db8920` on `480a8e3def26af26e10298d6b043bf2195c82ec3` passed check/build/correctness/timeout/sandbox: T=0.022646 s, M=20,787,200 B, S=442, D=1, K=44.548810, points=82.441805. BEST remains `run-2e35ec2bc727`, K=44.826321. The scored A source blob was `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`.
 
-## Streaming hour-epoch architecture — promoted after official scoring, 2026-10-31
+## Streaming hour-epoch architecture — later withdrawn after ThreadSanitizer failure, 2026-10-31
 
 - Candidate from open `sd-ta` PR #1, commit `fe290bbd1f0959bbf05654075177a8f9d6d5b1dc`; exact source/Docker blobs `2d60fab7bc533d01c31167ca0cd5d66216013ec9` / `c934107df70396661fe1d2c29b9f579fcf9edcb2`. Both blobs match successful exact-source CI `41182862751` (commit `e170a65`): seed-1 hashes, seed-2/3 references, reordered inputs, endpoint/latency/group edge tests, ASan/UBSan and allowlisted offline Docker passed.
 - CI paired 31-run full medians: champion 0.103322 s vs candidate 0.047562 s on its 4-vCPU runner; cgroup peaks 41,041,920 vs 6,348,800 B; reported S 321 vs 441. Strong candidate evidence, but not scoring-box evidence.
 - Official run `run-b447dc4b353e` on submission commit `8298e2cbe0d21ffd4688bb23b625f988fdd4128d` passed all five gates: T=0.020573 s, M=21,041,152 B, S=441, D=1, K=46.641863, points=83.438795. This is the new BEST and LATEST, 4.05% above `run-2e35ec2bc727` (K=44.826321). PR #1 was merged into `sd-ta/main` at `5171eeeb24451b28cf5878a199d2abe389a9e848`; parent `480a8e3def26af26e10298d6b043bf2195c82ec3` retains the prior source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` for rollback.
+
+
+## Post-merge sanitizer failure and rollback — 2026-10-31
+
+- GitHub Actions runs `41218843179` (merge commit `5171eeeb24451b28cf5878a199d2abe389a9e848`) and `41219011089` (A main `6370e4ce4738ab32ade991c17aa5a7083df8e54a`) both failed the `ThreadSanitizer dictionary and output smoke` step. Earlier exactness, full hashes, reorder, and ASan/UBSan steps passed. TSan reported a race between atomic bucket-tag write in `Names::add` (line 183) and non-atomic SIMD vector tag read in `lookup` (line 144); treat as a correctness/safety defect and do not promote this candidate until fixed and requalified.
+- Board-only **raw BEST** `run-b447dc4b353e` on `8298e2cbe0d21ffd4688bb23b625f988fdd4128d`: all board gates passed, T=0.020573 s, M=21,041,152 B, S=441, D=1, K=46.641863, points=83.438795. **LATEST** `run-8b0b8f3bb20b` on `d4b9c4d51f4d0c3fc2d58a1fc9bf6c66ef642ed9`: all board gates passed, T=0.021097 s, M=21,209,088 B, S=441, D=1, K=45.985812, points=83.131193. These scores do not clear the independent TSan failure.
+- Restore the previously correctness-qualified Track A source from release parent `480a8e3def26af26e10298d6b043bf2195c82ec3` (source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`). Its board BEST remains `run-2e35ec2bc727`, K=44.826321. The new release commit records this source rollback; wait for its actual latest board run before updating LATEST.
 

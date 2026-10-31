@@ -264,3 +264,10 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - Candidate imported from `sd-td` PR #5 head `94286d5ce85421fa082de37c92e4b3cf4f2e34df`; exact source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`. The official contraction source and rollback remain in parent commit `498f27fb07731088b3746ed823d5c123bcc816ff`.
 - CI [41168086045](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41168086045) passed seed-1 byte identity at 1/4/12 threads, 83 differential and 60 stress cases, ASan/UBSan, TSan, and pinned Docker. Fifteen interleaved full runs tied at 0.240 vs 0.243 s; 12-thread cgroup peak 74.83 vs 74.74 MB. The source removes 44 formatted lines (855 to 811); estimated +0.8% K is size-based only.
 - Official board result pending; do not merge PR #5 or claim a score until every gate passes and D beats BEST.
+
+
+## Official board snapshot and failed size-only experiment — 2026-10-31 04:25:59 UTC
+
+- **BEST:** `run-68c15954870c`; T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
+- **LATEST:** `run-cea701502906` on `6ce631e9aed748609f3fbd289ec599cb4abf152d`; all five gates passed. T=0.126211 s, M=98,902,016 B, S=818, D=1, K=23.956590, points=68.971250. Despite 44 fewer formatted lines, K fell 0.86% vs BEST; runtime rose 3.19% and memory was nearly flat.
+- Rejected PR #5 size-only candidate and restored the known-good contraction source from parent `498f27fb07731088b3746ed823d5c123bcc816ff`. PR #5 remains open and unmerged; source rollback is included in the next official checkpoint.

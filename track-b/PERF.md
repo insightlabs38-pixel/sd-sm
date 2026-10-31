@@ -293,3 +293,8 @@ On official HEAD `ec1140f4d0bd607a02b9fae4be61ce5fe3bae986`, LATEST `run-061719b
 HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff8d662a8f342256a53b20e05a3e2a9af6231`; queue clear. All five gates passed.
 
 - **BEST = LATEST:** `run-fcc63900551a`; T=0.300767 s, M=44,257,280 B, S=857, D=1, K=21.356800, points=66.476809. This replaces `run-8558a8ee640d` (T=0.393819 s, M=45,469,696 B, K=18.563313); K rose 15.05%, T fell 23.63%, and memory fell 2.66% on the new measurement.
+
+
+## Official board snapshot — 2026-10-31 04:25:59 UTC
+
+- **BEST = LATEST:** `run-5bb26ac0d0c9` on `6ce631e9aed748609f3fbd289ec599cb4abf152d`; all five gates passed. T=0.298829 s, M=44,855,296 B, S=857, D=1, K=21.368503, points=66.488705. K edged up 0.05% from previous BEST `run-fcc63900551a` (21.356800); no B source change was made in this trial.

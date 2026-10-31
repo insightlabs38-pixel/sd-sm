@@ -451,3 +451,8 @@ All five gates passed on official commit `77a70106fecd5098a0a152a47f8e7383a3c1e9
 ## Latest board result — 2026-10-31 17:00 UTC
 
 All five gates passed on commit `74a4fb7456ce5fb8b10ef5b0eeef2d58289fdc59` with the unchanged promoted PR #5 source. **LATEST:** `run-e18434258740`, T=0.086174 s, M=12,623,872 B, S=537, D=1, K=19.974306, points=65.023585. Current BEST remains `run-13bca81389a0`, K=20.237923; the latest same-source K is 1.30% lower, consistent with the observed run-to-run variability.
+
+
+## Full-team board run — 2026-10-31 17:05 UTC
+
+All five gates passed on commit `23be16823a7232064b3090b805ff80b6c086cfa9` with the PR #5 source. **BEST / LATEST:** `run-955f007ac420`, T=0.084295 s, M=12,238,848 B, S=537, D=1, K=20.321199, points=65.397466. This improves the prior same-source BEST `run-13bca81389a0` (K=20.237923) by 0.41%; the source is unchanged, so preserve the observed variance in comparisons.

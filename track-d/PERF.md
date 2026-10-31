@@ -442,3 +442,8 @@ All five gates passed on official commit `77a70106fecd5098a0a152a47f8e7383a3c1e9
 ## Latest board result — 2026-10-31 17:00 UTC
 
 All five gates passed on commit `74a4fb7456ce5fb8b10ef5b0eeef2d58289fdc59` with the unchanged FIFO/BFS champion blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. **LATEST:** `run-fae2a1d3c886`, T=0.131225 s, M=98,959,360 B, S=862, D=1, K=23.307832, points=68.375094. BEST remains `run-68c15954870c`, K=24.163880.
+
+
+## Full-team board run — 2026-10-31 17:05 UTC
+
+All five gates passed on commit `23be16823a7232064b3090b805ff80b6c086cfa9` with the unchanged FIFO/BFS champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. **LATEST:** `run-0e0e12c32dce`, T=0.129998 s, M=98,738,176 B, S=862, D=1, K=23.428052, points=68.486809. BEST remains `run-68c15954870c`, K=24.163880.

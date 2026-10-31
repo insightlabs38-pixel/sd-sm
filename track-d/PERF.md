@@ -392,3 +392,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - Exact-source CI `41168086045` passed official full seed-1 hashes at 1/4/12 threads, 83 differential and 60 stress fixtures under native, ASan/UBSan and TSan, plus pinned offline Docker. The report gives interleaved medians 0.240/0.243 s (treated as a tie), peaks 74.83/74.74 MB, and source 855→811 formatted lines; expected K gain is about 0.8% from S only.
 - Official trial pending. Parent `480a8e3def26af26e10298d6b043bf2195c82ec3` preserves rollback to the scored champion. This is not yet a promoted PR.
 
+## Official refactor trial rejected — 2026-10-31 16:13 UTC
+
+- D trial `run-71949d2f6d95` on `8298e2cbe0d21ffd4688bb23b625f988fdd4128d` passed all five gates, but scored T=0.159076 s, M=98,557,952 B, S=818, D=1, K=21.353741, points=66.473698. Prior same-source LATEST on champion blob `be15ac2e635af157cc8db71d2df5e218d0a78446` was `run-b8b15b4f8a36`: T=0.125451 s, M=96,890,880 B, S=862, K=23.939104; BEST remains `run-68c15954870c`, K=24.163880. The 44-line reduction did not offset the measured runtime and memory regression.
+- Reject PR #5 candidate blob `fd1db93b387442b018e9c368db6a5c46d6d89844`; restore champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` from parent `480a8e3def26af26e10298d6b043bf2195c82ec3`. Candidate remains recoverable in commit `8298e2cbe0d21ffd4688bb23b625f988fdd4128d`.
+

@@ -321,3 +321,13 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 ## Official board receipt — 2026-10-31 06:59:47 UTC
 
 - Run `run-c9a49ee2057b` scored commit `f3bd76617870c71c81594817b54ad366113718bc`; all five gates passed. LATEST: T=0.069081 s, M=41,443,328 B, S=321, D=1, K=23.310866, points=68.377920. BEST remains `run-aad4ae1ad447`: K=23.892877. This receipt is 2.436% below BEST; no Track A source change was included.
+
+## Six-byte staged records official trial — October 31, 2026
+
+- Candidate source blob `0034dba9d60573da24b65512f8b20e17bf50aa9e` from `sd-ta/main` HEAD `4e08e9d8cf0cb7500f144097bb063940b18d646c`. It stages each record as a six-byte local endpoint ID plus full 32-bit latency and records hour runs separately. The official Dockerfile is byte-identical to the repository Dockerfile.
+- Exact-source CI [41179012512](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41179012512) passed synthetic differential tests, official seed-1 tiny/sample/full hashes, seed-2/3 sample differential, the Docker allowlist/offline sandbox, and scored-style cgroup memory checks. Thirty-one full-seed-1 measurements: 0.103128 s versus 0.109233 s for the verified v3 champion (ratio 0.9441). Cgroup peak was 39,510,016 B versus 41,299,968 B. These are CI runner measurements, not board T/M/K. A local native build and 12 synthetic differential cases also passed.
+- Previous official A BEST remains `run-aad4ae1ad447` (K=23.892877). The AVX-only predecessor regressed on its earlier official trial; this is a fresh trial of the added six-byte staging change, not a promotion claim. Parent commit retains the prior official source for rollback. Board score pending.
+
+## Official board snapshot — 2026-10-31 07:06:34 UTC
+
+- `run-d5429d5182ce` scored `281c60f59cbe6c6a8c51f77aba7daad102151abd`; all five gates passed. LATEST: T=0.069235 s, M=41,095,168 B, S=321, D=1, K=23.324247. BEST remains `run-aad4ae1ad447` (K=23.892877); no A source change was present in that snapshot.

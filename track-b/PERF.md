@@ -324,3 +324,7 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - Before trial, official **BEST** was `run-5bb26ac0d0c9` (T=0.298829 s, M=44,855,296 B, S=857, D=1, K=21.368503); **LATEST** was `run-3e1218c0aef8` (T=0.316117 s, M=44,797,952 B, S=857, D=1, K=20.781298) on `0be320bade0ac6b5bc47cdb573b3a3811252de18`. Both passed all gates. The prior official source is retained in the parent commit for rollback; the candidate's board score is pending.
 
 - Official board run `run-2b8dc2af774e` scored commit `f3bd76617870c71c81594817b54ad366113718bc`; all five gates passed. T=0.299632 s, M=44,331,008 B, S=860, D=1, K=21.378880, points=66.499248. **BEST = LATEST:** K improves 0.049% over `run-5bb26ac0d0c9` (K=21.368503), with T 0.27% higher, M 1.17% lower, and S three lines higher. Promote this exact Track B source; earlier source remains in the parent commit.
+
+## Official board snapshot — 2026-10-31 07:06:34 UTC
+
+- `run-7be0ced31374` scored `281c60f59cbe6c6a8c51f77aba7daad102151abd`; all five gates passed. LATEST: T=0.304786 s, M=44,695,552 B, S=860, D=1, K=21.162658. BEST remains `run-2b8dc2af774e` (K=21.378880); the scanner source is retained because its earlier official trial set the current BEST.

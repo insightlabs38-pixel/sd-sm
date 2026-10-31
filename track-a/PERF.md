@@ -612,3 +612,12 @@ Run `run-dc158b747f2c`; all five gates passed. T=0.019502 s, M=20,877,312 B, S=5
 ## Official board result — commit fa0f0b4 (2026-10-31 20:20:02 UTC)
 
 Run `run-6142b9dc0cf7`; all five gates passed. T=0.019840 s, M=21,368,832 B, S=574, D=1, K=45.513540, points=82.907031. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` at K=49.769039.
+
+
+## Official board result — commit c2397c9 (2026-10-31 20:25 UTC)
+
+Run `run-d46f43822d2d`; all five gates passed. T=0.019889 s, M=21,893,120 B, S=574, D=1, K=45.237605, points=82.774980. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+## Current developer-main candidate staged for official A/B
+
+Head `7cc853baacbbb5b81c221120558e891f824482d4` removes the unconditional 131,072-element reserve from the per-hour latency vector (source blob `6a3de1a8645ae929cd4181e979d4e97275175ea9`). Exact-head workflow `41241963933` passed differential tests, official hashes, seed-2/3 holdout samples, ASan/UBSan, TSan, offline Docker, runtime comparison and cgroup-memory measurement. Its log reported 31-run local medians 0.032782 s vs `six-worker-base` 0.039465 s (ratio 0.8307); RSS was 238,508 KiB vs 239,068 KiB, while five-run cgroup `memory.peak` max was 10.84 vs 9.52 MB, so memory evidence is mixed. Official K is pending; retain the current A source as rollback until the board result.

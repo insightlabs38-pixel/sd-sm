@@ -521,3 +521,8 @@ All five gates passed on the then-current champion source. **LATEST:** T=0.13114
 ## Candidate submitted for official evaluation
 
 This commit replaces D with developer main blob `d53a4e39a379c744724d4aac87b6a3925411d9cf` (671 lines, 29,391 bytes; champion was 693 lines, 30,661 bytes). Developer verification reports 88 differential cases, tiny/sample/full hash checks, holdout seeds, and pinned offline Docker passing. Matched 31-pair four-vCPU medians improved 0.250009→0.249562 s, 6-worker 0.252153→0.249022 s, and 12-worker 0.258902→0.255439 s; those are proxy measurements, not board scores. **BEST remains `run-68c15954870c`** pending this official run.
+
+
+## Official candidate result — run-066fcc7e1635 (2026-10-31 19:16 UTC)
+
+All five gates passed on developer-main source blob `d53a4e39a379c744724d4aac87b6a3925411d9cf`. T=0.173784 s, M=77,803,520 B, S=825, D=1, K=21.392168, points=66.512740. Despite lower memory and smaller source, K is well below **BEST** `run-68c15954870c` (K=24.163880); reject promotion and restore champion blob `be15ac2e635af157cc8db71d2df5e218d0a78446` after dispatch cooldown. Candidate remains reachable in the preceding integration commit for rollback/audit.

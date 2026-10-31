@@ -546,3 +546,8 @@ All five gates passed. **LATEST:** T=0.021633 s, M=21,106,688 B, S=460, D=1, K=4
 ## Official latest — run-e916246a1d9c (2026-10-31 19:08 UTC)
 
 All five gates passed. **LATEST:** T=0.022484 s, M=21,565,440 B, S=460, D=1, K=44.116624, points=82.230113. **Correctness-qualified BEST** remains `run-b7ad796c1836` (K=45.481911).
+
+
+## Official latest — run-0577d3068f59 (2026-10-31 19:15 UTC)
+
+All five gates passed. T=0.021133 s, M=20,795,392 B, S=460, D=1, K=45.837056, points=83.060836. The source blob is unchanged from the correctness-qualified A champion; record this as **LATEST** and measured **BEST** (prior best `run-b7ad796c1836`, K=45.481911). The earlier higher raw K from `run-b447dc4b353e` remains excluded due to TSan race evidence.

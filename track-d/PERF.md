@@ -549,3 +549,7 @@ Run `run-ad74c5d9cf1a` scored commit `2602c63339f532be813056b0c05bb573835f6766`;
 ## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
 
 Run `run-6e9ec3791593`; all five gates passed. T=0.133873 s, M=98,717,696 bytes, S=862, D=1, K=23.087454, points=68.168802. **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-6e9ec3791593`.
+
+## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
+
+Run `run-37fdcc496c04`; all five gates passed. T=0.152867 s, M=99,086,336 bytes, S=862, D=1, K=21.589467, points=66.712096. **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-37fdcc496c04`. Next official frontier trial is D PR #5, source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`; exact-head CI passed byte-equality at 1/4/12 threads, 83 differential and 60 stress cases, ASan/UBSan and TSan. Fifteen interleaved rounds measured 0.240 vs 0.243 s (tie) and 74.83 vs 74.74 MB; the expected gain is source-size reduction, about +0.8% K.

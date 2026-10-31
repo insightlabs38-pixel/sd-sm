@@ -575,3 +575,7 @@ Run `run-9722acb5cb38` scored commit `2602c63339f532be813056b0c05bb573835f6766`;
 ## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
 
 Run `run-27cd5c419972`; all five gates passed. T=0.095782 s, M=14,618,624 bytes, S=552, D=1, K=18.322316, points=63.149018. **BEST:** `run-15adbc1f561c`, K=20.508340. **LATEST:** `run-27cd5c419972`. The code is the tested PR #11 predecessor (packed 48-byte source; C PR #11 is merged to developer main with the regressing pragma excluded). Next frontier candidate: C PR #8, exact head `252788a42652b525330b690b5939c9c8a9d2f519`, CI `41228157740` passed correctness, sanitizers, pinned Docker, and sandbox. Its paired local complete-K proxy was +6.3% versus the official baseline; this is not an official score.
+
+## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
+
+Run `run-7911aaf80ec0`; all five gates passed. T=0.086669 s, M=14,110,720 bytes, S=545, D=1, K=19.435391, points=64.429664. **BEST:** `run-15adbc1f561c`, K=20.508340. **LATEST:** `run-7911aaf80ec0`. C PR #8's official trial did not beat BEST; leave it open and do not promote. Next is C PR #2 speculative split, exact head `ac03e464e73044bdd99034a9b4565de96ef8becb`, source blob `4237daa7464822fd4768fb5e93d40d1f2fe141ca`. Developer full/sample/tiny/adversarial outputs matched references; local full runs 230.1→214.6 ms and 436.3→408.4 CPU-ms; static Docker runtime passed, while local pinned build hit the VFS storage limit. No official score had previously been claimed.

@@ -589,3 +589,7 @@ Staged `sd-ta` PR #2 exact head `50b33bb7d0085acf296e5f34a55e30b4958fb07d` (sour
 Run `run-f5acb6219cc9`; all five gates passed. T=0.018912 s, M=21,667,840 bytes, S=574, D=1, K=46.487453, points=83.366788. **Verified BEST and LATEST:** this PR #2 source exceeds the prior correctness-qualified BEST `run-0577d3068f59` K=45.837056. The raw board's numeric BEST `run-b447dc4b353e` K=46.641863 is excluded as a candidate because its source has the reported TSan race. Developer CI exact-head run `41232109362` passed the additional size cases and TSan at 6/12 workers.
 
 PR #2 was promoted and merged to `sd-ta/main` as `82493a17ff0d784abbaa35f23590e10545724fe9`.
+
+## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
+
+Run `run-b69ecc476b37`; all five gates passed. T=0.019740 s, M=21,311,488 bytes, S=574, D=1, K=45.653206, points=82.973564. **BEST:** `run-f5acb6219cc9`, K=46.487453 (qualified A PR #2). **LATEST:** `run-b69ecc476b37`.

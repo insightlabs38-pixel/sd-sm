@@ -553,3 +553,7 @@ Run `run-3ff992c373fc` scored commit `2602c63339f532be813056b0c05bb573835f6766`;
 ## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
 
 Run `run-e69497fa31df`; all five gates passed. T=0.233890 s, M=51,953,664 bytes, S=925, D=1, K=23.187025, points=68.262251. **BEST:** `run-dcebadac870d`, K=23.250490. **LATEST:** `run-e69497fa31df`.
+
+## Official board result — commit 13b8fec, dispatch 2026-10-31 19:57 UTC
+
+Run `run-83ba2924142d`; all five gates passed. T=0.237968 s, M=50,094,080 bytes, S=925, D=1, K=23.155679, points=68.232876. **BEST:** `run-dcebadac870d`, K=23.250490. **LATEST:** `run-83ba2924142d`. Next official frontier trial is B PR #5 (6 workers), exact head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `510c2a13dccb26c712ff2239000817dd5b4a900a`; qualification logs exercise the exact 6/12-worker source revisions, full references, sanitizers, and offline Docker. Local runner results are not official scaling evidence.

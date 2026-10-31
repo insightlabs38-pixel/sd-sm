@@ -6,18 +6,14 @@ Dependency-free C++20 implementation of the [Speed Demon 2026 Track A specificat
 
 The log is almost time-ordered, so the program never holds all records at once.
 
-- **Blocks.** The memory-mapped file is cut into 256 KiB newline-aligned blocks. Up to twelve logical worker threads claim blocks by default, matching the scoring host's six-P-core/twelve-SMT capacity, and parse them with four interleaved line streams: SIMD space scanning, exact endpoint interning, SWAR/SSE integer decoding. A block yields 6-byte records (latency, endpoint id, 5xx bit) grouped into per-hour runs.
-- **Dictionary.** One shared endpoint table (8-way buckets, CRC32 tags, lock-free hits, locked inserts). A hit is confirmed by comparing the full key bytes, so identity is exact.
-- **Hours.** Once the completed prefix of the file has reached two hours past the start of an hour, the hour is finalized by whichever thread is free: counting scatter into one array, exact nearest-rank selection (branchless Lomuto multi-select), formatting. If a late line ever violates the assumption, the block that carries it is detected and the whole run is repeated without early finalization, so the output is exact for any input order.
+- **Blocks.** The memory-mapped file is cut into 256 KiB newline-aligned blocks. One worker per logical CPU claims blocks and parses each with four interleaved line streams: SIMD space scanning, software prefetch, SWAR/SSE integer decoding. A block yields 6-byte records (latency, endpoint id, 5xx bit) grouped into per-hour runs.
+- **Dictionary.** Each worker owns an open-addressing table (CRC32 of length and first/last 8 bytes) and confirms every hit with a full 128-byte key compare, so identity is exact. New names go to a shared append-only log under a lock; its size is published with a release store and workers mirror new entries after an acquire load. Nothing a worker reads is written concurrently, so the lookups are plain SIMD reads and ThreadSanitizer is clean.
+- **Hours.** Once the completed prefix of the file has reached two hours past the start of an hour, the hour is finalized by whichever worker is free: counting scatter into one array, exact nearest-rank p50/p95/p99 by an out-of-place AVX2 partition recursion (bitonic network for up to 16 values), branchless formatting. If a late line ever violates the assumption, the block that carries it is detected and the whole run is repeated without early finalization, so the output is exact for any input order.
 - **Output.** The worker that completes the next ready hour writes consecutive ready hours in order, starts writeback and drops old page cache; no dedicated writer thread is needed.
-- **Exit.** Threads release their share of the file mapping in parallel so that process teardown is cheap.
+- **Exit.** Idle workers release the file mapping in shared 4 MiB steps and the process leaves with `_exit`.
 
 Measurements and rejected experiments are in `PERF.md`.
 
 ## Dependencies
 
 No third-party runtime libraries. Build with C++20, pthreads and the pinned Docker toolchain. The default input is `/data/requests.log` and the only output is `/out/summary.txt`; `SD_DATA_DIR`, `SD_OUT_DIR` and `SD_THREADS` override them for local testing.
-
-## Official scoring result
-
-Developer main candidate `79c8f22d59461e4cf3a39fccff8cab2070759cd9`, source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`, is promoted. The correctness-qualified BEST/LATEST is `run-b7ad796c1836`: all five gates passed, T=0.021286 s, M=21,233,664 B, S=460, D=1, K=45.481911. Prior `run-28140e0a9651` also passed all gates (K=45.186701). The prior race-free source remains in parent release commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` for rollback.

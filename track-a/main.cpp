@@ -346,13 +346,9 @@ struct Job {
       const uint32_t r50 = (50 * n + 99) / 100 - 1,
                      r95 = (95 * n + 99) / 100 - 1,
                      r99 = (99 * n + 99) / 100 - 1;
-      if (n <= 16)
-        std::sort(a, a + n);
-      else {
-        select(a, 0, n, r50);
-        select(a, r50 + 1, n, r95);
-        select(a, r95 + 1, n, r99);
-      }
+      select(a, 0, n, r50);
+      select(a, r50 + 1, n, r95);
+      select(a, r95 + 1, n, r99);
       std::memcpy(out, label, 21);
       std::memcpy(out + 21, names.img[id], names.len[id]);
       out += 21 + names.len[id];
@@ -470,7 +466,7 @@ int main() {
     fail("open summary");
   cpu_set_t cpus{};
   sched_getaffinity(0, sizeof cpus, &cpus);
-  const uint32_t threads = forced ? std::atoi(forced) : std::min(6, CPU_COUNT(&cpus));
+  const uint32_t threads = forced ? std::atoi(forced) : CPU_COUNT(&cpus);
   if (!std::make_unique<Job>(map, bytes, kLag, fd, threads)->run()) {
     if (ftruncate(fd, 0) || lseek(fd, 0, SEEK_SET))
       fail("rewind summary");

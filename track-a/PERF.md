@@ -478,3 +478,11 @@ All five official gates passed on commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e8
 - Staged source blob `f364d2123e1fde3869ab6a79fc6e0c85ba5aa085` from developer HEAD `961cf366d3b3bbd0b806d340bd75dd9246803fd1`. CI [41222270123](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41222270123) succeeded. The source is the acquire-load threshold-16 dictionary implementation with six-byte records and six-worker default; CI [41217509351](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41217509351) passed official hashes, seed 2/3, disorder, ASan/UBSan, TSan and restricted Docker.
 - Paired 31-run CI full-input medians were 0.037612 s for the previous six-worker champion and 0.037453 s for this source (0.42% faster); max cgroup peaks were 8,347,648 B and 7,045,120 B. This is CI evidence, not an official board score.
 - Official trial is pending. The previous official A source remains in parent commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e818` for rollback. Do not promote until the official gates pass and K beats the correctness-qualified BEST.
+
+
+## Race-free threshold-16 candidate — official trial rejected — 2026-10-31 17:20 UTC
+
+Candidate source blob `f364d2123e1fde3869ab6a79fc6e0c85ba5aa085` from `sd-ta/main` passed all five official gates on commit `c4cb49fedd910dd65dc0719c113b06fa2e9c2476`. Run `run-c4f4c1b69380`: T=0.027990 s, M=16,519,168 B, S=447, D=1, K=41.885064, points=81.102959.
+
+- Versus the immediately preceding race-free source result `run-206e1644af83` (T=0.022396 s, M=20,873,216 B, S=442, K=44.759781), memory fell 20.8%, but T rose 25.0%, S increased by 5, and K fell 6.4%. It also failed to beat correctness-qualified BEST `run-2e35ec2bc727`, K=44.826321. CI's 0.42% local timing gain did not carry over to the scoring box.
+- Reject for promotion and restore source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` plus its README from parent commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e818`. The candidate remains in official history for reference; no developer repository was modified.

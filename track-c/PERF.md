@@ -348,3 +348,12 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - Candidate source blob `dad49158dad5f90d32ab5eb307eb9a62e138723e` from `sd-tc/main` HEAD `b29de1927e809a2d0bf89ea0d6e236dcef3d2e85`. It prefetches the exact-name shard slot while the CSV parser processes the intervening note/amount fields. Exact-source CI `41201156576` and paired comparison `41201287339` passed.
 - Across 12 paired full-seed runner trials, baseline `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` median was 146.629 ms / 16,918 KiB; candidate was 140.258 ms / 16,916 KiB. This is developer-runner evidence, not scoring-box T/M/K. Candidate adds four source lines; board result is pending. Parent `476d415` preserves C BEST source `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` for rollback.
+
+
+## Exact-name prefetch official trial — rejected, 2026-10-31
+
+- Run `run-cfb141b4fcbd` on `f477933130ce23aa311f60d3486480ab5de6fff8` passed all five gates. Prefetch candidate LATEST: T=0.131419 s, M=10,739,712 B, S=524, D=1, K=16.767456, points=61.223359. BEST remains `run-26bebca7d52d`, K=16.959803. The candidate was 1.13% below BEST, slower and six source lines larger; restore the prior BEST blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` from parent `476d415`. The measured runner improvement did not transfer to the scoring box.
+
+## Official latest — 2026-10-31 12:33:30 UTC
+
+- BEST remains `run-26bebca7d52d`, K=16.959803. LATEST `run-cfb141b4fcbd` passed all gates: T=0.131419 s, M=10,739,712 B, S=524, D=1, K=16.767456. Known-good C source is restored pending rescore.

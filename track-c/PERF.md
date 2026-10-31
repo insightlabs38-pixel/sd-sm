@@ -466,3 +466,14 @@ All five gates passed on official commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e8
 ## Full-team board result — 2026-10-31 17:19 UTC
 
 All five gates passed on official commit `c4cb49fedd910dd65dc0719c113b06fa2e9c2476` with the unchanged merged PR #5 source. **LATEST:** `run-f3f88a1bbcc0`, T=0.086720 s, M=12,292,096 B, S=537, D=1, K=20.017669, points=65.070676. BEST remains `run-955f007ac420`, K=20.321199.
+
+
+## Official baseline on rollback HEAD — 2026-10-31 17:30 UTC
+
+All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` using the promoted PR #5 source. **LATEST:** `run-712d84a60eed`, T=0.084741 s, M=12,328,960 B, S=537, D=1, K=20.237938, points=65.308313. BEST remains `run-955f007ac420`, K=20.321199.
+
+## PR #7 certified-split + CRC/SWAR candidate staged
+
+- PR #7 head `dcb50168fcfb8b8b75b6eebc8c03976c589d056e`, source blob `dc7d92e9f2ab8e30bbd7b90a69360e22648c939a`; it combines certified record splitting, wide CRC32C tail hashing and guarded SWAR integer decoding. The PR remains open and mergeable; its rollback source is the current official C candidate from PR #5.
+- CI [41227918470](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41227918470) passed official tiny/sample/full hashes, seed 2/3, adversarial/overflow/long records, ASan/UBSan, TSan, pinned offline GCC Docker and sandbox.
+- Paired developer-runner median was 97.164→85.725 ms and sampled RSS 22,498→22,250 KiB across 12 trials; D remains 1. This does not establish official six-core T/M/S/K. Official BEST is K=20.321199; trial result pending.

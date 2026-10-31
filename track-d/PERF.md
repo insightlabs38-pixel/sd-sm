@@ -457,3 +457,12 @@ All five gates passed on official commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e8
 ## Full-team board result — 2026-10-31 17:19 UTC
 
 All five gates passed on official commit `c4cb49fedd910dd65dc0719c113b06fa2e9c2476` with the unchanged FIFO/BFS source. **LATEST:** `run-9e66d213af2e`, T=0.140122 s, M=98,873,344 B, S=862, D=1, K=22.559659, points=67.666626. BEST remains `run-68c15954870c`, K=24.163880.
+
+
+## Latest board result — 2026-10-31 17:30 UTC
+
+All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` with the unchanged FIFO/BFS source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. **LATEST:** `run-4a56fed6018e`, T=0.136810 s, M=98,713,088 B, S=862, D=1, K=22.815428, points=67.911431. BEST remains `run-68c15954870c`, K=24.163880.
+
+## Adjacency-order tournament — qualified but not promoted
+
+D main HEAD `c844d839fc98efec7029e952c65ae81b6cd8d704` records CI [41225764825](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41225764825): exact-output and Docker gates passed, with 195 full-seed executions. Reversed-order variants had weak, inconsistent wins at 4/6 workers and lost more often at 12; RSS was unchanged. Retain original adjacency order; no D source trial warranted.

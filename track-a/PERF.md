@@ -486,3 +486,14 @@ Candidate source blob `f364d2123e1fde3869ab6a79fc6e0c85ba5aa085` from `sd-ta/mai
 
 - Versus the immediately preceding race-free source result `run-206e1644af83` (T=0.022396 s, M=20,873,216 B, S=442, K=44.759781), memory fell 20.8%, but T rose 25.0%, S increased by 5, and K fell 6.4%. It also failed to beat correctness-qualified BEST `run-2e35ec2bc727`, K=44.826321. CI's 0.42% local timing gain did not carry over to the scoring box.
 - Reject for promotion and restore source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` plus its README from parent commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e818`. The candidate remains in official history for reference; no developer repository was modified.
+
+
+## Official baseline on rollback HEAD — 2026-10-31 17:30 UTC
+
+Commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` passed all five gates with restored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`. **LATEST:** `run-ef514c9b115e`, T=0.022955 s, M=20,819,968 B, S=442, D=1, K=44.234018, points=82.287820. Correctness-qualified BEST remains `run-2e35ec2bc727`, K=44.826321; the higher raw BEST `run-b447dc4b353e` remains excluded for its TSan race.
+
+## New 12-worker atomic-pair candidate staged
+
+- Developer main HEAD `79c8f22d59461e4cf3a39fccff8cab2070759cd9`, source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`, uses atomic pair publication/acquire reads, exact endpoint-byte checks and up to twelve logical workers. CI [41227986546](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41227986546) passed official hashes, seed 2/3, disorder, ASan/UBSan, TSan, restricted Docker and paired comparisons.
+- CI's 31-run four-vCPU medians were 0.051800 s for `ff20736` and 0.049822 s for this candidate (3.82% faster); peak cgroup samples were 6,381,568 and 6,754,304 B. This is local evidence only; twelve-worker scaling and official K are unmeasured.
+- This differs from the failed six-worker threshold-16 trial. Preserve rollback source `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` in parent `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122`. Promote only if official gates pass and K beats correctness-qualified BEST.

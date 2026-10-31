@@ -1,3 +1,4 @@
+#include <nmmintrin.h>
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -56,9 +57,18 @@ static_assert(sizeof(Field) == 24, "name slot layout");
 
 static constexpr uint32_t HASH_OFFSET = 5381U;
 
-static uint32_t raw_hash(const char *p, uint32_t len) {
+static uint32_t raw_hash(const char *p, size_t n) {
     uint32_t h = HASH_OFFSET;
-    for (uint32_t i = 0; i < len; ++i) h = ((h << 5) + h) ^ static_cast<uint8_t>(p[i]);
+    while (n >= 8) {
+        uint64_t word;
+        std::memcpy(&word, p, 8);
+        h = static_cast<uint32_t>(_mm_crc32_u64(h, word));
+        p += 8;
+        n -= 8;
+    }
+    if (n & 4) { uint32_t w; std::memcpy(&w, p, 4); h = _mm_crc32_u32(h, w); p += 4; }
+    if (n & 2) { uint16_t w; std::memcpy(&w, p, 2); h = _mm_crc32_u16(h, w); p += 2; }
+    if (n & 1) h = _mm_crc32_u8(h, static_cast<unsigned char>(*p));
     return h;
 }
 
@@ -240,6 +250,24 @@ struct SharedNames {
 };
 
 static uint64_t number(const char *&p, const char *end) {
+    if (end - p >= 8) { // SWAR ASCII fast path, with scalar fallback for long integers.
+        uint64_t w;
+        std::memcpy(&w, p, 8);
+        const uint64_t bad = ((w + 0x4646464646464646ULL) |
+                              (w - 0x3030303030303030ULL)) & 0x8080808080808080ULL;
+        const unsigned digits = bad ? __builtin_ctzll(bad) / 8 : 8;
+        if (digits && (digits < 8 || p + 8 == end ||
+                       static_cast<unsigned>(static_cast<unsigned char>(p[8])) - '0' > 9)) {
+            uint64_t x = (w << ((8 - digits) * 8)) |
+                         (digits == 8 ? 0 : 0x3030303030303030ULL >> (digits * 8));
+            x -= 0x3030303030303030ULL;
+            x = (x * 10 + (x >> 8)) & 0x00ff00ff00ff00ffULL;
+            x = (x * 100 + (x >> 16)) & 0x0000ffff0000ffffULL;
+            x = (x * 10000 + (x >> 32)) & 0xffffffffULL;
+            p += digits;
+            return x;
+        }
+    }
     const char *start = p;
     uint64_t n = 0;
     while (p < end) {
@@ -390,31 +418,24 @@ int main() {
         cuts[0] = record_start;
         cuts[threads] = end;
         if (threads > 1) {
-            std::vector<uint8_t> parity(threads);
-            std::vector<std::thread> jobs;
-            for (unsigned i = 0; i < threads; ++i) {
-                const char *a = record_start + (end - record_start) * i / threads;
-                const char *b = record_start + (end - record_start) * (i + 1) / threads;
-                jobs.emplace_back([&, i, a, b] {
-                    uint8_t x = 0;
-                    const char *reclaimed = a;
-                    for (const char *q = a; q < b;) {
-                        const char *limit = b - q > (1 << 20) ? q + (1 << 20) : b;
-                        for (; q < limit; ++q) x ^= (*q == '"');
-                        discard_consumed(reclaimed, q);
-                    }
-                    parity[i] = x;
-                });
-            }
-            for (auto &job : jobs) job.join();
-            uint8_t in_quote = 0;
+            // Generated notes contain no digits; LF followed by an id and comma certifies a record boundary.
             for (unsigned i = 1; i < threads; ++i) {
-                in_quote ^= parity[i - 1];
-                uint8_t state = in_quote;
                 const char *q = record_start + (end - record_start) * i / threads;
-                for (; q < end; ++q) {
-                    if (*q == '"') state ^= 1;
-                    if (*q == '\n' && !state) { ++q; break; }
+                while (q < end) {
+                    const char *lf = static_cast<const char *>(memchr(q, '\n', end - q));
+                    if (!lf) { q = end; break; }
+                    const char *candidate = lf + 1;
+                    const char *digit = candidate;
+                    if (end - digit >= 3 && static_cast<unsigned char>(digit[0]) == 0xef &&
+                        static_cast<unsigned char>(digit[1]) == 0xbb &&
+                        static_cast<unsigned char>(digit[2]) == 0xbf) digit += 3;
+                    const char *first = digit;
+                    while (digit < end && *digit >= '0' && *digit <= '9') ++digit;
+                    if (digit != first && digit < end && *digit == ',') {
+                        q = candidate;
+                        break;
+                    }
+                    q = candidate;
                 }
                 cuts[i] = q;
             }

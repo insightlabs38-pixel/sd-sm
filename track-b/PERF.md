@@ -473,3 +473,8 @@ All five gates passed on official commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e8
 ## Full-team board result — 2026-10-31 17:19 UTC
 
 All five gates passed on official commit `c4cb49fedd910dd65dc0719c113b06fa2e9c2476` with the unchanged restored hybrid12 source. **LATEST:** `run-30f1d62c541c`, T=0.258027 s, M=49,549,312 B, S=925, D=1, K=22.286095, points=67.401699. BEST remains `run-c050e7922fc2`, K=23.169218.
+
+
+## Full-team board result — 2026-10-31 17:30 UTC
+
+All five gates passed on rollback HEAD `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` with the unchanged hybrid12 source. **LATEST:** `run-bb9bb994b149`, T=0.240934 s, M=49,946,624 B, S=925, D=1, K=23.026282, points=68.111191. BEST remains `run-c050e7922fc2`, K=23.169218.

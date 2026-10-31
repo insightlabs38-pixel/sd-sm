@@ -146,9 +146,17 @@ Watcher healthy at `266578e73fec11894c067b8b11a0910657a8ccff`, queue idle; all f
 - **LATEST:** `run-03fcb22b8442`, commit `266578e73fec11894c067b8b11a0910657a8ccff`; T=0.172741 s, M=132,890,624 bytes, S=708, D=1, K=19.725411, points=64.751303.
 
 
-## Frontier D bucketed-queue challenger — staged for official scoring
+## Frontier D bucketed-queue challenger — official BEST
 
 - Source from `sd-td/frontier/d-claude-architecture-2`, branch head `92c5befeeb97aae41a02445760038edcd56a5f8e`, solver blob `d9de7159f8b34e4a20f95d06410780bf65626acf`; official Dockerfile/manifest retained, D=1. Parent rollback source is in commit `5a58796`.
 - CI run [41154607933](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41154607933), source head `399c1560dcaa7f2174777f58aff45d2357e0a58a`, passed random/adversarial differential checks, official generated cases and full seed-1 hashes, and pinned official-style Docker/output comparison. The latest branch head adds only benchmark/test documentation beyond that tested solver.
 - Paired local full-seed-1 median T=0.28 s vs 0.33 s; fresh-cgroup peak M=90 MB vs 105–125 MB at 12 threads, THP=always; exact output SHA on every pass. These are runner-local matched measurements, not board axes.
-- **Estimated only:** using those T/M ratios against D BEST `run-e6aa2c1e3d1d`, D=1, rough S=724 (708 plus 16 added noncomment lines), the scoring formula projects K≈22.71–23.52 versus 20.353058. This estimate assumes the relative T/M gains transfer to the board and must be replaced with the official run.
+- **Official board:** `run-8a414d83e226` on commit `09ee42d8656b9b599401140eb38d5d76b07a7566` scored T=0.133086 s, M=98,922,496 bytes, S=727, D=1, K=23.745005, points=68.778613. New BEST; all five gates passed. Versus previous BEST `run-e6aa2c1e3d1d`, T fell 18.7%, M fell 23.8%, and S rose 19 lines. This confirms and exceeds the prior estimated K range; it is the measured result.
+
+
+## Official board results — raw feed observed 2026-10-31 01:25:23 UTC
+
+Watcher healthy at `09ee42d8656b9b599401140eb38d5d76b07a7566`, queue idle; all five gates passed for all tracks, failure null.
+
+- **BEST:** `run-8a414d83e226`, commit `09ee42d8656b9b599401140eb38d5d76b07a7566`; T=0.133086 s, M=98,922,496 bytes, S=727, D=1, K=23.745005, points=68.778613.
+- **LATEST:** `run-8a414d83e226`, commit `09ee42d8656b9b599401140eb38d5d76b07a7566`; T=0.133086 s, M=98,922,496 bytes, S=727, D=1, K=23.745005, points=68.778613.

@@ -357,3 +357,7 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official latest — 2026-10-31 12:33:30 UTC
 
 - BEST remains `run-26bebca7d52d`, K=16.959803. LATEST `run-cfb141b4fcbd` passed all gates: T=0.131419 s, M=10,739,712 B, S=524, D=1, K=16.767456. Known-good C source is restored pending rescore.
+
+## Developer-main per-thread cache trial — rejected before submission
+
+- Track C `main` HEAD `a97a4ac5a83c1a78bd2630015debf3e934ea91cf` added a per-thread exact-name cache; its exact-source CI `41201618354` passed correctness/container checks, but the 12-pair full-seed comparison regressed from 139.972 ms / 16,850 KiB to 153.091 ms / 19,544 KiB. Reject without an official board trial; retain the `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` C source.

@@ -1,4 +1,4 @@
-#include <immintrin.h>
+#include <nmmintrin.h>
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -72,25 +72,6 @@ static uint32_t raw_hash(const char *p, size_t n) {
     return h;
 }
 
-static const char *find_quote(const char *p, const char *end) {
-    const __m256i quote32 = _mm256_set1_epi8('"');
-    while (end - p >= 32) {
-        __m256i block = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(p));
-        unsigned mask = static_cast<unsigned>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(block, quote32)));
-        if (mask) return p + __builtin_ctz(mask);
-        p += 32;
-    }
-    const __m128i quote16 = _mm_set1_epi8('"');
-    while (end - p >= 16) {
-        __m128i block = _mm_loadu_si128(reinterpret_cast<const __m128i *>(p));
-        unsigned mask = static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(block, quote16)));
-        if (mask) return p + __builtin_ctz(mask);
-        p += 16;
-    }
-    for (; p < end; ++p) if (*p == '"') return p;
-    return nullptr;
-}
-
 static Field text_field(const char *&p, const char *end, bool need_hash) {
     Field f{};
     f.quoted = p < end && *p == '"';
@@ -98,7 +79,7 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
         ++p;
         f.raw = p;
         for (;;) {
-            const char *q = find_quote(p, end);
+            const char *q = static_cast<const char *>(memchr(p, '"', end - p));
             if (!q) throw std::runtime_error("unclosed quote");
             f.len += static_cast<uint32_t>(q - p);
             if (q + 1 < end && q[1] == '"') {
@@ -402,7 +383,6 @@ int main() {
             newline(p, end);
         }
         if (country.size() > 255) throw std::runtime_error("too many countries");
-        (void)madvise(const_cast<char *>(lookup.data), lookup.size, MADV_DONTNEED);
         const unsigned unmatched = static_cast<unsigned>(country.size());
         File records("/data/records.csv");
         p = records.data;

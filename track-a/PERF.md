@@ -291,3 +291,17 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official board snapshot — 2026-10-31 04:25:59 UTC
 
 - **BEST = LATEST:** `run-aad4ae1ad447` on `6ce631e9aed748609f3fbd289ec599cb4abf152d`; all five gates passed. T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422. K is up 0.81% from previous BEST `run-34af1c8a1977` (23.699898); the packed-tuple trial is promoted.
+
+
+## Official board snapshot — 2026-10-31 04:30:35 UTC
+
+HighVelocity was registered and the watcher was healthy; all five gates passed for the scored submission.
+
+- **BEST:** `run-aad4ae1ad447`; T=0.065900 s, M=41,218,048 B, S=321, D=1, K=23.892877, points=68.913422.
+- **LATEST:** `run-13f944646ef2` on `952084e36d4a8309c21c175f7208a40fe40c2702`; T=0.066082 s, M=41,250,816 B, S=321, D=1, K=23.856160, points=68.880027.
+
+## Controlled endpoint-hash and AVX2 candidate prepared — 2026-10-31
+
+- Imported `sd-ta/main` HEAD `3bd56063faa081e6dfef77afeb99044ede01dfe5`, source blob `e0c5e2fbbf9baebe5af62aa79feacfd24d94f8d2`; rollback remains in parent `952084e36d4a8309c21c175f7208a40fe40c2702`.
+- CI `41174690609`, `41175038825`, and `41175190484` passed published hashes, holdout differentials, synthetic oracle, edge sanitizers, Docker allowlist and offline execution. Final 31-run paired full-seed medians: sparse 0.085658 s vs AVX2 0.083057 s; cgroup peaks 41,553,920 vs 41,005,056 B. Around ten extra counted lines; estimated +1.2–1.3% K versus sparse, not an official score.
+- Official board result pending; no run ID or score claimed.

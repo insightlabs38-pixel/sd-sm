@@ -526,3 +526,8 @@ This commit replaces D with developer main blob `d53a4e39a379c744724d4aac87b6a39
 ## Official candidate result — run-066fcc7e1635 (2026-10-31 19:16 UTC)
 
 All five gates passed on developer-main source blob `d53a4e39a379c744724d4aac87b6a3925411d9cf`. T=0.173784 s, M=77,803,520 B, S=825, D=1, K=21.392168, points=66.512740. Despite lower memory and smaller source, K is well below **BEST** `run-68c15954870c` (K=24.163880); reject promotion and restore champion blob `be15ac2e635af157cc8db71d2df5e218d0a78446` after dispatch cooldown. Candidate remains reachable in the preceding integration commit for rollback/audit.
+
+
+## Official latest — run-a7bcabdc0bdf (2026-10-31 19:24 UTC)
+
+All five gates passed on restored champion blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. **LATEST:** T=0.140765 s, M=99,217,408 B, S=862, D=1, K=22.492443, points=67.601831. **BEST** remains `run-68c15954870c` (K=24.163880).

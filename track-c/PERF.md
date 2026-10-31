@@ -238,3 +238,7 @@ Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All f
 
 - **BEST:** `run-2e4a2fbbc969`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.136063 s, M=50,782,208 bytes, S=469, D=1, K=12.280222, points=54.460311.
 - **LATEST:** `run-3f1acd6c12ff`, commit `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`; T=0.243185 s, M=17,563,648 bytes, S=572, D=1, K=11.025384, points=52.119687.
+
+## Official rollback snapshot — raw feed 2026-10-31 01:55 UTC
+
+`run-4b4cc28df120` scored commit `4567e5529f0418efdd26c132701f1bf296bcb49d`; all five gates passed, failure null. This commit restores the exact C source blob measured as BEST. The restored source compiled with official static GCC flags and passed the organizer Track C suite (14 tests). **LATEST:** T=0.138231 s, M=52,301,824 bytes, S=469, D=1, K=12.111905, points=54.160623. **BEST:** `run-2e4a2fbbc969`, K=12.280222, points=54.460311.

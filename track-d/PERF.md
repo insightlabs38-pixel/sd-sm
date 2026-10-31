@@ -196,3 +196,7 @@ Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All f
 
 - **BEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.
 - **LATEST:** `run-0bb1c789d93c`, commit `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`; T=0.132233 s, M=99,102,720 bytes, S=728, D=1, K=23.807888, points=68.836044.
+
+## Official rollback snapshot — raw feed 2026-10-31 01:55 UTC
+
+`run-f9d9a837e3d6` scored commit `4567e5529f0418efdd26c132701f1bf296bcb49d`; all five gates passed, failure null. **LATEST:** T=0.132983 s, M=98,697,216 bytes, S=728, D=1, K=23.760134, points=68.792444. **BEST:** `run-1cbdf9e4a82e`, K=23.855961, points=68.879845.

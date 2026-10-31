@@ -328,3 +328,7 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 ## Official board snapshot — 2026-10-31 07:06:34 UTC
 
 - `run-7be0ced31374` scored `281c60f59cbe6c6a8c51f77aba7daad102151abd`; all five gates passed. LATEST: T=0.304786 s, M=44,695,552 B, S=860, D=1, K=21.162658. BEST remains `run-2b8dc2af774e` (K=21.378880); the scanner source is retained because its earlier official trial set the current BEST.
+
+## Official board snapshot — 2026-10-31 07:12:34 UTC
+
+- `run-04a7116196c9` scored `aa84dc52fefa309db4dbc5c2b9aefc07863ea13a`; all five gates passed. LATEST and new BEST: T=0.300165 s, M=42,844,160 B, S=860, D=1, K=21.392007, points=66.512577. K is 0.061% above the previous BEST `run-2b8dc2af774e` (21.378880); the same B source remains promoted.

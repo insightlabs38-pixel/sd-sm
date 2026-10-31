@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <fcntl.h>
-#include <immintrin.h>
+#include <nmmintrin.h>
 #include <string>
 #include <string_view>
 #include <sys/mman.h>
@@ -21,15 +21,15 @@ constexpr uint32_t kHours = 72;
 constexpr uint32_t kEndpoints = 1842;
 constexpr uint32_t kGroups = kHours * kEndpoints;
 constexpr uint32_t kLocalBits = 11, kLocalStride = 1u << kLocalBits;
+constexpr uint32_t kErrorShift = 18, kGroupMask = (1u << kErrorShift) - 1;
 constexpr uint32_t kParseWorkers = 5;
 constexpr uint32_t kOutputWorkers = 5;
 constexpr uint8_t kMethodSkip[26] = {0, 0, 0, 7, 0, 0, 4, 5, 0, 0, 0, 0, 0, 0, 8};
 
-struct __attribute__((packed)) Record { uint16_t id; uint32_t latency; };
-static_assert(sizeof(Record) == 6);
-struct Segment { uint32_t begin; uint8_t hour; };
+struct __attribute__((packed)) Record { uint32_t group : 24; uint32_t latency; };
+static_assert(sizeof(Record) == 7);
 struct Group { uint32_t count = 0, errors = 0, cursor = 0; };
-struct WorkerGroup { uint32_t count = 0; };
+struct WorkerGroup { uint32_t count = 0, errors = 0; };
 struct Slot { uint32_t hash = 0, id_plus_one = 0; };
 
 [[noreturn]] void fail(const char *message) {
@@ -45,18 +45,9 @@ __attribute__((target("sse4.2"))) uint32_t endpoint_hash(std::string_view name) 
     std::memcpy(&b, name.data() + (n - 8) / 2, 8);
     std::memcpy(&c, name.data() + n - 8, 8);
   }
-  const uint64_t mix = a ^ ((b << 17) | (b >> 47)) ^ ((c << 39) | (c >> 25));
-  return _mm_crc32_u64(n, mix);
-}
-inline const char *endpoint_end(const char *p, const char *end) {
-  const __m256i spaces = _mm256_set1_epi8(' ');
-  while (end - p >= 32) {
-    const __m256i chunk = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(p));
-    const uint32_t mask = static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(chunk, spaces)));
-    if (mask) return p + __builtin_ctz(mask);
-    p += 32;
-  }
-  return static_cast<const char *>(std::memchr(p, ' ', static_cast<size_t>(end - p)));
+  uint32_t h = _mm_crc32_u64(n, a);
+  h = _mm_crc32_u64(h, b);
+  return _mm_crc32_u64(h, c);
 }
 __attribute__((always_inline)) inline uint32_t intern(std::string_view name, std::array<Slot, 4096> &dictionary,
                 std::vector<std::string_view> &names) {
@@ -96,8 +87,6 @@ struct Worker {
   std::array<std::array<char, 13>, kHours> hours {};
   std::array<uint8_t, kHours> seen {};
   std::vector<Record> records;
-  std::vector<Segment> segments;
-  std::vector<uint32_t> error_keys;
 
   void parse(const char *p, const char *end) {
     names.reserve(kEndpoints);
@@ -108,12 +97,12 @@ struct Worker {
       p += 28;
       p += *p == 'P' ? (p[1] == 'O' ? 5 : p[1] == 'U' ? 4 : 6) : kMethodSkip[*p - 'A'];
       const char *const endpoint = p;
-      p = endpoint_end(p, end);
+      p = static_cast<const char *>(std::memchr(p, ' ', static_cast<size_t>(end - p)));
       const std::string_view name(endpoint, static_cast<size_t>(p - endpoint));
       const uint32_t id = intern(name, dictionary, names);
       const bool error = p[1] == '5';
       p += 5;
-      uint32_t latency = static_cast<uint32_t>(*p++ - '0');
+      uint32_t latency = 0;
       while (*p != '\n') latency = latency * 10 + static_cast<uint32_t>(*p++ - '0');
       ++p;
       const uint32_t key = (hour << kLocalBits) | id;
@@ -121,15 +110,12 @@ struct Worker {
         seen[hour] = 1;
         std::memcpy(hours[hour].data(), line, 13);
       }
-      if (segments.empty() || segments.back().hour != hour)
-        segments.push_back({static_cast<uint32_t>(records.size()), static_cast<uint8_t>(hour)});
-      records.push_back({static_cast<uint16_t>(id), latency});
-      if (error) error_keys.push_back(key);
+      records.push_back({key | (static_cast<uint32_t>(error) << kErrorShift), latency});
     }
-    for (size_t i = 0; i < segments.size(); ++i) {
-      const uint32_t base = static_cast<uint32_t>(segments[i].hour) << kLocalBits;
-      const size_t stop = i + 1 < segments.size() ? segments[i + 1].begin : records.size();
-      for (size_t j = segments[i].begin; j < stop; ++j) ++groups[base | records[j].id].count;
+    for (const Record &record : records) {
+      WorkerGroup &group = groups[record.group & kGroupMask];
+      ++group.count;
+      group.errors += record.group >> kErrorShift;
     }
   }
 };
@@ -187,13 +173,10 @@ int main() {
         const uint32_t key = hour * kEndpoints + remaps[w][id];
         Group &dst = groups[key];
         dst.count += src.count;
+        dst.errors += src.errors;
         cursors[w][key] = src.count;
       }
     }
-    for (const uint32_t local : worker.error_keys)
-      ++groups[(local >> kLocalBits) * kEndpoints + remaps[w][local & (kLocalStride - 1)]].errors;
-    worker.error_keys.clear();
-    worker.error_keys.shrink_to_fit();
     worker.groups.clear();
     worker.groups.shrink_to_fit();
   }
@@ -215,15 +198,10 @@ int main() {
   }
   auto scatter = [&](uint32_t w) {
     std::vector<uint32_t> &cursor = cursors[w];
-    const auto &worker = workers[w];
-    for (size_t i = 0; i < worker.segments.size(); ++i) {
-      const uint32_t base = static_cast<uint32_t>(worker.segments[i].hour) * kEndpoints;
-      const size_t stop = i + 1 < worker.segments.size() ? worker.segments[i + 1].begin : worker.records.size();
-      for (size_t j = worker.segments[i].begin; j < stop; ++j) {
-        const Record &record = worker.records[j];
-        const uint32_t key = base + remaps[w][record.id];
-        latencies[cursor[key]++] = record.latency;
-      }
+    for (const Record &record : workers[w].records) {
+      const uint32_t key = ((record.group & kGroupMask) >> kLocalBits) * kEndpoints +
+                           remaps[w][record.group & (kLocalStride - 1)];
+      latencies[cursor[key]++] = record.latency;
     }
   };
   std::array<std::thread, kParseWorkers - 1> scatter_threads;

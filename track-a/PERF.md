@@ -326,8 +326,16 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 
 - Candidate source blob `0034dba9d60573da24b65512f8b20e17bf50aa9e` from `sd-ta/main` HEAD `4e08e9d8cf0cb7500f144097bb063940b18d646c`. It stages each record as a six-byte local endpoint ID plus full 32-bit latency and records hour runs separately. The official Dockerfile is byte-identical to the repository Dockerfile.
 - Exact-source CI [41179012512](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41179012512) passed synthetic differential tests, official seed-1 tiny/sample/full hashes, seed-2/3 sample differential, the Docker allowlist/offline sandbox, and scored-style cgroup memory checks. Thirty-one full-seed-1 measurements: 0.103128 s versus 0.109233 s for the verified v3 champion (ratio 0.9441). Cgroup peak was 39,510,016 B versus 41,299,968 B. These are CI runner measurements, not board T/M/K. A local native build and 12 synthetic differential cases also passed.
-- Previous official A BEST remains `run-aad4ae1ad447` (K=23.892877). The AVX-only predecessor regressed on its earlier official trial; this is a fresh trial of the added six-byte staging change, not a promotion claim. Parent commit retains the prior official source for rollback. Board score pending.
+- Previous official A BEST remains `run-aad4ae1ad447` (K=23.892877). The AVX-only predecessor regressed on its earlier official trial; this is a fresh trial of the added six-byte staging change, not a promotion claim. Parent commit retains the prior official source for rollback. The official run below did not promote this candidate; the known-good source has been restored.
 
 ## Official board snapshot — 2026-10-31 07:06:34 UTC
 
 - `run-d5429d5182ce` scored `281c60f59cbe6c6a8c51f77aba7daad102151abd`; all five gates passed. LATEST: T=0.069235 s, M=41,095,168 B, S=321, D=1, K=23.324247. BEST remains `run-aad4ae1ad447` (K=23.892877); no A source change was present in that snapshot.
+
+## Six-byte staging official trial — rejected, 2026-10-31
+
+- Board run `run-9243aef5cd8c` scored `aa84dc52fefa309db4dbc5c2b9aefc07863ea13a`; all five gates passed. Candidate LATEST: T=0.065933 s, M=39,358,464 B, S=357, D=1, K=23.727125, points=68.762256. BEST remains `run-aad4ae1ad447`, K=23.892877. K was 0.694% below BEST despite 4.5% lower memory and nearly unchanged T; the extra source cost outweighed those gains. Restored source blob `1d59a36e5166f19cbf870f6458da5179f17bf1ed` from parent `281c60f`.
+
+## Official board snapshot — 2026-10-31 07:12:34 UTC
+
+- Same actual receipt: `run-9243aef5cd8c` on `aa84dc52fefa309db4dbc5c2b9aefc07863ea13a`; all gates passed. This is the latest scored A source trial; current branch has the known-good rollback source while its new score is pending.

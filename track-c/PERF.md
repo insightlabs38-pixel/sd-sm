@@ -190,3 +190,16 @@ Watcher healthy at `09ee42d8656b9b599401140eb38d5d76b07a7566`, queue idle; all f
 
 - **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
 - **LATEST:** `run-9d3a20bab5bd`, commit `09ee42d8656b9b599401140eb38d5d76b07a7566`; T=0.137588 s, M=51,347,456 bytes, S=469, D=1, K=12.184971, points=54.291224.
+
+
+## Official board results — raw feed observed 2026-10-31 01:31:36 UTC
+
+Watcher healthy at `ed14252dd1ed2a882887dffd6bb61950f03a1c85`, queue idle; all five gates passed for all tracks, failure null.
+
+- **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-30c1524d873a`, commit `ed14252dd1ed2a882887dffd6bb61950f03a1c85`; T=0.138503 s, M=51,355,648 bytes, S=469, D=1, K=12.144267, points=54.218566.
+
+
+## Wide unknown-region candidate not promoted
+
+`sd-tc/main` commit `ac891520a08ace03690b070c17184af10c27aaab` adds a sentinel for `region_id=4,294,967,303`; CI [41155360298](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41155360298) passed the new fixture and official outputs/Docker. The frozen Track C spec caps region IDs at 9,999,999, so the new case is outside the scoring input contract. Its paired developer-runner full-scale comparison showed no gain (baseline/current median T≈0.21/0.22 s, RSS≈24,296/24,300 KiB). It is not promoted.

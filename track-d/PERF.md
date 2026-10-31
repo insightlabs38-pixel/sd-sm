@@ -164,4 +164,12 @@ Watcher healthy at `09ee42d8656b9b599401140eb38d5d76b07a7566`, queue idle; all f
 
 ## D frontier PR #2 memory-release follow-up — pending official score
 
-Latest PR head `f726b0da448c469ee2625125d29e7c12824d04db` changes only `g.perm.release()` after query translation; source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60`. CI [41154994513](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41154994513) passed random/adversarial differential, official generated/full seed-1 outputs, and pinned Docker sample/full byte comparison. This explicitly frees graph permutation storage before solving queries; any resulting board memory/runtime change remains unmeasured until the official run. Parent source scored BEST K=23.745005 on `run-8a414d83e226`.
+Latest PR head `f726b0da448c469ee2625125d29e7c12824d04db` changes only `g.perm.release()` after query translation; source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60`. CI [41154994513](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41154994513) passed random/adversarial differential, official generated/full seed-1 outputs, and pinned Docker sample/full byte comparison. This frees graph permutation storage before solving queries. The parent source scored K=23.745005 on `run-8a414d83e226`; the official follow-up result below improved M by 8,192 bytes and T by 0.6%, with source S increasing from 727 to 728.
+
+
+## Official board results — raw feed observed 2026-10-31 01:31:36 UTC
+
+Watcher healthy at `ed14252dd1ed2a882887dffd6bb61950f03a1c85`, queue idle; all five gates passed for all tracks, failure null.
+
+- **BEST:** `run-d3f15b874887`, commit `ed14252dd1ed2a882887dffd6bb61950f03a1c85`; T=0.132280 s, M=98,914,304 bytes, S=728, D=1, K=23.812720, points=68.840450.
+- **LATEST:** `run-d3f15b874887`, commit `ed14252dd1ed2a882887dffd6bb61950f03a1c85`; T=0.132280 s, M=98,914,304 bytes, S=728, D=1, K=23.812720, points=68.840450.

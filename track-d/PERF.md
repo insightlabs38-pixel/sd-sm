@@ -82,3 +82,11 @@ HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `73d8cec
 ## Frontier Track D candidate staged for official scoring — October 31, 2026
 
 Candidate from ready PR #1 head `576af9c23bbbdfa16838a4737342ab2063176615`; production source SHA-256 `6143fe3555229c2a180146fc9d8f981d862e9c455f332325b05a1808b7b2a852`. Source-identical CI run [41148832728](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41148832728) passed published full-output hash, differential (83 cases across 3 thread counts and 6 probes), lattice stress, tiny/sample references, ASan/UBSan and pinned Docker. PR reports local 4-core full-seed-1 median T 0.36 s vs 1.10 s and peak RSS 91 MB vs 227 MB; these are not board-hardware results. Pinned source-axis estimate S=708 (prior champion S=398), D=1; applying PR local T/RSS ratios gives estimated K≈18.5 from board BEST K=9.603, not an official score. Native `g++ -O3 -std=c++17 -pthread -flto -static -s` compilation and a directed/zero/large-weight synthetic graph smoke test passed. The local Docker build could not start because `/var/lib/docker/vfs` had no space; source-identical CI run above passed pinned Docker. Awaiting board evaluation. Previous champion and rollback are in parent `73d8cec`.
+
+
+## Official board results — raw feed observed 2026-10-31 00:29:07 UTC
+
+Watcher was healthy at `0ae75f36afd0ddec3e9d07e8d9a5ea3300aeacca` (last checked 00:28:14 UTC); queue idle. All five gates passed; failure was null.
+
+- **BEST = LATEST:** `run-acdcbe9eea6a`, commit `0ae75f36afd0ddec3e9d07e8d9a5ea3300aeacca`; T=0.162783 s, M=133,636,096 bytes, S=708, D=1, K=20.297070, points=65.371668.
+- Against the previous D BEST (`run-f1b186f4e3b3`: T=0.691411 s, M=233,517,056 bytes, S=398, K=9.603141), this official run is 76.5% faster, uses 42.8% less measured memory, and raises K by 111.4% despite the source-axis increase. This confirms the challenger on board hardware; earlier estimated K≈18.5 was not an official score.

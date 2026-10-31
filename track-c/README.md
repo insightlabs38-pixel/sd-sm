@@ -1,5 +1,5 @@
 # Track C: Join
 
-A byte-oriented C++17 parser reads the hostile CSV, maps region ids through a dense table, and aggregates country statistics. Global exact-name interning uses an open-addressed table, with four 64-bit country-presence words per distinct name; quotes are decoded logically for hashing, equality, and byte counts without per-row allocations. Input files are memory-mapped read-only, and output is written only to `/out/aggregates.txt`.
+A byte-oriented C++17 parser handles hostile quoted CSV, maps region ids through a dense table, and aggregates country statistics. Each worker batches 16 parsed records and builds a compact exact-name table. The merge partitions names into independent hash shards and retains exact byte equality after hash matches.
 
-No third-party runtime dependencies. Further work: benchmark full-scale seeds and evaluate a streaming name representation, SIMD parsing, and safe parallel record partitioning against the complete K coefficient.
+No third-party runtime dependencies. The integrated source passed full-scale exactness and Docker checks in [CI run 41109853738](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41109853738). Performance evidence and the later rejected merge experiment are recorded in [PERF.md](PERF.md); CI and local figures are not board scores.

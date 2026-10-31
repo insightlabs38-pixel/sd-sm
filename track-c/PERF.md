@@ -131,9 +131,9 @@ Watcher was healthy at `0ae75f36afd0ddec3e9d07e8d9a5ea3300aeacca` (last checked 
 
 ## New `sd-tc/main` challenger staged for official scoring — October 31, 2026
 
-- Candidate developer HEAD `ab3789b9657a2a6e7609f5ef166278bb8c1e2a57`, source blob `e8baeb7ae5f6158ab159ff48ddc2a03d902c0112`; this adds a two-worker exact name/group intersection merge to the previously board-rejected mmap candidate. CI [41150626041](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41150626041) passed handwritten and collision/boundary/growth stress, tiny/sample/full-seed reference equality (full SHA `d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536`), paired full-scale comparison, and pinned offline Docker.
-- Independent interleaved 5-run seed-1 comparison against the current official C source matched that exact hash on every run: local median wall 0.8443 s to 0.7251 s (14.1% lower). Sampled RSS medians were 248,180 KiB and 26,968 KiB, but mmap accounting differs by host, so memory is excluded from the conservative score estimate. Pinned clang-format 23.1.3 + scc 4.1.0 gives S=469 official vs S=522 candidate; D=1. Holding official board M constant and applying only the local T ratio and measured S ratio to BEST K=12.246449 estimates K≈13.00. This remains an estimate; official scoring decides promotion. The earlier source blob `804516b` scored K=10.070529 and was rolled back.
-- Candidate has no runtime dependencies; previous known-good source is retained in parent commit `8233a64` for rollback. Official board evaluation is pending.
+- Candidate developer HEAD `ab3789b9657a2a6e7609f5ef166278bb8c1e2a57`, source blob `e8baeb7ae5f6158ab159ff48ddc2a03d902c0112`; it adds a two-worker exact name/group intersection merge to the previously board-rejected mmap candidate. CI [41150626041](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41150626041) passed handwritten and collision/boundary/growth stress, tiny/sample/full-seed reference equality (full SHA `d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536`), paired full-scale comparison, and pinned offline Docker.
+- Independent interleaved 5-run seed-1 comparison against the current official C source matched that exact hash on every run: local median wall 0.8443 s to 0.7251 s (14.1% lower). Sampled RSS medians were 248,180 KiB and 26,968 KiB, but mmap accounting differs by host. The local source-axis estimate was not reliable: the board measured S=563, not the estimated 522.
+- Official result `run-0a1a4e1eb943` passed all gates but measured T=0.247212 s, M=19,025,920 bytes, S=563, D=1, K=10.787339, points=51.645716. Relative to BEST K=12.246449, K fell 11.9%; despite lower measured memory, slower T and larger S made this a losing candidate. The earlier source blob `804516b` also scored lower (K=10.070529). This challenger is rolled back to source and README from parent `8233a64`; no runtime dependencies were added.
 
 
 ## Official board results — raw feed observed 2026-10-31 00:34:36 UTC
@@ -142,3 +142,11 @@ Watcher healthy at `8233a6406105e8580d72bc059d91e48eb88e0868`, queue idle; all f
 
 - **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
 - **LATEST:** `run-accf0948a6f0`, commit `8233a6406105e8580d72bc059d91e48eb88e0868`; T=0.147599 s, M=51,208,192 bytes, S=469, D=1, K=11.770881, points=53.540448. This was the restored champion source.
+
+
+## Official board results — raw feed observed 2026-10-31 00:40:29 UTC
+
+Watcher healthy at `b6f184e81a93554f4dd2b2e0284258345964f45f`, queue idle; all five gates passed for each latest run, failure null.
+
+- **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-0a1a4e1eb943`, commit `b6f184e81a93554f4dd2b2e0284258345964f45f`; T=0.247212 s, M=19,025,920 bytes, S=563, D=1, K=10.787339, points=51.645716. Source is rolled back in the next integration checkpoint.

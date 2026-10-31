@@ -202,7 +202,7 @@ Watcher healthy at `ed14252dd1ed2a882887dffd6bb61950f03a1c85`, queue idle; all f
 
 ## Wide unknown-region candidate not promoted
 
-`sd-tc/main` commit `ac891520a08ace03690b070c17184af10c27aaab` adds a sentinel for `region_id=4,294,967,303`; CI [41155360298](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41155360298) passed the new fixture and official outputs/Docker. The frozen Track C spec caps region IDs at 9,999,999, so the new case is outside the scoring input contract. Its paired developer-runner full-scale comparison showed no gain (baseline/current median T≈0.21/0.22 s, RSS≈24,296/24,300 KiB). It is not promoted.
+`sd-tc/main` commit `ac891520a08ace03690b070c17184af10c27aaab` adds a sentinel for `region_id=4,294,967,303`; CI [41155360298](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41155360298) passed the new fixture and official outputs/Docker. The frozen Track C spec caps region IDs at 9,999,999, so the new case is outside the scoring input contract. Its paired developer-runner full-scale comparison showed no gain (baseline/current median T≈0.21/0.22 s, RSS≈24,296/24,300 KiB). The >4,294,967,295 fixture remains optional robustness coverage, not a scoring qualification; this newer candidate is assessed on valid IDs below, including unknown values above 999,999.
 
 
 ## Official board results — raw feed observed 2026-10-31 01:36:50 UTC
@@ -219,3 +219,11 @@ Watcher healthy at `3077ed42f746f6ed84d122899e611b5af3dac0e4`, queue idle; all f
 
 - **BEST:** `run-2e4a2fbbc969`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.136063 s, M=50,782,208 bytes, S=469, D=1, K=12.280222, points=54.460311.
 - **LATEST:** `run-5c8e941c0c81`, commit `3077ed42f746f6ed84d122899e611b5af3dac0e4`; T=0.138843 s, M=50,831,360 bytes, S=469, D=1, K=12.154307, points=54.236511.
+
+
+## Developer-main performance challenger — staged for official K
+
+- Current `sd-tc/main` commit `400aa2dffa5d684e398043e2a13dd63463ceec3e`, source blob `da289c75f4d3894a3e432ad04a10d74066399c15`; only `join.cpp` imported, retaining the registered C++/zero-dependency manifest and Dockerfile. This includes bounded region lookups, batched parsing, reclamation of consumed input pages, and streamlined digit classification.
+- CI [41155520691](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41155520691) passed official tiny/sample/full hashes, differential cases and pinned offline Docker. Full seed-1 comparison against the official BEST source also matched byte-for-byte locally (3,320,000 records; output SHA-256 `d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536`). A valid-range edge fixture with unknown IDs 1,000,000 and 9,999,999 matched both the previous official source and Python reference (SHA-256 `c3f7c3ee178576d101aa00c561cb1696621aebedda1a0081473ae9ce7c3c41e4`).
+- Seven interleaved full-seed-1 runs, same local compiler and three pinned CPUs: T median 0.408639 s (official BEST source) vs 0.264697 s (candidate, 35.2% faster); peak process RSS 247,112 vs 20,516 KiB. These are local measurements, not board axes.
+- Source size estimate S≈563 (official S=469 plus 94 nonblank C++ lines); D=1. Applying local T/RSS ratios directly gives a rough K≈24.4, but board cgroup M may not scale with process RSS. With no M benefit, the same T/S estimate is K≈14.85. Both are estimates versus official BEST K=12.280222; the official run decides.

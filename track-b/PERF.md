@@ -453,3 +453,8 @@ All five gates passed for candidate source blob `510c2a13dccb26c712ff2239000817d
 
 - Compared with the immediately preceding 12-worker result `run-199d4e836760` (T=0.241910 s, M=50,896,896 B, S=925, K=22.893327), the six-worker trial reduced M by 4.0% and S by 144, but T rose by 76.1% and K fell by 22.1%. It is well below BEST `run-c050e7922fc2`, K=23.169218.
 - Reject PR #5 for promotion and restore the 12-worker source blob `76946cc77205b4f115aa32bed459e0980c8d143c`; the candidate remains in official parent history and its developer PR stays open. Correctness passed; scoring efficiency did not.
+
+
+## Rollback verified — 2026-10-31 17:00 UTC
+
+After rejecting PR #5, official commit `74a4fb7456ce5fb8b10ef5b0eeef2d58289fdc59` restored source blob `76946cc77205b4f115aa32bed459e0980c8d143c`. All five gates passed. **LATEST:** `run-fae9d65ec17a`, T=0.249936 s, M=51,023,872 B, S=925, D=1, K=22.511529, points=67.620250. The promoted hybrid12 source remains BEST at `run-c050e7922fc2`, K=23.169218. This confirms the executable rollback; the low six-worker result remains documented above.

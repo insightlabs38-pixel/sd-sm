@@ -433,3 +433,11 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 - Before/after against the immediately preceding official C BEST, `run-8a3385ae3968` on `92c095f030bd9519de41ab7201a944cc9d94cbd6`: T 0.073584→0.085478 s (+16.2%), M 20,631,552→12,455,936 B (-39.6%), S 459→537 (+78), K 20.059703→20.109251 (+0.25%). This narrowly improves K while materially reducing measured memory; retain the previous source for rollback.
 - Developer differential, adversarial, sanitizer, and offline static-Docker evidence is recorded above. No GitHub Actions run exists for the exact PR #5 head; its pinned GCC Docker workflow was blocked by the developer's local VFS storage limit. The official board independently built and passed exact candidate correctness and sandbox gates.
 - Prior C BEST before run `run-8a3385ae3968` was `run-f7675699a941` (K=20.010866). The feed's earlier tentative threshold is superseded by the measured 92c result.
+
+
+## Repeated official run after PR #5 promotion — 2026-10-31 16:49 UTC
+
+All five gates passed on commit `6a01ff11b17d179835197e73cbab6518a6651b79` with merged PR #5's same control-byte source.
+
+- **BEST / LATEST:** `run-4338f0eff51f`: T=0.084500 s, M=12,615,680 B, S=537, D=1, K=20.173806, points=65.239392.
+- Against the prior same-source run `run-dd8b39dbecd2` (T=0.085478 s, M=12,455,936 B, K=20.109251), this measured K is 0.32% higher. No code changed between runs; retain both measurements as board variance, with `run-4338f0eff51f` the current BEST and LATEST.

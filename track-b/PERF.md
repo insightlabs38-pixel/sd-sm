@@ -422,3 +422,18 @@ All five gates passed. The promoted B source blob `76946cc77205b4f115aa32bed459e
 - **BEST / LATEST:** `run-c050e7922fc2` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.237908 s, M=49,979,392 B, S=925, D=1, K=23.169218, points=68.245568. This is the current BEST.
 - Previous receipts: `run-a34171117109` on `92c095f030bd9519de41ab7201a944cc9d94cbd6`: T=0.242076 s, M=50,561,024 B, S=925, K=22.915801; `run-df74e256f12e` on `0ef3758e08e015c6f1ba97b9d36966ec151efc40`: K=22.862372.
 - The latest K is 0.23% above the previous BEST `run-5accd9f1743a` (K=23.105063). Source did not change; this is a new board measurement, not a claimed source optimization.
+
+
+## Full-team baseline before six-worker trial — 2026-10-31 16:49 UTC
+
+All five gates passed on official commit `6a01ff11b17d179835197e73cbab6518a6651b79` with the previous 12-worker source blob `76946cc77205b4f115aa32bed459e0980c8d143c`.
+
+- **LATEST:** `run-199d4e836760`: T=0.241910 s, M=50,896,896 B, S=925, D=1, K=22.893327, points=67.985446.
+- Previous best remains `run-c050e7922fc2`, K=23.169218; the new result is lower by 1.19% with no source change.
+
+## PR #5 six-worker candidate — official trial staged
+
+Candidate `sd-tb` head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `510c2a13dccb26c712ff2239000817dd5b4a900a`, uses six workers and 1,536-document blocks. It is staged solely for a controlled scoring-box comparison; the previous official 12-worker source remains in commit `6a01ff11b17d179835197e73cbab6518a6651b79` for rollback.
+
+- Developer GitHub Actions run [41159913998](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41159913998) succeeded: three full references, sample/tiny, differential and adversarial cases, pinned offline Docker, ASan/UBSan, TSan, published hashes, and 4/6/8/12-worker boundaries.
+- Four-logical-CPU local full-seed T values were 0.610445/0.620926/0.606104 s, M=41,570,304–41,934,848 B, S=781, D=1. Those oversubscribed runner results do not establish scoring-box performance. Official T/M/S/D/K are pending.

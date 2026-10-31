@@ -420,3 +420,15 @@ All five gates passed. Track D champion source blob `be15ac2e635af157cc8db71d2df
 - **LATEST:** `run-680e60b4d195` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.146857 s, M=98,844,672 B, S=862, D=1, K=22.037563, points=67.158178.
 - Previous receipts: `run-aa83d758d6fd` on `92c095f030bd9519de41ab7201a944cc9d94cbd6`: T=0.127111 s, M=98,549,760 B, S=862, K=23.701665; `run-50da3a129596` on `0ef3758e08e015c6f1ba97b9d36966ec151efc40`: K=23.080619.
 - The lower latest score is measurement variability; D source was unchanged. No D candidate was promoted.
+
+
+## Full-team board run — 2026-10-31 16:49 UTC
+
+All five gates passed on official commit `6a01ff11b17d179835197e73cbab6518a6651b79` with the unchanged champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`.
+
+- **LATEST:** `run-4468cb61df96`: T=0.134813 s, M=98,869,248 B, S=862, D=1, K=22.999765, points=68.086170.
+- **BEST** remains `run-68c15954870c`, K=24.163880. No D source candidate was promoted.
+
+## LIFO frontier layout — qualified but rejected by developer tournament
+
+The D developer's current main HEAD `9eb8be46ba369057e9ece3e3d3c275821ece0552` records the exact LIFO-vs-FIFO test. Workflow [41221039514](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41221039514) passed 88 differential fixtures, exact tiny/sample/full outputs, Docker at 1/4/12 workers, and 78 additional exact full runs. In 13 matched pairs, LIFO had 0/13 wins at four workers, 1/13 at six, and 0/13 at twelve; median wall time and user CPU were higher while RSS stayed about 69.3 MiB. Keep the existing FIFO/BFS layout; candidate branch `d/lifo-frontier-layout-20261031` is not promoted. The first workflow run failed only in RSS parsing; the corrected run passed.

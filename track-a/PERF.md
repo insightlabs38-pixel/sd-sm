@@ -578,8 +578,14 @@ All five gates passed on restored A champion. **LATEST:** T=0.021866 s, M=20,934
 
 ## Official board run — 2026-10-31 19:46 UTC
 
-Run `run-b8ebedebd8ce` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.021866 s, M=20,934,656 bytes, S=460, D=1, K=45.002111, points=80.306588. **BEST** remains `run-0577d3068f59`, K=45.837056 (same source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`).
+Run `run-b8ebedebd8ce` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.021866 s, M=20,934,656 bytes, S=460, D=1, K=45.002111. **BEST** remains `run-0577d3068f59`, K=45.837056 (same source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`).
 
 ### Frontier PR #2 official trial
 
 Staged `sd-ta` PR #2 exact head `50b33bb7d0085acf296e5f34a55e30b4958fb07d` (source blob `24926c0187974683c9e96ebac46d48073d5907d5`) for official scoring. Exact-head CI run `41232109362` passed, including size regressions and ThreadSanitizer at 6 and 12 workers. Developer-reported 4-vCPU local CPU time 180→115 ms and wall time 52–60→36–39 ms; these are not official-box measurements. Known-good rollback remains source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`.
+
+## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
+
+Run `run-f5acb6219cc9`; all five gates passed. T=0.018912 s, M=21,667,840 bytes, S=574, D=1, K=46.487453, points=83.366788. **Verified BEST and LATEST:** this PR #2 source exceeds the prior correctness-qualified BEST `run-0577d3068f59` K=45.837056. The raw board's numeric BEST `run-b447dc4b353e` K=46.641863 is excluded as a candidate because its source has the reported TSan race. Developer CI exact-head run `41232109362` passed the additional size cases and TSan at 6/12 workers.
+
+PR #2 was promoted and merged to `sd-ta/main` as `82493a17ff0d784abbaa35f23590e10545724fe9`.

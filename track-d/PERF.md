@@ -544,4 +544,8 @@ All five gates passed on restored champion source. **LATEST:** T=0.136574 s, M=9
 
 ## Official board run — 2026-10-31 19:46 UTC
 
-Run `run-ad74c5d9cf1a` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.124611 s, M=98,451,456 bytes, S=862, D=1, K=23.943019, points=65.437451. **BEST** remains `run-68c15954870c`, K=24.163880.
+Run `run-ad74c5d9cf1a` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.124611 s, M=98,451,456 bytes, S=862, D=1, K=23.943019. **BEST** remains `run-68c15954870c`, K=24.163880.
+
+## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
+
+Run `run-6e9ec3791593`; all five gates passed. T=0.133873 s, M=98,717,696 bytes, S=862, D=1, K=23.087454, points=68.168802. **BEST:** `run-68c15954870c`, K=24.163880. **LATEST:** `run-6e9ec3791593`.

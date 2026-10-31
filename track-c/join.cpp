@@ -107,23 +107,21 @@ struct SharedNames {
     static constexpr unsigned shard_bits = 6;
     static constexpr size_t slots_per_shard = 1 << 11;
     static uint32_t spread(uint32_t h) { return h ^ (h >> 11) ^ (h >> 22); }
-    static uint32_t tag(const Field &f) {
-        return (f.hash & 0xfffe0000U) | ((f.raw_len <= 16 ? f.raw_len : 31U) << 12);
-    }
     struct Slot {
         char key[16]{};
-        std::atomic<uint64_t> seen[4]{};
+        uint32_t raw_len = 0;
+        uint32_t padding = 0;
         bool matches(const Field &f) const {
-            if (f.raw_len <= 16) return std::memcmp(key, f.raw, f.raw_len) == 0;
+            if (raw_len != f.raw_len) return false;
+            if (raw_len <= 16) return std::memcmp(key, f.raw, raw_len) == 0;
             const char *p;
-            uint32_t length;
             std::memcpy(&p, key, sizeof(p));
-            std::memcpy(&length, key + 8, sizeof(length));
-            return length == f.raw_len && std::memcmp(key + 12, f.raw, 4) == 0 &&
-                   std::memcmp(p + 4, f.raw + 4, f.raw_len - 4) == 0;
+            return std::memcmp(key + 8, f.raw, 8) == 0 &&
+                   std::memcmp(p + 8, f.raw + 8, raw_len - 8) == 0;
         }
+        std::atomic<uint64_t> seen[4]{};
     };
-    static_assert(sizeof(Slot) == 48, "packed inline name slot");
+    static_assert(sizeof(Slot) == 56, "compact shared name slot");
     struct Shard {
         struct Overflow {
             Field field;
@@ -157,16 +155,15 @@ struct SharedNames {
             return dst;
         }
         std::pair<Slot *, bool> probe(const Field &f, size_t *empty = nullptr) {
-            const uint32_t signature = tag(f);
             size_t i = (spread(f.hash) >> shard_bits) & (slots_per_shard - 1);
             for (size_t n = 0; n < slots_per_shard; ++n) {
                 uint32_t entry = index[i].load(std::memory_order_acquire);
-                uint16_t id = static_cast<uint16_t>(entry & 0xfffU);
+                uint16_t id = static_cast<uint16_t>(entry);
                 if (!id) {
                     if (empty) *empty = i;
                     return {nullptr, false};
                 }
-                if ((entry & 0xfffff000U) == signature) {
+                if ((entry & 0xffff0000U) == (f.hash & 0xffff0000U)) {
                     Slot &slot = pool[id - 1];
                     if (slot.matches(f))
                         return {&slot, true};
@@ -209,11 +206,10 @@ struct SharedNames {
             else {
                 const char *saved = s.keep(name);
                 std::memcpy(slot->key, &saved, sizeof(saved));
-                uint32_t length = name.raw_len;
-                std::memcpy(slot->key + 8, &length, sizeof(length));
-                std::memcpy(slot->key + 12, name.raw, 4);
+                std::memcpy(slot->key + 8, name.raw, 8);
             }
-            s.index[empty].store(tag(name) | ++s.used,
+            slot->raw_len = name.raw_len;
+            s.index[empty].store((name.hash & 0xffff0000U) | ++s.used,
                                  std::memory_order_release);
         }
         const uint64_t mask = 1ULL << (group & 63);

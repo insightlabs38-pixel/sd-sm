@@ -570,4 +570,8 @@ Now testing current open PR head source blob `78503e708dccdbf484bb5dc1223a02705c
 
 ## Official board run — 2026-10-31 19:46 UTC
 
-Run `run-9722acb5cb38` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.096269 s, M=13,807,616 bytes, S=553, D=1, K=18.480714, points=61.504923. This exact PR #11 head added `#pragma GCC target("arch=x86-64-v3")` and regressed versus its previously tested predecessor. **BEST** remains `run-15adbc1f561c`, K=20.508340 (tested packed 48-byte source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`, Dockerfile, and generator context). Restore that tested revision; keep the PR-head regression informative and rejected.
+Run `run-9722acb5cb38` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.096269 s, M=13,807,616 bytes, S=553, D=1, K=18.480714. This exact PR #11 head added `#pragma GCC target("arch=x86-64-v3")` and regressed versus its previously tested predecessor. **BEST** remains `run-15adbc1f561c`, K=20.508340 (tested packed 48-byte source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`, Dockerfile, and generator context). Restore that tested revision; keep the PR-head regression informative and rejected.
+
+## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
+
+Run `run-27cd5c419972`; all five gates passed. T=0.095782 s, M=14,618,624 bytes, S=552, D=1, K=18.322316, points=63.149018. **BEST:** `run-15adbc1f561c`, K=20.508340. **LATEST:** `run-27cd5c419972`. The code is the tested PR #11 predecessor (packed 48-byte source; C PR #11 is merged to developer main with the regressing pragma excluded). Next frontier candidate: C PR #8, exact head `252788a42652b525330b690b5939c9c8a9d2f519`, CI `41228157740` passed correctness, sanitizers, pinned Docker, and sandbox. Its paired local complete-K proxy was +6.3% versus the official baseline; this is not an official score.

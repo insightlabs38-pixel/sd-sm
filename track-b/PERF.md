@@ -548,4 +548,8 @@ All five gates passed. **LATEST:** T=0.245942 s, M=49,774,592 B, S=925, D=1, K=2
 
 ## Official board run — 2026-10-31 19:46 UTC
 
-Run `run-3ff992c373fc` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.245942 s, M=49,774,592 bytes, S=925, D=1, K=22.806371, points=64.288406. **BEST** remains `run-dcebadac870d`, K=23.250490.
+Run `run-3ff992c373fc` scored commit `2602c63339f532be813056b0c05bb573835f6766`; all five gates passed, failure null. **LATEST:** T=0.245942 s, M=49,774,592 bytes, S=925, D=1, K=22.806371. **BEST** remains `run-dcebadac870d`, K=23.250490.
+
+## Official board result — commit 3384246, dispatch 2026-10-31 19:52 UTC
+
+Run `run-e69497fa31df`; all five gates passed. T=0.233890 s, M=51,953,664 bytes, S=925, D=1, K=23.187025, points=68.262251. **BEST:** `run-dcebadac870d`, K=23.250490. **LATEST:** `run-e69497fa31df`.

@@ -216,3 +216,9 @@ Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All f
 
 - Official LATEST trial `run-03c554a03f7a` on commit `062d7e54614520ed5991920db8bd63579998b663` passed all five gates but measured T=0.148357 s, M=98,512,896 bytes, S=779, D=1, K=22.276367, points=67.392218. The then-current official BEST `run-1cbdf9e4a82e` on commit `03742f51c5f91e7313584860fb6de63ad83fbae4` was T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845. The trial's K was 6.6% lower, so it is not promoted.
 - Restored the known-good source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60` from official rollback commit `0629dacf5c60ddc1e986c185b9bf45b64d6fd105`. The rejected trial remains recoverable in commit `062d7e54614520ed5991920db8bd63579998b663` and developer PR #3; no PR #3 merge.
+
+
+### Official board after Track D rollback — 2026-10-31 02:34 UTC
+
+- On commit `8d5bc54c93a054ba70e651a7d9b802fcf9140276`, restored source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60` passed all five gates. LATEST `run-95b70496a260`: T=0.145355 s, M=98,803,712 bytes, S=728, D=1, K=22.721567, points=67.821914. BEST remains `run-1cbdf9e4a82e`: T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.
+- This is the same source as BEST; LATEST is 4.8% lower K, with no source or dependency change. Keep BEST and LATEST separate and retain the rollback champion.

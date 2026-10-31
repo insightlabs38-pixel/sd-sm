@@ -244,8 +244,14 @@ Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All f
 Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All five gates passed, failure null. **BEST = LATEST:** `run-071238af51d9`, T=0.558953 s, M=56,795,136 bytes, S=672, D=1, K=15.457529, points=59.457004. New BEST on unchanged B source.
 
 
-## Frontier streaming promotion candidate — official evaluation pending (2026-10-31)
+## Frontier streaming promotion candidate — official board promotion (2026-10-31)
 
 - Imported the verified `sd-tb` main source blob `4b386e5587b690f2b12a9f2cd6d9d59cb178594d` (developer main HEAD `48887044d40a71753a28b5386f2b015ad4605371`). Its three-seed qualification [CI 41157659217](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41157659217) passed full seed-1 published SHA, full seed-2/3 independent Python references, differential/adversarial and CRC32C collision tests, sample/tiny hashes, and pinned offline Docker.
 - Interleaved runner-local Docker medians were 0.579/0.573/0.575 s vs the preceding streaming candidate's 0.677/0.671/0.668 s; candidate peak memory was about 43 MiB, S=742, D=1. These are qualification measurements, not official board results.
-- Parent official HEAD `062d7e54614520ed5991920db8bd63579998b663` had BEST `run-071238af51d9` (T=0.558953 s, M=56,795,136 bytes, S=672, D=1, K=15.457529) and LATEST `run-c34ebd32f0d9` (T=0.571388 s, M=59,637,760 bytes, S=672, D=1, K=15.139800). Candidate board run is pending; prior source remains in Git history for rollback.
+- Parent official HEAD `062d7e54614520ed5991920db8bd63579998b663` had BEST `run-071238af51d9` (T=0.558953 s, M=56,795,136 bytes, S=672, D=1, K=15.457529) and LATEST `run-c34ebd32f0d9` (T=0.571388 s, M=59,637,760 bytes, S=672, D=1, K=15.139800). The official board result is recorded below; prior source remains in Git history for rollback.
+
+
+### Official board promotion — 2026-10-31 02:34 UTC
+
+- Raw feed run `run-de8c2b3fc7da` on commit `8d5bc54c93a054ba70e651a7d9b802fcf9140276` passed build, check, correctness, timeout and sandbox gates. BEST and LATEST are this run: T=0.488654 s, M=47,063,040 bytes, S=742, D=1, K=16.912119, points=61.409902.
+- Compared with prior BEST `run-071238af51d9` (T=0.558953 s, M=56,795,136 bytes, S=672, K=15.457529), K improved 9.4%, T fell 12.6%, memory fell 17.1%, and S rose 10.4%. This qualifies the new B source for promotion; D remains unchanged and the prior B source is retained in Git history.

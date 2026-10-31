@@ -426,3 +426,7 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 - Board-only **raw BEST** `run-b447dc4b353e` on `8298e2cbe0d21ffd4688bb23b625f988fdd4128d`: all board gates passed, T=0.020573 s, M=21,041,152 B, S=441, D=1, K=46.641863, points=83.438795. **LATEST** `run-8b0b8f3bb20b` on `d4b9c4d51f4d0c3fc2d58a1fc9bf6c66ef642ed9`: all board gates passed, T=0.021097 s, M=21,209,088 B, S=441, D=1, K=45.985812, points=83.131193. These scores do not clear the independent TSan failure.
 - Restore the previously correctness-qualified Track A source from release parent `480a8e3def26af26e10298d6b043bf2195c82ec3` (source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`). Its board BEST remains `run-2e35ec2bc727`, K=44.826321. The new release commit records this source rollback; wait for its actual latest board run before updating LATEST.
 
+
+## Official latest after Track A rollback — 2026-10-31 16:27 UTC
+
+- LATEST `run-dd3f5e9ed0ae` on official commit `70d512481b36d111e017909f4b76e257f69db9ea` passed all five board gates: T=0.022796 s, M=21,409,792 B, S=442, D=1, K=44.140702, points=82.241962. The verified prior source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is restored. Promotion-qualified BEST remains `run-2e35ec2bc727`, K=44.826321; the higher raw candidate score is withheld due to TSan failures above.

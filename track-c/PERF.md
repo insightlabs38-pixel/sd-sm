@@ -405,3 +405,10 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - LATEST `run-2984955b27ba` on submission `d4b9c4d51f4d0c3fc2d58a1fc9bf6c66ef642ed9` passed all five board gates: T=0.129916 s, M=10,604,544 B, S=518, D=1, K=16.936174, points=61.440765. BEST remains `run-cc78d8d94587`, K=17.102716; restored C source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33` unchanged. Qualification includes valid region IDs through 9,999,999; larger IDs are optional robustness cases.
 
+
+## Official latest and candidate trial — 2026-10-31 16:27 UTC
+
+- Current rollback LATEST `run-658fa792dd37` on official commit `70d512481b36d111e017909f4b76e257f69db9ea` passed all five gates: T=0.126929 s, M=11,141,120 B, S=518, D=1, K=16.965975, points=61.478941. BEST remains `run-cc78d8d94587`, K=17.102716; rollback source blob `3cecd2945c284b4ae1684f9f1779bb0607cc1e33`.
+- This release stages source blob `f2cac0cd833c1b746d28c1ff143be66c013da0d9` from open `sd-tc` PR #4 (source commit `734dfc25e57df255fb0c7e4109df486103347693`) as a controlled official trial. Developer qualification reports exact full/sample/tiny parity, adversarial fixtures including a 2 MB name, and ASan/UBSan plus TSan on sample seed 2. Paired local full Docker medians: 245.7→227.6 ms; cgroup peak 20.548→19.739 MB (12 runs, two-core quota). These are local results, not official scoring evidence. Exact commit has no GitHub Actions run; developer reports pinned GCC Docker build was blocked by local VFS capacity, while static offline runtime passed. Official Docker and full-board correctness remain pending.
+- `regions.csv` generated lookup IDs stay within 1–999,999; record IDs may reach 9,999,999. The candidate reads record IDs as `uint64_t`, maps absent IDs above the dense lookup range to the unmatched group, and leaves optional IDs above the frozen limit as robustness-only.
+- Do not merge PR #4 unless the official board trial beats the existing BEST K=17.102716 and all gates pass. Parent commit `70d512481b36d111e017909f4b76e257f69db9ea` retains the exact known-good rollback.

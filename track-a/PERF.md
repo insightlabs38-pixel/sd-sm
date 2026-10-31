@@ -511,3 +511,8 @@ Commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` passed all five gates with res
 
 - All five gates passed on commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`.
 - **BEST/LATEST:** `run-28140e0a9651`; T=0.021664 s, M=20,992,000 B, S=460, D=1, K=45.186701, points=82.750532. This is the same promoted source as `run-18b717b066d6`; the new run improves its prior K 45.042769.
+
+
+## Official results — run-b7ad796c1836 (2026-10-31 18:31 UTC)
+
+All five gates passed on unchanged promoted source. **LATEST and correctness-qualified BEST:** `run-b7ad796c1836`, T=0.021286 s, M=21,233,664 B, S=460, D=1, K=45.481911, points=82.891935. It improves the previous correctness-qualified BEST `run-28140e0a9651` (K=45.186701). Raw board BEST `run-b447dc4b353e` remains excluded because its source had a confirmed TSan race.

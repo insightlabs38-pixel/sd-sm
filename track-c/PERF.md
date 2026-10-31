@@ -493,3 +493,10 @@ All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` using the pr
 - Staged the candidate from open `sd-tc` PR #8, head `b7bb0d5c32b2aa06cd1d046d4dabf31d65cd0389`, source blob `11bfcc0ba501d22454a8f21a06e23ad020183efd`. CI [41228157740](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41228157740) passed full/sample/tiny references, adversarial overflow/collision/long-record cases, ASan/UBSan, TSan, pinned offline Docker, and sandbox checks.
 - Developer paired runner medians: 148.377→129.688 ms, RSS 22,618→20,374 KiB across 12 trials. Reported complete-K proxy +9.2% on CI and +6.3% in local static Docker versus its official-source baseline; these are not official scores. Candidate source has 545 physical lines versus the current 537.
 - **Candidate LATEST official result: pending.** Parent commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21` retains the known-good current source for rollback. PR #8 is not merged pending official gates and K.
+
+
+## Official PR #8 build result — run-adcadeec9db2 (2026-10-31 18:31 UTC)
+
+- Trial from open PR #8 failed the official build stage: check=true, build=false; public feed reports `docker build failed (exit 1)`. No correctness/sandbox result or T/M/S/D/K was produced. The public feed provides no build-log tail; no cause is inferred.
+- Restored known-good source blob `7def6ac05e18fcf871310f37abade9ca1a904760` from parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. **BEST:** `run-955f007ac420`, K=20.321199. **LATEST:** `run-adcadeec9db2`, failed build / unscored.
+- PR #8 stays open and unmerged pending developer diagnosis. Candidate source remains available in official history at `5b1f942cac523c62dcda40eca63586732c6a7959`.

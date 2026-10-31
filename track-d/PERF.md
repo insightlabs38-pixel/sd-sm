@@ -486,3 +486,9 @@ All five gates passed on commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. **LA
 - Candidate from open `sd-td` PR #5, head `94286d5ce85421fa082de37c92e4b3cf4f2e34df`, source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`; it is a size-only simplification of the known champion, with 855→811 formatted lines.
 - CI [41168086045](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41168086045) passed full seed-1 byte equality at 1/4/12 threads, 83 differential and 60 stress cases, ASan/UBSan, and TSan. Developer 15-round medians were 0.243→0.240 s (tie); 12-thread peak cgroup memory was 74.74→74.83 MB. Expected K gain is about 0.8% from source size; official scoring is pending.
 - Rollback champion source remains `be15ac2e635af157cc8db71d2df5e218d0a78446` in parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. PR #5 remains open until official gates and measured K justify promotion.
+
+
+## Official PR #5 trial and rollback — run-fa80a2e1686e (2026-10-31 18:31 UTC)
+
+- All five gates passed for candidate blob `fd1db93b387442b018e9c368db6a5c46d6d89844`, but its **LATEST** score was T=0.142037 s, M=98,885,632 B, S=818, D=1, K=22.583292, points=67.689362. This is below the champion BEST `run-68c15954870c` (K=24.163880); source-size savings did not offset measured T/M.
+- Restored champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` from parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. PR #5 remains open and unmerged; candidate source is retained in official commit `5b1f942cac523c62dcda40eca63586732c6a7959`.

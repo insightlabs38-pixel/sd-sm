@@ -222,3 +222,8 @@ Watcher healthy at `6bf7383dc5439ccd0768435c1932c243e16c0584`, queue idle. All f
 
 - On commit `8d5bc54c93a054ba70e651a7d9b802fcf9140276`, restored source blob `8da532c2b6c4ab112eb7e795b2d827728498ba60` passed all five gates. LATEST `run-95b70496a260`: T=0.145355 s, M=98,803,712 bytes, S=728, D=1, K=22.721567, points=67.821914. BEST remains `run-1cbdf9e4a82e`: T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.
 - This is the same source as BEST; LATEST is 4.8% lower K, with no source or dependency change. Keep BEST and LATEST separate and retain the rollback champion.
+
+
+## Official board results — raw feed observed 2026-10-31 03:05:10 UTC
+
+The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Run `run-7c68bd0fe260` on this commit passed build, check, correctness, timeout and sandbox gates. LATEST: T=0.132803 s, M=98,938,880 bytes, S=728, D=1, K=23.764604, points=68.796529. BEST remains `run-1cbdf9e4a82e`: T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845. This run did not replace BEST; retain the current source and track rollback history.

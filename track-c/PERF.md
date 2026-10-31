@@ -87,3 +87,11 @@ HighVelocity (`highvelocity-7f330e`) remained registered. The watcher was health
 
 - **BEST:** `run-b7259ab42416`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
 - **LATEST:** `run-2852f06b54d2`; commit `01d4852e1271d5bec3d6de9aaa7641f8616730cb`; T=0.151174 s, M=51,224,576 bytes, S=469, D=1, K=11.630123, points=53.279216.
+
+
+## Official board results — raw-feed snapshot 2026-10-31 00:12:03 UTC
+
+HighVelocity (`highvelocity-7f330e`) remained registered. Watcher was healthy at `157f1d478136fd0d7950aa2a82e121c087ec7ec7`, with no queued or in-flight run. Every gate passed; failure was null. These are board measurements, and BEST/LATEST are tracked separately. Board run IDs are not GitHub Actions IDs.
+
+- **BEST:** `run-b7259ab42416`; commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-c780a5a2007f`; commit `157f1d478136fd0d7950aa2a82e121c087ec7ec7`; T=0.137002 s, M=50,987,008 bytes, S=469, D=1, K=12.228219, points=54.368160.

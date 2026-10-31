@@ -101,3 +101,11 @@ HighVelocity (`highvelocity-7f330e`) remained registered. The watcher was health
 - Current-head CI [41142583488](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41142583488) passed exactness and restricted offline Docker; the full seed-1 reference hash matched. CI paired medians against its developer champion were 0.084978 s to 0.085132 s (candidate 0.18% slower).
 - Integrator paired 13-run local full seed-1 trials against official source scored at `01d4852`: median T 0.296801 s to 0.304545 s (candidate 2.61% slower); sampled median RSS 287,211,520 to 287,608,832 bytes (+0.14%). All output hashes matched. These are local measurements, not board T/M.
 - Candidate reduces source code by six counted nonblank lines in the track source; with D unchanged at 1 and the measured T/M ratios, the approximate K ratio is 0.990 (about K=21.60 versus board BEST 21.828 at `run-c25251fd5cdb`). Exact scc S was not measured for the candidate, so this is an estimate. Not promoted; the scored A champion remains unchanged.
+
+
+## Official board results — raw-feed snapshot 2026-10-31 00:12:03 UTC
+
+HighVelocity (`highvelocity-7f330e`) remained registered. Watcher was healthy at `157f1d478136fd0d7950aa2a82e121c087ec7ec7`, with no queued or in-flight run. Every gate passed; failure was null. These are board measurements, and BEST/LATEST are tracked separately. Board run IDs are not GitHub Actions IDs.
+
+- **BEST:** `run-c25251fd5cdb`; commit `01d4852e1271d5bec3d6de9aaa7641f8616730cb`; T=0.072742 s, M=50,122,752 bytes, S=325, D=1, K=21.828419, points=66.951114.
+- **LATEST:** `run-9afdeb98f26b`; commit `157f1d478136fd0d7950aa2a82e121c087ec7ec7`; T=0.075135 s, M=49,733,632 bytes, S=325, D=1, K=21.511501, points=66.633535.

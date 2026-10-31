@@ -377,3 +377,8 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - Exact source blob `76946cc77205b4f115aa32bed459e0980c8d143c` from `frontier/b-sol-hybrid12` (qualified source commit `ea351a5c9a3eb985faab60326e61387b6366b8b6`; current PR head `879fcf8690aa9ae582e33938e1ee0f22d4dc4108` changes documentation only). Qualification run `41165413401` passed three full references, published sample/full hashes, expanded differential and boundary tests, ASan/UBSan, TSan, and pinned production-Docker oracles.
 - Full seeds 1/2/3 on a four-logical-CPU runner: five-run trimmed T=0.324628/0.325807/0.326278 s, M=42,610,688/41,828,352/42,856,448 B, S=925, D=1, K_local=20.346611/20.309763/20.295099. This candidate uses 12 workers and is intended for the scoring host's 12 logical threads; these runner K values are not official scores. Official run `run-02a47f69ba31` on `f1bcd2033e061028929c445c964768331d1a6f5e` passed all five gates: T=0.242534 s, M=51,937,280 B, S=925, D=1, K=22.771515, points=67.869597. This is the new BEST, +6.45% K over `run-04a7116196c9` (21.392007). PR #8 was merged to `sd-tb/main` at `d7845bc6ac6a77547121daf1fda751e34999b325`; source blob remains `76946cc77205b4f115aa32bed459e0980c8d143c`. Parent commit retains old B source blob `30dcb9f6a6472f390a9513f5739fd040bd1bd3c9` for rollback.
+
+
+## Official same-source repeat — 2026-10-31 14:17 UTC
+
+- **BEST and LATEST:** `run-a4f446831333` on `af33cf8053e100e92405aabcfa50d0278203daa1`, all five gates passed: T=0.242208 s, M=49,475,584 B, S=925, D=1, K=23.009207, points=68.095083. This repeats the promoted B source blob `76946cc77205b4f115aa32bed459e0980c8d143c` and improves the first official result `run-02a47f69ba31` by 1.04% K; no source change.

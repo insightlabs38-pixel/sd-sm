@@ -474,3 +474,15 @@ All five gates passed on official commit `a91a77e9ad3a54d93385b3bfc5231da589395f
 - **BEST:** `run-68c15954870c`; T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
 - **LATEST:** `run-eaacbe3f05c5`; T=0.123623 s, M=98,160,640 B, S=862, D=1, K=24.052733, points=69.058221.
 - Latest uses the same D source but is below BEST on K; no promotion warranted.
+
+
+## Official latest — run-c75b6d7b493b (2026-10-31 18:25 UTC)
+
+All five gates passed on commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. **LATEST:** T=0.144120 s, M=98,668,544 B, S=862, D=1, K=22.253774, points=67.370183. **BEST** remains `run-68c15954870c` (T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880). Source is unchanged; retain champion.
+
+
+## Track D size-efficiency trial staged — 2026-10-31
+
+- Candidate from open `sd-td` PR #5, head `94286d5ce85421fa082de37c92e4b3cf4f2e34df`, source blob `fd1db93b387442b018e9c368db6a5c46d6d89844`; it is a size-only simplification of the known champion, with 855→811 formatted lines.
+- CI [41168086045](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41168086045) passed full seed-1 byte equality at 1/4/12 threads, 83 differential and 60 stress cases, ASan/UBSan, and TSan. Developer 15-round medians were 0.243→0.240 s (tie); 12-thread peak cgroup memory was 74.74→74.83 MB. Expected K gain is about 0.8% from source size; official scoring is pending.
+- Rollback champion source remains `be15ac2e635af157cc8db71d2df5e218d0a78446` in parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`. PR #5 remains open until official gates and measured K justify promotion.

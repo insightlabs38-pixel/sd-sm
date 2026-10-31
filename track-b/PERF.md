@@ -485,3 +485,8 @@ All five gates passed on rollback HEAD `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122
 On official commit `a91a77e9ad3a54d93385b3bfc5231da589395f1c`, unchanged Track B source passed all five gates.
 - **BEST/LATEST:** `run-dcebadac870d`; T=0.236395 s, M=49,901,568 B, S=925, D=1, K=23.250490, points=68.321605.
 - This replaces the prior BEST `run-c050e7922fc2`, K=23.169218. Track B source was unchanged; this receipt reflects a new full-team scoring run.
+
+
+## Official results — run-b90943d61160 (2026-10-31 18:25 UTC)
+
+All five gates passed on commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21`; source is unchanged. **LATEST:** `run-b90943d61160`, T=0.239293 s, M=50,118,656 B, S=925, D=1, K=23.089217, points=68.170460. **BEST** remains `run-dcebadac870d`, K=23.250490.

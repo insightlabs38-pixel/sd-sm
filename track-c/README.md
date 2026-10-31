@@ -1,5 +1,5 @@
 # Track C: Join
 
-A byte-oriented C++17 parser handles hostile quoted CSV and maps lookup regions through a dense table. Six workers share an exact-name table with 131,072 control-byte-probed slots and inline short keys; a synchronized overflow path preserves exact equality at higher cardinality. Record IDs beyond the lookup range map to `_UNMATCHED`, including valid values through 9,999,999.
+A byte-oriented C++17 implementation parses the hostile CSV, aggregates exact name/region groups, and maps unknown record region IDs above 999,999 to `_UNMATCHED` within the frozen input range through 9,999,999. It retains exact name comparisons and the synchronized overflow path. No third-party runtime dependencies.
 
-No third-party runtime dependencies. The current source is the known-good candidate preserved in official parent `6568a6794e1eea9fd0b6f6ab3cf2064ee122`. BEST is live-board run `run-955f007ac420` (T=0.084295 s, M=12,238,848 B, S=537, D=1, K=20.321199). The newer PR #7 trial failed the official Docker build (`run-7c225263b59a`); the prior source was restored and PR #7 remains open and unmerged.
+The current official known-good source is retained in parent `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21` (BEST `run-955f007ac420`, K=20.321199; most recent same-source run `run-2834c7216378`, K=20.213758). A trial of open `sd-tc` PR #8 is staged from source blob `11bfcc0ba501d22454a8f21a06e23ad020183efd`; developer CI passed, while official scoring is pending. PR #8 will be merged only if the official trial qualifies.

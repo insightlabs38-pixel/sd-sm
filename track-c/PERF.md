@@ -485,3 +485,11 @@ All five gates passed on `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` using the pr
 - Restored the previously qualified Track C source from parent commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122`; its source matches the candidate that produced BEST `run-955f007ac420`.
 - **BEST:** `run-955f007ac420`, T=0.084295 s, M=12,238,848 B, S=537, D=1, K=20.321199, points=65.397466.
 - **LATEST:** `run-7c225263b59a` (failed build; no score). PR #7 remains open and unmerged pending developer correction. Candidate source and failed run remain in official Git history for review/rollback.
+
+
+## Official baseline and PR #8 trial staged — 2026-10-31
+
+- On the restored known-good source, all five gates passed in **LATEST** `run-2834c7216378`: T=0.084820 s, M=12,374,016 B, S=537, D=1, K=20.213758, points=65.282353. **BEST** remains `run-955f007ac420`, K=20.321199.
+- Staged the candidate from open `sd-tc` PR #8, head `b7bb0d5c32b2aa06cd1d046d4dabf31d65cd0389`, source blob `11bfcc0ba501d22454a8f21a06e23ad020183efd`. CI [41228157740](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41228157740) passed full/sample/tiny references, adversarial overflow/collision/long-record cases, ASan/UBSan, TSan, pinned offline Docker, and sandbox checks.
+- Developer paired runner medians: 148.377→129.688 ms, RSS 22,618→20,374 KiB across 12 trials. Reported complete-K proxy +9.2% on CI and +6.3% in local static Docker versus its official-source baseline; these are not official scores. Candidate source has 545 physical lines versus the current 537.
+- **Candidate LATEST official result: pending.** Parent commit `9b821f5451c9cd19fa5e04b3db4d99b3af5a2b21` retains the known-good current source for rollback. PR #8 is not merged pending official gates and K.

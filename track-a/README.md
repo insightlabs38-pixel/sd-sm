@@ -20,4 +20,4 @@ No third-party runtime libraries. Build with C++20, pthreads and the pinned Dock
 
 ## Official scoring result
 
-Developer main candidate `79c8f22d59461e4cf3a39fccff8cab2070759cd9`, source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`, is promoted. Official run `run-18b717b066d6` passed all five gates: T=0.021878 s, M=20,811,776 B, S=460, D=1, K=45.042769. The prior race-free source remains in parent release commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` for rollback.
+Developer main candidate `79c8f22d59461e4cf3a39fccff8cab2070759cd9`, source blob `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`, is promoted. Official BEST/LATEST is `run-28140e0a9651`: all five gates passed, T=0.021664 s, M=20,992,000 B, S=460, D=1, K=45.186701. Prior run `run-18b717b066d6` also passed all gates (K=45.042769). The prior race-free source remains in parent release commit `6568a6794e1eea9fd0b6f6ab3cf2064ee34ee122` for rollback.

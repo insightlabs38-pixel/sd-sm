@@ -463,3 +463,8 @@ After rejecting PR #5, official commit `74a4fb7456ce5fb8b10ef5b0eeef2d58289fdc59
 ## Full-team board run after B rollback — 2026-10-31 17:05 UTC
 
 All five gates passed on commit `23be16823a7232064b3090b805ff80b6c086cfa9` with restored source blob `76946cc77205b4f115aa32bed459e0980c8d143c`. **LATEST:** `run-770689ed285d`, T=0.243058 s, M=50,266,112 B, S=925, D=1, K=22.896235, points=67.988203. BEST remains `run-c050e7922fc2`, K=23.169218. The rejected PR #5 result and verified rollback are recorded above.
+
+
+## Full-team board result — 2026-10-31 17:10 UTC
+
+All five gates passed on official commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e818` with restored hybrid12 source blob `76946cc77205b4f115aa32bed459e0980c8d143c`. **LATEST:** `run-bb7aeaf0757b`, T=0.244655 s, M=49,897,472 B, S=925, D=1, K=22.855005, points=67.949066. BEST remains `run-c050e7922fc2`, K=23.169218.

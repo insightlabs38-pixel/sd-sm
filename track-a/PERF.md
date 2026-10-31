@@ -467,3 +467,14 @@ Commit `74a4fb7456ce5fb8b10ef5b0eeef2d58289fdc59` passed all five gates. **LATES
 ## Full-team board run — 2026-10-31 17:05 UTC
 
 All five gates passed on official commit `23be16823a7232064b3090b805ff80b6c086cfa9`. **LATEST:** `run-89a07b1ad96a`, T=0.022670 s, M=20,348,928 B, S=442, D=1, K=44.715386, points=82.522849. The restored source remains unchanged; correctness-qualified BEST `run-2e35ec2bc727` remains K=44.826321.
+
+
+## Full-team board results and new race-free trial — 2026-10-31 17:10 UTC
+
+All five official gates passed on commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e818` using the restored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`. **LATEST:** `run-206e1644af83`, T=0.022396 s, M=20,873,216 B, S=442, D=1, K=44.759781, points=82.544398. Correctness-qualified BEST remains `run-2e35ec2bc727`, K=44.826321; the higher raw BEST `run-b447dc4b353e` is excluded because TSan found a race.
+
+## Candidate from sd-ta main staged for official scoring
+
+- Staged source blob `f364d2123e1fde3869ab6a79fc6e0c85ba5aa085` from developer HEAD `961cf366d3b3bbd0b806d340bd75dd9246803fd1`. CI [41222270123](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41222270123) succeeded. The source is the acquire-load threshold-16 dictionary implementation with six-byte records and six-worker default; CI [41217509351](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41217509351) passed official hashes, seed 2/3, disorder, ASan/UBSan, TSan and restricted Docker.
+- Paired 31-run CI full-input medians were 0.037612 s for the previous six-worker champion and 0.037453 s for this source (0.42% faster); max cgroup peaks were 8,347,648 B and 7,045,120 B. This is CI evidence, not an official board score.
+- Official trial is pending. The previous official A source remains in parent commit `a2ead921538e31adbc9a9d0ecafc6b2e16f9e818` for rollback. Do not promote until the official gates pass and K beats the correctness-qualified BEST.

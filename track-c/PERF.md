@@ -627,3 +627,8 @@ Promoted developer main source blob `6b3f574b308b97bab15a23930ec9a09f6d18a666` a
 ## Official board result — commit 954e3c7 (2026-10-31 22:12:50 UTC)
 
 Run `run-ac0bb7bc352e`; all five gates passed. T=0.074156 s, M=14,467,072 B, S=577, D=1, K=20.728546, points=65.828441. This did **not** beat BEST `run-804f529ac682` (K=20.892890); the AVX2 quote-scan trial's S rose from 552 to 577 and eroded the small runtime gain. **LATEST** is this measured trial. Restore the known-good C source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`; candidate commit `954e3c7` is retained as rollback/evidence history.
+
+
+## Official board result — commit 62eaaeb (2026-10-31 23:10:08 UTC)
+
+Run `run-2984194a5a86`; all five gates passed. T=0.081396 s, M=14,643,200 B, S=552, D=1, K=19.868949, points=64.908744. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890). This measured the restored known-good source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`; runtime variation worsened the repeated score, with no source change.

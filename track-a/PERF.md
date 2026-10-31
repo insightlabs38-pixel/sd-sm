@@ -649,3 +649,12 @@ Run `run-be642e5327e0`; all five gates passed. T=0.018885 s, M=21,188,608 B, S=5
 ## Official board result — commit 954e3c7 (2026-10-31 22:12:50 UTC)
 
 Run `run-cc8e89b28794`; all five gates passed. T=0.022193 s, M=20,975,616 B, S=574, D=1, K=43.193327, points=81.770833. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+
+## Official board result — commit 62eaaeb (2026-10-31 23:10:08 UTC)
+
+Run `run-aaa6c2267f2d`; all five gates passed. T=0.019977 s, M=21,442,560 B, S=574, D=1, K=45.325974, points=82.817357. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+## Frontier PR #3 candidate — official validation pending
+
+Imported only track-a/main.cpp from PR #3 head `ac9ff0330732506848426209b86d9f5739d662f6`; source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` exactly matches the source tested by CI `41233423569` (run head `db4c98a`). Developer CI reports all gates passed, 4-vCPU median 0.780x the pinned champion, with memory.peak 6.02 vs 5.73 MB. That is promising runtime evidence with a modest memory increase; official six-P-core T/M/S/D/K is pending. The PR also contains a generated pyc test artifact; it is excluded from the official import. Previous A champion remains in parent `62eaaeb` for rollback.

@@ -430,3 +430,7 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 ## Official latest after Track A rollback — 2026-10-31 16:27 UTC
 
 - LATEST `run-dd3f5e9ed0ae` on official commit `70d512481b36d111e017909f4b76e257f69db9ea` passed all five board gates: T=0.022796 s, M=21,409,792 B, S=442, D=1, K=44.140702, points=82.241962. The verified prior source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is restored. Promotion-qualified BEST remains `run-2e35ec2bc727`, K=44.826321; the higher raw candidate score is withheld due to TSan failures above.
+
+## Official latest after A rollback — 2026-10-31 16:33 UTC
+
+- LATEST `run-8ea30eda904d` on official commit `0ef3758e08e015c6f1ba97b9d36966ec151efc40` passed all five board gates: T=0.022901 s, M=20,877,312 B, S=442, D=1, K=44.261784, points=82.301446. Restored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` remains correctness-qualified; valid-source BEST `run-2e35ec2bc727`, K=44.826321. The raw score-only BEST `run-b447dc4b353e` is excluded from promotion because TSan reported a race.

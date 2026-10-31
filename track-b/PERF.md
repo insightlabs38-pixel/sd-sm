@@ -615,3 +615,8 @@ Run `run-86c43d2bc561`; all five gates passed. T=0.238310 s, M=51,306,496 B, S=9
 ## Frontier PR #5 — official validation pending
 
 PR #5 head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `510c2a13dccb26c712ff2239000817dd5b4a900a`, exactly matches `main.cpp` tested by successful qualification CI `41159913998` (run source commit `1b53682`). Differential/full seeds, ASan/UBSan, TSan and pinned offline Docker checks passed. Developer-run full seeds 1/2/3 measured T=0.610445/0.620926/0.606104 s and M=41,934,848/41,828,352/41,570,304 B at S=781, D=1; these local numbers are not official scoring-box evidence. PR #6 is dominated locally (slower and higher memory), so #5 is tested first. Official T/M/S/D/K pending; previous B champion remains in parent `97ebf28` for rollback.
+
+
+## Official board result — commit c096950 (2026-10-31 23:55:08 UTC)
+
+Run `run-f6e48fe3346f`; all five gates passed. T=0.363973 s, M=47,976,448 B, S=781, D=1, K=19.371243, points=64.357874. The PR #5 six-worker streaming candidate regressed against BEST `run-dcebadac870d` (K=23.250490) despite its favorable developer-run results. **Reject PR #5** and restore the previous B source from parent `97ebf28`; retain PR open/unmerged.

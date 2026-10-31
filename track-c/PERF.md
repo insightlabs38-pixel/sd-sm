@@ -637,3 +637,12 @@ Run `run-2984194a5a86`; all five gates passed. T=0.081396 s, M=14,643,200 B, S=5
 ## Official board result — commit 97ebf28 (2026-10-31 23:15:08 UTC)
 
 Run `run-33cbfdcb15ee`; all five gates passed. T=0.074595 s, M=14,184,448 B, S=552, D=1, K=20.887491, points=65.994313. **LATEST**; **BEST** remains `run-804f529ac682` (K=20.892890).
+
+
+## Official board result — commit c096950 (2026-10-31 23:55:08 UTC)
+
+Run `run-df2932b2ba2d`; all five gates passed. T=0.073738 s, M=14,114,816 B, S=552, D=1, K=21.029207, points=66.141145. This is **BEST = LATEST**, improving prior BEST `run-804f529ac682` (K=20.892890); source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`.
+
+## Mainline 128-shard candidate — official validation pending
+
+Candidate source blob `a9b2c765efe2a5fedec7671d9df9be77a700c853` from C main retains the guarded AVX2/SSE2 quote scanner and increases the name-index shard count from 64 to 128. Exact full-seed and holdout references, adversarial overflow/collision tests, ASan/UBSan/TSan, pinned offline Docker and sandbox passed in CI `41248440108` (both attempts). Two paired 12-trial full-PGO developer-runner comparisons against the AVX2 predecessor estimated complete-K proxies +1.67% and +2.34%, with RSS unchanged; official formatter S, cgroup M and scoring-box K remain decisive. Dockerfile and .speed-demon.toml exactly match the official C build configuration. Official score pending.

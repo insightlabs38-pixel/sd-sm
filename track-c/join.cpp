@@ -1,4 +1,4 @@
-#include <nmmintrin.h>
+#include <immintrin.h>
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -72,6 +72,25 @@ static uint32_t raw_hash(const char *p, size_t n) {
     return h;
 }
 
+static const char *find_quote(const char *p, const char *end) {
+    const __m256i quote32 = _mm256_set1_epi8('"');
+    while (end - p >= 32) {
+        __m256i block = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(p));
+        unsigned mask = static_cast<unsigned>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(block, quote32)));
+        if (mask) return p + __builtin_ctz(mask);
+        p += 32;
+    }
+    const __m128i quote16 = _mm_set1_epi8('"');
+    while (end - p >= 16) {
+        __m128i block = _mm_loadu_si128(reinterpret_cast<const __m128i *>(p));
+        unsigned mask = static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(block, quote16)));
+        if (mask) return p + __builtin_ctz(mask);
+        p += 16;
+    }
+    for (; p < end; ++p) if (*p == '"') return p;
+    return nullptr;
+}
+
 static Field text_field(const char *&p, const char *end, bool need_hash) {
     Field f{};
     f.quoted = p < end && *p == '"';
@@ -79,7 +98,7 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
         ++p;
         f.raw = p;
         for (;;) {
-            const char *q = static_cast<const char *>(memchr(p, '"', end - p));
+            const char *q = find_quote(p, end);
             if (!q) throw std::runtime_error("unclosed quote");
             f.len += static_cast<uint32_t>(q - p);
             if (q + 1 < end && q[1] == '"') {
@@ -104,7 +123,7 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
 }
 
 struct SharedNames {
-    static constexpr unsigned shard_bits = 6;
+    static constexpr unsigned shard_bits = 7;
     static constexpr size_t slots_per_shard = 1 << 11;
     static uint32_t spread(uint32_t h) { return h ^ (h >> 11) ^ (h >> 22); }
     static uint32_t tag(const Field &f) {
@@ -330,8 +349,8 @@ static void parse_range(const char *p, const char *end, const std::vector<uint8_
                 comma(p, end);
                 Field name = text_field(p, end, true);
                 uint32_t spread = SharedNames::spread(name.hash);
-                auto &shard = shared.shards[spread & 63];
-                __builtin_prefetch(&shard.index[(spread >> 6) & (SharedNames::slots_per_shard - 1)], 0, 1);
+                auto &shard = shared.shards[spread & 127];
+                __builtin_prefetch(&shard.index[(spread >> 7) & (SharedNames::slots_per_shard - 1)], 0, 1);
                 comma(p, end);
                 Field note = text_field(p, end, false);
                 comma(p, end);
@@ -383,6 +402,7 @@ int main() {
             newline(p, end);
         }
         if (country.size() > 255) throw std::runtime_error("too many countries");
+        (void)madvise(const_cast<char *>(lookup.data), lookup.size, MADV_DONTNEED);
         const unsigned unmatched = static_cast<unsigned>(country.size());
         File records("/data/records.csv");
         p = records.data;

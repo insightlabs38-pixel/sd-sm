@@ -441,6 +441,6 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 All five gates passed on both commits. Track A source was the restored correctness-qualified blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c`; no A source change occurred between these runs.
 
 - **BEST (correctness-qualified):** `run-2e35ec2bc727`, K=44.826321. The higher raw score `run-b447dc4b353e` is excluded after TSan found a race in withdrawn PR #1.
-- **LATEST:** `run-3d872bd24c7b` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.022768 s, M=20,471,808 B, S=442, D=1, K=44.565355, points=82.453612.
+- **LATEST:** `run-3d872bd24c7b` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.022768 s, M=20,471,808 B, S=442, D=1, K=44.565355, points=82.449869.
 - Previous receipts: `run-d22b40c8ce45` on `92c095f030bd9519de41ab7201a944cc9d94cbd6`: T=0.022801 s, M=20,779,008 B, S=442, K=44.400631; `run-8ea30eda904d` on `0ef3758e08e015c6f1ba97b9d36966ec151efc40`: K=44.261784.
 - The 242 score improves the latest measurement by 0.37%; it remains 0.58% below the correctness-qualified BEST. No A promotion is claimed.

@@ -417,6 +417,6 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 All five gates passed. Track D champion source blob `be15ac2e635af157cc8db71d2df5e218d0a78446` was unchanged across these runs.
 
 - **BEST:** `run-68c15954870c`, T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
-- **LATEST:** `run-680e60b4d195` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.146857 s, M=98,844,672 B, S=862, D=1, K=22.037563, points=67.110406.
+- **LATEST:** `run-680e60b4d195` on official commit `242c9bf8b5169359fbe30b30245cf799f1662304`: T=0.146857 s, M=98,844,672 B, S=862, D=1, K=22.037563, points=67.158178.
 - Previous receipts: `run-aa83d758d6fd` on `92c095f030bd9519de41ab7201a944cc9d94cbd6`: T=0.127111 s, M=98,549,760 B, S=862, K=23.701665; `run-50da3a129596` on `0ef3758e08e015c6f1ba97b9d36966ec151efc40`: K=23.080619.
 - The lower latest score is measurement variability; D source was unchanged. No D candidate was promoted.

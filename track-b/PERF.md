@@ -316,3 +316,9 @@ HighVelocity (`highvelocity-7f330e`) watcher was healthy at official HEAD `a62ff
 
 - **BEST:** `run-5bb26ac0d0c9`; T=0.298829 s, M=44,855,296 B, S=857, D=1, K=21.368503, points=66.488705.
 - **LATEST:** `run-625071922c5a` on `8e70985f8a07fc6b5adaa9435c4d6b83638a2665`; all five gates passed. T=0.306599 s, M=45,068,288 B, S=857, D=1, K=21.076022, points=66.189432.
+
+## 64-byte AVX2 scanner official trial — October 31, 2026
+
+- Imported the promoted `sd-tb/main` source from HEAD `4e4b0cc6eecf3a4fe2d18c05217f264e72e1f049`, source blob `30dcb9f6a6472f390a9513f5739fd040bd1bd3c9`. The exact blob passed developer Actions qualification [41172484797](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41172484797): pinned production Docker builds; differential and adversarial tests; independent full seeds 1–3, sample and tiny inputs; ASan/UBSan and TSan. The workflow's per-seed coefficient assertions require candidate K_local to beat both development and previous variants. The artifact's numeric axes were not available to this integrator, so no developer timing values are claimed here.
+- Local native build and differential plus frontier-adversarial suites passed, including all byte classes/SIMD alignments, collision, dictionary-growth and worker/block-boundary cases. This is an additional local check; the pinned CI run is the container/build evidence.
+- Before trial, official **BEST** was `run-5bb26ac0d0c9` (T=0.298829 s, M=44,855,296 B, S=857, D=1, K=21.368503); **LATEST** was `run-3e1218c0aef8` (T=0.316117 s, M=44,797,952 B, S=857, D=1, K=20.781298) on `0be320bade0ac6b5bc47cdb573b3a3811252de18`. Both passed all gates. The prior official source is retained in the parent commit for rollback; the candidate's board score is pending.

@@ -195,3 +195,7 @@ Watcher healthy at `266578e73fec11894c067b8b11a0910657a8ccff`, queue idle; all f
 - **LATEST:** `run-4fc2b3bedf5d`, commit `266578e73fec11894c067b8b11a0910657a8ccff`; T=0.070131 s, M=44,830,720 bytes, S=320, D=1, K=22.785667, points=67.883087.
 
 The fixed-span UTC indexing challenger regressed on the official board; it is rolled back in the next commit. Retain `8b137ac` as the known-good A source.
+
+## Later developer-main fusion candidate review
+
+`sd-ta/main` commit `4f39ecbf78b97158510863d8d11528fc333abb9e` fused group reconciliation with scatter offset preparation. CI [41154977773](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41154977773) passed exactness and Docker gates. Its 13-pair full seed-1 comparison measured 0.086840 s (prior) vs 0.087112 s (candidate, ratio 1.0031); RSS was 275,984 vs 275,960 KiB and cgroup peak 43,827,200 vs 44,097,536 bytes. The measured time and cgroup memory regress, so this developer-main candidate is not promoted.

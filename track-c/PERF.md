@@ -522,3 +522,9 @@ All five gates passed on restored source blob `7def6ac05e18fcf871310f37abade9ca1
 
 - Check passed, Docker build failed (exit 1; public feed has no tail). No correctness/sandbox result or T/M/S/D/K was produced. The source-identical developer CI passed, but build configs differ: developer `track-c/Dockerfile` uses `-march=x86-64-v3`, while official Dockerfile omitted it. The current source uses SSE4.2 CRC intrinsics; align the official compiler target with the verified developer build for a controlled retest. No private board log was accessed and no hidden failure detail is claimed.
 - Keep known-good source blob `7def6ac05e18fcf871310f37abade9ca1a904760` from parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb` as rollback. Candidate score remains pending after build configuration repair.
+
+
+## Official SSE2 candidate retest — run-814a3a4d2917 (2026-10-31 18:56 UTC)
+
+- After matching the developer's `-march=x86-64-v3` compile target, all five gates passed, but the candidate source blob `4ca129b0ca9596554d052aadb9d5e751496cc754` scored T=0.106733 s, M=21,266,432 B, S=536, D=1, K=16.174523, points=60.441574. This is far below the known-good BEST `run-8f98e6ec4091`, K=20.413289.
+- Reject for promotion. Restored champion source blob `7def6ac05e18fcf871310f37abade9ca1a904760` and original official Dockerfile from parent `f0e8236ee3641950287d6e2dd25814fb4b6ef9bb`. Candidate remains in commit `6b8e8c7ce01eb50f1063be84119cc111c03ff5cb`; it came from developer main, so no PR is eligible to merge.

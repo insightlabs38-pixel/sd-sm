@@ -355,3 +355,9 @@ HighVelocity was registered and the watcher was healthy; all five gates passed f
 ## Official candidate result — 2026-10-31 12:15:45 UTC
 
 - Board run `run-383d474cf6f7` scored `187269afc6efbeee7ac01b4f623f7c7f049ea44b`; all five gates passed. **LATEST and new BEST:** T=0.022463 s, M=20,987,904 B, S=442, D=1, K=44.644027, points=82.488168. Prior BEST `run-aad4ae1ad447` had K=23.892877. The 86.85% K increase outweighs the larger source axis; promote the exact `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` source. Rollback is parent commit `2b5afc9`, source blob `1d59a36e5166f19cbf870f6458da5179f17bf1ed`.
+
+
+## Staged six-physical-core default — 2026-10-31
+
+- Candidate source blob `ea7cdf2a960168dd13a729baedca7ad3b990dde6` from `sd-ta/main` latest source commit `ff2073649af1fe8f2d0b33883c765e16458cdbe2`; latest documentation head `f1e501c88073b993c3253bdd74b195d7875e7677`. Default parser workers are capped at six physical P-cores; `SD_THREADS` remains available for validation.
+- Exact-source CI `41200171027` passed official hashes, seed-2/3 differential, adversarial ordering, ASan/UBSan, TSan and restricted offline Docker. Paired 31-run full medians: 0.041953 s before vs 0.041843 s after; median cgroup peak 6.93 vs 6.14 MB, with a prior 14.06 MB maximum outlier. Developer proxy estimates +2.6% K; this is not an official six-P-core measurement. Candidate board result is pending. Rollback to prior exact scored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is commit `7f6c7fd`.

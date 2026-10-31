@@ -258,7 +258,7 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 - **BEST:** `run-925ee63e320b`, commit `8b137acc1b2f3a83c9b7c422088b7b966357232e`; T=0.066078 s, M=44,474,368 B, S=321, D=1, K=23.500561, points=68.553912.
 - **LATEST:** `run-0f01aae00b82`, official HEAD `a30276e460e00aa279aa41cca913a10a90a1a6a8`; T=0.069630 s, M=43,933,696 B, S=321, D=1, K=22.949377, points=68.038545. All five gates passed.
 
-## A source trial — pending official board
+## A candidate board trial — run `run-2eaed1646568`
 
-- Imported developer main `89f117e0d4b7fabb84f3fef8f6d2acb45faa46b2`, source blob `ef801dcb96cb5269ba1c92b59a3ca721a715abaa`; same source blob was qualified by CI `41154977773` at commit `4f39ecbf78b97158510863d8d11528fc333abb9e` (synthetic differential, seed-1 tiny/sample/full hashes, seed-2/3 differential, offline Docker, and cgroup memory checks passed).
-- Local CI median: 0.087112 s candidate vs 0.087970 s comparison, but compile targets differed (candidate x86-64-v3, comparison generic); RSS was effectively equal. Treat the scoring-box result as decisive. Imported the developer's pinned Dockerfile for that target. **Official run: pending; do not claim a score yet.** Rollback: parent `a30276e`.
+- Scored commit `f91d9c075066881eb480cd7d27a9f33bfdc43350`; build, check, correctness, timeout and sandbox gates all passed. T=0.065495 s, M=44,552,192 B, S=319, D=1, K=23.618804, points=68.662895.
+- Against prior BEST `run-925ee63e320b` (T=0.066078 s, M=44,474,368 B, S=321, K=23.500561), K improved 0.50%, T improved 0.88%, and measured S fell by 2. A source trial is therefore promoted; parent source remains the rollback checkpoint.

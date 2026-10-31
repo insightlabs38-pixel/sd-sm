@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <exception>
-#include <memory>
 #include <thread>
 #include <fcntl.h>
 #include <stdexcept>
@@ -31,16 +30,6 @@ struct File {
     ~File() { munmap(const_cast<char *>(data), size); }
 };
 
-static void discard_consumed(const char *&cursor, const char *end) {
-    static const uintptr_t page = static_cast<uintptr_t>(sysconf(_SC_PAGESIZE));
-    uintptr_t lo = (reinterpret_cast<uintptr_t>(cursor) + page - 1) & ~(page - 1);
-    uintptr_t hi = reinterpret_cast<uintptr_t>(end) & ~(page - 1);
-    if (hi > lo) {
-        (void)madvise(reinterpret_cast<void *>(lo), hi - lo, MADV_DONTNEED);
-        cursor = reinterpret_cast<const char *>(hi);
-    }
-}
-
 struct Field {
     const char *raw = nullptr;
     uint32_t raw_len : 31;
@@ -51,7 +40,8 @@ struct Field {
 };
 static_assert(sizeof(Field) == 24, "name slot layout");
 
-static constexpr uint32_t HASH_OFFSET = 5381U;
+static constexpr uint32_t FNV_OFFSET = 2166136261U;
+static constexpr uint32_t FNV_PRIME = 16777619U;
 
 static Field text_field(const char *&p, const char *end, bool need_hash) {
     Field f{};
@@ -74,7 +64,7 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
                 return f;
             }
         }
-        uint32_t h = HASH_OFFSET;
+        uint32_t h = FNV_OFFSET;
         while (p < end) {
             unsigned char c = static_cast<unsigned char>(*p++);
             if (c == '"') {
@@ -86,16 +76,16 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
                 }
             }
             ++f.len;
-            if (need_hash) h = ((h << 5) + h) ^ c;
+            if (need_hash) h = (h ^ c) * FNV_PRIME;
         }
         throw std::runtime_error("unclosed quote");
     }
     f.raw = p;
-    uint32_t h = HASH_OFFSET;
+    uint32_t h = FNV_OFFSET;
     while (p < end && *p != ',' && *p != '\r' && *p != '\n') {
         unsigned char c = static_cast<unsigned char>(*p++);
         ++f.len;
-        if (need_hash) h = ((h << 5) + h) ^ c;
+        if (need_hash) h = (h ^ c) * FNV_PRIME;
     }
     f.raw_len = f.len;
     f.hash = h;
@@ -119,65 +109,29 @@ static bool equal_field(const Field &f, const Field &g) {
 
 struct Names {
     std::vector<Field> table;
-    std::vector<uint8_t> fingerprint;
     std::vector<std::array<uint64_t, 4>> seen;
     size_t used = 0;
-    bool own_names;
-    std::vector<std::unique_ptr<char[]>> arena;
-    char *arena_cursor = nullptr;
-    size_t arena_remaining = 0;
-    explicit Names(size_t capacity = 1 << 18, bool own = false)
-        : table(capacity), fingerprint(capacity, UINT8_MAX), own_names(own) { seen.reserve(capacity); }
-    const char *keep(const Field &f) {
-        constexpr size_t block = 1 << 20;
-        if (!f.raw_len) return f.raw;
-        if (f.raw_len > block) {
-            arena.emplace_back(new char[f.raw_len]);
-            std::memcpy(arena.back().get(), f.raw, f.raw_len);
-            return arena.back().get();
-        }
-        if (f.raw_len > arena_remaining) {
-            arena.emplace_back(new char[block]);
-            arena_cursor = arena.back().get();
-            arena_remaining = block;
-        }
-        char *dst = arena_cursor;
-        std::memcpy(dst, f.raw, f.raw_len);
-        arena_cursor += f.raw_len;
-        arena_remaining -= f.raw_len;
-        return dst;
-    }
+    explicit Names(size_t capacity = 1 << 18) : table(capacity) { seen.reserve(capacity); }
     void grow() {
         std::vector<Field> next(table.size() * 2);
-        std::vector<uint8_t> next_fp(next.size(), UINT8_MAX);
         for (const auto &slot : table) {
             if (slot.id == UINT32_MAX) continue;
             size_t i = slot.hash & (next.size() - 1);
-            while (next_fp[i] != UINT8_MAX) i = (i + 1) & (next.size() - 1);
+            while (next[i].id != UINT32_MAX) i = (i + 1) & (next.size() - 1);
             next[i] = slot;
-            next_fp[i] = static_cast<uint8_t>(slot.hash >> 25);
         }
         table.swap(next);
-        fingerprint.swap(next_fp);
     }
     uint32_t intern(const Field &f) {
-        const uint8_t fp = static_cast<uint8_t>(f.hash >> 25);
+        if ((used + 1) * 10 >= table.size() * 9) grow();
         size_t i = f.hash & (table.size() - 1);
-        while (fingerprint[i] != UINT8_MAX) {
-            if (fingerprint[i] == fp && table[i].hash == f.hash &&
-                equal_field(table[i], f)) return table[i].id;
+        while (table[i].id != UINT32_MAX) {
+            if (table[i].hash == f.hash && equal_field(table[i], f)) return table[i].id;
             i = (i + 1) & (table.size() - 1);
-        }
-        if ((used + 1) * 10 >= table.size() * 9) {
-            grow();
-            i = f.hash & (table.size() - 1);
-            while (fingerprint[i] != UINT8_MAX) i = (i + 1) & (table.size() - 1);
         }
         uint32_t id = static_cast<uint32_t>(seen.size());
         table[i] = f;
-        if (own_names) table[i].raw = keep(f);
         table[i].id = id;
-        fingerprint[i] = fp;
         seen.push_back({0, 0, 0, 0});
         ++used;
         return id;
@@ -192,15 +146,9 @@ struct Names {
 };
 
 static uint64_t number(const char *&p, const char *end) {
-    const char *start = p;
     uint64_t n = 0;
-    while (p < end) {
-        unsigned digit = static_cast<unsigned char>(*p) - '0';
-        if (digit > 9) break;
-        n = n * 10 + digit;
-        ++p;
-    }
-    if (p == start) throw std::runtime_error("missing integer");
+    if (p == end || *p < '0' || *p > '9') throw std::runtime_error("missing integer");
+    while (p < end && *p >= '0' && *p <= '9') n = n * 10 + (*p++ - '0');
     return n;
 }
 static int64_t cents(const char *&p, const char *end) {
@@ -230,14 +178,14 @@ struct Group {
     uint64_t count = 0, id_sum = 0, name_bytes = 0, note_bytes = 0;
     int64_t sum = 0, min = 0, max = 0;
     uint32_t distinct = 0;
-    void add(uint64_t id, int64_t amount, const Field &name, uint32_t note_len, bool first) {
+    void add(uint64_t id, int64_t amount, const Field &name, const Field &note, bool first) {
         if (!count || amount < min) min = amount;
         if (!count || amount > max) max = amount;
         ++count;
         id_sum += id;
         sum += amount;
         name_bytes += name.len;
-        note_bytes += note_len;
+        note_bytes += note.len;
         distinct += first;
     }
 };
@@ -253,21 +201,19 @@ struct Worker {
     std::vector<Group> groups;
     Names names;
     std::exception_ptr error;
-    explicit Worker(size_t group_count) : groups(group_count), names(1 << 17, true) { }
+    explicit Worker(size_t group_count) : groups(group_count), names(1 << 17) { }
 };
 
-static void parse_range(const char *p, const char *end, const std::vector<uint8_t> &regions,
+static void parse_range(const char *p, const char *end, const std::vector<uint16_t> &regions,
                         unsigned unmatched, Worker &w) {
     struct Pending {
         uint64_t id;
-        Field name;
-        uint32_t note_len;
+        Field name, note;
         int64_t amount;
         unsigned group;
     };
     try {
-        std::array<Pending, 32> batch;
-        const char *reclaimed = p;
+        std::array<Pending, 16> batch;
         while (p < end) {
             unsigned count = 0;
             const size_t mask = w.names.table.size() - 1;
@@ -281,23 +227,18 @@ static void parse_range(const char *p, const char *end, const std::vector<uint8_
                 Field note = text_field(p, end, false);
                 comma(p, end);
                 uint64_t region = number(p, end);
-                uint32_t region_key = region < regions.size()
-                                          ? static_cast<uint32_t>(region) : UINT32_MAX;
-                if (region_key != UINT32_MAX) __builtin_prefetch(&regions[region_key], 0, 1);
                 comma(p, end);
                 int64_t amount = cents(p, end);
                 newline(p, end);
-                batch[count++] = Pending{id, name, note.len, amount, region_key};
+                unsigned group = region < regions.size() && regions[region] != UINT16_MAX ? regions[region] : unmatched;
+                batch[count++] = Pending{id, name, note, amount, group};
             } while (count < batch.size() && p < end);
             for (unsigned i = 0; i < count; ++i) {
                 const Pending &r = batch[i];
                 uint32_t name_id = w.names.intern(r.name);
-                unsigned group = r.group < regions.size() && regions[r.group] != UINT8_MAX
-                                     ? regions[r.group] : unmatched;
-                w.groups[group].add(r.id, r.amount, r.name, r.note_len,
-                                    w.names.first_in_group(name_id, group));
+                w.groups[r.group].add(r.id, r.amount, r.name, r.note,
+                                      w.names.first_in_group(name_id, r.group));
             }
-            if (p - reclaimed >= (1 << 20)) discard_consumed(reclaimed, p);
         }
     } catch (...) { w.error = std::current_exception(); }
 }
@@ -318,50 +259,12 @@ static std::vector<Group> merge_workers(const std::vector<Worker> &workers, unsi
             dst.note_bytes += src.note_bytes;
         }
     }
-    if (workers.size() <= 2) {
-        for (unsigned g = 0; g < group_count; ++g) {
-            groups[g].distinct = workers[0].groups[g].distinct;
-            if (workers.size() == 2) groups[g].distinct += workers[1].groups[g].distinct;
-        }
-        if (workers.size() == 1) return groups;
-        // Subtract only name/group intersections; neither table needs rebuilding.
-        constexpr unsigned shards = 4;
-        std::array<std::array<uint32_t, 256>, shards> overlap{};
-        const Names &left = workers[0].names, &right = workers[1].names;
-        std::vector<std::thread> jobs;
-        for (unsigned shard = 0; shard < shards; ++shard) {
-            jobs.emplace_back([&, shard] {
-                const size_t mask = left.table.size() - 1;
-                for (size_t k = right.table.size() * shard / shards;
-                     k < right.table.size() * (shard + 1) / shards; ++k) {
-                    const Field &slot = right.table[k];
-                    if (slot.id == UINT32_MAX) continue;
-                    size_t i = slot.hash & mask;
-                    while (left.table[i].id != UINT32_MAX) {
-                        const Field &candidate = left.table[i];
-                        if (candidate.hash == slot.hash && equal_field(candidate, slot)) {
-                            for (unsigned word = 0; word < 4; ++word) {
-                                uint64_t shared = left.seen[candidate.id][word] &
-                                                  right.seen[slot.id][word];
-                                while (shared) {
-                                    ++overlap[shard][word * 64 + __builtin_ctzll(shared)];
-                                    shared &= shared - 1;
-                                }
-                            }
-                            break;
-                        }
-                        i = (i + 1) & mask;
-                    }
-                }
-            });
-        }
-        for (auto &job : jobs) job.join();
-        for (unsigned shard = 0; shard < shards; ++shard)
-            for (unsigned g = 0; g < group_count; ++g)
-                groups[g].distinct -= overlap[shard][g];
+    if (workers.size() == 1) {
+        for (unsigned g = 0; g < group_count; ++g)
+            groups[g].distinct = workers.front().groups[g].distinct;
         return groups;
     }
-    constexpr unsigned shards = 4;
+    constexpr unsigned shards = 6;
     std::array<std::array<uint32_t, 256>, shards> distinct{};
     std::array<std::exception_ptr, shards> errors{};
     std::vector<std::thread> jobs;
@@ -402,7 +305,7 @@ int main() {
         const char *header = "region_id,country\n";
         if (end - p < 18 || memcmp(p, header, 18)) throw std::runtime_error("regions header");
         p += 18;
-        std::vector<uint8_t> regions(1000000, UINT8_MAX);
+        std::vector<uint16_t> regions(1000000, UINT16_MAX);
         std::array<int16_t, 17576> code_index;
         code_index.fill(-1);
         std::vector<std::string> country;
@@ -417,7 +320,7 @@ int main() {
                 country.emplace_back(p, 3);
             }
             if (id >= regions.size()) throw std::runtime_error("lookup id out of range");
-            regions[id] = static_cast<uint8_t>(code_index[code]);
+            regions[id] = static_cast<uint16_t>(code_index[code]);
             p += 3;
             newline(p, end);
         }
@@ -432,7 +335,7 @@ int main() {
         p += 29;
         newline(p, end);
         const char *record_start = p;
-        unsigned threads = end - p < (1 << 20) ? 1 : 2;
+        unsigned threads = end - p < (1 << 20) ? 1 : 6;
         std::vector<const char *> cuts(threads + 1);
         cuts[0] = record_start;
         cuts[threads] = end;
@@ -444,12 +347,7 @@ int main() {
                 const char *b = record_start + (end - record_start) * (i + 1) / threads;
                 jobs.emplace_back([&, i, a, b] {
                     uint8_t x = 0;
-                    const char *reclaimed = a;
-                    for (const char *q = a; q < b;) {
-                        const char *limit = b - q > (1 << 20) ? q + (1 << 20) : b;
-                        for (; q < limit; ++q) x ^= (*q == '"');
-                        discard_consumed(reclaimed, q);
-                    }
+                    for (const char *q = a; q < b; ++q) x ^= (*q == '"');
                     parity[i] = x;
                 });
             }

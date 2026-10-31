@@ -234,7 +234,8 @@ The watcher was healthy at commit `b453c295cdbca2e3c740d71d6c35e57b8dec3662`. Ru
 - **BEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 B, S=728, D=1, K=23.855961, points=68.879845.
 - **LATEST:** `run-25ef61c7d0e6`, official HEAD `a30276e460e00aa279aa41cca913a10a90a1a6a8`; T=0.142934 s, M=98,377,728 B, S=728, D=1, K=22.932996, points=68.023039. All five gates passed.
 
-## D PR #4 contraction trial — pending official board
+## D PR #4 contraction board trial — promoted
 
-- PR `sd-td#4`, head `dddb9bb64c4b0838a658dec641b01cdbfa39405f`; source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. Source-qualified run `41164595746` on commit `0645e3755abd1b8dfe0b756645848cfeadca2e2c` passed Python reference/output hashes, stress, ASan/UBSan, TSan, and pinned Docker at 1/4/12 workers.
-- Developer's interleaved local comparison: 0.245 vs 0.271 s (4-core; 41 rounds) and 74.8 vs 81.5 MB at 12 threads; formatted lines 855 vs 721. The board run decides the transfer. **Official run: pending.** Rollback: parent `a30276e`; prior source remains in Git history.
+- Official run `run-68c15954870c` on submission commit `f91d9c075066881eb480cd7d27a9f33bfdc43350` passed all five gates. T=0.122315 s, M=98,508,800 B, S=862, D=1, K=24.163880, points=69.158334.
+- Against prior BEST `run-1cbdf9e4a82e` (T=0.132055 s, M=98,439,168 B, S=728, K=23.855961), K improved 1.29%, T improved 7.38%, and M was effectively flat. PR #4 was merged to development main as `708739017c667e52c7ab69a0244edd9c3f875bee`; official parent `a30276e` retains the rollback source.
+- The current public S3 board feed does not retain the older PR #3 trial in its BEST/LATEST records or 50-event tape, so its historical run remains unverified from that feed.

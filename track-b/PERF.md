@@ -437,3 +437,19 @@ Candidate `sd-tb` head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `
 
 - Developer GitHub Actions run [41159913998](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41159913998) succeeded: three full references, sample/tiny, differential and adversarial cases, pinned offline Docker, ASan/UBSan, TSan, published hashes, and 4/6/8/12-worker boundaries.
 - Four-logical-CPU local full-seed T values were 0.610445/0.620926/0.606104 s, M=41,570,304–41,934,848 B, S=781, D=1. Those oversubscribed runner results do not establish scoring-box performance. Official T/M/S/D/K are pending.
+
+
+## PR #5 six-worker official trial — rejected on performance
+
+All five gates passed for candidate source blob `510c2a13dccb26c712ff2239000817dd5b4a900a` on official commit `77a70106fecd5098a0a152a47f8e7383a3c1e9c5`. Run `run-3afd6a73fb21` measured T=0.426064 s, M=48,852,992 B, S=781, D=1, K=17.839474, points=62.569102.
+
+- Compared with the immediately preceding 12-worker result `run-199d4e836760` (T=0.241910 s, M=50,896,896 B, S=925, K=22.893327), the six-worker trial reduced M by 4.0% and S by 144, but T rose by 76.1% and K fell by 22.1%. It is well below BEST `run-c050e7922fc2`, K=23.169218.
+- Reject PR #5 for promotion and restore the 12-worker source blob `76946cc77205b4f115aa32bed459e0980c8d143c`; the candidate remains in official parent history and its developer PR stays open. Correctness passed; scoring efficiency did not.
+
+
+## PR #5 six-worker official trial — rejected on performance
+
+All five gates passed for candidate source blob `510c2a13dccb26c712ff2239000817dd5b4a900a` on official commit `77a70106fecd5098a0a152a47f8e7383a3c1e9c5`. Run `run-3afd6a73fb21` measured T=0.426064 s, M=48,852,992 B, S=781, D=1, K=17.839474, points=62.569102.
+
+- Compared with the immediately preceding 12-worker result `run-199d4e836760` (T=0.241910 s, M=50,896,896 B, S=925, K=22.893327), the six-worker trial reduced M by 4.0% and S by 144, but T rose by 76.1% and K fell by 22.1%. It is well below BEST `run-c050e7922fc2`, K=23.169218.
+- Reject PR #5 for promotion and restore the 12-worker source blob `76946cc77205b4f115aa32bed459e0980c8d143c`; the candidate remains in official parent history and its developer PR stays open. Correctness passed; scoring efficiency did not.

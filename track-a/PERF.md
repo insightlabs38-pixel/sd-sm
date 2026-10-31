@@ -452,3 +452,8 @@ All five gates passed on official commit `6a01ff11b17d179835197e73cbab6518a6651b
 
 - **LATEST:** `run-66138309f3ff`: T=0.022393 s, M=21,299,200 B, S=442, D=1, K=44.582278, points=82.458113.
 - The restored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is unchanged. Correctness-qualified **BEST** remains `run-2e35ec2bc727`, K=44.826321. No A promotion.
+
+
+## Full-team board run — 2026-10-31 16:54 UTC
+
+All five gates passed on commit `77a70106fecd5098a0a152a47f8e7383a3c1e9c5`: `run-97a255fa21e7`, T=0.022728 s, M=20,451,328 B, S=442, D=1, K=44.613484, points=82.473307. The restored source blob `a4a487a0e1ddebe51f27d1af7eb90c98faf12e0c` is unchanged. Correctness-qualified BEST remains `run-2e35ec2bc727`, K=44.826321.

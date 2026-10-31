@@ -531,3 +531,8 @@ All five gates passed on developer-main source blob `d53a4e39a379c744724d4aac87b
 ## Official latest — run-a7bcabdc0bdf (2026-10-31 19:24 UTC)
 
 All five gates passed on restored champion blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. **LATEST:** T=0.140765 s, M=99,217,408 B, S=862, D=1, K=22.492443, points=67.601831. **BEST** remains `run-68c15954870c` (K=24.163880).
+
+
+## Official latest — run-91691d63184a (2026-10-31 19:29 UTC)
+
+All five gates passed on restored champion source. **LATEST:** T=0.125720 s, M=98,537,472 B, S=862, D=1, K=23.833019, points=68.858953. **BEST** remains `run-68c15954870c` (K=24.163880).

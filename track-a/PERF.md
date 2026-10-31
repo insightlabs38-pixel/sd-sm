@@ -556,3 +556,12 @@ All five gates passed. T=0.021133 s, M=20,795,392 B, S=460, D=1, K=45.837056, po
 ## Official latest — run-e84ec0c9422a (2026-10-31 19:24 UTC)
 
 All five gates passed. **LATEST:** T=0.022452 s, M=21,463,040 B, S=460, D=1, K=44.190097, points=82.266248. **BEST** remains `run-0577d3068f59` (K=45.837056); the A source blob is unchanged.
+
+
+## Official latest — run-aa16aefdad04 (2026-10-31 19:29 UTC)
+
+All five gates passed. **LATEST:** T=0.021266 s, M=20,938,752 B, S=460, D=1, K=45.630755, points=82.962883. **BEST** remains `run-0577d3068f59` (K=45.837056).
+
+## Frontier PR #3 trial
+
+Submitted source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` from exact open PR head `5b931802c42bd4c028f18513cbf56bc6b4c1424a`. Exact source and build context match successful CI `41233423569` at `db4c98a`; 4-vCPU paired median was 0.780x the pinned champion, while `memory.peak` rose 5.73→6.02 MB. This is local evidence, not official K. Rollback source is `7c5a2253b50e5f9c0fe284de3fa384c01ef1cd4a`; **BEST remains `run-0577d3068f59`** pending official scoring. Merge PR #3 only if promoted.

@@ -158,3 +158,11 @@ Watcher healthy at `94a98da3f2e1de31f3b6fc308194c698f3603249`, queue idle; all f
 
 - **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
 - **LATEST:** `run-165ce1672090`, commit `94a98da3f2e1de31f3b6fc308194c698f3603249`; T=0.137152 s, M=50,913,280 bytes, S=469, D=1, K=12.225067, points=54.361892. Restored C champion; the prior challenger run `run-0a1a4e1eb943` remains a failed score comparison.
+
+
+## Official board results — raw feed observed 2026-10-31 00:51:41 UTC
+
+Watcher healthy at `8b137acc1b2f3a83c9b7c422088b7b966357232e`, queue idle; all five gates passed for every latest run, failure null.
+
+- **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-5441ca0d1f83`, commit `8b137acc1b2f3a83c9b7c422088b7b966357232e`; T=0.140844 s, M=51,834,880 bytes, S=469, D=1, K=12.020567, points=53.996248. The restored champion source is active.

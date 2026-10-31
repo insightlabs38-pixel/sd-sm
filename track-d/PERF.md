@@ -120,3 +120,11 @@ Watcher healthy at `94a98da3f2e1de31f3b6fc308194c698f3603249`, queue idle; all f
 Track D `main` is now at `83d6bb5`, and its production source blob remains byte-identical to the official source (`aa3a48820bab0a88977b2f19f815ae30964b0850`). CI [41151166030](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41151166030) passed an independent champion/holdout comparison: seven interleaved full-seed-1 runs matched the exact output hash; median T 0.96 to 0.29 s (3.31x), peak RSS 227,320 to 87,944 KiB (61.3% lower), user CPU 2.77 to 0.96 s; full seed 2 and 120 additional lattice stress seeds passed.
 
 A separate 48-run thread/probe sweep [41151731082](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41151731082) passed exact output hashes across 16 configurations. On that GitHub runner, median T/RSS were 0.38 s/87,936 KiB at 4 threads, 0.41 s/89,104 KiB at 6, and 0.45 s/99,960 KiB at 12. These CI measurements support correctness and the current default but are not scoring-box results; official board BEST/LATEST remain the measurements above.
+
+
+## Official board results — raw feed observed 2026-10-31 00:51:41 UTC
+
+Watcher healthy at `8b137acc1b2f3a83c9b7c422088b7b966357232e`, queue idle; all five gates passed for every latest run, failure null.
+
+- **BEST:** `run-e6aa2c1e3d1d`, commit `8233a6406105e8580d72bc059d91e48eb88e0868`; T=0.163797 s, M=129,777,664 bytes, S=708, D=1, K=20.353058, points=65.431484.
+- **LATEST:** `run-6cfbacca3af4`, commit `8b137acc1b2f3a83c9b7c422088b7b966357232e`; T=0.172581 s, M=130,494,464 bytes, S=708, D=1, K=19.806500, points=64.840387.

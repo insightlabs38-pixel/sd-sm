@@ -123,3 +123,10 @@ HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `b8e6540
 
 - Imported from developer HEAD `59a73a7c2d85d3f396313de528defafb82465572`, source blob `71fb370c88f6a5423898ad63ae7e3c644ca89444`; rollback is parent commit `b8e6540`. CI [41148649319](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41148649319) passed exactness and restricted offline Docker on this source. A separate paired 13-run full seed-1 local comparison against the then-official source matched the published hash each run: T median 0.232623 to 0.227738 s (2.1% lower), sampled RSS 287,203,328 to 281,677,824 bytes (1.9% lower). These are local, not board measurements.
 - Pinned clang-format 23.1.3 and scc 4.1.0 gave S=325 for the scored source and S=321 for the candidate; D remains 1. Applying the paired local T/M ratios and exact S delta to board BEST K=21.828419 gives estimated K≈22.19 (+1.6%). The estimate is not a board result; actual scoring of the integrated source is pending.
+
+
+## Official board results — raw feed, 2026-10-31 00:23:55 UTC
+
+HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `73d8cecee9e50825a4f416b77c11fec448955782`; queue idle. All five gates passed for BEST and LATEST; failure was null.
+
+- **BEST = LATEST:** `run-d9a6b26a1de8`, commit `73d8cecee9e50825a4f416b77c11fec448955782`; T=0.067238 s, M=44,072,960 bytes, S=321, D=1, K=23.339245, points=68.404340. New BEST.

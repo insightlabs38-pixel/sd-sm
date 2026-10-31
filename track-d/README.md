@@ -1,7 +1,15 @@
-# Track D: Traverse
+# Traverse
 
-Exact directed shortest-path distances with CSR and bidirectional Dijkstra using a monotone 64-bit radix heap. The bounded forward probe continues into bidirectional search without discarding settled state. Per-query scratch uses 8-bit generation stamps with exact wrap resets; parser scratch is released after CSR construction. Independent workers preserve query order.
+Exact directed shortest paths on a road-like graph, built for the end-to-end clock: parse, preprocess, answer, write.
 
-Current source passed the 66,000-query epoch-wrap regression, 83 differential cases, official full output hash and restricted Docker comparison in [CI run 41110514088](https://github.com/insightlabs38-pixel/sd-td/actions/runs/41110514088). Timing and memory evidence is in [PERF.md](PERF.md); CI numbers are not official board results.
+Pipeline, all phases parallel unless noted:
 
-No third-party runtime dependencies; build uses the pinned, organizer-allowlisted GCC image.
+1. `graph.txt` is mmapped and cut at line boundaries per thread. Each thread parses (SWAR integers) straight into bins keyed by the tail's id bucket, so no triple array and no atomics are needed. Pages already parsed are returned with `madvise`.
+2. Each bucket becomes a CSR slice in cache-sized scratch (raw ids).
+3. Multi-seed BFS regions (atomic claim bitmap) renumber nodes so graph neighbours are close in memory; the forward CSR is gathered in that order and the reverse CSR is derived from it. Random relabeling in the input otherwise makes every distance access a cache miss.
+4. Edges are 4 bytes: node id in the high bits, weight in the low bits. Weights that do not fit store an all-ones marker and are resolved from a sorted escape table, so any 32-bit weight stays exact.
+5. Queries run on independent workers in order of source id. Each runs an exact forward probe (256 settles) and then bidirectional Dijkstra with an exact-key bucket queue (4096 buckets, binary-heap overflow for larger jumps). Labels live in 512-node pages allocated on first write and recycled per query, so worker memory follows the search, not `n`.
+
+No third-party runtime dependencies. `SD_THREADS` and `SD_PROBE` select thread count and probe length for validation.
+
+Next: a thread pool for the short phases, balanced BFS regions, and 8-byte bins to lower the build-time memory peak.

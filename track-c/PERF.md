@@ -109,3 +109,13 @@ HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `b8e6540
 
 - Imported developer HEAD `d6ec5b0c6a1e517032e53a2c843a264363ac94a8`, source blob `804516b935b4f544d7895291dc433de3e225b08c`. CI [41145051410](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41145051410) passed tiny/sample adversarial cases, official seed-1 full output, and restricted offline Docker. A separate paired 13-run full seed-1 local comparison against the official source matched the published hash each run: T median 0.687834 to 0.469036 s; process-sampled RSS 253,308,928 to 25,833,472 bytes. Because mmap page accounting differs across hosts, RSS is local evidence and is excluded from the conservative K estimate.
 - Pinned clang-format 23.1.3 and scc 4.1.0 measured S=469 for the board source and S=523 for this candidate; D remains 1. Using the local T ratio (0.6819), holding official board M unchanged, and applying the frozen formula to board BEST K=12.246449 gives conservative estimated K≈14.59. CI full-scale comparison also showed about 0.15 s / 28 MB versus 0.16–0.17 s / 30 MB against its prior development source. Actual board evaluation is pending.
+
+
+## Official board results — raw feed, 2026-10-31 00:23:55 UTC
+
+HighVelocity (`highvelocity-7f330e`) was registered; watcher healthy at `73d8cecee9e50825a4f416b77c11fec448955782`; queue idle. All five gates passed for BEST and LATEST; failure was null.
+
+- **BEST:** `run-b7259ab42416`, commit `3059e71b54cd02e920e995d186a369b4be9c0aeb`; T=0.136925 s, M=50,679,808 bytes, S=469, D=1, K=12.246449, points=54.400509.
+- **LATEST:** `run-5f056bda0a59`, commit `73d8cecee9e50825a4f416b77c11fec448955782`; T=0.259085 s, M=25,219,072 bytes, S=523, D=1, K=10.070529, points=50.152613.
+
+The imported `sd-tc` candidate (`d6ec5b0c6a1e517032e53a2c843a264363ac94a8`) passed correctness and sandbox gates but reduced K by 17.8% versus BEST. It is rolled back here to the source and README at `b8e6540`; rollback is also available in official Git history.

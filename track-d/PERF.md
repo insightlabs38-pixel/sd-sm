@@ -189,3 +189,10 @@ Watcher healthy at `3077ed42f746f6ed84d122899e611b5af3dac0e4`, queue idle; all f
 
 - **BEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.
 - **LATEST:** `run-9f9fbcb143f9`, commit `3077ed42f746f6ed84d122899e611b5af3dac0e4`; T=0.134513 s, M=98,709,504 bytes, S=728, D=1, K=23.624031, points=68.667700.
+
+## Official board results — raw feed observed 2026-10-31 01:50:28 UTC
+
+Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All five gates passed for all four tracks; failures were null.
+
+- **BEST:** `run-1cbdf9e4a82e`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.132055 s, M=98,439,168 bytes, S=728, D=1, K=23.855961, points=68.879845.
+- **LATEST:** `run-0bb1c789d93c`, commit `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`; T=0.132233 s, M=99,102,720 bytes, S=728, D=1, K=23.807888, points=68.836044.

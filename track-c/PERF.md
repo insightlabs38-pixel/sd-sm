@@ -227,3 +227,14 @@ Watcher healthy at `3077ed42f746f6ed84d122899e611b5af3dac0e4`, queue idle; all f
 - CI [41155520691](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41155520691) passed official tiny/sample/full hashes, differential cases and pinned offline Docker. Full seed-1 comparison against the official BEST source also matched byte-for-byte locally (3,320,000 records; output SHA-256 `d8088b1cd42ba1338b1345b107b55db7b96ef1f5066f3ff64fd26a8912a0f536`). A valid-range edge fixture with unknown IDs 1,000,000 and 9,999,999 matched both the previous official source and Python reference (SHA-256 `c3f7c3ee178576d101aa00c561cb1696621aebedda1a0081473ae9ce7c3c41e4`).
 - Seven interleaved full-seed-1 runs, same local compiler and three pinned CPUs: T median 0.408639 s (official BEST source) vs 0.264697 s (candidate, 35.2% faster); peak process RSS 247,112 vs 20,516 KiB. These are local measurements, not board axes.
 - Source size estimate S≈563 (official S=469 plus 94 nonblank C++ lines); D=1. Applying local T/RSS ratios directly gives a rough K≈24.4, but board cgroup M may not scale with process RSS. With no M benefit, the same T/S estimate is K≈14.85. Both are estimates versus official BEST K=12.280222; the official run decides.
+
+## Official K decision: developer-main challenger rolled back — 2026-10-31
+
+The candidate passed all official board gates, but its measured scoring objective regressed. Board run `run-3f1acd6c12ff` on commit `d8e6e1c755acab6ab8ef167efed1b64d44f96c54` measured T=0.243185 s, M=17,563,648 bytes, S=572, D=1, K=11.025384, points=52.119687. Track C BEST remains `run-2e4a2fbbc969` at K=12.280222 (T=0.136063 s, M=50,782,208 bytes, S=469, D=1; commit `03742f51c5f91e7313584860fb6de63ad83fbae4`). Candidate correctness included the full valid region-ID range through 9,999,999 and unknown IDs above the lookup-table maximum of 999,999; an additional >4,294,967,295 robustness case is optional and is not a qualification requirement. Despite its lower measured memory and local runtime, official T and S caused lower K, so this integration restores the known-good source.
+
+## Official board results — raw feed observed 2026-10-31 01:50:28 UTC
+
+Watcher healthy at `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`, queue idle. All five gates passed for all four tracks; failures were null.
+
+- **BEST:** `run-2e4a2fbbc969`, commit `03742f51c5f91e7313584860fb6de63ad83fbae4`; T=0.136063 s, M=50,782,208 bytes, S=469, D=1, K=12.280222, points=54.460311.
+- **LATEST:** `run-3f1acd6c12ff`, commit `d8e6e1c755acab6ab8ef167efed1b64d44f96c54`; T=0.243185 s, M=17,563,648 bytes, S=572, D=1, K=11.025384, points=52.119687.

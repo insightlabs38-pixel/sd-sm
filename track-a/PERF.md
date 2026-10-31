@@ -167,3 +167,21 @@ Watcher healthy at `94a98da3f2e1de31f3b6fc308194c698f3603249`, queue idle; all f
 Watcher healthy at `8b137acc1b2f3a83c9b7c422088b7b966357232e`, queue idle; all five gates passed for every latest run, failure null.
 
 - **BEST = LATEST:** `run-925ee63e320b`, commit `8b137acc1b2f3a83c9b7c422088b7b966357232e`; T=0.066078 s, M=44,474,368 bytes, S=321, D=1, K=23.500561, points=68.553912. New BEST.
+
+
+## Official board results — raw feed observed 2026-10-31 01:14:45 UTC
+
+Watcher healthy at `dddda29dafddf919e4cf3ebc66cb26ed5b5c872a`, queue idle; all five gates passed for all tracks, failure null.
+
+- **BEST:** `run-925ee63e320b`, commit `8b137acc1b2f3a83c9b7c422088b7b966357232e`; T=0.066078 s, M=44,474,368 bytes, S=321, D=1, K=23.500561, points=68.553912.
+- **LATEST:** `run-2abb02ab5f35`, commit `dddda29dafddf919e4cf3ebc66cb26ed5b5c872a`; T=0.067389 s, M=44,273,664 bytes, S=321, D=1, K=23.291907, points=68.360252.
+
+
+## Fixed-span UTC hour-index candidate — developer CI, 2026-10-31
+
+Developer `sd-ta/main` commit `65f158ae8b817bc36f547c53b77333ce07c4fcec` simplifies the frozen 72-hour date mapping. CI run [41154124123](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41154124123) passed official seed-1 tiny/sample/full hashes, synthetic and seed-2/3 sample differentials, Docker allowlist/offline sandbox, and scored-style cgroup checks for the developer main candidate. Its full-branch 13-pair seed-1 medians were 0.113791 s (prior) vs 0.113456 s (candidate), ratio 0.9971; RSS 275,748 vs 275,668 KiB; cgroup peak 44,138,496 vs 43,798,528 bytes. These paired numbers include the developer main candidate’s other changes and do not isolate the date-index edit. Only the small date-index simplification is imported here; its official result remains pending.
+
+
+## Later developer-main candidate review
+
+The follow-up `sd-ta/main` commit `388406ca0dcd93516dc292fc2cbe2789c599ff5d` separated parse and group counting. Its CI run [41154503918](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41154503918) passed exactness and Docker checks, but the 13-pair full seed-1 median was 0.108288 s (parent) vs 0.108528 s (candidate, ratio 1.0022); RSS was 275,748 vs 275,844 KiB and cgroup peak 43,827,200 vs 43,864,064 bytes. The slight regression and added operations do not support promotion; only the prior fixed-span index edit is imported.

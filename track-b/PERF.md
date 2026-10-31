@@ -174,6 +174,16 @@ Watcher healthy at `8b137acc1b2f3a83c9b7c422088b7b966357232e`, queue idle; all f
 
 - Candidate source is byte-identical to `sd-tb` PR #2 qualified source at `a40228519bf2e202f993c1d6abe284ce5f9491c7`; latest PR head `4069aa907506fb5c0cc469421eeb74f93026e367` adds qualification notes only. Production blob `5de4b983d6be1434ead3f65451c0715742fffdfa`. Official manifest and pinned Dockerfile are retained unchanged; no runtime dependencies added.
 - CI [41149282228](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41149282228) passed three full seeds with independent references and published hashes, tiny/sample, expanded collision/growth oracles, ASan/UBSan, TSan and restricted offline Docker. Candidate S=672, D=1 versus PR #1 S=607, D=1.
-- Three paired full-scale seed medians on the same CI runner: T=0.679/0.649/0.652 s and M=56.36/59.48/59.07 MB, versus PR #1 K_local=12.793/13.123/13.002 and candidate K_local=14.049/14.214/14.202. Candidate improves the full K formula by 8.3–9.8% on that runner. Applied to official B BEST K=13.772524, the estimated board K is ≈15.04 (range ≈14.92–15.12); this is an estimate, not an official result.
+- Three paired full-scale seed medians on the same CI runner: T=0.679/0.649/0.652 s and M=56.36/59.48/59.07 MB, versus PR #1 K_local=12.793/13.123/13.002 and candidate K_local=14.049/14.214/14.202. The developer-runner full K formula improved 8.3–9.8%; the board result below is the measured official outcome for this exact source.
 - Current official baseline: BEST `run-0b8b1455c8cf` on commit `0ae75f36afd0ddec3e9d07e8d9a5ea3300aeacca`, T=0.731083 s, M=55,795,712 bytes, S=607, D=1, K=13.772524, points=56.950677. LATEST `run-6f0b359c1dcc` on `a41c96b3bf47709cfa668b2243d84d827a1dddd8`, T=0.743594 s, M=55,676,928 bytes, S=607, D=1, K=13.661993, points=56.775702. Rollback to the official PR #1 source remains in parent `a41c96b`.
-- Promotion is provisional pending the board measurement for this exact official candidate; replace the estimate with its actual run ID and measured T/M/S/D/K/points, and keep BEST and LATEST separate.
+
+## Official board results — raw feed observed 2026-10-31 01:14:45 UTC
+
+Watcher healthy at `dddda29dafddf919e4cf3ebc66cb26ed5b5c872a`, queue idle; all five gates passed, failure null.
+
+- **BEST = LATEST:** `run-d6bcb1bfa301`, commit `dddda29dafddf919e4cf3ebc66cb26ed5b5c872a`; T=0.575228 s, M=56,729,600 bytes, S=672, D=1, K=15.240808, points=59.150400. New BEST.
+
+
+## Segmented-tape developer-main candidate (not submitted)
+
+Developer `sd-tb/main` source blob `d968fb7e6f744c1b828141f201ed8de692f1f226` passed full-seed exactness, differential, sanitizer and pinned offline Docker qualification (CI run [41149380822](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41149380822)). Against its developer-branch baseline, measured full seed 1 T=0.86–0.92 s and RSS≈553 MiB vs 0.87–0.92 s and ≈622 MiB; seed 2 RSS≈549 MiB vs ≈619 MiB, with noisy near-flat T. This is not directly comparable to the official scoring box or the currently submitted sparse-block source; keep unpromoted pending a defensible equivalent-axis estimate and review of the newer frontier branch.

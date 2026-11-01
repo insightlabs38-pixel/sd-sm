@@ -718,3 +718,7 @@ Imported only `track-b/main.cpp` from B main `d8f03d54e136d951ffa43133d0434c9a8b
 
 Run `run-97f38287491a`; all five gates passed on current B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.165564 s, M=58,273,792 B, S=1111, D=1, K=26.203580, points=70.918031. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), on the prior `fb67cede8d56f88faf543b57699b580cd9dab14a` blob. This single official result is 1.83% below BEST, while the current main blob’s five-seed CI showed a consistent but small +0.2494% runner-local gain; do not relabel it BEST from the local result.
 Sequential board readings on prior blob `fb67...` (`run-598cae4d2f13`) and current-main blob `0bde...` (`run-97f38287491a`) were T 0.181901→0.165564 s, M 62,537,728→58,273,792 B, K 24.648601→26.203580 (+6.31%). This is not a controlled A/B: the developer five-seed estimate was only +0.2494%; **BEST** remains the earlier 26.690516 run.
+
+## Official board result — commit 0e56118 (2026-11-01 04:23:34 UTC)
+
+Run `run-3d30a604e3de`; all five gates passed on current B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.161865 s, M=59,215,872 B, S=1111, D=1, K=26.416431, points=71.093707. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).

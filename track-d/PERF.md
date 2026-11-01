@@ -706,3 +706,7 @@ Run `run-720d92385f68`; all five gates passed on D PR #10 blob `b7a527b058991dce
 
 Run `run-8f54880b6707`; all five gates passed on D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.115853 s, M=72,269,824 B, S=783, D=1, K=26.798983, points=71.405916. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), same source. Latest remains 10.9% above the former BEST `run-68c15954870c` (K=24.163880).
 Sequential same-source comparison with `run-720d92385f68` on commit `4a4461e`: K 26.409252→26.798983 (+1.48%), T 0.118737→0.115853 s (-2.43%), M 73,125,888→72,269,824 B (-1.17%). This repeat remains below D BEST and provides a direct estimate of run-to-run variation.
+
+## Official board result — commit 0e56118 (2026-11-01 04:23:34 UTC)
+
+Run `run-9bd4fa3b77b8`; all five gates passed. T=0.112929 s, M=67,596,288 B, S=783, D=1, K=27.509079, points=71.973803. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), same D PR #10 source.

@@ -1141,3 +1141,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — A PR #7 trial, commit `81943ddb059636a4ae357613c0a887beb688e7db`
 
 - `run-c3f58d7a4dab` passed all five gates: T=0.061878 s, M=11,788,288 B, S=657, D=1, K=23.184695, points=68.260070. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+
+## Official trial — current C main direct CRC32C mapping
+
+- Imported the current developer-main source blob `64e6c1f91f8ce859cf75c34990c964754e070b50` from `sd-tc` main `b03b5570a84890932ab6726d32bc23497eeb9e92`; it removes XOR-shift hash mixing and keeps exact-byte equality and the existing overflow path. Only `join.cpp` changed; the official pinned Dockerfile is byte-identical to developer main.
+- Exact-source main qualification passed full seed-1 and holdout hashes, hostile cases, ASan/UBSan/TSan, offline Docker and sandbox. The corrected 4,200-name concentrated overflow and full-hash-collision tests passed on this unchanged source under ASan/UBSan and TSan in runs `41341960343` and `41342247143`.
+- Two independent full-PGO paired comparisons against the developer's immediately preceding qualified source measured 12-trial median times 49.443→48.352 ms (9/12 faster) and 61.243→60.257 ms (10/12 faster); cgroup medians were 10,487,808→10,397,696 B and 10,240,000→10,231,808 B. Source size remained 564 lines, D=1. Developer complete-K proxies were +1.30% and +0.83%; these are runner measurements, not official results.
+- **Pretrial official BEST:** `run-e7eab9673214` (K=25.979773). **Rollback source:** `0772ace04e358868f0b060b178d6ab77e93a15ab`. Promote only if the official run confirms a real K gain.

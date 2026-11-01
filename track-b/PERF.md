@@ -952,3 +952,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Exact current-head run after receipt update (2026-11-01)
 
 - Candidate source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-5c84caeee0be` on `f3e5fbd8ece8535c3142c8a914813075dddff341` passed all five gates: T=0.159661 s, M=41,590,784 B, S=699, D=1, K=30.257659, points=74.041766. **BEST** remains `run-a4d307860273` (K=30.620459); this is **LATEST**, 0.61% below the prior exact-head run `run-0ae8c97e15af` (K=30.442117).
+
+## All-track rerun during A PR #4 trial (2026-11-01)
+
+- Unchanged B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-2e1dbae3a73e` on official commit `18d16b927ac28c90205dbfe4934b5951f0cfea48` passed all five gates: T=0.179237 s, M=41,107,456 B, S=699, D=1, K=28.557548, points=72.786046. This is **LATEST**, not BEST `run-a4d307860273` (K=30.620459). Other B source was unchanged from `run-5c84caeee0be` (K=30.257659); attribute the lower result to run variation, not A's source edit.

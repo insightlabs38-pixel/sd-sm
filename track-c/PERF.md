@@ -1019,3 +1019,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Exact current-head run after receipt update (2026-11-01)
 
 - Selected source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; `run-30b97d9f4582` on `f3e5fbd8ece8535c3142c8a914813075dddff341` passed all five gates: T=0.051767 s, M=11,763,712 B, S=657, D=1, K=25.358543, points=70.206215. **BEST** remains `run-e7eab9673214` (K=25.979773); this is **LATEST**.
+
+## All-track rerun during A PR #4 trial (2026-11-01)
+
+- Unchanged C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; `run-94ae8fdd4b77` on official commit `18d16b927ac28c90205dbfe4934b5951f0cfea48` passed all five gates: T=0.067170 s, M=11,821,056 B, S=657, D=1, K=22.240305, points=67.357037. This is **LATEST**, not BEST `run-e7eab9673214` (K=25.979773); the source did not change relative to `run-30b97d9f4582` (K=25.358543), so treat the difference as runtime variation.

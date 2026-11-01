@@ -929,3 +929,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Exact current-head run after receipt update (2026-11-01)
 
 - Selected source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; `run-14cfb6918691` on `f3e5fbd8ece8535c3142c8a914813075dddff341` passed all five gates: T=0.110874 s, M=67,993,600 B, S=783, D=1, K=27.730321, points=72.147745. **BEST** remains `run-dd6d11072ae7` (K=27.822987); this is **LATEST**.
+
+## All-track rerun during A PR #4 trial (2026-11-01)
+
+- Unchanged D source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; `run-2889233f342e` on official commit `18d16b927ac28c90205dbfe4934b5951f0cfea48` passed all five gates: T=0.115814 s, M=74,244,096 B, S=783, D=1, K=26.659405, points=71.292522. This is **LATEST**, not BEST `run-dd6d11072ae7` (K=27.822987); source is unchanged from `run-14cfb6918691` (K=27.730321). Record the memory/time variance; do not infer a D code regression from A's edit.

@@ -728,3 +728,13 @@ Imported only `track-c/join.cpp` from current C main commit `0ce09e247fa438e5c9e
 ## Official board result — commit bc48c37 (2026-11-01 01:12:54 UTC)
 
 Run `run-b5b6c8351a7a`; all five gates passed on candidate source blob `499944e542a384526eace9d9c94038791a8ecf3b` from C main `0ce09e2`. T=0.056770 s, M=20,885,504 B, S=649, D=1, K=21.628646, points=66.751467. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763) on safe PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. Candidate reduced M by ~1.4% but increased S by 12 and did not improve T/K; not promoted, restore PR #13 source from parent `74baa2c`. Keep this exact main candidate in commit `bc48c37` for rollback/retest.
+
+
+## Official board result — commit 62c5bf4 (2026-11-01 01:17:54 UTC)
+
+Run `run-3a336d8f9e98`; all five gates passed on restored PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. T=0.056845 s, M=23,330,816 B, S=637, D=1, K=21.200272, points=66.317072. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763).
+
+
+## Current-main parser candidate queued after CI (2026-11-01)
+
+Source blob `3519869c67493e3e5da7c4ced30b38be438cfeca` from C main commit `942a040d57520768449281de1752582d17f99fa1`, the branchless mixed-newline parser. CI `41259948744` passed all references, page-aligned EOF, hostile fixtures, ASan/UBSan, TSan, pinned offline Docker and sandbox. Against the qualified safe champion, full-scale paired timing was 89.897→84.509 ms (process RSS 43,510→44,258 KiB); pinned PGO 82.500→78.786 ms (RSS 35,352→41,404 KiB); full-PGO 80.807→79.011 ms; official-BEST architecture 80.754→80.135 ms; short-path control 91.990→79.389 ms. The paired restricted-cgroup median was 10,496,000→10,498,048 B (+2 KiB); source falls from 545 to 534 lines, while official S is unmeasured. These repeated timing gains, small simplification and flat cgroup memory justify one official trial; **official T/M/S/D/K pending**. Safe PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` remains in earlier commits for rollback.

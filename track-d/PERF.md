@@ -660,3 +660,7 @@ Run `run-94a31ca966c7`; all five gates passed. T=0.123219 s, M=98,598,912 B, S=8
 ## Official board result — commit 32bcf03 (2026-11-01 00:57:54 UTC)
 
 Run `run-c56f751008f5`; all five gates passed. T=0.130290 s, M=99,192,832 B, S=862, D=1, K=23.380292, points=68.442497. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880). D source was unchanged.
+
+## Current D main trial — official validation pending
+
+Imported only source blob `e63d989d3f55eee80dbc5ffbadeed970d2977d19` from D main commit `f6597dac4591381a8be65bb3e78bf52c992ba041`: one adjacency-data prefetch following the already qualified bucket-offset prefetch. Native paired tournament CI `41257386264` (21 passes) and GCC15 PGO tournament `41257609838` (25 passes) measured baseline→candidate medians of 0.220373→0.216304 s at 4 workers (1.85%, 21/25 wins), 0.226040→0.219051 s at 6 (3.09%, 24/25), and 0.235647→0.227380 s at 12 (3.51%, 21/25). All 234 PGO full-seed runs matched the reference hash; independent qualification `41258118198` passed differential/stress, exact tiny/sample/full hashes, pinned offline PGO Docker, and full-data worker counts 1/4/6/12. These are developer PGO measurements, not official T/M/S/D/K. This official repository keeps its non-PGO Dockerfile/config; the source also compiles under its C++17 flags. **Official K pending.** Rollback source is `be15ac2e635af157cc8db71d2df5e218d0a78446` in prior checkpoint `41fb666`.

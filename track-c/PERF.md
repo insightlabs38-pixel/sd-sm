@@ -966,7 +966,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 ## Official source confirmation `9aaa62c` — latest
 
-- Same source as the prior C run: `run-3af0997bd852` passed all five gates with T=0.050867 s, M=11,931,648 B, S=657, D=1, K=25.509475, points=70.335076. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). This repeat returned to the normal same-source band, confirming the K=22.212104 observation as a transient scoring outlier; no code change.
+- Same source as the prior C run: `run-3af0997bd852` passed all five gates with T=0.050867 s, M=11,931,648 B, S=657, D=1, K=25.509475, points=70.335076. **LATEST at that commit**; **BEST** remains `run-e7eab9673214` (K=25.979773). It temporarily returned to the normal band after K=22.212104.
+
+## Official C source confirmation `0a1e4cb` — latest
+
+- Same source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-4df11637b333` passed all five gates with T=0.068088 s, M=11,857,920 B, S=657, D=1, K=22.076117, points=67.196134. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). A second low result in three source-identical runs leaves scoring variance unresolved; keep the code and investigate repeatability rather than treating this as a candidate regression.
 
 ## C main denser-table trial reviewed — 2026-11-01
 

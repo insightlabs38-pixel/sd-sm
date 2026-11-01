@@ -934,3 +934,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official source confirmation `9aaa62c` — latest
 
 - Same source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: run `run-7bf23a604e9b` passed all five gates: T=0.020287 s, M=21,495,808 B, S=584, D=1, K=44.839710, points=82.583140. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Source-identical rerun, not a new candidate.
+
+## Official source confirmation `0a1e4cb` — latest
+
+- Same source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: run `run-172f08cfcd5c` passed all five gates: T=0.020062 s, M=20,856,832 B, S=584, D=1, K=45.363409, points=82.835284. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Source-identical rerun, not a new candidate.

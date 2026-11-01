@@ -1122,9 +1122,14 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 
 - `run-b1fd0c119d83` passed all five gates: T=0.018093 s, M=21,286,912 B, S=594, D=1, K=47.452446, points=83.812930. **LATEST** for the trial; **BEST** remains `run-118836ebd34c` (K=49.960098).
 
-## Official A frontier trial — PR #7 compact hourly results and shared exact dictionary
+## Official A frontier trial — PR #7 compact hourly results and shared exact dictionary (rejected)
 
 - Exact source blob `1ad533f716e9f898eeb0e174959bfb25cad52e85`, from PR #7 head `40a276405ea594f2f98d2e52912d66c84e3885e9`; this is a compact numeric hour queue, early run-buffer recycling, and a shared immutable endpoint table with full-byte equality. Only the source and its updated local README are staged for official scoring.
 - Exact-source CI runs `41332666362` and `41333014119` passed reference/hash, arbitrary-order and 1,842-way colliding-fingerprint tests, ASan/UBSan, TSan and restricted pinned-Docker checks. Two independent pinned-Docker qualifications reported 12-worker candidate/champion timing ratios 0.9474 and 0.9489 and cgroup peak-memory ratios 0.8877 and 0.8441. PR reports S=578 and D=1; these are developer qualification results, not board measurements. Its projected K≈52.65–53.14 is a projection only.
 - Host GCC 14 compile with the official optimization flags succeeded. Local pinned GCC 15 Docker build could not unpack its compiler image because the execution environment reported no space in its Docker layer store; exact-source CI used the pinned toolchain successfully.
-- **Pretrial BEST:** `run-118836ebd34c` (K=49.960098). **Rollback source:** `c91b9689529c9c92472be91dbc36f0716e2c98e5`. Evaluate the raw official run before promoting/merging PR #7.
+- Official result `run-412840bb86ca` on commit `81943ddb059636a4ae357613c0a887beb688e7db` passed all five gates: T=0.020755 s, M=20,717,568 B, S=578, D=1, K=44.728681, points=82.529305. Relative to BEST `run-118836ebd34c` (K=49.960098), T regressed 26.65%, M fell 2.94%, S fell by 6, and K fell 10.47%. The projected K gain and paired local timings did not carry to the official build. Reject promotion; restore exact A main source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; do not merge PR #7.
+
+
+## Official all-track receipt — A PR #7 trial, commit `81943ddb059636a4ae357613c0a887beb688e7db`
+
+- `run-412840bb86ca` passed all five gates: T=0.020755 s, M=20,717,568 B, S=578, D=1, K=44.728681, points=82.529305. **LATEST** for the trial; **BEST** remains `run-118836ebd34c` (K=49.960098).

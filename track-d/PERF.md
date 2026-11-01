@@ -758,3 +758,5 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Official rollback run `run-de48fc8596db` on `d3af7efd6ac8fd8982cbaae3b759052ccd74547f` restored prior selected source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; all five gates passed. T=0.113548 s, M=67,792,896 B, S=783, D=1, K=27.418064, points=71.901839. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). This confirms the PR #11 trial rejection/rollback.
 
 - Official run `run-733a795908e8` on `bf2de0f901f0e5bc2e1dc07331fd0de0622ff400` verified the rollback blob `b7a527b058991dce7967738d3695f8ab3917a75d`; all five gates passed. T=0.119262 s, M=67,534,848 B, S=783, D=1, K=26.773598, points=71.385337. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+- Official run `run-2bd0cecfd207` on `82d831033431c94a929d3c0eb99d62a0d061583a`; all five gates passed on restored D blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.119096 s, M=67,801,088 B, S=783, D=1, K=26.771176, points=71.383372. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

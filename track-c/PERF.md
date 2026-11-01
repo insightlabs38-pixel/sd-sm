@@ -825,3 +825,5 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - Official run `run-e52558b85ff3` on rollback checkpoint `d3af7efd6ac8fd8982cbaae3b759052ccd74547f`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.050821 s, M=12,005,376 B, S=657, D=1, K=25.489594, points=70.318146. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
 
 - Official run `run-22bb02617815` on `bf2de0f901f0e5bc2e1dc07331fd0de0622ff400`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.067609 s, M=11,505,664 B, S=657, D=1, K=22.288204, points=67.403754. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). This is a low same-source result; compare the repeated official PR #14 runs before attributing it to code.
+
+- Official run `run-f55de9bd6fa6` on `82d831033431c94a929d3c0eb99d62a0d061583a`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.050291 s, M=11,730,944 B, S=657, D=1, K=25.742335, points=70.532397. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).

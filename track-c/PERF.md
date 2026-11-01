@@ -805,3 +805,5 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - Post-merge `main` workflow [41275332278](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41275332278) also completed successfully on merge commit `d459dccbe2a4145e60bc19791a1b0bca14ba12d6`.
 
 - Repeat official run on source-identical commit `6917275dbd2ee12fd19df6fe3b87a60920c86ef8`: `run-e7eab9673214`, all five gates passed. T=0.050141 s, M=11,288,576 B, S=657, D=1, K=25.979773, points=70.731767. **LATEST and BEST**, 0.96% above previous C run `run-6b1f74906d40` and 17.12% above the pre-PR14 BEST `run-d6f721bba982` (K=22.181304). Exact C source unchanged.
+
+- Repeat official run on source-identical commit `17a6d96ba2cf813bac7eea2225b51fdd4d34960a`: `run-109cf5cfcfa7`, all five gates passed. T=0.050575 s, M=11,902,976 B, S=657, D=1, K=25.595323, points=70.408031. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Same source, within 1.48% of its repeat BEST and 15.39% above pre-PR14 BEST `run-d6f721bba982` (K=22.181304).

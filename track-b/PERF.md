@@ -750,3 +750,5 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - Official `speed-demon` commit `eeec788784e06afa814bc442630cd2d3a1d42001`: run `run-fb5979325e36`, all five gates passed on unchanged restored B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.173081 s, M=59,179,008 B, S=1111, D=1, K=25.549359, points=70.369000. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). No B source change; compare with other same-source runs as noisy board measurements.
 
 - Repeat official run on source-identical commit `6917275dbd2ee12fd19df6fe3b87a60920c86ef8`: `run-bef50b7f49d0`, all five gates passed. T=0.159454 s, M=59,510,784 B, S=1111, D=1, K=26.588963, points=71.235070. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). No B source change; this is within 0.38% of BEST.
+
+- Repeat official run on source-identical commit `17a6d96ba2cf813bac7eea2225b51fdd4d34960a`: `run-d2c727c53bb1`, all five gates passed. T=0.164308 s, M=60,784,640 B, S=1111, D=1, K=26.082554, points=70.817506. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). No B source change.

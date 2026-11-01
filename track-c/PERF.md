@@ -1035,3 +1035,9 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ### C PR #20 official result — rejected
 
 - `run-1947bda76ea6` on `ab84ec24be844316a3a88a8e8ad2edaca5824e88` passed all five gates: T=0.059533 s, M=13,086,720 B, S=802, D=1, K=22.465872, points=67.576164. Against the preceding selected-source run `run-6ea2c073b32f` (K=25.463688), official T was 15.9% slower, M 11.4% higher and S 145 larger. **BEST** remains `run-e7eab9673214` (K=25.979773). Reject PR #20 and restore selected source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; local speed claims did not carry to the scored build.
+
+## Official board receipt — 2026-11-01, commit `9dcde1dd1cedf6e421c55f8bb29b66a8c31544fa`
+
+- **LATEST:** `run-28945e5bb7c0`; T=0.067533 s, M=11,837,440 bytes, S=657, D=1, K=22.174309, points=67.292505; check/build/correctness/timeout/sandbox gates all passed.
+- **BEST remains:** `run-e7eab9673214`, K=25.979773; latest K is -14.65% versus BEST. Versus prior receipt `run-6ea2c073b32f` (K=25.463688), latest K changed -12.92%.
+- Source snapshot: A `c91` / B `b8ef` / C `0772` / D `b7`. No source promotion or PR merge from this run.

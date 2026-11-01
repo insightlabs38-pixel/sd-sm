@@ -696,3 +696,8 @@ Run `run-0c2030ee4c92`; all five gates passed. T=0.062880 s, M=21,475,328 B, S=5
 ## Official result after PR #13 merge — commit 16126e3 (2026-11-01 00:47:54 UTC)
 
 Run `run-66ac512b88eb`; all five gates passed. T=0.056216 s, M=21,155,840 B, S=637, D=1, K=21.739900, points=66.862877. This is the merged PR #13 source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`; **LATEST**, while **BEST** remains `run-f24670761e6b` (K=21.757571). The result is within 0.1% of BEST; retain as champion source.
+
+
+## Official board result — commit 12673d7 (2026-11-01 00:52:54 UTC)
+
+Run `run-678c494ba7f1`; all five gates passed. T=0.056720 s, M=21,118,976 B, S=637, D=1, K=21.650647, points=66.773544. **LATEST**; **BEST** remains `run-f24670761e6b` (K=21.757571), source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`.

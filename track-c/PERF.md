@@ -781,3 +781,7 @@ Run `run-893aa05f3cdc`; all five gates passed on the same valid-CSV frontier blo
 ## Official board result — commit 1633378 (2026-11-01 04:36:05 UTC)
 
 Run `run-65aa384d609d`; all five gates passed on the unchanged valid-CSV frontier source blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.054927 s, M=21,409,792 B, S=637, D=1, K=21.941087, points=67.062907. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304) on this same source. Relative to the prior same-source run `run-893aa05f3cdc`, K rose 7.87%, T fell 14.08%, and M rose 20,480 B. The third reading is 1.08% below BEST and shows the prior low was not repeated; retain the tested frontier source and its PR #13 rollback.
+
+## Official board result — commit 116914f (2026-11-01 04:41:53 UTC)
+
+Run `run-f80ed1ab9d5f`; all five gates passed on unchanged valid-CSV frontier source blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.066847 s, M=21,569,536 B, S=637, D=1, K=19.859323, points=64.898222. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304) on this same source. Compared with `run-65aa384d609d`, K fell 9.49%, T rose 21.65%, and M rose 1.59%; no C source changed between these runs. Keep the exact PR #13 rollback source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` in prior commits while gathering a controlled baseline if further C changes are considered.

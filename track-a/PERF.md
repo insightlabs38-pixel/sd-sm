@@ -774,3 +774,7 @@ Run `run-cdbb44fa1823`; all five gates passed. T=0.016973 s, M=20,955,136 B, S=5
 ## Official board result — commit 1633378 (2026-11-01 04:36:05 UTC)
 
 Run `run-1611d13f0c3d`; all five gates passed on the unchanged A PR #3 source. T=0.019959 s, M=20,914,176 B, S=584, D=1, K=45.455342, points=82.879246. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098) on the same source. This same-source repeat is below the previous LATEST `run-cdbb44fa1823` (K=49.272553); retain BEST and do not infer a source regression from one board run.
+
+## Official board result — commit 116914f (2026-11-01 04:41:53 UTC)
+
+Run `run-6f9ba21a52e5`; all five gates passed on the unchanged A PR #3 source. T=0.016999 s, M=21,229,568 B, S=584, D=1, K=49.106903, points=84.557127. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same source.

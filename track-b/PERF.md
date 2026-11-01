@@ -631,6 +631,11 @@ Run `run-462b30df0787`; all five gates passed. T=0.236546 s, M=50,044,928 B, S=9
 
 Run `run-c83bc3cbc0c0`; all five gates passed. T=0.258051 s, M=49,491,968 B, S=925, D=1, K=22.290221, points=67.405718. **LATEST**; **BEST** remains `run-dcebadac870d` (K=23.250490).
 
-## Mainline fast-dictionary engine — official validation pending
+## Mainline fast-dictionary engine — officially promoted
 
-Candidate source blob `fb67cede8d56f88faf543b57699b580cd9dab14a` is now on B main via merged PR #10; imported only `track-b/main.cpp`. CI `41247381171` passed full/sample/tiny hashes, differential/adversarial tests, ASan/UBSan, TSan and pinned offline Docker. Confirmation `41251942955` passed five full seeds × seven paired runs against the six-worker legacy champion, with exact outputs: candidate T=0.319–0.323 s and M=23.1–23.4 MB versus champion T=0.461–0.496 s and M=25.1–25.8 MB; local K ratios 1.175–1.186 across all seeds. Candidate S=1111 versus 874 in that comparison, D=1. Local CI results are not board scores. Dockerfile matches the official build; official T/M/S/D/K pending. Previous official B champion remains in parent `f8cfd3d` for rollback.
+Candidate source blob `fb67cede8d56f88faf543b57699b580cd9dab14a` is now on B main via merged PR #10; imported only `track-b/main.cpp`. CI `41247381171` passed full/sample/tiny hashes, differential/adversarial tests, ASan/UBSan, TSan and pinned offline Docker. Confirmation `41251942955` passed five full seeds × seven paired runs against the six-worker legacy champion, with exact outputs: candidate T=0.319–0.323 s and M=23.1–23.4 MB versus champion T=0.461–0.496 s and M=25.1–25.8 MB; local K ratios 1.175–1.186 across all seeds. Candidate S=1111 versus 874 in that comparison, D=1. Local CI results are not board scores. Dockerfile matches the official build; official run `run-f7556ef6c1bb` passed every gate with K=26.546489, improving prior BEST K=23.250490; the source is promoted. Previous official B champion remains in parent `f8cfd3d` for rollback.
+
+
+## Official board result and promotion — commit eeef411 (2026-11-01 00:17:52 UTC)
+
+Run `run-f7556ef6c1bb`; all five gates passed. T=0.159570 s, M=59,879,424 B, S=1111, D=1, K=26.546489, points=71.200355. **BEST = LATEST**; promoted over `run-dcebadac870d` (K=23.250490). This validates B main source blob `fb67cede8d56f88faf543b57699b580cd9dab14a`, already merged by PR #10. PR #9 only adds evidence/tests around the same main source and is not needed for this promotion.

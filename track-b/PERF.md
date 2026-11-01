@@ -730,3 +730,7 @@ Run `run-d696476d1a86`; all five gates passed. T=0.165262 s, M=60,874,752 B, S=1
 ## Official board result — commit 1633378 (2026-11-01 04:36:05 UTC)
 
 Run `run-e4e09943117e`; all five gates passed on B main source blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.166903 s, M=59,498,496 B, S=1111, D=1, K=25.989921, points=70.740248. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516) on the preceding B source. This is close to same-source LATEST `run-d696476d1a86` (K=25.999458); local five-seed evidence for B main remains only +0.2494% and is not an official score.
+
+## B PR #6 twelve-worker candidate — official validation pending
+
+Imported only `track-b/main.cpp` from open PR #6 head `5af5468b541b5db4202ba37643347d3302feef5d`, exact source blob `4486c2155ffa008c70aee056338770e8a9ecf16a`. The head is 65 commits behind current B main and has no PR checks. Its older qualified ancestor `b9ab12ad1de87e476b8bf1a76cfb8b242e0813f1` passed pinned offline Docker, three full references, published hashes and ASan/UBSan/TSan in CI `41159913998`; the older source reported local T 0.6125–0.6258 s and M 46.0–46.6 MB on an oversubscribed 4-logical-CPU runner. That evidence does **not** verify the exact PR head blob. The exact PR head compiled successfully with the official Dockerfile C++20 flags locally; official board build, correctness, timeout and sandbox gates are pending. Rollback to prior selected B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d` remains in parent commit `da26a87`.

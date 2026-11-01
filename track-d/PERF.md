@@ -832,3 +832,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official team-wide evaluation `bfb66b`
 
 - Run `run-887ae7a124a1` passed all five gates: T=0.117828 s, M=74,551,296 B, S=783, D=1, K=26.408764, points=71.087404. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+## Developer D main handoff `0ae3a2f` — query-order trial rejected
+
+- Main moved from `f3b775e` to docs-only commit `0ae3a2f`; no Track D source changed. Exact workflow `41312677068` succeeded on experiment head `087e72af` with 390 exact full-seed executions plus 88 differential fixtures. Target-ID ordering showed only inconsistent 0.17–0.92% median gains at 6/12 workers, lost paired tests, and regressed at four workers; other tested orderings regressed. Keep D source unchanged; no official submission warranted.

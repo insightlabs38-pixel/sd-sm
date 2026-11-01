@@ -1035,3 +1035,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official board receipt — Track B restored-source comparison, commit `f00fe1077308e74fbf82bc75a3cb311502de4a7c`
 
 - Restored source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` scored `run-6d4c2b894a79`: T=0.167275 s, M=41,189,376 B, S=699, D=1, K=29.561007, points=73.535962; all five gates passed. This is the second same-source recent comparison after `run-42cde4f208f5` (K=30.039636); variation between these unchanged-source runs is 1.62% in K. The qualified two-line candidate scored K=30.387910 with better T than both recent restored-source measurements and lower S; retain the candidate for a second official measurement. **Historical BEST remains** `run-a4d307860273` (K=30.620459), 0.76% above the candidate result.
+
+## Official board receipt — Track B row-prefetch confirmation, commit `b6f4226481a9adf8d9dbddcac3f6d67593de62c3`
+
+- Second exact-source official result: `run-05d3e08a4d51` passed all five gates but scored T=0.183127 s, M=41,611,264 B, S=695, D=1, K=28.276940, points=72.571621. Together with first trial `run-181b0ed196b2` (K=30.387910), the two official trials are inconsistent; the second is 7.65% below BEST `run-a4d307860273` (K=30.620459) and 4.22% below the geometric-mean K of the two recent unchanged-source controls `run-42cde4f208f5` / `run-6d4c2b894a79`. Reject promotion despite five-seed local CI and restore known-good B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.

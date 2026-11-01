@@ -1099,3 +1099,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official board receipt — Track B restored-source comparison, commit `f00fe1077308e74fbf82bc75a3cb311502de4a7c`
 
 - `run-f49091b02fc6` passed all five gates: T=0.066818 s, M=11,345,920 B, S=657, D=1, K=22.482520, points=67.592250. C source unchanged; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official board receipt — Track B row-prefetch confirmation, commit `b6f4226481a9adf8d9dbddcac3f6d67593de62c3`
+
+- `run-a3d807f7aacc` passed all five gates: T=0.066429 s, M=11,788,288 B, S=657, D=1, K=22.376423, points=67.489533. C source unchanged; **BEST** remains `run-e7eab9673214` (K=25.979773).

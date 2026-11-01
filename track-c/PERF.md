@@ -915,3 +915,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## C main SSE short-name microkernel — developer-rejected, not imported
 
 - Developer main `e0b4a4843aa79275b360fdf9a3acb60b228b21ad` records a 3.2M-query equality microbenchmark: original AVX2 25.4–34.9 ms vs SSE split 38.5–40.1 ms, with 13 additional scored source lines and no full-program qualification. Main restored qualified `join.cpp` blob `3b5e1392f49abdbb7fdcf6a36b5866366298143b`; no official board run or source import.
+
+## Team-wide official evaluation `2ace33f` — unchanged C source
+
+- Source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-9ebc17208eaf` passed all five gates, T=0.051324 s, M=11,194,368 B, S=657, D=1, K=25.721691. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).

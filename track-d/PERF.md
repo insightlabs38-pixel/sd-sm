@@ -816,3 +816,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## D AVX2 PGO tournament — developer-rejected, not imported
 
 - D main `f3b775e7eeb31d3021299f2fd1bf918a7ba946a1` is a PERF-only handoff. Native 66-pair CI `41307878218` showed gains, but pinned GCC 15 PGO Docker tournament `41308283876` lost; correctness and Docker gates passed, cgroup peak was about 63 MB and scored S/D were unchanged. No source import or official dispatch; retain the selected D champion.
+
+## Team-wide official evaluation `2ace33f` — unchanged D source
+
+- Source blob `b7a527b058991dce7967738d3695f8ab3917a75d`: run `run-68761cd707fc` passed all five gates, T=0.112979 s, M=76,632,064 B, S=783, D=1, K=26.821459. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

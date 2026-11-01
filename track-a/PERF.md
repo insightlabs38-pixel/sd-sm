@@ -879,3 +879,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Team-wide official evaluation `3a0273b` — unchanged A source
 
 - Source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: run `run-006ae385f65c` passed all five gates, T=0.017297 s, M=21,135,360 B, S=584, D=1, K=48.725370. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Same-source run after `run-0eb095ded2ce` (K=48.250349) confirms that repeated board results move materially without source changes.
+
+## Team-wide official evaluation `2ace33f` — unchanged A source
+
+- Source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: run `run-223d1ec66553` passed all five gates, T=0.020346 s, M=21,569,536 B, S=584, D=1, K=44.743998. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

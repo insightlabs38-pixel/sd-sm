@@ -1085,3 +1085,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official all-track receipt — checkpoint `19582b89b83bb4bdc46998fdbcd9c7d0fb7baadd`
 
 - `run-820dca3523c4` passed all five gates on unchanged D source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`: T=0.116555 s, M=61,583,360 B, S=592, D=1, K=28.768766, points=72.946062. **LATEST** is this run; **BEST** remains `run-3d2e9d913d87` (K=30.195105).
+
+## Official trial — D PR #18 c2-cap4 architecture (awaiting board result)
+
+- Exact candidate source blob `5df4bde3f8e46a32335ef380ed0cf4cf85415bf1` from `sd-td` PR #18 head `32e58c9a991038001f23cd49f726973c7c00489c`; only `d_traverse.cpp` imported. Dockerfile unchanged at pinned GCC 15/Debian 13 blob `8eabe09b96a60131ce5bfda3f098011e1f0863e6`.
+- Exact-source qualification CI `41361643036` passed randomized/adversarial differential tests, official cases and hashes, pinned Docker full/sample output comparisons, and 1/4/12-worker correctness. Paired runner experiment `41360802889` reports exact outputs; versus PR #15, median wall reductions at 4/6/12 workers were 5.70/8.39/7.37% on seed 1 and 5.48/7.78/6.12% on seed 7. The 4-vCPU runner may overstate the 4-worker construction cap's advantage on the 12-thread board. Source S=609, D=1. These are developer measurements, not official K.
+- Official **BEST before trial**: `run-3d2e9d913d87` (K=30.195105), source rollback blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`. Promote and merge PR #18 only if the exact official all-track run passes and D K beats BEST; otherwise restore the rollback blob.

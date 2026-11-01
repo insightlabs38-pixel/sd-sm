@@ -975,3 +975,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## C main denser-table trial reviewed — 2026-11-01
 
 - Main trial `f488fb0455ce` changed the shared-name table from 128×2048 to 128×1024 slots. CI 41316043568 passed correctness, holdout, sanitizer, Docker and sandbox gates, but paired full-PGO median T regressed 3.83%; memory fell 4.65%, while complete-K runner proxy fell 0.92% at unchanged S/D. Developer main reverted it in `f6b7fb9dd0ee`; current main `13f38d3be4df` adds only the rejection note. Do not import or dispatch this regression; retain official source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`, BEST run `run-e7eab9673214` (K=25.979773).
+
+## C dense-page frontier candidate — official validation pending
+
+- Imported exact frontier head `d8190b4c6816d22674c70fbf1c9c4adae4243ac8`, source blob `d4a5d3538ed4dbc0dffdac2f3cce894ab0a3db08`, for one official trial. Exact workflow 41294197888 passed differential/tiny/sample/full-seed checks, paired pinned-Docker and full-PGO comparisons, source-only x86-64-v3 compatibility, sandbox/full hash, cgroup-memory gates, independent references, ASan/UBSan and TSan. Seven-pair pinned offline Docker full1 medians: T=159.197→119.373 ms, M=10,821,632→11,227,136 B, S=657→807, D=1. This is a substantial local runtime claim with source-size and memory costs; official K is not yet known.
+- Rollback remains the qualified PR #14 blob `0772ace04e358868f0b060b178d6ab77e93a15ab`, whose BEST is `run-e7eab9673214` (K=25.979773). This trial is not promoted unless official gates pass and K improves BEST.

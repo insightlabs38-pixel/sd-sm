@@ -1046,3 +1046,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official board receipt — D promotion checkpoint, commit `650272f4043d367210da65af1ca0d8f07f640f5f`
 
 - `run-721f03e8045e` passed all five gates: T=0.109751 s, M=61,583,360 B, S=592, D=1, K=29.647116, points=73.599123. **LATEST** for the promoted PR #15 BATCH=8 source; **BEST remains** `run-9757529e8b52` (K=29.966367).
+
+## Official board receipt — A PR #5 trial all-track run, commit `54b423edcac810adb53fb4c746152dc356296984`
+
+- `run-cde04baf80e2`: T=`0.108166 s`, M=`60,473,344 B`, S=`592`, D=1, K=`29.972377`, points=`73.836059`; all five gates passed. D source unchanged. This is a +0.020% K noise-sized increase over former BEST `run-9757529e8b52` (K=`29.966367`); record `run-cde04baf80e2` as raw BEST and LATEST, with no new source promotion.

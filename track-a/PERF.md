@@ -1100,3 +1100,14 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Developer paired pinned-Docker measurements (not board scores): candidate/current-main runtime ratios across three independent CI runs were `0.9793`, `0.9362`, `0.9419`; candidate/certified-lookup ratios were `1.0299`, `1.0014`, `0.9980`. Ten interleaved cgroup peak-memory measurements had medians: main `6,096,896 B`, certified lookup `6,291,456 B`, candidate `5,765,120 B` (candidate −5.44% vs main). These are runner measurements, not official K/M.
 - Source changes from the current A champion are +41 formatted lines (+1,558 bytes); the official size/runtime/memory axes must decide whether the speed and memory evidence outweigh this.
 - **Pretrial BEST:** `run-118836ebd34c`, K=`49.960098`. **Rollback:** parent official commit source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`. Await the official all-track result before promoting/merging PR #5 or reverting.
+
+## Official board trial — A frontier PR #5 sidecar result (commit `54b423edcac810adb53fb4c746152dc356296984`)
+
+- `run-60f196a29e66` passed all five gates: T=`0.017455 s`, M=`20,709,376 B`, S=`621`, D=1, K=`48.255556`, points=`84.177366`.
+- Against pretrial BEST `run-118836ebd34c` (T=`0.016388 s`, M=`21,344,256 B`, S=`584`, K=`49.960098`), this exact PR #5 source was +6.51% T, −2.97% M, +37 S, and −3.41% K. **Reject promotion**; retain the known-good source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` from rollback checkpoint `1db8a8f00a20efb3107ee843ced783fa5de32b0a`. PR #5 remains open/draft.
+
+## Official board trial — A frontier PR #4 catalog certificate (pending)
+
+- Exact candidate source blob from `sd-ta` PR #4 head `c6cc55f64f19bbfbfb28f726ac9874313ab9b3d2`; it uses an exact endpoint-catalog saturation certificate after all 1,842 specified keys have appeared, retaining full byte comparisons for collisions. Current organizer spec `specs/a-ingest.md` (main `9f059f75384607c7836997063b0901b98f36b5fa`) specifies exactly 1,842 endpoints in full/sample; tiny is a subset.
+- Exact-head verification run `41290978319` and paired current-main run `41290905376` passed. Two independent 31-run complete-program comparisons reported candidate/current-main runtime ratios: 1-thread `0.9733` / `0.9667`; 4-thread `0.9582` / `0.9501`; 12-thread `0.9612` / `0.9730`. Forced signature-collision and saturation tests are included. These are developer-runner timings, not official T/K/M.
+- Source is +25 formatted lines (+907 bytes) over the current known-good. Matched official memory/K remain unknown. **Pretrial BEST:** `run-118836ebd34c`, K=`49.960098`. **Rollback:** commit `1db8a8f00a20efb3107ee843ced783fa5de32b0a`, source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`. Await official score before merging/promoting PR #4.

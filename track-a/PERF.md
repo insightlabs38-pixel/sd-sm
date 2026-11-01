@@ -889,3 +889,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Exact PR head `33e0f543fa9bbcd084954ab950a86d91d6b19495`; source blob `c8ec203b3460cf9073dce25c15e4b15bff7b222b`. It is two commits ahead and zero behind current A main. Exact-source CI `41309800426` passed.
 - Candidate adds <=8-element AVX2 sorting and a 1–2 element rank fast path. CI reports 31 matched full-input runs at default/1/12 threads with candidate/base ratios 0.9828/0.9857/0.9863 and exact hashes, sanitizers, offline Docker. Net +12 lines and noisy memory make it a trial only; official board validation pending.
 - Local compile passed under the official Docker compiler flags. Keep selected-source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` for rollback.
+
+## A PR #6 official trial `96443e0` — no promotion
+
+- Exact candidate blob `c8ec203b3460cf9073dce25c15e4b15bff7b222b`; run `run-5377b0bccf4a` passed all five gates: T=0.020820 s, M=20,877,312 B, S=594, D=1, K=44.407993, points=82.373057. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098) on selected blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.
+- Versus immediately preceding selected-source run `run-e8a4888a6a5f` (K=44.241045), this is a +0.38% K change, with T +0.27%, M -3.8%, and S +10. This does not establish a stable improvement over board variance; restore selected source `c91b9689529c9c92472be91dbc36f0716e2c98e5` and leave PR #6 unmerged.

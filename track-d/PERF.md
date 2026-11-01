@@ -824,3 +824,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official team-wide evaluation `77cad4d`
 
 - Run `run-87e86fc988b7` passed all five gates: T=0.112911 s, M=69,922,816 B, S=783, D=1, K=27.325710, points=71.828573. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+## Official team-wide evaluation `96443e0`
+
+- Run `run-608ee1cf998b` passed all five gates: T=0.116239 s, M=75,280,384 B, S=783, D=1, K=26.536954, points=71.192553. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

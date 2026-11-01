@@ -843,3 +843,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official metadata rollback after ring-prefetch trial `77cad4d`
 
 - Run `run-453dbe7a3320` passed all five gates on metadata source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: T=0.164876 s, M=41,099,264 B, S=690, D=1, K=29.833228, points=73.735012. **LATEST**; **BEST** remains `run-9749d4cfd80e` (K=30.429779). Ring-prefetch trial `run-bd078d1bac1f` scored K=30.217374 with S=699 and likewise did not beat BEST; retain compact metadata source.
+
+## Official metadata source evaluation `96443e0`
+
+- Run `run-f100bcaacc24` passed all five gates on metadata source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: T=0.156767 s, M=42,086,400 B, S=690, D=1, K=30.595083, points=74.282582. **LATEST = new BEST**, replacing `run-9749d4cfd80e` K=30.429779.

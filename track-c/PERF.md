@@ -923,3 +923,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official team-wide evaluation `77cad4d`
 
 - Run `run-e219a505eada` passed all five gates: T=0.050213 s, M=11,681,792 B, S=657, D=1, K=25.783964, points=70.567485. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official team-wide evaluation `96443e0`
+
+- Run `run-e3219681b4f6` passed all five gates: T=0.064822 s, M=11,714,560 B, S=657, D=1, K=22.680533, points=67.782663. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).

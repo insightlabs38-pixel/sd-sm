@@ -919,3 +919,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Team-wide official evaluation `2ace33f` — unchanged C source
 
 - Source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-9ebc17208eaf` passed all five gates, T=0.051324 s, M=11,194,368 B, S=657, D=1, K=25.721691. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official team-wide evaluation `77cad4d`
+
+- Run `run-e219a505eada` passed all five gates: T=0.050213 s, M=11,681,792 B, S=657, D=1, K=25.783964, points=70.567485. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).

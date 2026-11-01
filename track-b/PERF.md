@@ -667,3 +667,8 @@ Run `run-99ddaa9c2450`; all five gates passed. T=0.161413 s, M=57,253,888 B, S=1
 ## Official board result — commit 12673d7 (2026-11-01 00:52:54 UTC)
 
 Run `run-b9058c81ab8a`; all five gates passed. T=0.163523 s, M=59,760,640 B, S=1111, D=1, K=26.234076, points=70.943288. **LATEST**; **BEST** remains `run-36a254980b3f` (K=26.679158).
+
+
+## Official board result — commit 32bcf03 (2026-11-01 00:57:54 UTC)
+
+Run `run-c85dcbcbc518`; all five gates passed. T=0.163479 s, M=60,452,864 B, S=1111, D=1, K=26.177241, points=70.896194. **LATEST**; **BEST** remains `run-36a254980b3f` (K=26.679158). B source was unchanged; this run used more memory than `run-99ddaa9c2450`.

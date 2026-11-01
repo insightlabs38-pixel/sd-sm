@@ -701,3 +701,8 @@ Run `run-66ac512b88eb`; all five gates passed. T=0.056216 s, M=21,155,840 B, S=6
 ## Official board result — commit 12673d7 (2026-11-01 00:52:54 UTC)
 
 Run `run-678c494ba7f1`; all five gates passed. T=0.056720 s, M=21,118,976 B, S=637, D=1, K=21.650647, points=66.773544. **LATEST**; **BEST** remains `run-f24670761e6b` (K=21.757571), source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`.
+
+
+## Official board result — commit 32bcf03 (2026-11-01 00:57:54 UTC)
+
+Run `run-7b727e81c6cd`; all five gates passed. T=0.056894 s, M=21,000,192 B, S=637, D=1, K=21.641914, points=66.764784. **LATEST**; **BEST** remains `run-f24670761e6b` (K=21.757571). C source remained PR #13 blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`.

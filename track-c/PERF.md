@@ -1171,3 +1171,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — checkpoint `19582b89b83bb4bdc46998fdbcd9c7d0fb7baadd`
 
 - `run-ce9ca60b1306` passed all five gates on selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050283 s, M=11,628,544 B, S=657, D=1, K=25.789565, points=70.572201. **LATEST** is this run; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official all-track receipt — D PR #18 trial, commit `bc7dcf4d5ec5f0a9da9db0018c83a89f712c38d0`
+
+- Unchanged selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed all five gates in `run-5bc4ecf48909`: T=0.065707 s, M=11,718,656 B, S=657, D=1, K=22.525700, points=67.633915. **LATEST** is this run; **BEST** remains `run-e7eab9673214` (K=25.979773).

@@ -1103,3 +1103,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 - Exact-source qualification `41361075676` passed organizer seed/reference hashes, sample/tiny, differential/adversarial tests, ASan/UBSan, TSan, and pinned offline Docker. Source blob `e5605d03f3a18050df7eee2aa8816fdee619fac8` fuses the dictionary lookup into the evidence update loop; candidate D=1 and S=692 versus developer-main S=695.
 - Paired full-seed Docker K_local candidate/champion ratios were 0.967922, 0.976948, and 0.975600 (geomean 0.97348): all three seeds regressed about 2.3–3.2%, with no useful memory offset. The comparison base was developer main commit `8eb3029` / source `6450d009a5d07f719f3678becea49d89b136737a`; the official selected source remains `b8ef48979203564e806b78e66a18fe9c8cf60463`. No official trial or promotion; PR #17 remains draft.
+
+## Official all-track receipt — D PR #18 trial, commit `bc7dcf4d5ec5f0a9da9db0018c83a89f712c38d0`
+
+- Unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` passed all five gates in `run-add075487808`: T=0.153580 s, M=41,656,320 B, S=699, D=1, K=30.850870, points=74.463371. This becomes **BEST** and **LATEST** for B; it is the same selected source, not a source change.

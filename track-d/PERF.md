@@ -1086,8 +1086,13 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 
 - `run-820dca3523c4` passed all five gates on unchanged D source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`: T=0.116555 s, M=61,583,360 B, S=592, D=1, K=28.768766, points=72.946062. **LATEST** is this run; **BEST** remains `run-3d2e9d913d87` (K=30.195105).
 
-## Official trial — D PR #18 c2-cap4 architecture (awaiting board result)
+## Official trial — D PR #18 c2-cap4 architecture (rejected)
 
 - Exact candidate source blob `5df4bde3f8e46a32335ef380ed0cf4cf85415bf1` from `sd-td` PR #18 head `32e58c9a991038001f23cd49f726973c7c00489c`; only `d_traverse.cpp` imported. Dockerfile unchanged at pinned GCC 15/Debian 13 blob `8eabe09b96a60131ce5bfda3f098011e1f0863e6`.
 - Exact-source qualification CI `41361643036` passed randomized/adversarial differential tests, official cases and hashes, pinned Docker full/sample output comparisons, and 1/4/12-worker correctness. Paired runner experiment `41360802889` reports exact outputs; versus PR #15, median wall reductions at 4/6/12 workers were 5.70/8.39/7.37% on seed 1 and 5.48/7.78/6.12% on seed 7. The 4-vCPU runner may overstate the 4-worker construction cap's advantage on the 12-thread board. Source S=609, D=1. These are developer measurements, not official K.
-- Official **BEST before trial**: `run-3d2e9d913d87` (K=30.195105), source rollback blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`. Promote and merge PR #18 only if the exact official all-track run passes and D K beats BEST; otherwise restore the rollback blob.
+- Official run `run-685fc910bcd1` on commit `bc7dcf4d5ec5f0a9da9db0018c83a89f712c38d0` passed all five gates, but measured T=0.147556 s, M=59,510,784 B, S=609, D=1, K=25.635244, points=70.441873. It is 15.10% below **BEST** `run-3d2e9d913d87` (K=30.195105) and 10.89% below the prior **LATEST** `run-820dca3523c4` (K=28.768766); reject PR #18 and restore the known-good source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`. This official result overrides the favorable 4-vCPU paired measurements for the capped construction variant.
+
+
+## Official trial queued for later comparison — D PR #17 uncapped c2
+
+- Candidate source blob `79617b5c40b01613797138b294a33c0a7b5c6e44` from fresh, ready PR #17 head `9e8e5129321a22713a27fb77bb0d0f15b75db29a`; exact qualification check passed. Its 13-round paired runner reports exact outputs and median wall-time gains vs PR #15 of 3.30–5.93% across 4/6/12 workers, with max RSS within 0.6 MB; independent 4-vCPU KVM trials report 3.1–10.5% wall-time gains. Unlike rejected PR #18, it does not cap construction at four workers. These are developer measurements, not official K. Rollback remains blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`; promote only if official D K beats BEST and every gate passes.

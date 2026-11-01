@@ -824,3 +824,9 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official evidence refresh `89fb2f8`
 
 - `run-9749d4cfd80e` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.158406 s, M=41,590,784 B, S=691, D=1, K=30.429779, points=74.164940. **BEST = LATEST**, +0.84% over same-source BEST `run-8d998fb9e511` (K=30.174650); no source change.
+
+## B main packed-key phrase lookup trial — awaiting official board
+
+- Trial imports `sd-tb` main `94901b5eea48a63f01ee54bc5095c2d9d7df3f5a`, exact source blob `a3d0559c07fd8e8fec3b2ddf4d39792589802c45`. The one-line source change removes the post-scan store of each packed key's low 20-bit ID and reads the same field from the already-populated key array during phrase checks. The prior selected source is the parent rollback, blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`.
+- No Docker/dependency change. The parent compact engine passed five-seed differential/sanitizer/offline-Docker CI (`41292276406`); this exact one-line follow-up was committed with `[skip ci]`. Local compilation of the exact trial succeeded using GCC 14.2 with the official `-O3 -march=x86-64-v3 -std=c++20 -DNDEBUG -pthread -static-libstdc++ -static-libgcc -s` flags. Full official output and all board gates remain pending.
+- Prior official baseline on unchanged selected B source: **LATEST** `run-ea9fb6428ae4`, K=30.033203; **BEST** `run-9749d4cfd80e`, K=30.429779. Do not promote on a small noisy shift; compare candidate K and exact axes to the selected-source baseline and BEST after the run.

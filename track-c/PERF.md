@@ -895,3 +895,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official evidence refresh `5d08af1` — selected C source
 
 - `run-7ecb0d605658` passed all gates on unchanged C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.053177 s, M=11,882,496 B, S=657, D=1, K=24.969867, points=69.870811. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Keep the selected C source; same-source K variation is substantial.
+
+## Official evidence refresh `89fb2f8` — selected C source
+
+- `run-28f2633cb497` passed all gates on unchanged C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050366 s, M=11,620,352 B, S=657, D=1, K=25.771938, points=70.557354. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).

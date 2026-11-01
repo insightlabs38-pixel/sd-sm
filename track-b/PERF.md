@@ -820,3 +820,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official evidence refresh `5d08af1`
 
 - `run-523889c20844` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.182924 s, M=41,906,176 B, S=691, D=1, K=28.317133, points=72.602464. **LATEST**; **BEST** remains `run-8d998fb9e511` (K=30.174650). Large same-source swing reinforces that sub-percent BEST changes are board noise.
+
+## Official evidence refresh `89fb2f8`
+
+- `run-9749d4cfd80e` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.158406 s, M=41,590,784 B, S=691, D=1, K=30.429779, points=74.164940. **BEST = LATEST**, +0.84% over same-source BEST `run-8d998fb9e511` (K=30.174650); no source change.

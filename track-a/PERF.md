@@ -863,3 +863,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official evidence refresh `5d08af1`
 
 - `run-293b0b1d57c9` passed all gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017433 s, M=21,209,088 B, S=584, D=1, K=48.501146, points=84.287600. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official evidence refresh `89fb2f8`
+
+- `run-f4fe824bcf20` passed all gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017257 s, M=21,745,664 B, S=584, D=1, K=48.504863, points=84.289264. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

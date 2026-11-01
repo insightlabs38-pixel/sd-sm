@@ -1166,3 +1166,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official all-track receipt — D PR #17 repeat, commit `648afc7992a40d79ead4e56abe7abe56d310017a`
 
 - Unchanged selected A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` passed all five gates in `run-43aa8ea8be21`: T=0.019535 s, M=21,508,096 B, S=584, D=1, K=45.689391, points=82.990768. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official all-track receipt — D main cap-4 comparison, commit `27d732ecd32dcda88f7e2dd00e2bfc1ba08e3477`
+
+- `run-eb3472268bfd` passed all five gates on unchanged selected A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.019879 s, M=21,577,728 B, S=584, D=1, K=45.263075, points=82.787203. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

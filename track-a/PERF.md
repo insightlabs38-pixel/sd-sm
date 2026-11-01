@@ -977,3 +977,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Exact current-head rerun 2026-11-01
 
 - Selected source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; `run-0a532a51a6df` on `45e8a07f2baad5113c6b858e2d3576b6db29a436` passed all five gates: T=0.021185 s, M=21,118,976 B, S=584, D=1, K=44.034560. **BEST** remains `run-118836ebd34c`, K=49.960098.
+
+## Exact current-head run after receipt update (2026-11-01)
+
+- `run-59577f7ee2ab` on `f3e5fbd8ece8535c3142c8a914813075dddff341` passed all five gates: T=0.019918 s, M=21,188,608 B, S=584, D=1, K=45.383618, points=82.844956. **BEST** remains `run-118836ebd34c` (K=49.960098); this is **LATEST**.

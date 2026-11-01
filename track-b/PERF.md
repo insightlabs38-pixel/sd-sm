@@ -948,3 +948,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Exact current-head rerun 2026-11-01
 
 - Candidate blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-0ae8c97e15af` on `45e8a07f2baad5113c6b858e2d3576b6db29a436` passed all five gates: T=0.157732 s, M=41,340,928 B, S=699, D=1, K=30.442117. **LATEST** is below **BEST** `run-a4d307860273` (K=30.620459); the exact-head run improves 0.69% over the preceding B candidate run `run-b772fecb474a` (K=30.231824). Continue to distinguish BEST from LATEST; retain the candidate pending final developer handoff and freeze reconciliation.
+
+## Exact current-head run after receipt update (2026-11-01)
+
+- Candidate source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-5c84caeee0be` on `f3e5fbd8ece8535c3142c8a914813075dddff341` passed all five gates: T=0.159661 s, M=41,590,784 B, S=699, D=1, K=30.257659, points=74.041766. **BEST** remains `run-a4d307860273` (K=30.620459); this is **LATEST**, 0.61% below the prior exact-head run `run-0ae8c97e15af` (K=30.442117).

@@ -723,3 +723,8 @@ Run `run-bb97a1fb9da0`; all five gates passed. The C candidate source was blob `
 ## New current-main C candidate; official validation queued (2026-11-01)
 
 Imported only `track-c/join.cpp` from current C main commit `0ce09e247fa438e5c9eceaf287ba01a8e1c7303a`, source blob `499944e542a384526eace9d9c94038791a8ecf3b`. Its CI `41259602337` passed full/tiny/sample references, page-aligned EOF and hostile collision/overflow cases, ASan/UBSan, TSan, pinned offline Docker and sandbox. Paired full PGO against the qualified safe champion: 110.737→81.139 ms, but process RSS 16,956→41,314 KiB; separate pinned PGO: 85.985→80.412 ms and RSS 35,720→30,402 KiB. Ordinary full-scale runtime was flat at 88.503→88.495 ms. Restricted-cgroup median was 10,493,952→10,496,000 B (+2,048 B); another control improved 91.731→82.108 ms while process RSS fell. **These mixed developer controls justify one official trial, not promotion.** Exact submission C++17 build succeeds; **official T/M/S/D/K pending**. Rollback source remains `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` in official history before this candidate.
+
+
+## Official board result — commit bc48c37 (2026-11-01 01:12:54 UTC)
+
+Run `run-b5b6c8351a7a`; all five gates passed on candidate source blob `499944e542a384526eace9d9c94038791a8ecf3b` from C main `0ce09e2`. T=0.056770 s, M=20,885,504 B, S=649, D=1, K=21.628646, points=66.751467. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763) on safe PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. Candidate reduced M by ~1.4% but increased S by 12 and did not improve T/K; not promoted, restore PR #13 source from parent `74baa2c`. Keep this exact main candidate in commit `bc48c37` for rollback/retest.

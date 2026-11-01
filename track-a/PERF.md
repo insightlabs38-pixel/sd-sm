@@ -733,3 +733,8 @@ Run `run-4cb91c778afa`; all five gates passed. T=0.019293 s, M=21,508,096 B, S=5
 ## Official board result — commit 832a496 (2026-11-01 01:07:54 UTC)
 
 Run `run-eafdfb89b7af`; all five gates passed. T=0.022712 s, M=22,994,944 B, S=584, D=1, K=41.810784, points=81.064415. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same A source blob. The across-track slowdown warrants a clean champion rerun before further tuning.
+
+
+## Official board result — commit bc48c37 (2026-11-01 01:12:54 UTC)
+
+Run `run-ed0ed9df98dc`; all five gates passed. T=0.020108 s, M=21,360,640 B, S=584, D=1, K=45.095705, points=82.706759. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same A source blob.

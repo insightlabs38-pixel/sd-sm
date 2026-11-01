@@ -673,3 +673,8 @@ Run `run-9c7910f04cb3`; all five gates passed, but cumulative D-main source regr
 ## Official board result — commit 832a496 (2026-11-01 01:07:54 UTC)
 
 Run `run-fa577b085e91`; all five gates passed on exact BEST D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. T=0.132627 s, M=99,000,320 B, S=862, D=1, K=23.182392, points=68.257912. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880). This lower same-source result occurred alongside slower A/B/C receipts and does not displace the champion.
+
+
+## Official board result — commit bc48c37 (2026-11-01 01:12:54 UTC)
+
+Run `run-69641193c5c9`; all five gates passed on BEST D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. T=0.127663 s, M=98,897,920 B, S=862, D=1, K=23.633693, points=68.676579. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).

@@ -910,3 +910,8 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official D champion confirmation after batch-16 rejection (2026-11-01)
 
 - Restored source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; run `run-3296866f16a0` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.111487 s, M=71,086,080 B, S=783, D=1, K=27.409072. **BEST** remains `run-dd6d11072ae7`, K=27.822987.
+
+
+## Team-wide run during B main-source trial (2026-11-01)
+
+- Unchanged selected D source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; run `run-8d101a7f289e` on commit `6cb6df52c71f607af145c164a40fef274eea3c95` passed all five gates: T=0.114714 s, M=71,438,336 B, S=783, D=1, K=26.994102. **BEST** remains `run-dd6d11072ae7`, K=27.822987.

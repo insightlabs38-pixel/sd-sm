@@ -933,3 +933,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 - Candidate source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` from current `sd-tb/main` `6e3f5cf6073786eda48240b310d24eda958ed726`. Five-seed/seven-repeat CI `41310245864` passed exact hashes, differential/adversarial tests, ASan/UBSan, TSan and pinned offline Docker. Runner-local K ratios were 1.006168/1.015275/1.017636/1.018046/1.017343 (geometric mean +1.4884%, 5/5 seeds); source S=699 versus 690, D unchanged, no new dependency.
 - This is runner evidence only; board must decide against B BEST `run-f100bcaacc24` (K=30.595083). Official rollback source is `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; official run pending.
+
+
+## B eight-slot ring prefetch official promotion (2026-11-01)
+
+- Source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; official run `run-a4d307860273` on `6cb6df52c71f607af145c164a40fef274eea3c95` passed all five gates: T=0.155900 s, M=41,164,800 B, S=699, D=1, K=30.620459, points=74.300585. **New BEST** over `run-f100bcaacc24`, K=30.595083 (+0.08%). Versus that BEST, T improved 0.55%, M fell 2.19%, and S grew by nine lines; the measured combined K still improves slightly. Five-seed/seven-repeat CI `41310245864` won all five seeds (+1.4884% geometric-mean runner K), with exactness/sanitizer/Docker gates. This candidate is already on `sd-tb/main`; no open PR is being merged.

@@ -1000,3 +1000,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Team-wide rollback confirmation (2026-11-01)
 
 - Unchanged source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; run `run-159bf394b910` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.053703 s, M=11,935,744 B, S=657, D=1, K=24.825071. **BEST** remains `run-e7eab9673214`, K=25.979773.
+
+
+## Team-wide run during B main-source trial (2026-11-01)
+
+- Unchanged selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; run `run-9beb6187a6f9` on commit `6cb6df52c71f607af145c164a40fef274eea3c95` passed all five gates: T=0.050214 s, M=11,702,272 B, S=657, D=1, K=25.774677. **BEST** remains `run-e7eab9673214`, K=25.979773.

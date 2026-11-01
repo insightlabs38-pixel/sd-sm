@@ -1133,3 +1133,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official all-track receipt — A PR #7 trial, commit `81943ddb059636a4ae357613c0a887beb688e7db`
 
 - `run-412840bb86ca` passed all five gates: T=0.020755 s, M=20,717,568 B, S=578, D=1, K=44.728681, points=82.529305. **LATEST** for the trial; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+
+## Official all-track receipt — C main trial, commit `b9012e5073ea49c8f6e39079bfc43b4953eb6b2b`
+
+- `run-a2f8916c6b98` passed all five gates on restored A champion blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.020123 s, M=21,508,096 B, S=584, D=1, K=45.016913, points=82.668786. **LATEST** for unchanged source; **BEST** remains `run-118836ebd34c` (K=49.960098).

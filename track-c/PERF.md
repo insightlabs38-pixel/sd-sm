@@ -682,3 +682,7 @@ PR #12's prior official `run-a7994e398a53` passed all gates at K=20.949035, 0.38
 ## Official board result and promoted frontier — commit b665afd (2026-11-01 00:37:52 UTC)
 
 Run `run-f24670761e6b`; all five gates passed. T=0.056051 s, M=21,225,472 B, S=637, D=1, K=21.757571, points=66.880520. **BEST = LATEST**, improving `run-df2932b2ba2d` (K=21.029207) by 3.46%. This validates and promotes PR #13 source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`; its full candidate evidence and rollback reference are above. PR #13 is not yet merged into developer main: main advanced to `bc38ad0` after the PR branch and currently conflicts in `track-c/join.cpp` and `tests/qualify_frontier.py`. Preserve the verified official source while the developer resolves/rebases the conflicting main experiment; do not overwrite either source.
+
+## Current C main trial — official validation pending
+
+Imported the exact `track-c/join.cpp` blob from current C main `bc38ad0921addb4492fa633f7f301e6b1f7c7026` (EOF-safe padded short-name CRC32C). Developer workflow `41257509982` passed exact references on full seeds 1, 11 and 29, hostile/page-tail cases, ASan/UBSan, TSan, pinned offline Docker, and the full official hash. Its 12 paired full-PGO trials report median 127.008→114.708 ms (9.68% faster) and median RSS unchanged at 16,588 KiB; these are development evidence, not official score axes. Exact source compiles here with official static flags; Dockerfile SHA-256 matches C main. The prior C frontier PR #13 BEST remains the rollback candidate pending official K for this trial.

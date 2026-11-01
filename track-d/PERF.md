@@ -1054,3 +1054,8 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official board receipt — A PR #4 trial all-track run, commit `9cf30b881155c2749c40646b293f911e77ebfe2d`
 
 - `run-3e199f6334fa`: T=`0.112805 s`, M=`60,862,464 B`, S=`592`, D=1, K=`29.311989`, points=`73.352264`; all five gates passed. D source unchanged; BEST remains `run-cde04baf80e2` (K=`29.972377`).
+
+
+## Official all-track receipt — A PR #6 trial, commit `32a2c5f2192e5ead9bc480c1392f6dc2a741cee2`
+
+- `run-e09b1c34dd63` passed all five gates: T=0.107637 s, M=60,530,688 B, S=592, D=1, K=30.040244, points=73.885173. On unchanged D source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`, this is 0.23% above prior same-source BEST `run-cde04baf80e2` (K=29.972377); record `run-e09b1c34dd63` as the new raw BEST and LATEST. No D source promotion is implied.

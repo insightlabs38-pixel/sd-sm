@@ -1163,3 +1163,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — selected C source, evidence checkpoint `d70ce847a8dbef1a2881a017207d5ecb4f520d9f`
 
 - Restored selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed all five gates in `run-ec4d456cfb8f`: T=0.051858 s, M=11,689,984 B, S=657, D=1, K=25.368162, points=70.214450. **LATEST** is this run; **BEST** remains `run-e7eab9673214` (K=25.979773), 2.35% higher. The rejected C main-source candidate is not present.
+
+## Official all-track receipt — checkpoint `2470b6250a0cd834661b1ca5b21def7b4703ef50`
+
+- `run-3d474c7aac0d` passed all five gates on selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050125 s, M=11,776,000 B, S=657, D=1, K=25.765165, points=70.551646. **LATEST** is this run; **BEST** remains `run-e7eab9673214` (K=25.979773).

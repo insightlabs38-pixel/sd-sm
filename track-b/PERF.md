@@ -1090,3 +1090,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — evidence checkpoint `d70ce847a8dbef1a2881a017207d5ecb4f520d9f`
 
 - `run-a8e4fcd35e62` passed all five gates on unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`: T=0.187264 s, M=41,689,088 B, S=699, D=1, K=27.938791, points=72.310380. **LATEST** is this run; **BEST** remains `run-a4d307860273` (K=30.620459), 8.76% higher.
+
+## Official all-track receipt — checkpoint `2470b6250a0cd834661b1ca5b21def7b4703ef50`
+
+- `run-a253baab3636` passed all five gates on unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`: T=0.158810 s, M=41,025,536 B, S=699, D=1, K=30.338620, points=74.099791. **LATEST** is this run; **BEST** remains `run-a4d307860273` (K=30.620459).

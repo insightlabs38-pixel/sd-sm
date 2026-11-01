@@ -683,3 +683,11 @@ Run `run-db5b7041e475`; all five gates passed. T=0.022740 s, M=21,594,112 B, S=5
 ## Official board result — commit eeef411 (2026-11-01 00:17:52 UTC)
 
 Run `run-f898142a9c05`; all five gates passed. T=0.018859 s, M=22,114,304 B, S=574, D=1, K=46.363224, points=83.308681. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+## Official board result — commit d1cb0e5 (2026-11-01 00:22:52 UTC)
+
+Run `run-d64edd32beff`; all five gates passed. T=0.020719 s, M=20,934,656 B, S=574, D=1, K=44.720850, points=82.525502. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039). This exact A source blob `24926c0187974683c9e96ebac46d48073d5907d5` is also the source from merged A PR #2; it has now been officially measured twice below BEST and is not promoted.
+
+## Mainline two-stream candidate — official validation pending
+
+Candidate from A main `cbfe267c5fc50fb52125484259dcb6d43913b8fa`, source blob `9e98a8a28d5d34aeee5cb2badd6817b981d33c16`, changes per-block parser interleaving from four streams to two; all other source lines match the prior official A source. CI `41254978151` passed full/tiny/sample hashes, seed-2/3 differential, disorder, ASan/UBSan, TSan, offline Docker, and size checks. Paired 31-run full-input CI median was 0.039806 s for qualified base and 0.039400 s for candidate (1.02% faster); five-run cgroup memory.peak maxima were 6,610,944 B and 7,954,432 B respectively, so the runtime gain has a memory tradeoff. A local host compile passed (1,487,080-byte executable); the integrated Docker build could not register the pinned gcc layer because this Docker daemon ran out of storage. This is a CI proxy; official K is pending. Prior A source blob remains available in parent `d1cb0e5`.

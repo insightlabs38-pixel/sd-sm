@@ -638,4 +638,8 @@ Candidate source blob `fb67cede8d56f88faf543b57699b580cd9dab14a` is now on B mai
 
 ## Official board result and promotion — commit eeef411 (2026-11-01 00:17:52 UTC)
 
-Run `run-f7556ef6c1bb`; all five gates passed. T=0.159570 s, M=59,879,424 B, S=1111, D=1, K=26.546489, points=71.200355. **BEST = LATEST**; promoted over `run-dcebadac870d` (K=23.250490). This validates B main source blob `fb67cede8d56f88faf543b57699b580cd9dab14a`, already merged by PR #10. PR #9 only adds evidence/tests around the same main source and is not needed for this promotion.
+Run `run-f7556ef6c1bb`; all five gates passed. T=0.159570 s, M=59,879,424 B, S=1111, D=1, K=26.546489, points=71.200355. **BEST**; promoted over `run-dcebadac870d` (K=23.250490). This validates B main source blob `fb67cede8d56f88faf543b57699b580cd9dab14a`, already merged by PR #10. PR #9 adds evidence/tests around the same main source; it merged to developer main after this promotion, with no source change.
+
+## Official board result — commit d1cb0e5 (2026-11-01 00:22:52 UTC)
+
+Run `run-a9e60a59ab9e`; all five gates passed. T=0.161943 s, M=59,703,296 B, S=1111, D=1, K=26.366804, points=71.052874. **LATEST**; **BEST** remains `run-f7556ef6c1bb` (K=26.546489). The fast-dictionary source remains promoted. B PR #9 (supporting tests/evidence) merged to developer main as `80c1534769daf316c1402b4e35bcae286c9deb8d`; it made no solution-source change and was not imported into the official submission.

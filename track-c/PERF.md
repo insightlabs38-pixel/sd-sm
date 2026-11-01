@@ -665,3 +665,7 @@ Run `run-a7994e398a53`; all five gates passed. T=0.060680 s, M=21,413,888 B, S=6
 ## Official board result — commit eeef411 (2026-11-01 00:17:52 UTC)
 
 Run `run-0ceea23832a5`; all five gates passed. T=0.074715 s, M=14,336,000 B, S=552, D=1, K=20.826396, points=65.930706. **LATEST**; **BEST** remains `run-df2932b2ba2d` (K=21.029207).
+
+## Official board result — commit d1cb0e5 (2026-11-01 00:22:52 UTC)
+
+Run `run-babf3d2dbe5f`; all five gates passed. T=0.074347 s, M=16,474,112 B, S=552, D=1, K=20.305397, points=65.380574. **LATEST**; **BEST** remains `run-df2932b2ba2d` (K=21.029207).

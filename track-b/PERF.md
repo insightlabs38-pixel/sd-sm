@@ -722,3 +722,7 @@ Sequential board readings on prior blob `fb67...` (`run-598cae4d2f13`) and curre
 ## Official board result — commit 0e56118 (2026-11-01 04:23:34 UTC)
 
 Run `run-3d30a604e3de`; all five gates passed on current B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.161865 s, M=59,215,872 B, S=1111, D=1, K=26.416431, points=71.093707. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).
+
+## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
+
+Run `run-d696476d1a86`; all five gates passed. T=0.165262 s, M=60,874,752 B, S=1111, D=1, K=25.999458, points=70.748215. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), same B source.

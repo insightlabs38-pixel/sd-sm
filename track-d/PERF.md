@@ -710,3 +710,7 @@ Sequential same-source comparison with `run-720d92385f68` on commit `4a4461e`: K
 ## Official board result — commit 0e56118 (2026-11-01 04:23:34 UTC)
 
 Run `run-9bd4fa3b77b8`; all five gates passed. T=0.112929 s, M=67,596,288 B, S=783, D=1, K=27.509079, points=71.973803. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), same D PR #10 source.
+
+## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
+
+Run `run-c6d4d4b15d34`; all five gates passed. T=0.114127 s, M=69,521,408 B, S=783, D=1, K=27.211059, points=71.737273. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), same D PR #10 source.

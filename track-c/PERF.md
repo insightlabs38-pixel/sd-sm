@@ -641,7 +641,7 @@ Run `run-33cbfdcb15ee`; all five gates passed. T=0.074595 s, M=14,184,448 B, S=5
 
 ## Official board result — commit c096950 (2026-10-31 23:55:08 UTC)
 
-Run `run-df2932b2ba2d`; all five gates passed. T=0.073738 s, M=14,114,816 B, S=552, D=1, K=21.029207, points=66.141145. This is **BEST = LATEST**, improving prior BEST `run-804f529ac682` (K=20.892890); source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`.
+Run `run-df2932b2ba2d`; all five gates passed. T=0.073738 s, M=14,114,816 B, S=552, D=1, K=21.029207, points=66.141145. This is **BEST at this run**, improving prior BEST `run-804f529ac682` (K=20.892890); source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`.
 
 ## Mainline 128-shard candidate — official validation pending
 
@@ -772,4 +772,8 @@ Imported only `track-c/join.cpp` from `sd-tc/frontier/c-valid-csv-frame` at bran
 
 ## C valid-CSV frontier official promotion — commit 0e56118 (2026-11-01 04:23:34 UTC)
 
-Run `run-d6f721bba982`; all five gates passed on source blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.054110 s, M=21,049,344 B, S=637, D=1, K=22.181304, points=67.299354. **BEST = LATEST**, improving prior BEST `run-181942cb429e` (K=21.782763) by 1.83%, and the exact PR #13 source's immediately prior run `run-0a28df8c793f` (K=21.511932) by 3.11%. The frontier source passed board build, correctness, timeout and sandbox gates; promote it in the official repo. Rollback to known-good PR #13 blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` remains in the previous official commit. No developer PR exists for this frontier branch, so there is no PR to merge.
+Run `run-d6f721bba982`; all five gates passed on source blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.054110 s, M=21,049,344 B, S=637, D=1, K=22.181304, points=67.299354. **BEST at this run**, improving prior BEST `run-181942cb429e` (K=21.782763) by 1.83%, and the exact PR #13 source's immediately prior run `run-0a28df8c793f` (K=21.511932) by 3.11%. The frontier source passed board build, correctness, timeout and sandbox gates; promote it in the official repo. Rollback to known-good PR #13 blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` remains in the previous official commit. No developer PR exists for this frontier branch, so there is no PR to merge.
+
+## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
+
+Run `run-893aa05f3cdc`; all five gates passed on the same valid-CSV frontier blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.063932 s, M=21,389,312 B, S=637, D=1, K=20.341129, points=65.418753. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304), on the same source. This repeat is 8.30% lower in K, with T +18.18% and M +1.62% versus that prior run; all correctness/build/sandbox gates still passed. The same C source is selected in the official tree, but this spread is materially larger than A/D repeats and needs another official measurement before final freeze.

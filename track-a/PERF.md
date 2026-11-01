@@ -766,3 +766,7 @@ Sequential same-source board comparison: `run-88c7e38bf865` to `run-3c456ffa2082
 ## Official board result — commit 0e56118 (2026-11-01 04:23:34 UTC)
 
 Run `run-706e50daa774`; all five gates passed. T=0.016590 s, M=21,245,952 B, S=584, D=1, K=49.700875, points=84.818202. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same A source.
+
+## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
+
+Run `run-cdbb44fa1823`; all five gates passed. T=0.016973 s, M=20,955,136 B, S=584, D=1, K=49.272553, points=84.630253. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same A source.

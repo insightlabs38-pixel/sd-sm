@@ -945,3 +945,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - **LATEST:** `run-61b4e6efd4e1`; T=0.110851 s, M=69,697,536 bytes, S=783, D=1, K=27.596250, points=72.042503; check/build/correctness/timeout/sandbox gates all passed.
 - **BEST remains:** `run-dd6d11072ae7`, K=27.822987; latest K is -0.81% versus BEST. Versus prior receipt `run-bf8f4f1cf152` (K=27.174944), latest K changed +1.55%.
 - Source snapshot: A `c91` / B `b8ef` / C `0772` / D `b7`. No source promotion or PR merge from this run.
+
+## Official board receipt — 2026-11-01, commit `d04c1c7fac73ba0b433fc978ca17ea73ba15a6ff`
+
+- **LATEST:** `run-e71ef96d4d83`; T=0.120924 s, M=72,404,992 bytes, S=783, D=1, K=26.221251, points=70.932670; check/build/correctness/timeout/sandbox gates all passed.
+- **BEST remains:** `run-dd6d11072ae7`, K=27.822987; latest K is -5.76% versus BEST. Against preceding same-source receipt `run-61b4e6efd4e1` (K=27.596250), K changed -4.98%; these measurements do not support a source promotion.
+- Sources unchanged: A `c91` / B `b8ef` / C `0772` / D `b7`; no PR merged.

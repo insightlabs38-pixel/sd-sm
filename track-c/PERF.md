@@ -1041,3 +1041,9 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - **LATEST:** `run-28945e5bb7c0`; T=0.067533 s, M=11,837,440 bytes, S=657, D=1, K=22.174309, points=67.292505; check/build/correctness/timeout/sandbox gates all passed.
 - **BEST remains:** `run-e7eab9673214`, K=25.979773; latest K is -14.65% versus BEST. Versus prior receipt `run-6ea2c073b32f` (K=25.463688), latest K changed -12.92%.
 - Source snapshot: A `c91` / B `b8ef` / C `0772` / D `b7`. No source promotion or PR merge from this run.
+
+## Official board receipt — 2026-11-01, commit `d04c1c7fac73ba0b433fc978ca17ea73ba15a6ff`
+
+- **LATEST:** `run-b7a30fe16702`; T=0.067006 s, M=11,919,360 bytes, S=657, D=1, K=22.230654, points=67.347612; check/build/correctness/timeout/sandbox gates all passed.
+- **BEST remains:** `run-e7eab9673214`, K=25.979773; latest K is -14.43% versus BEST. Against preceding same-source receipt `run-28945e5bb7c0` (K=22.174309), K changed +0.25%; these measurements do not support a source promotion.
+- Sources unchanged: A `c91` / B `b8ef` / C `0772` / D `b7`; no PR merged.

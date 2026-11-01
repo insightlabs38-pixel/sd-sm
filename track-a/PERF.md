@@ -1006,3 +1006,9 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - **LATEST:** `run-142724155992`; T=0.021338 s, M=20,996,096 bytes, S=584, D=1, K=43.927643, points=82.136895; check/build/correctness/timeout/sandbox gates all passed.
 - **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -12.07% versus BEST. Versus prior receipt `run-1d61396945dc` (K=45.534507), latest K changed -3.53%.
 - Source snapshot: A `c91` / B `b8ef` / C `0772` / D `b7`. No source promotion or PR merge from this run.
+
+## Official board receipt — 2026-11-01, commit `d04c1c7fac73ba0b433fc978ca17ea73ba15a6ff`
+
+- **LATEST:** `run-b94a33c52541`; T=0.017905 s, M=21,635,072 bytes, S=584, D=1, K=47.667638, points=83.911182; check/build/correctness/timeout/sandbox gates all passed.
+- **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -4.59% versus BEST. Against preceding same-source receipt `run-142724155992` (K=43.927643), K changed +8.51%; these measurements do not support a source promotion.
+- Sources unchanged: A `c91` / B `b8ef` / C `0772` / D `b7`; no PR merged.

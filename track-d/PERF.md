@@ -727,6 +727,10 @@ Run `run-ee5a05a9a44f`; all five gates passed on unchanged D PR #10 source blob 
 
 Run `run-cf9be292c16b`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.113268 s, M=78,319,616 B, S=783, D=1, K=26.670775, points=71.301782. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
 
-## D fused-probe depth 128 frontier — official validation pending
+## D fused-probe depth 128 frontier — tested, not promoted
 
 Branch `d/fused-owner-probe-20261101` head `54788fc7baa30f8b1baf0a2860cae60a29315eb6`, source blob `ba344a996df8b60d5aad7748a3ead12931460a92`. CI `41274089238` succeeded: 88 differential cases across worker/probe combinations and 17 interleaved full-input rounds with exact hashes at 4/6/12 workers. Default owner partition remains selected; only `SD_PROBE=128` is chosen. Against default `SD_PROBE=256`, median wall T was 0.202542→0.201805 s (4 workers, -0.36%), 0.214857→0.214096 s (6 workers, -0.35%), and 0.217176→0.214801 s (12 workers, -1.09%). These are developer runner results, not official board axes. Imported only `track-d/d_traverse.cpp` and set `-DSD_PROBE=128` in the official pinned static C++17 build. Exact official flags compiled locally. Rollback to PR #10 blob `b7a527b058991dce7967738d3695f8ab3917a75d` and Dockerfile remain in parent `b5b3fec`; do not promote until official board gates and K support it. No PR exists for this frontier branch.
+
+## Official result — D fused-probe depth 128 frontier (commit de9c67e, 2026-11-01 04:53:02 UTC)
+
+Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5aad7748a3ead12931460a92` with Docker flag `-DSD_PROBE=128`. T=0.115277 s, M=73,842,688 B, S=792, D=1, K=26.704596, points=71.329301. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700) on D PR #10. Relative to baseline PR #10 run `run-cf9be292c16b`, K improved only 0.13% while T regressed 1.77%, M fell 5.72%, and S increased by 9. This mixed, near-noise result does not justify promotion; restore PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d` and its Dockerfile in the next checkpoint. CI `41274089238` and the developer 17-round results remain documented above; no PR exists for this branch.

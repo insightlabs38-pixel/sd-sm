@@ -742,3 +742,7 @@ Run `run-c1a576b7faaf` on exact PR #6 source blob `4486c2155ffa008c70aee05633877
 ## Official board result — B main restored, commit b5b3fec (2026-11-01 04:47:45 UTC)
 
 Run `run-8aa91f742842`; all five gates passed on restored B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.159966 s, M=60,833,792 B, S=1111, D=1, K=26.429894, points=71.104771. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516) on the prior qualified B source. This is 1.69% above the same-source pre-trial `run-e4e09943117e` (K=25.989921) and 25.73% above rejected PR #6 run `run-c1a576b7faaf`; the PR #6 runtime regression was decisive.
+
+## Official board result — commit de9c67e (2026-11-01 04:53:02 UTC)
+
+Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.171632 s, M=59,445,248 B, S=1111, D=1, K=25.633958, points=70.440784. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). Against previous same-source run `run-8aa91f742842`, K fell 3.01%, T rose 7.29%, and M fell 2.28%; source unchanged, so this is board variance rather than a new source result.

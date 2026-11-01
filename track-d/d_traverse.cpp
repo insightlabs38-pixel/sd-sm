@@ -559,16 +559,10 @@ static void add_reverse(Graph &g, unsigned threads) {
         u32 v = fwd.head(e);
         if (v >= lo && v < hi)
           ++degree[v];
-        else {
-#ifdef SD_OWNER_DIV
-          unsigned owner = unsigned((u64(v + 1) * threads - 1) / n);
-#else
-          unsigned owner =
-              unsigned(std::upper_bound(cuts.begin(), cuts.end(), v) -
-                       cuts.begin() - 1);
-#endif
-          box[t][owner].push_back({v, u, fwd.weight(e, i)});
-        }
+        else
+          box[t]
+             [std::upper_bound(cuts.begin(), cuts.end(), v) - cuts.begin() - 1]
+                 .push_back({v, u, fwd.weight(e, i)});
       });
     for (arrived.fetch_add(1); arrived < threads;)
       std::this_thread::yield();
@@ -819,10 +813,7 @@ struct Side {
 // Exact forward probe, then bidirectional Dijkstra balancing settled vertices;
 // stops once f + b >= best.
 struct Worker {
-#ifndef SD_PROBE
-#define SD_PROBE 256
-#endif
-  static constexpr size_t PROBE = SD_PROBE;
+  static constexpr size_t PROBE = 256;
   Side fwd, bwd;
   explicit Worker(const Graph &g) : fwd(*g.fwd), bwd(*g.rev) {}
   int64_t solve(u32 s, u32 t) {

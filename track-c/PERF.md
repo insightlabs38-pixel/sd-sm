@@ -789,3 +789,7 @@ Run `run-f80ed1ab9d5f`; all five gates passed on unchanged valid-CSV frontier so
 ## Official board result — commit b5b3fec (2026-11-01 04:47:45 UTC)
 
 Run `run-4a93944b104c`; all five gates passed on unchanged valid-CSV frontier blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.054248 s, M=21,164,032 B, S=637, D=1, K=22.129012, points=67.248101. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304) on the same source. Relative to `run-f80ed1ab9d5f`, K rose 11.43%, T fell 18.83%, and M fell 1.88%; C source was unchanged. This near-BEST result reinforces the need to distinguish source performance from noisy board repeats.
+
+## Official board result — commit de9c67e (2026-11-01 04:53:02 UTC)
+
+Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.055624 s, M=23,404,544 B, S=637, D=1, K=21.418173, points=66.539121. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304) on this same source. Compared with `run-4a93944b104c`, K fell 3.21%, T rose 2.54%, M rose 10.58%; no C source changed. Keep the PR #13 rollback in prior commits.

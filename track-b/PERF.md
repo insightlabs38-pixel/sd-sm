@@ -1018,3 +1018,14 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official board receipt — D batch-size trial, commit `5b45d276d3f038daebbf8c290ea021507086b456`
 
 - `run-aa10329281e6`: T=0.182449 s, M=41,623,552 B, S=699, D=1, K=28.305055, points=72.593200; all five gates passed. **BEST** remains `run-a4d307860273`, K=30.620459.
+
+## Official board receipt — rollback checkpoint `cdd6fd395d013eb19d3bd2ff7917c4e1ceea50e9`
+
+- `run-42cde4f208f5` passed all five board gates: T=0.161987 s, M=41,787,392 B, S=699, D=1, K=30.039636, points=73.884733. **LATEST**; **BEST** remains `run-a4d307860273` (K=30.620459). Source is known-good blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.
+
+## Official trial — five-seed-qualified row-prefetch elision
+
+- Candidate from `sd-tb/main` commit `93a4dac5862fa9fd461551f7f30462837d691450`, source blob `6450d009a5d07f719f3678becea49d89b136737a`; this removes only two redundant hot-row prefetch lines from the selected B source. Upstream main now includes a separate PERF receipt commit `552f0bd9387e5362110cee9172c61f946b297433`.
+- Exact-source paired workflow run [41330605787](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41330605787) passed full-reference checks for seeds 1, 2, 3, 42, and 123, sample/tiny, differential/adversarial tests, ASan, fatal UBSan, TSan, and offline pinned Docker. Five-seed, seven-repeat paired local K ratios were 1.011400 / 1.005192 / 1.009509 / 1.006811 / 1.008644 (geometric mean +0.8309%, five of five wins); developer-measured S=695 vs 699. These are developer-runner results, not board scores.
+- Immediate board baseline before this trial: `run-42cde4f208f5`, T=0.161987 s, M=41,787,392 B, S=699, D=1, K=30.039636, points=73.884733; all five gates passed. **BEST before trial** is `run-a4d307860273` (K=30.620459). Candidate is not promoted until its official score is checked against BEST and all gates.
+- Known-good rollback is parent commit `cdd6fd395d013eb19d3bd2ff7917c4e1ceea50e9`, source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.

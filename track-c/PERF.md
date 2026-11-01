@@ -1087,3 +1087,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official board receipt — D batch-size trial, commit `5b45d276d3f038daebbf8c290ea021507086b456`
 
 - `run-de67dcee6045`: T=0.057387 s, M=11,915,264 B, S=657, D=1, K=24.023273, points=69.031609; all five gates passed. **BEST** remains `run-e7eab9673214`, K=25.979773.
+
+## Official board receipt — rollback checkpoint `cdd6fd395d013eb19d3bd2ff7917c4e1ceea50e9`
+
+- `run-f2bcbea044b8` passed all five board gates: T=0.050070 s, M=11,665,408 B, S=657, D=1, K=25.828007, points=70.604545. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Source remains known-good blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.

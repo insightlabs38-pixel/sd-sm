@@ -1056,3 +1056,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official board receipt — D batch-size trial, commit `5b45d276d3f038daebbf8c290ea021507086b456`
 
 - `run-7a9147aaad6f` (A source c91): T=0.020975 s, M=20,762,624 B, S=584, D=1, K=44.405323, points=82.371752; all five gates passed. **BEST** remains `run-118836ebd34c`, K=49.960098.
+
+## Official board receipt — rollback checkpoint `cdd6fd395d013eb19d3bd2ff7917c4e1ceea50e9`
+
+- `run-dc9a79f89aea` passed all five board gates: T=0.017094 s, M=20,910,080 B, S=584, D=1, K=49.118996, points=84.562474. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Source is the known-good Track A blob `c91e89f79c1c6a9bbaf0121b75103ec2f6e39cf4`.

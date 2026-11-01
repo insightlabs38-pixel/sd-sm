@@ -866,3 +866,14 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official run `488ee43` — selected C PR #14 source
 
 - Board run `run-97837456b295` on commit `488ee43f787334f7c89060ebaaa785e069ea5982` passed all gates on unchanged C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050322 s, M=11,907,072 B, S=657, D=1, K=25.657819, points=70.461023. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). No C source change.
+
+## Official rollback `4b31a19` — selected C PR #14 source
+
+- Board run `run-4e3efc33086b` on commit `4b31a195a1c7c4296ca7c3442e774fb9e3e59f91` passed all five gates on unchanged blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.051140 s, M=11,825,152 B, S=657, D=1, K=25.486956, points=70.315898. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## C development-main fast-path candidate — official scorer trial
+
+- Imported exact source blob `3b5e1392f49abdbb7fdcf6a36b5866366298143b` from current developer main `32c6bfeba97fdae8de9722bb334df54949ceb395`; rollback is qualified official blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. Dockerfile is byte-identical; no additional dependencies.
+- The in-mask simple-quote path reuses the first 64-byte AVX2 quote mask to bypass PCLMUL only when quote/comma boundaries certify two quoted, unescaped fields; escaped quotes, long/unquoted fields retain the exact fallback.
+- Exact-source CI `41298153512` passed full seed-1 SHA-256, holdouts 11/29 repeated three times, hostile quote-boundary/collision/overflow tests, ASan/UBSan/TSan, pinned offline Docker and sandbox.
+- Two direct full-PGO paired studies: 77.017→75.639 ms (11/12 faster) and independent 82.285→80.238 ms (11/12 faster). Cgroup peaks 10,993,664→11,026,432 B and 11,016,192→11,036,672 B; physical source 540→567 lines. Complete-K runner proxies +0.11%/+0.49%; official scoring-box T/M/S/D/K pending. Run through the official scorer before promotion.

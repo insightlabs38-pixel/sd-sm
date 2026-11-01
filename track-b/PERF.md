@@ -804,3 +804,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official run `488ee43` — selected B PR #11 source
 
 - Board run `run-ca8cc5b1b8f2` on commit `488ee43f787334f7c89060ebaaa785e069ea5982` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.162663 s, M=41,373,696 B, S=691, D=1, K=30.028956, points=73.878148. **BEST = LATEST** in the raw feed, above `run-031c34192287` by 0.66% K on identical source. Keep source selection unchanged; this is a board result, not a PR promotion.
+
+## Official rollback `4b31a19` — selected B PR #11 source
+
+- Board run `run-9889f0114029` on commit `4b31a195a1c7c4296ca7c3442e774fb9e3e59f91` passed all five gates on unchanged blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.168681 s, M=41,431,040 B, S=691, D=1, K=29.488422, points=73.482577. **LATEST**; **BEST** remains `run-ca8cc5b1b8f2` (K=30.028956). No B source change.

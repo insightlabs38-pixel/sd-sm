@@ -917,3 +917,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 - Unchanged B source; official run `run-da7a6c1b016f` on commit `c1c2c9fdd77044d39c4f433b0400aad1ed7c267a` passed all five gates: T=0.168219 s, M=41,689,088 B, S=690, D=1, K=29.535304, points=73.517072.
 - BEST remains `run-f100bcaacc24`, K=30.595083. The run was triggered by an A-only candidate; no B promotion.
+
+
+## Team-wide rerun during Track A rollback / D trial (2026-11-01)
+
+- Unchanged B source; `run-b261c0eb513f` on commit `0df4790f0becf12bb8935e6edc9470873d73c406` passed all gates: T=0.158909 s, M=41,615,360 B, S=690, D=1, K=30.388182. **BEST** remains `run-f100bcaacc24`, K=30.595083.

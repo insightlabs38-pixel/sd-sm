@@ -990,3 +990,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 - Unchanged C source; official run `run-518bc4de4a00` on commit `c1c2c9fdd77044d39c4f433b0400aad1ed7c267a` passed all five gates: T=0.051721 s, M=11,939,840 B, S=657, D=1, K=25.294524, points=70.151326.
 - BEST remains `run-e7eab9673214`, K=25.979773. No C promotion.
+
+
+## Team-wide rerun during Track A rollback / D trial (2026-11-01)
+
+- Unchanged C source; `run-8ed05d97bf7e` on commit `0df4790f0becf12bb8935e6edc9470873d73c406` passed all gates: T=0.050247 s, M=12,263,424 B, S=657, D=1, K=25.525970. **BEST** remains `run-e7eab9673214`, K=25.979773.

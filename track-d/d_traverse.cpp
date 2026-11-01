@@ -354,7 +354,7 @@ struct alignas(64) Region {
 // survivor, so contraction, ordering and gathering share one pass. Walks of a
 // batch advance one hop per round, so their cache misses overlap.
 class Grower {
-  static constexpr u32 BATCH = 16;
+  static constexpr u32 BATCH = 32;
   struct Walk {
     u32 pos, root, prev, at, steps;
     u64 weight;
@@ -858,10 +858,9 @@ int main() {
       std::min(12u, std::max(1u, std::thread::hardware_concurrency()));
   if (getenv("SD_THREADS"))
     threads = std::max(1, std::min(64, atoi(getenv("SD_THREADS"))));
-  unsigned build_threads = std::min(4u, threads);
   std::vector<Query> queries = read_queries(data + "/queries.txt");
-  Graph g = read_graph(data + "/graph.txt", queries, build_threads);
-  add_reverse(g, build_threads);
+  Graph g = read_graph(data + "/graph.txt", queries, threads);
+  add_reverse(g, threads);
   std::vector<int64_t> answers(queries.size(), -1);
   std::vector<u32> order(queries.size());
   std::iota(order.begin(), order.end(), 0);

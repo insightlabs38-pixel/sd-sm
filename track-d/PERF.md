@@ -899,3 +899,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 
 - Candidate source blob `09270462259085787ac2925485b5e1cd7e56647f` from developer main `0a8077f50a47e308c6297c7de4c29c3da6bb59ab`. It applies the qualified four-worker graph-construction cap and changes fused BFS growth batch 32→16; no Dockerfile/dependency change.
 - Developer CI `41322761850` and pinned GCC15 PGO Docker confirmation `41323248319` passed 88 differential fixtures, official sample/full hashes and exact seed-1/7 output checks. In PGO Docker, 55/66 paired runs won, medians improved 0.41–2.64%, cgroup peak stayed about 63.0 MB; S and D unchanged. This is not official scoring-box evidence. Official trial is pending.
+
+
+## Developer-main D batch-16 official trial — rejected (2026-11-01)
+
+- Candidate blob `09270462259085787ac2925485b5e1cd7e56647f` from developer-main `0a8077f50a47e308c6297c7de4c29c3da6bb59ab` passed all official gates on `run-9b7f0c04b812`, commit `0df4790f0becf12bb8935e6edc9470873d73c406`: T=0.157752 s, M=65,863,680 B, S=784, D=1, K=23.391797.
+- Against D BEST `run-dd6d11072ae7` (K=27.822987), K regressed 15.9%; versus the preceding D baseline run `run-d00e1b74e673`, T increased 36.8% while M fell 14.4% and S grew by one line. Despite strong developer PGO/local receipts, the scoring-box result rejects this source combination. Restore official source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; developer main remains untouched.

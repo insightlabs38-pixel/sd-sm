@@ -847,3 +847,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official metadata source evaluation `96443e0`
 
 - Run `run-f100bcaacc24` passed all five gates on metadata source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: T=0.156767 s, M=42,086,400 B, S=690, D=1, K=30.595083, points=74.282582. **LATEST = new BEST**, replacing `run-9749d4cfd80e` K=30.429779.
+
+## B frontier PR #12 rolling prefetch comparison — skipped
+
+- Exact head `72e0e5ca71f4d6f7e8d73c7914364ee4ca939455`, source blob `8a5be8d8ff4e5dc262846d7e1bdf37645fb05235`, is only two commits behind current main but the five-seed exact-head workflow `41301306814` showed candidate/champion local-K ratios 0.9997, 0.9995, 0.9981, 0.9972, and 0.9972. The candidate was consistently neutral to slightly worse, with S=696 vs 691; skip official dispatch. This is separate from the newer ring-prefetch source tested in `run-bd078d1bac1f`.

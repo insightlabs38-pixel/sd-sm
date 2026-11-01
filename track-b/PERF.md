@@ -785,3 +785,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 
 - Official run `run-2d432955ad62` on commit `8c51ca2873b18b633fce3f1772a3c6a1a6359b32` passed all five gates on unchanged B PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.164949 s, M=41,988,096 B, S=691, D=1, K=29.820147, points=73.725489. **LATEST and current BEST**; it improves the prior same-source `run-878b1adc7345` K=29.637085 by 0.62%.
+
+
+## Official rollback checkpoint `cf650cc` — B PR #11 source confirmed
+
+- Board run `run-999ae54b2e55` on commit `cf650cc6b47038ae06fdf208279d68e2c14355aa` passed all five gates on selected B PR #11 blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.191486 s, M=41,902,080 B, S=691, D=1, K=27.676815, points=72.105805. **LATEST**; **BEST** remains `run-2d432955ad62` (K=29.820147). Same-source K declined 7.19% from latest BEST; retain the champion pending a less noisy repeat.

@@ -844,3 +844,16 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - Exact-head CI [41292530501](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41292530501) passed correctness, hostile fixtures, ASan/UBSan, TSan, pinned offline Docker/sandbox and PGO compilation.
 - The relevant paired full-PGO comparison against the qualified official source measured 77.472 ms baseline versus 85.801 ms candidate (+10.75% slower); cgroup median improved 11,026,432 to 9,977,856 B. The source-only comparison also regressed 85.623 to 100.694 ms. The 95.517→85.467 ms PGO comparison was profiled versus unprofiled builds of the same candidate, not a candidate-versus-champion gain.
 - Despite a positive local two-CPU result, the exact CI head-to-head is negative and the larger source has no official S/K measurement. Do not dispatch or merge PR #19; restore the qualified PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.
+
+
+## Official rollback checkpoint `cf650cc` — C PR #14 source confirmed
+
+- Board run `run-41637ed4f1a1` on commit `cf650cc6b47038ae06fdf208279d68e2c14355aa` passed all five gates on selected C PR #14 blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.066052 s, M=11,395,072 B, S=657, D=1, K=22.592967, points=67.698664. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Simultaneous cross-track declines on this dispatch indicate board variance; preserve the qualified source.
+
+## C main sixteen-row batch trial — rejected on paired CI evidence
+
+- Exact-head CI [41293459256](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41293459256) passed correctness, sanitizers, Docker/sandbox and full-reference checks for commit `95874a5c59c41df5a8c086f18c39cb371ff356bf`. Its paired full-PGO median was 77.129 ms versus 75.955 ms for the 32-row qualified source (+1.55% slower); cgroup medians were 11,024,384 versus 11,028,480 B (effectively unchanged). No complete-K evidence justified a board dispatch, so main restored the 32-row source.
+
+## C PR #20 private radix ownership — skipped, exact CI regressed
+
+- Draft PR #20 exact-head CI [41293115199](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41293115199) passed correctness, ASan/UBSan, TSan, full references and pinned offline Docker/sandbox checks. The relevant paired full-PGO median was 93.112 ms versus 76.947 ms for the official source (+21.0%); peak RSS was 208,392 versus 36,800 KiB. Cgroup median was 12,597,248 versus 11,034,624 B (+14.2%). Despite promising native local timings, these exact CI regressions and missing complete-K evidence do not justify an official trial. Do not promote or merge; retain PR #14 blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.

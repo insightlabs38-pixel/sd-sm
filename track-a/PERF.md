@@ -826,3 +826,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Exact-source CI [41232109362](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41232109362) succeeded. Developer tests report seeds 1–3 exact, ASan/UBSan and TSan clean at 6 and 12 threads. On a 4-vCPU host, interleaved seed-1 full runs report 180→115 ms CPU and 52–60→36–39 ms wall; 12-worker cgroup peak 13–15 MB. These are developer measurements, not scoring-box axes.
 - The exact source compiled locally with official `-O3 -march=x86-64-v3 -std=c++20 -DNDEBUG -pthread -static-libstdc++ -static-libgcc` flags. Official run `run-0e05ac922f25` on commit `8c51ca2873b18b633fce3f1772a3c6a1a6359b32` passed all five gates: T=0.020318 s, M=22,478,848 B, S=574, D=1, K=44.521760, points=82.428616. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
 - Versus the preceding selected A source run `run-3ba931887dae` (T=0.020080 s, M=20,897,792 B, S=584, K=45.325284), PR #2 is 1.2% slower, 7.6% higher memory and K is 1.8% lower, despite 10 fewer source lines. Not promoted; restore selected source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.
+
+
+## Official rollback checkpoint `cf650cc` — A selected source confirmed
+
+- Board run `run-1811c32b60e4` on commit `cf650cc6b47038ae06fdf208279d68e2c14355aa` passed all five gates on selected A champion blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017989 s, M=21,020,672 B, S=584, D=1, K=47.831019, points=83.985482. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). All four tracks on this dispatch were below their source-identical BESTs, so this repeat does not justify an A source change.

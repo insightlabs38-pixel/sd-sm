@@ -907,3 +907,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## C frontier PR #20 private radix ownership — deferred pending complete K
 
 - Draft head `bf3052fbce35240010a5d0c74ab854f7d05412f9`; exact PR checks for verification, ASan/UBSan and TSan pass. Reported pinned full-PGO time is 152.026 ms vs 156.468 ms (-2.8%), while median cgroup peak is 12.45 MiB vs 10.95 MiB (+13.7%). The handoff says complete K and CI scaling remain under evaluation; source-size/K tradeoff is therefore unresolved. Do not dispatch or promote until those measurements establish a net score opportunity.
+
+## Team-wide official evaluation `3a0273b` — unchanged C source
+
+- Source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-71c60e8736d1` passed all five gates, T=0.065873 s, M=11,730,944 B, S=657, D=1, K=22.492584. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Same-source K is 12.3% below the prior `run-e15bc2903994` (K=25.647952), reinforcing that small single-run changes are not promotion evidence.
+
+## C main SSE short-name microkernel — developer-rejected, not imported
+
+- Developer main `e0b4a4843aa79275b360fdf9a3acb60b228b21ad` records a 3.2M-query equality microbenchmark: original AVX2 25.4–34.9 ms vs SSE split 38.5–40.1 ms, with 13 additional scored source lines and no full-program qualification. Main restored qualified `join.cpp` blob `3b5e1392f49abdbb7fdcf6a36b5866366298143b`; no official board run or source import.

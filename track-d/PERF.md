@@ -868,3 +868,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official source confirmation `142a9fd` — latest
 
 - Run `run-544f31732267` passed all five gates: T=0.112140 s, M=71,847,936 B, S=783, D=1, K=27.270948, points=71.785011. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). Source-identical rerun, not a new candidate.
+
+## D main frontier-policy tournament reviewed — 2026-11-01
+
+- Developer main commit `b564f89aea53` records CI 41317136587: 312 exact runs across two seeds, four policies, 4/6/12 workers, plus adversarial/reference gates. Minimum-key regressed at every configuration; queue-size balancing was seed/worker inconsistent and the hybrid also lacked consistent gains. The source was not promoted; no official dispatch is warranted. Keep official fused-PGO source blob `b7a527b058991dce7967738d3695f8ab3917a75d` and its recorded BEST `run-4dbbefad4adc`.

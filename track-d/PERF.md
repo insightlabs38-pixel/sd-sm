@@ -1013,3 +1013,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official board receipt — Track B row-prefetch confirmation, commit `b6f4226481a9adf8d9dbddcac3f6d67593de62c3`
 
 - `run-539656fbc6d1` passed all five gates: T=0.112623 s, M=76,148,736 B, S=783, D=1, K=26.897832, points=71.485864. D source unchanged; **BEST** remains `run-dd6d11072ae7` (K=27.822987).
+
+## Official board receipt — Track B champion rollback, commit `021d3bbbbb502e762e7402f38ff341f67bccd377`
+
+- `run-5208b85aaecd` passed all five gates: T=0.122566 s, M=73,846,784 B, S=783, D=1, K=25.942513, points=70.700602. D source unchanged; **BEST** remains `run-dd6d11072ae7` (K=27.822987).

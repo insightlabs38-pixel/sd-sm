@@ -1038,4 +1038,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 ## Official board receipt — Track B row-prefetch confirmation, commit `b6f4226481a9adf8d9dbddcac3f6d67593de62c3`
 
-- Second exact-source official result: `run-05d3e08a4d51` passed all five gates but scored T=0.183127 s, M=41,611,264 B, S=695, D=1, K=28.276940, points=72.571621. Together with first trial `run-181b0ed196b2` (K=30.387910), the two official trials are inconsistent; the second is 7.65% below BEST `run-a4d307860273` (K=30.620459) and 4.22% below the geometric-mean K of the two recent unchanged-source controls `run-42cde4f208f5` / `run-6d4c2b894a79`. Reject promotion despite five-seed local CI and restore known-good B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.
+- Second exact-source official result: `run-05d3e08a4d51` passed all five gates but scored T=0.183127 s, M=41,611,264 B, S=695, D=1, K=28.276940, points=72.571621. Together with first trial `run-181b0ed196b2` (K=30.387910), the two official trials are inconsistent; the second is 7.65% below BEST `run-a4d307860273` (K=30.620459) and 5.11% below the geometric-mean K of the two recent unchanged-source controls `run-42cde4f208f5` / `run-6d4c2b894a79`. Reject promotion despite five-seed local CI and restore known-good B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.
+
+## Official board receipt — Track B champion rollback, commit `021d3bbbbb502e762e7402f38ff341f67bccd377`
+
+- Restored source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` scored `run-ef81be530263`: T=0.158476 s, M=41,394,176 B, S=699, D=1, K=30.370574, points=74.122650; all five gates passed. **LATEST** for the restored source; **BEST** remains `run-a4d307860273` (K=30.620459). The candidate's two official B runs were K=30.387910 and K=28.276940; neither beats BEST, and the second is 5.11% below the geometric mean of the two recent restored-source controls. Keep the known-good source.

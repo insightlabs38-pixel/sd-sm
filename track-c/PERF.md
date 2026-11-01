@@ -646,3 +646,12 @@ Run `run-df2932b2ba2d`; all five gates passed. T=0.073738 s, M=14,114,816 B, S=5
 ## Mainline 128-shard candidate — official validation pending
 
 Candidate source blob `a9b2c765efe2a5fedec7671d9df9be77a700c853` from C main retains the guarded AVX2/SSE2 quote scanner and increases the name-index shard count from 64 to 128. Exact full-seed and holdout references, adversarial overflow/collision tests, ASan/UBSan/TSan, pinned offline Docker and sandbox passed in CI `41248440108` (both attempts). Two paired 12-trial full-PGO developer-runner comparisons against the AVX2 predecessor estimated complete-K proxies +1.67% and +2.34%, with RSS unchanged; official formatter S, cgroup M and scoring-box K remain decisive. Dockerfile and .speed-demon.toml exactly match the official C build configuration. Official score pending.
+
+
+## Official board result — commit 7dc6a03 (2026-10-31 23:58:28 UTC)
+
+Run `run-9e82b6bece9f`; all five gates passed. T=0.072863 s, M=19,316,736 B, S=577, D=1, K=19.736850, points=64.763892. **LATEST**; **BEST** remains `run-df2932b2ba2d` (K=21.029207). The 128-shard mainline candidate was rejected: despite a faster T than C BEST, formatted size and memory rose materially and K regressed. Restore the C BEST source from parent `c096950` after the next frontier trial.
+
+## Frontier PR #12 — official validation pending
+
+Imported only PR #12 source blob `8bee2ee3a2cb027098f5b95a4279bfb9a30da785`; it exactly matches the source tested by successful CI `41251942615` (run head `90da546`). The run passed full seed-1/holdout references, ASan/UBSan, TSan, page-tail/collision/overflow cases, pinned offline Docker and sandbox. Developer reports: pinned GCC15 PGO 68.679→59.927 ms against main and 72.254→60.703 ms against its official-BEST baseline; paired restricted-container median 145.858→129.350 ms, cgroup peak 10.168→10.150 MB. S rose 577→622, D=1; reported complete-K proxy +5% against main. These are development measurements, not board T/M/S/D/K. The previous C BEST remains in parent `c096950` for rollback; PR #12 remains open until official promotion.

@@ -620,3 +620,8 @@ PR #5 head `cba79e06d7149da14fa1b5d36f4be079526f1cdc`, source blob `510c2a13dccb
 ## Official board result — commit c096950 (2026-10-31 23:55:08 UTC)
 
 Run `run-f6e48fe3346f`; all five gates passed. T=0.363973 s, M=47,976,448 B, S=781, D=1, K=19.371243, points=64.357874. The PR #5 six-worker streaming candidate regressed against BEST `run-dcebadac870d` (K=23.250490) despite its favorable developer-run results. **Reject PR #5** and restore the previous B source from parent `97ebf28`; retain PR open/unmerged.
+
+
+## Official board result — commit 7dc6a03 (2026-10-31 23:58:28 UTC)
+
+Run `run-462b30df0787`; all five gates passed. T=0.236546 s, M=50,044,928 B, S=925, D=1, K=23.229736, points=68.302213. **LATEST**; **BEST** remains `run-dcebadac870d` (K=23.250490). Restore the B champion from before PR #5; PR #5 was rejected at K=19.371243 on commit `c096950` and remains open/unmerged.

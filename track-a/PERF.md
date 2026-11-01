@@ -724,3 +724,7 @@ Run `run-118836ebd34c`; all five gates passed on PR #3 source blob `c91b9689529c
 ## Official board result — commit 32bcf03 (2026-11-01 00:57:54 UTC)
 
 Run `run-505031036f92`; all five gates passed. Same promoted PR #3 source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.019739 s, M=21,422,080 B, S=584, D=1, K=45.489123, points=82.895378. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Compared with that same-source run, T varied 20.5% while M changed 0.36%; keep the candidate, record the spread, and revalidate the exact head.
+
+## Official board result — commit 033819b (2026-11-01 01:02:54 UTC)
+
+Run `run-4cb91c778afa`; all five gates passed. T=0.019293 s, M=21,508,096 B, S=584, D=1, K=45.975048, points=83.126110. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.

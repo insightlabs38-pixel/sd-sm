@@ -706,3 +706,7 @@ Run `run-678c494ba7f1`; all five gates passed. T=0.056720 s, M=21,118,976 B, S=6
 ## Official board result — commit 32bcf03 (2026-11-01 00:57:54 UTC)
 
 Run `run-7b727e81c6cd`; all five gates passed. T=0.056894 s, M=21,000,192 B, S=637, D=1, K=21.641914, points=66.764784. **LATEST**; **BEST** remains `run-f24670761e6b` (K=21.757571). C source remained PR #13 blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`.
+
+## Official board result — commit 033819b (2026-11-01 01:02:54 UTC)
+
+Run `run-181942cb429e`; all five gates passed. T=0.055956 s, M=21,192,704 B, S=637, D=1, K=21.782763, points=66.905648. **BEST = LATEST**, a 0.12% gain over `run-f24670761e6b` (K=21.757571); source remained safe PR #13 blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. This small delta is within likely run variance.

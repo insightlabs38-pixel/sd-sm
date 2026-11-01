@@ -700,3 +700,8 @@ Run `run-9d0435b31a4a`; all five gates passed. T=0.161128 s, M=59,449,344 B, S=1
 ## Rejected B compact-probe branch (no official run)
 
 CI `41260455097` passed exact references, sanitizers and pinned production Docker. Candidate `track-b/compact-probe16-11` source `d631309c8cb17c7792153683830e1df45950f078` reduces per-token probe storage, but the paired full-data result was mixed: local K ratios versus current champion were 0.954, 1.011 and 0.995 for seeds 1/2/3; source axis rose 1111→1121, and memory fell only about 0.3–0.8 MB. Rejected for official dispatch because two seeds regressed and aggregate evidence does not justify the added complexity/size.
+
+
+## Official board result — commit 132ef00 (2026-11-01 04:06:36 UTC)
+
+Run `run-9c285ced8fb9`; all five gates passed. T=0.165805 s, M=58,474,496 B, S=1111, D=1, K=26.166530, points=70.887306. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), same source.

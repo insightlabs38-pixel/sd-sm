@@ -743,3 +743,12 @@ Source blob `3519869c67493e3e5da7c4ced30b38be438cfeca` from C main commit `942a0
 ## Official board result — commit d411050 (2026-11-01 01:22:54 UTC)
 
 Run `run-994f040e654c`; all five gates passed on current C main source `3519869c67493e3e5da7c4ced30b38be438cfeca`. T=0.056477 s, M=21,401,600 B, S=646, D=1, K=21.594072, points=66.716727. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763) on safe PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. This candidate improves the low-scoring restored-source rerun `run-3a336d8f9e98` (K=21.200272) by 1.86%, with T -0.65% and M -8.3%, but remains 0.87% below BEST and increases S by 9. Keep as a provisional candidate for one exact-source repeat; do not claim promotion yet.
+
+
+## Official board result — commit 132ef00 (2026-11-01 04:06:36 UTC)
+
+Run `run-dbb1df252c28`; all five gates passed on source `3519869c67493e3e5da7c4ced30b38be438cfeca`. T=0.056258 s, M=21,250,048 B, S=646, D=1, K=21.666835, points=66.789774. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763).
+
+## Current main C candidate queued for official validation
+
+Imported only `track-c/join.cpp` from latest C main `e0982830d2d86cee090ec6d8d332d55450dba455`, source blob `b31de39258eec335f79e14a0568a325d4ad2c732`. This is the twice-qualified parse-stage name lookup/membership-prefetch source. CI `41261183692` passed full seed-1/holdout exactness, hostile cases, ASan/UBSan/TSan, pinned offline Docker and sandbox. Paired full-PGO 12-trial comparisons against current official-source candidate `3519869c`: 65.070→64.236 ms and 78.833→77.788 ms; cgroup peaks 10,487,808→10,473,472 B and 10,498,048→10,467,328 B; formatted lines 544→543. Runner K proxies improved 0.70%/0.76%; source-only timings regressed, so evidence applies to the pinned PGO release. **Official T/M/S/D/K pending.** Rollback is source `3519869c67493e3e5da7c4ced30b38be438cfeca` in parent `132ef00`.

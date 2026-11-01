@@ -1031,3 +1031,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - Known-good rollback is parent commit `cdd6fd395d013eb19d3bd2ff7917c4e1ceea50e9`, source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.
 
 - Official trial result `run-181b0ed196b2` passed all five board gates: T=0.158568 s, M=41,373,696 B, S=695, D=1, K=30.387910, points=74.135042. It improved on the immediate baseline `run-42cde4f208f5` (K=30.039636) but did not exceed **BEST** `run-a4d307860273` (K=30.620459; trial -0.76%). The board result also has slightly slower T and higher M than BEST. **Reject promotion; restore source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.** The candidate remains on developer main; no PR was merged.
+
+## Official board receipt — Track B restored-source comparison, commit `f00fe1077308e74fbf82bc75a3cb311502de4a7c`
+
+- Restored source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` scored `run-6d4c2b894a79`: T=0.167275 s, M=41,189,376 B, S=699, D=1, K=29.561007, points=73.535962; all five gates passed. This is the second same-source recent comparison after `run-42cde4f208f5` (K=30.039636); variation between these unchanged-source runs is 1.62% in K. The qualified two-line candidate scored K=30.387910 with better T than both recent restored-source measurements and lower S; retain the candidate for a second official measurement. **Historical BEST remains** `run-a4d307860273` (K=30.620459), 0.76% above the candidate result.

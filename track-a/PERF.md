@@ -1064,3 +1064,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official board receipt — B row-prefetch trial, commit `aac3a059e93d5b8b31ea9cef2b1522398ef6b593`
 
 - `run-7475f872e70f` passed all five gates: T=0.020448 s, M=20,545,536 B, S=584, D=1, K=45.068547, points=82.693678. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official board receipt — Track B restored-source comparison, commit `f00fe1077308e74fbf82bc75a3cb311502de4a7c`
+
+- `run-c8f1c034131f` passed all five gates: T=0.017418 s, M=20,905,984 B, S=584, D=1, K=48.866407, points=84.474579. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).

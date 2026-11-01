@@ -984,3 +984,9 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official C rollback confirmation `7753f18` — latest
 
 - Restored source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-b543f3c5ba9c` passed all five gates with T=0.051964 s, M=12,111,872 B, S=657, D=1, K=25.163215, points=70.038307. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). The rollback improves K by 10.3% over the dense-page trial while using about 65% less memory.
+
+
+## Team-wide rerun during Track A PR #5 trial (2026-11-01)
+
+- Unchanged C source; official run `run-518bc4de4a00` on commit `c1c2c9fdd77044d39c4f433b0400aad1ed7c267a` passed all five gates: T=0.051721 s, M=11,939,840 B, S=657, D=1, K=25.294524, points=70.151326.
+- BEST remains `run-e7eab9673214`, K=25.979773. No C promotion.

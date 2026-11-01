@@ -946,3 +946,9 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official source confirmation `7753f18` — latest
 
 - Same source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: run `run-4730bfbf374c` passed all five gates: T=0.020033 s, M=20,979,712 B, S=584, D=1, K=45.342929, points=82.825478. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+
+## A frontier PR #5 word4 sidecar — official rejection (2026-11-01)
+
+- Candidate source blob `ccf2219993e368f94cc507f1c2b83f046d45afb5`; official run `run-544b9019d82f` on commit `c1c2c9fdd77044d39c4f433b0400aad1ed7c267a` passed check/build/correctness/timeout/sandbox. T=0.017305 s, M=20,832,256 B, S=621, D=1, K=48.406936, points=84.245380.
+- BEST remains `run-118836ebd34c`, K=49.960098. Candidate K is 3.1% below BEST despite improving over the preceding LATEST (`run-e47f3c8496c1`, K=44.333801); added 37 counted source lines (S 584→621). Reject promotion and restore selected source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; leave PR #5 unmerged.

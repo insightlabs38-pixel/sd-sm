@@ -888,3 +888,14 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## D main frontier-policy tournament reviewed — 2026-11-01
 
 - Developer main commit `b564f89aea53` records CI 41317136587: 312 exact runs across two seeds, four policies, 4/6/12 workers, plus adversarial/reference gates. Minimum-key regressed at every configuration; queue-size balancing was seed/worker inconsistent and the hybrid also lacked consistent gains. The source was not promoted; no official dispatch is warranted. Keep official fused-PGO source blob `b7a527b058991dce7967738d3695f8ab3917a75d` and its recorded BEST `run-4dbbefad4adc`.
+
+
+## Track D baseline before developer-main batch-16 validation (2026-11-01)
+
+- Existing official D source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; run `run-d00e1b74e673` on commit `c1c2c9fdd77044d39c4f433b0400aad1ed7c267a` passed all five gates: T=0.115313 s, M=76,972,032 B, S=783, D=1, K=26.525137, points=71.182882.
+- BEST remains `run-dd6d11072ae7`, K=27.822987. This baseline is retained for rollback comparison.
+
+## Developer-main D fused batch-16 candidate queued for official trial
+
+- Candidate source blob `09270462259085787ac2925485b5e1cd7e56647f` from developer main `0a8077f50a47e308c6297c7de4c29c3da6bb59ab`. It applies the qualified four-worker graph-construction cap and changes fused BFS growth batch 32→16; no Dockerfile/dependency change.
+- Developer CI `41322761850` and pinned GCC15 PGO Docker confirmation `41323248319` passed 88 differential fixtures, official sample/full hashes and exact seed-1/7 output checks. In PGO Docker, 55/66 paired runs won, medians improved 0.41–2.64%, cgroup peak stayed about 63.0 MB; S and D unchanged. This is not official scoring-box evidence. Official trial is pending.

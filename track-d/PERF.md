@@ -744,3 +744,5 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Official run on `0d48c0b1302610385c4608b30b6842aa71e388cb`: `run-d904da3680dd`, all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.116308 s, M=76,644,352 B, S=783, D=1, K=26.433979, points=71.108127. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
 
 - Official run `run-e56dda8710e9` on checkpoint `b70956dd71a72aec0c5bace4f41dcf3a9807f8ba`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.115098 s, M=67,723,264 B, S=783, D=1, K=27.238419, points=71.759095. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+- Official run `run-3f140abb4931` on `dde14ac917c8ad8642c734162b25804a4008cc90`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.119360 s, M=71,426,048 B, S=783, D=1, K=26.464435, points=71.133132. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). The simultaneous source-identical K dips on A–D reinforce timing variance; do not infer regression.

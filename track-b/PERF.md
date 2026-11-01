@@ -782,3 +782,6 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 
 - Follow-up official run `run-9ef66a09c534` on commit `01966dd4c4464d08d4c2a5e44518a351cb102d07` passed all five gates on unchanged PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.169356 s, M=41,480,192 B, S=691, D=1, K=29.429598, points=73.439216. **LATEST**; **BEST** remains `run-878b1adc7345` (K=29.637085). The small same-source difference does not change the promotion decision.
+
+
+- Official run `run-2d432955ad62` on commit `8c51ca2873b18b633fce3f1772a3c6a1a6359b32` passed all five gates on unchanged B PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.164949 s, M=41,988,096 B, S=691, D=1, K=29.820147, points=73.725489. **LATEST and current BEST**; it improves the prior same-source `run-878b1adc7345` K=29.637085 by 0.62%.

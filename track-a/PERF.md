@@ -820,8 +820,9 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Versus the immediately preceding selected-source run `run-3ba931887dae` (T=0.020080 s, M=20,897,792 B, S=584, K=45.325284), this candidate is about 2.8% faster but uses 6.2% more memory and 23 more source lines; observed K is 0.35% lower. Not promoted; retain rollback source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.
 
 
-## A PR #2 race-free SIMD candidate — official trial pending
+## A PR #2 race-free SIMD candidate — official trial rejected
 
 - Candidate is merged developer PR #2 head `50b33bb7d0085acf296e5f34a55e30b4958fb07d`, source blob `24926c0187974683c9e96ebac46d48073d5907d5`; imported exact `track-a/main.cpp`. It repairs the earlier shared-tag race with per-worker private tables mirrored from an append-only release-published log, and confirms matches by full-key comparison. Rollback is the selected official A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.
 - Exact-source CI [41232109362](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41232109362) succeeded. Developer tests report seeds 1–3 exact, ASan/UBSan and TSan clean at 6 and 12 threads. On a 4-vCPU host, interleaved seed-1 full runs report 180→115 ms CPU and 52–60→36–39 ms wall; 12-worker cgroup peak 13–15 MB. These are developer measurements, not scoring-box axes.
-- The exact source compiles locally with official `-O3 -march=x86-64-v3 -std=c++20 -DNDEBUG -pthread -static-libstdc++ -static-libgcc` flags. Official T/M/S/K remain unmeasured; validate before promotion.
+- The exact source compiled locally with official `-O3 -march=x86-64-v3 -std=c++20 -DNDEBUG -pthread -static-libstdc++ -static-libgcc` flags. Official run `run-0e05ac922f25` on commit `8c51ca2873b18b633fce3f1772a3c6a1a6359b32` passed all five gates: T=0.020318 s, M=22,478,848 B, S=574, D=1, K=44.521760, points=82.428616. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+- Versus the preceding selected A source run `run-3ba931887dae` (T=0.020080 s, M=20,897,792 B, S=584, K=45.325284), PR #2 is 1.2% slower, 7.6% higher memory and K is 1.8% lower, despite 10 fewer source lines. Not promoted; restore selected source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.

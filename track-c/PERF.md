@@ -834,3 +834,13 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 
 - Follow-up official run `run-5952fe93a7c7` on commit `01966dd4c4464d08d4c2a5e44518a351cb102d07` passed all five gates on unchanged promoted PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.052228 s, M=12,148,736 B, S=657, D=1, K=25.084287, points=69.970088. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Other tracks also scored below their same-source BESTs on this dispatch, so retain BEST and do not attribute the repeat delta to source.
+
+
+- Official run `run-471e7854999d` on commit `8c51ca2873b18b633fce3f1772a3c6a1a6359b32` passed all five gates on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050367 s, M=11,796,480 B, S=657, D=1, K=25.694262, points=70.491807. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+
+## C PR #19 inline16 exact-name repair — skipped after CI comparison
+
+- Exact-head CI [41292530501](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41292530501) passed correctness, hostile fixtures, ASan/UBSan, TSan, pinned offline Docker/sandbox and PGO compilation.
+- The relevant paired full-PGO comparison against the qualified official source measured 77.472 ms baseline versus 85.801 ms candidate (+10.75% slower); cgroup median improved 11,026,432 to 9,977,856 B. The source-only comparison also regressed 85.623 to 100.694 ms. The 95.517→85.467 ms PGO comparison was profiled versus unprofiled builds of the same candidate, not a candidate-versus-champion gain.
+- Despite a positive local two-CPU result, the exact CI head-to-head is negative and the larger source has no official S/K measurement. Do not dispatch or merge PR #19; restore the qualified PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.

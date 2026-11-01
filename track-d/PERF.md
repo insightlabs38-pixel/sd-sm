@@ -1001,3 +1001,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official board receipt — rollback checkpoint `cdd6fd395d013eb19d3bd2ff7917c4e1ceea50e9`
 
 - `run-8cb7666cafd2` passed all five board gates: T=0.112756 s, M=75,509,760 B, S=783, D=1, K=26.927307, points=71.509646. **LATEST**; **BEST** remains `run-dd6d11072ae7` (K=27.822987). Source is restored known-good blob `b7a527b058991dce7967738d3695f8ab3917a75d` (BATCH=32); the BATCH=8 candidate did not beat BEST.
+
+## Official board receipt — B row-prefetch trial, commit `aac3a059e93d5b8b31ea9cef2b1522398ef6b593`
+
+- `run-99ac15c0ae90` passed all five gates: T=0.117556 s, M=68,866,048 B, S=783, D=1, K=26.862098, points=71.456997. D source unchanged; **BEST** remains `run-dd6d11072ae7` (K=27.822987).

@@ -980,3 +980,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 - Exact frontier head `d8190b4c6816d22674c70fbf1c9c4adae4243ac8`, source blob `d4a5d3538ed4dbc0dffdac2f3cce894ab0a3db08`. Workflow 41294197888 passed differential/tiny/sample/full-seed, pinned-Docker/PGO, x86-64-v3, sandbox/full hash, cgroup-memory, independent reference, ASan/UBSan and TSan gates. Its seven-pair local full1 median claimed T=159.197→119.373 ms, M=10,821,632→11,227,136 B, S=657→807, D=1.
 - Official trial `run-40fad11b135e` on `7e3b4b652ba1d569dfbff5be215b8ca917079857` passed all five board gates but scored T=0.039137 s, M=34,361,344 B, S=807, D=1, K=22.822103, points=67.917783. The cgroup footprint was about 3× the qualified source and K was 12.2% below BEST `run-e7eab9673214` (K=25.979773); reject promotion and restore source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. The official memory measurement explains why the local runtime gain did not translate to a score gain.
+
+## Official C rollback confirmation `7753f18` — latest
+
+- Restored source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-b543f3c5ba9c` passed all five gates with T=0.051964 s, M=12,111,872 B, S=657, D=1, K=25.163215, points=70.038307. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). The rollback improves K by 10.3% over the dense-page trial while using about 65% less memory.

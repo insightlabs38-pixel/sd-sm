@@ -871,3 +871,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official source confirmation `63f6eed` — latest
 
 - Same metadata blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: run `run-b70770ab8297` passed all five gates: T=0.162973 s, M=41,426,944 B, S=690, D=1, K=30.006900, points=73.861057. **LATEST**; **BEST** remains `run-f100bcaacc24` (K=30.595083). This was a source-identical rerun; it does not validate a new candidate.
+
+## B main ring-prefetch promotion reviewed — 2026-11-01
+
+- Developer main commit `60cb64735082480997201abcc7b9b51174b96596` promotes the same ring-prefetch source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` previously trialed officially as `run-bd078d1bac1f`. Its five-seed CI evidence is recorded above; this main update introduces no new solution-source or performance evidence. The official trial passed gates but scored K=30.217374, below the current metadata-source BEST `run-f100bcaacc24` (K=30.595083). Keep metadata source `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; do not spend another all-track dispatch on the unchanged candidate.

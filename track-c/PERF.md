@@ -899,3 +899,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official evidence refresh `89fb2f8` — selected C source
 
 - `run-28f2633cb497` passed all gates on unchanged C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050366 s, M=11,620,352 B, S=657, D=1, K=25.771938, points=70.557354. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Team-wide official evaluation `163279d` — unchanged C source
+
+- Source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: run `run-e15bc2903994` passed all five gates, T=0.050528 s, M=11,808,768 B, S=657, D=1, K=25.647952. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## C frontier PR #20 private radix ownership — deferred pending complete K
+
+- Draft head `bf3052fbce35240010a5d0c74ab854f7d05412f9`; exact PR checks for verification, ASan/UBSan and TSan pass. Reported pinned full-PGO time is 152.026 ms vs 156.468 ms (-2.8%), while median cgroup peak is 12.45 MiB vs 10.95 MiB (+13.7%). The handoff says complete K and CI scaling remain under evaluation; source-size/K tradeoff is therefore unresolved. Do not dispatch or promote until those measurements establish a net score opportunity.

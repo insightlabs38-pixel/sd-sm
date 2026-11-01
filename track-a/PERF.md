@@ -867,3 +867,11 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official evidence refresh `89fb2f8`
 
 - `run-f4fe824bcf20` passed all gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017257 s, M=21,745,664 B, S=584, D=1, K=48.504863, points=84.289264. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Team-wide official evaluation `163279d` — unchanged A source
+
+- Unchanged A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: run `run-0eb095ded2ce` passed all five gates, T=0.017515 s, M=21,512,192 B, S=584, D=1, K=48.250349. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). This same-source result is 7.1% above the immediately prior run `run-bc388b2bafe1` (K=45.038131), showing material board repeat variation.
+
+## A frontier PR #6 small-group rank path — deferred without an official run
+
+- Exact head `33e0f543fa9bbcd084954ab950a86d91d6b19495`; exact-source CI `41309800426` passed the reported seed-1 tiny/sample/full, seed-2/3, reordered-input, ASan/UBSan, TSan and offline-Docker checks. Two matched 31-run controls reported candidate/main runtime ratios 0.9828 (default), 0.9857 (1 thread), and 0.9863 (12 threads); memory.peak is noisy. The change adds 16 and removes 4 physical lines (+12 net), with no official K result. Defer dispatch: the sub-2% runner gain is small against source-size cost and board variance; reconsider with stronger paired memory/K evidence.

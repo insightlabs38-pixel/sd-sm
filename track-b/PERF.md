@@ -825,8 +825,14 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 - `run-9749d4cfd80e` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.158406 s, M=41,590,784 B, S=691, D=1, K=30.429779, points=74.164940. **BEST = LATEST**, +0.84% over same-source BEST `run-8d998fb9e511` (K=30.174650); no source change.
 
-## B main packed-key phrase lookup trial — awaiting official board
+## B main packed-key phrase lookup trial — official gates passed; repeat pending
 
-- Trial imports `sd-tb` main `94901b5eea48a63f01ee54bc5095c2d9d7df3f5a`, exact source blob `a3d0559c07fd8e8fec3b2ddf4d39792589802c45`. The one-line source change removes the post-scan store of each packed key's low 20-bit ID and reads the same field from the already-populated key array during phrase checks. The prior selected source is the parent rollback, blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`.
-- No Docker/dependency change. The parent compact engine passed five-seed differential/sanitizer/offline-Docker CI (`41292276406`); this exact one-line follow-up was committed with `[skip ci]`. Local compilation of the exact trial succeeded using GCC 14.2 with the official `-O3 -march=x86-64-v3 -std=c++20 -DNDEBUG -pthread -static-libstdc++ -static-libgcc -s` flags. Full official output and all board gates remain pending.
+- Trial imports `sd-tb` main `94901b5eea48a63f01ee54bc5095c2d9d7df3f5a`, exact source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`. The one-line source change removes the post-scan store of each packed key's low 20-bit ID and reads the same field from the already-populated key array during phrase checks. The prior selected source is the parent rollback, blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`.
+- No Docker/dependency change. The parent compact engine passed five-seed differential/sanitizer/offline-Docker CI (`41292276406`); this exact one-line follow-up was committed with `[skip ci]`. Local compilation of the exact trial succeeded using GCC 14.2 with the official `-O3 -march=x86-64-v3 -std=c++20 -DNDEBUG -pthread -static-libstdc++ -static-libgcc -s` flags. Official output and all five board gates passed on `run-157b87b11a5e`; no repeat has been requested.
 - Prior official baseline on unchanged selected B source: **LATEST** `run-ea9fb6428ae4`, K=30.033203; **BEST** `run-9749d4cfd80e`, K=30.429779. Do not promote on a small noisy shift; compare candidate K and exact axes to the selected-source baseline and BEST after the run.
+
+
+## Official run `163279d` — B packed-key phrase lookup trial
+
+- Exact imported main source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; board run `run-157b87b11a5e` passed all five gates. T=0.160433 s, M=41,259,008 B, S=690, D=1, K=30.243504. **LATEST**; **BEST** remains `run-9749d4cfd80e` (K=30.429779).
+- Against previous selected-source run `run-ea9fb6428ae4` (T=0.162617 s, M=41,537,536 B, S=691, K=30.033203), this trial is 1.34% faster, 0.67% lower-memory, one source-size unit smaller and +0.70% K. It remains 0.61% below BEST, within observed same-source variability; retain BEST and seek a repeat before claiming a new scoring champion.

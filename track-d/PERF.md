@@ -1109,4 +1109,8 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 
 ## Official all-track receipt — restored D PR #17, commit `a2c7057b631abd61ed3618f7a8f621fa69b3f3ea`
 
-- `run-44ee0b002e5a` passed all five gates on restored PR #17 source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`: T=0.104978 s, M=60,493,824 B, S=607, D=1, K=30.308048, points=74.077898. This is **LATEST** and remains below numeric **BEST** `run-fec0ec78f97e` (K=30.629718); it beats the previous D BEST `run-3d2e9d913d87` (K=30.195105) by 0.37%. Three official PR #17 runs are 30.629718, 30.276660, and 30.308048; the median is 30.308048. Keep PR #17 source as current selected D champion; do not claim the single noisy 30.629718 as the frozen commit's score.
+- `run-44ee0b002e5a` passed all five gates on restored PR #17 source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`: T=0.104978 s, M=60,493,824 B, S=607, D=1, K=30.308048, points=74.077898. This is **LATEST** and remains below numeric **BEST** `run-fec0ec78f97e` (K=30.629718); it beats the previous D BEST `run-3d2e9d913d87` (K=30.195105) by 0.37%. At that point three official PR #17 source runs were 30.629718, 30.276660, and 30.308048 (median 30.308048). Keep PR #17 source as current selected D champion; do not claim any historical run as the frozen commit's final score.
+
+## Official all-track receipt — PR #17 source repeat, run-log commit `770ff3ed22aef6d4cb07026aa0a07e2c3ded7911`
+
+- `run-1b8d7ec1c331` passed all five gates on unchanged PR #17 D source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`: T=0.099925 s, M=60,354,560 B, S=607, D=1, K=31.079228, points=74.623511. This becomes **BEST** and **LATEST**, improving prior numeric BEST `run-fec0ec78f97e` (K=30.629718) by 1.47%. The run-log commit changed no solution source; exact PR #17 code remains the scored candidate.

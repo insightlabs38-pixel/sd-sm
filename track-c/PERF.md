@@ -807,3 +807,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - Repeat official run on source-identical commit `6917275dbd2ee12fd19df6fe3b87a60920c86ef8`: `run-e7eab9673214`, all five gates passed. T=0.050141 s, M=11,288,576 B, S=657, D=1, K=25.979773, points=70.731767. **LATEST and BEST**, 0.96% above previous C run `run-6b1f74906d40` and 17.12% above the pre-PR14 BEST `run-d6f721bba982` (K=22.181304). Exact C source unchanged.
 
 - Repeat official run on source-identical commit `17a6d96ba2cf813bac7eea2225b51fdd4d34960a`: `run-109cf5cfcfa7`, all five gates passed. T=0.050575 s, M=11,902,976 B, S=657, D=1, K=25.595323, points=70.408031. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Same source, within 1.48% of its repeat BEST and 15.39% above pre-PR14 BEST `run-d6f721bba982` (K=22.181304).
+
+## Recent private-reconciliation architecture PRs (not promoted; 2026-11-01)
+
+- PR #16 (`frontier/c-private-epoch-20261101`, head `07cf45ba`) passed correctness, ASan/UBSan, TSan, pinned offline Docker, sandbox and independent full-seed CI `41280672480`. Its paired developer full-PGO comparison against the qualified fused scanner regressed 65.212→112.747 ms; median cgroup peak rose 11,042,816→14,295,040 B and S 657→725. Reject; do not dispatch or merge.
+- PR #17 (`frontier/c-private-tile-20261101`, head `9603aa6a`) passed the same categories in CI `41281228501`, but paired full-PGO time regressed 76.962→103.837 ms and median cgroup peak rose 11,046,912→14,960,640 B; the final serial distinct reduction costs ~6 ms. Reject; do not dispatch or merge.
+- These are developer-runner measurements, not official board axes/K. Retain PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; official C BEST remains `run-e7eab9673214` (K=25.979773).
+
+- Official run on `0d48c0b1302610385c4608b30b6842aa71e388cb`: `run-186c50518300`, all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.067444 s, M=11,845,632 B, S=657, D=1, K=22.185865, points=67.303818. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). The previous three same-source C results were K=25.731929, 25.979773 and 25.595323; this low repeat coincided with lower K on A/B/D and no source changes. Preserve the proven PR #14 candidate; do not infer a source regression from this single run.

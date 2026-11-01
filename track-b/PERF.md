@@ -795,3 +795,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official run `5f15f25` — B PR #11 source
 
 - Board run `run-031c34192287` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.164825 s, M=41,189,376 B, S=691, D=1, K=29.831362, points=73.733654. **BEST = LATEST** in the raw board feed, a 0.04% K increase over prior same-source BEST `run-2d432955ad62` (29.820147); this tiny movement is within same-source variation and is not a new code promotion.
+
+## B frontier PR #12 rolling dictionary prefetch — skipped after five-seed CI
+
+- Exact-head CI [41301306814](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41301306814) passed differential/adversarial tests, ASan/UBSan, TSan, full official hashes on seeds 1–5, sample/tiny, and pinned offline Docker. Candidate source blob `8a5be8d8ff4e5dc262846d7e1bdf37645fb05235` moves dictionary-bucket prefetch from a whole-document batch to an eight-key rolling lookahead; Docker is unchanged.
+- Seven-repeat paired full-run runner K ratios candidate/champion were 0.992399, 0.999715, 0.999504, 0.998065 and 0.997203 on seeds 1–5 (geometric mean 0.99737; all five regress). Candidate adds five counted source lines (S 691→696). It is not expected to improve complete K, so no official scorer slot or merge; retain the selected B PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`.

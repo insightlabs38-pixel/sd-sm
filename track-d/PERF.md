@@ -775,3 +775,8 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official rollback checkpoint `cf650cc` — D selected source confirmed
 
 - Board run `run-ae3dba13d81c` on commit `cf650cc6b47038ae06fdf208279d68e2c14355aa` passed all five gates on selected D source blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.115218 s, M=67,883,008 B, S=783, D=1, K=27.211406, points=71.737549. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). Preserve the selected source; this repeat is within observed board variance.
+
+
+## Official run `5f15f25` — selected D source
+
+- Board run `run-4f05dff0528b` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.113161 s, M=78,954,496 B, S=783, D=1, K=26.640330, points=71.276980. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). D source did not change; memory and K remain variable across same-source runs.

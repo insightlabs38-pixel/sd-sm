@@ -790,3 +790,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official rollback checkpoint `cf650cc` — B PR #11 source confirmed
 
 - Board run `run-999ae54b2e55` on commit `cf650cc6b47038ae06fdf208279d68e2c14355aa` passed all five gates on selected B PR #11 blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.191486 s, M=41,902,080 B, S=691, D=1, K=27.676815, points=72.105805. **LATEST**; **BEST** remains `run-2d432955ad62` (K=29.820147). Same-source K declined 7.19% from latest BEST; retain the champion pending a less noisy repeat.
+
+
+## Official run `5f15f25` — B PR #11 source
+
+- Board run `run-031c34192287` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.164825 s, M=41,189,376 B, S=691, D=1, K=29.831362, points=73.733654. **BEST = LATEST** in the raw board feed, a 0.04% K increase over prior same-source BEST `run-2d432955ad62` (29.820147); this tiny movement is within same-source variation and is not a new code promotion.

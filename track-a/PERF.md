@@ -838,3 +838,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Exact-source CI [41293374325](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41293374325) passed full/sample/tiny hashes, seed-2/3 holdouts, reordered inputs, ASan/UBSan, TSan, pinned offline Docker, and 20,000-record/1,842-key latency escape checks. CI [41293612626](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41293612626) passed exactness and paired performance/memory studies. The two custom exactness suites were also run locally on the imported source.
 - Three 31-run full-input matched trials against A main report candidate/main time ratios 0.9793, 0.9362, 0.9419; versus the certified lookup candidate ratios are 1.0299, 1.0014, 0.9980. Ten interleaved cgroup trials show median peak 5,765,120 B (sidecar), 6,096,896 B (main), and 6,291,456 B (certified map); sidecar maximum was 9,523,200 B. These are developer CI measurements, not official axes/K.
 - The candidate is eligible for an official A scorer trial because the evidence supports a meaningful runtime/memory gain despite +41 physical lines. Board T/M/S/K and all gates are pending; do not promote until K exceeds BEST `run-118836ebd34c` (49.960098). Roll back to the parent-selected blob above if it does not.
+
+
+## Official run `5f15f25` — selected A source
+
+- Board run `run-f119f0ce2f4a` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.020173 s, M=21,606,400 B, S=584, D=1, K=44.920103, points=82.622037. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). A source is unchanged; compare this low repeat with other same-source readings rather than attributing it to code.

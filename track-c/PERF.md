@@ -857,3 +857,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## C PR #20 private radix ownership — skipped, exact CI regressed
 
 - Draft PR #20 exact-head CI [41293115199](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41293115199) passed correctness, ASan/UBSan, TSan, full references and pinned offline Docker/sandbox checks. The relevant paired full-PGO median was 93.112 ms versus 76.947 ms for the official source (+21.0%); peak RSS was 208,392 versus 36,800 KiB. Cgroup median was 12,597,248 versus 11,034,624 B (+14.2%). Despite promising native local timings, these exact CI regressions and missing complete-K evidence do not justify an official trial. Do not promote or merge; retain PR #14 blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.
+
+
+## Official run `5f15f25` — C PR #14 source
+
+- Board run `run-e50afc3730a2` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050964 s, M=11,948,032 B, S=657, D=1, K=25.478194, points=70.308432. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). C source did not change.

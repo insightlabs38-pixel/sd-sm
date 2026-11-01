@@ -1008,4 +1008,4 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 
 ## Official board receipt — Track B restored-source comparison, commit `f00fe1077308e74fbf82bc75a3cb311502de4a7c`
 
-- `run-ed1320513986` passed all five gates: T=0.114541 s, M=68,124,160 B, S=783, D=1, K=26.696984, points=71.343304. D source unchanged; **BEST** remains `run-dd6d11072ae7` (K=27.822987).
+- `run-ed1320513986` passed all five gates: T=0.113112 s, M=78,204,928 B, S=783, D=1, K=26.696984, points=71.323110. D source unchanged; **BEST** remains `run-dd6d11072ae7` (K=27.822987).

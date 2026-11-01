@@ -1023,3 +1023,9 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## All-track rerun during A PR #4 trial (2026-11-01)
 
 - Unchanged C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; `run-94ae8fdd4b77` on official commit `18d16b927ac28c90205dbfe4934b5951f0cfea48` passed all five gates: T=0.067170 s, M=11,821,056 B, S=657, D=1, K=22.240305, points=67.357037. This is **LATEST**, not BEST `run-e7eab9673214` (K=25.979773); the source did not change relative to `run-30b97d9f4582` (K=25.358543), so treat the difference as runtime variation.
+
+- Restored source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; `run-6ea2c073b32f` on commit `f8e388471260b59810b9974252b8a5d8bfe8d5ec` passed all five gates: T=0.051369 s, M=11,747,328 B, S=657, D=1, K=25.463688, points=70.296065. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Frontier C PR #20 official trial (2026-11-01)
+
+- Staged exact PR head `bf3052fbce35240010a5d0c74ab854f7d05412f9`; imported only `track-c/join.cpp`, source blob `339ae5c9acbd2581e3dea4a70ad87587789ab7de`, retaining the official Dockerfile. Exact-head CI `41293115199` passed reference checks on full seeds 11 and 29 plus ASan/UBSan/TSan. Its record path treats IDs outside the lookup table as `_UNMATCHED`, including valid 1–9,999,999 record IDs above 999,999. Developer reports native 140.758 ms vs 149.572 ms and pinned PGO 152.026 ms vs 156.468 ms, while 12-run cgroup medians were 12,597,248 B vs 11,034,624 B (+14.2%). The source diff is +274 net lines; complete K was not measured. Official score decides whether this trade is worthwhile. Rollback is the selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.

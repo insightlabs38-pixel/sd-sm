@@ -956,3 +956,9 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## All-track rerun during A PR #4 trial (2026-11-01)
 
 - Unchanged B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-2e1dbae3a73e` on official commit `18d16b927ac28c90205dbfe4934b5951f0cfea48` passed all five gates: T=0.179237 s, M=41,107,456 B, S=699, D=1, K=28.557548, points=72.786046. This is **LATEST**, not BEST `run-a4d307860273` (K=30.620459). Other B source was unchanged from `run-5c84caeee0be` (K=30.257659); attribute the lower result to run variation, not A's source edit.
+
+- Exact source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-bbd5dca7d61c` on commit `f8e388471260b59810b9974252b8a5d8bfe8d5ec` passed all five gates: T=0.157638 s, M=41,500,672 B, S=699, D=1, K=30.451192, points=74.180215. **LATEST**; **BEST** remains `run-a4d307860273` (K=30.620459).
+
+### B PR #12 screened without official dispatch
+
+- Exact-head CI `41301306814` passed 5-seed paired production-Docker runs (7 repeats per seed, exact output hashes). Candidate/champion `K_local` ratios were 0.992399, 0.999715, 0.999504, 0.998065 and 0.997203; geometric mean 0.997374 (about 0.26% lower cost), with source axis S=696 versus 691 in that CI baseline. This was too small to justify a dispatch; PR #12's isolated experiment also asks for reproducible full qualification before merge. Current selected B source remains blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.

@@ -994,3 +994,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Staged exact PR head `33e0f543fa9bbcd084954ab950a86d91d6b19495`; imported only `track-a/main.cpp`, source blob `c8ec203b3460cf9073dce25c15e4b15bff7b222b`, retaining the official Dockerfile. Exact-head CI `41309800426` passed all listed correctness, sanitizer, Docker and performance checks. Its 31-run matched local medians showed 0.9828x runtime at default threads, 0.9857x at one thread, and 0.9863x at twelve threads; these are developer-box measurements, not official score evidence. Rollback is known-good A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.
 
 - Official result `run-d8a21881b2e1` on commit `b098465d9c206e5f25fe2ccb1996689a1d676302`: all five gates passed; T=0.019519 s, M=24,281,088 B, S=594, D=1, K=44.499386, points=82.417701. Versus the immediately preceding A source result `run-59577f7ee2ab` (K=45.383618), T was 2.0% lower but M was 14.6% higher, S grew by 10, and K fell 1.95%. This does not beat A **BEST** `run-118836ebd34c` (K=49.960098); reject PR #6 and restore the known-good source.
+
+## Restored A source exact-head rerun (2026-11-01)
+
+- Restored source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; `run-1d61396945dc` on commit `f8e388471260b59810b9974252b8a5d8bfe8d5ec` passed all five gates: T=0.019800 s, M=21,151,744 B, S=584, D=1, K=45.534507, points=82.917032. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

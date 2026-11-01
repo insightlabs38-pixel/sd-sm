@@ -793,3 +793,10 @@ Run `run-4a93944b104c`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official board result — commit de9c67e (2026-11-01 04:53:02 UTC)
 
 Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.055624 s, M=23,404,544 B, S=637, D=1, K=21.418173, points=66.539121. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304) on this same source. Compared with `run-4a93944b104c`, K fell 3.21%, T rose 2.54%, M rose 10.58%; no C source changed. Keep the PR #13 rollback in prior commits.
+
+## Fresh text-pair/name-key frontier PR #14 (2026-11-01)
+
+- Testing the exact PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; no adaptations. This is based on C main source blob `b31de39258eec335f79e14a0568a325d4ad2c732`, while the then-current official C source was the separate valid-CSV frontier blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. Its exact official score will determine promotion.
+- Exact official static C++17 compile passed locally. [CI 41274929908](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41274929908) passed exact differential/full-seed references, wide-region-ID fixtures, ASan/UBSan, TSan, pinned offline Docker, unprivileged sandbox, paired pinned/full-PGO and cgroup comparisons.
+- Developer's two interleaved local PGO batches report complete K proxy +2.6–4.4% over main and +2.9–4.2% over the prior official PR13 source; cgroup memory increased about 0.4 MB. These are developer measurements, not board scores. BEST before this trial remains `run-d6f721bba982` (K=22.181304) on `be24e4dd`.
+- Official board result and promotion decision: pending.

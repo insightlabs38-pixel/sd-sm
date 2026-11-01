@@ -710,6 +710,10 @@ Run `run-9c285ced8fb9`; all five gates passed. T=0.165805 s, M=58,474,496 B, S=1
 
 Run `run-598cae4d2f13`; all five gates passed. T=0.181901 s, M=62,537,728 B, S=1111, D=1, K=24.648601, points=69.589614. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), source `fb67cede8d56f88faf543b57699b580cd9dab14a`.
 
-## Current B main promotion queued for official validation
+## B main promotion official result — LATEST, not BEST
 
-Imported only `track-b/main.cpp` from B main `d8f03d54e136d951ffa43133d0434c9a8b636004`, exact Git blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. Five-seed/seven-repeat confirmation `41268344306` passed published hashes, independent references, adversarial/differential checks, ASan/TSan/UBSan and pinned offline Docker. Runner-local K ratios were 1.001961, 1.003402, 1.003829, 1.000252 and 1.003030 (geometric mean +0.2494%); canonical source size stays 1111 lines. These are developer measurements, not board scores. Local production-flag compile succeeded. **Official result pending.** Rollback is prior official B blob `fb67cede8d56f88faf543b57699b580cd9dab14a` in parent `4a4461e`.
+Imported only `track-b/main.cpp` from B main `d8f03d54e136d951ffa43133d0434c9a8b636004`, exact Git blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. Five-seed/seven-repeat confirmation `41268344306` passed published hashes, independent references, adversarial/differential checks, ASan/TSan/UBSan and pinned offline Docker. Runner-local K ratios were 1.001961, 1.003402, 1.003829, 1.000252 and 1.003030 (geometric mean +0.2494%); canonical source size stays 1111 lines. These are developer measurements, not board scores. Local production-flag compile succeeded. Official score is recorded below. Rollback is prior official B blob `fb67cede8d56f88faf543b57699b580cd9dab14a` in parent `4a4461e`.
+
+## Official board result — commit a13b5ef (2026-11-01 04:16:46 UTC)
+
+Run `run-97f38287491a`; all five gates passed on current B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.165564 s, M=58,273,792 B, S=1111, D=1, K=26.203580, points=70.918031. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), on the prior `fb67cede8d56f88faf543b57699b580cd9dab14a` blob. This single official result is 1.83% below BEST, while the current main blob’s five-seed CI showed a consistent but small +0.2494% runner-local gain; do not relabel it BEST from the local result.

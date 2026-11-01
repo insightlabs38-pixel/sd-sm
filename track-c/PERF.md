@@ -760,3 +760,7 @@ Run `run-440557638313`; all five gates passed on C main blob `b31de39258eec335f7
 ## Selected source restored before next official validation
 
 Set `track-c/join.cpp` back to exact PR #13 BEST blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` (PR head `e5d6fadec60f9a4948d49ff0bd7d78511f78616c`), replacing C main blob `b31de39258eec335f79e14a0568a325d4ad2c732` that produced `run-440557638313`. The selected source was previously official BEST at `run-181942cb429e`; the changed main candidate failed to beat it on the current run. Production-flag local compile succeeded. The next pushed commit will revalidate this exact source along with the selected B candidate.
+
+## Official board result — restored PR #13 source, commit a13b5ef (2026-11-01 04:16:46 UTC)
+
+Run `run-0a28df8c793f`; all five gates passed on exact source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. T=0.057303 s, M=21,258,240 B, S=637, D=1, K=21.511932, points=66.633971. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763), same source. The restored champion is 1.24% below its prior BEST reading, but 1.25% above the discarded C main candidate’s latest K=21.245497.

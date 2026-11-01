@@ -701,3 +701,7 @@ Run `run-4dbbefad4adc`; all five gates passed on source `b7a527b058991dce7967738
 ## Official board result — commit 4a4461e (2026-11-01 04:11:36 UTC)
 
 Run `run-720d92385f68`; all five gates passed on D PR #10 blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.118737 s, M=73,125,888 B, S=783, D=1, K=26.409252, points=71.087805. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), +9.3% over the former BEST `run-68c15954870c` (K=24.163880). Retain the promoted PR #10 source; no rollback is indicated by this lower repeat.
+
+## Official board result — commit a13b5ef (2026-11-01 04:16:46 UTC)
+
+Run `run-8f54880b6707`; all five gates passed on D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.115853 s, M=72,269,824 B, S=783, D=1, K=26.798983, points=71.405916. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), same source. Latest remains 10.9% above the former BEST `run-68c15954870c` (K=24.163880).

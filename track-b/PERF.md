@@ -1119,3 +1119,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — D main cap-4 comparison, commit `27d732ecd32dcda88f7e2dd00e2bfc1ba08e3477`
 
 - `run-7418468ca6f4` passed all five gates on unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`: T=0.164603 s, M=41,328,640 B, S=699, D=1, K=29.799973, points=73.710794. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870).
+
+## Official all-track receipt — restored D PR #17, commit `a2c7057b631abd61ed3618f7a8f621fa69b3f3ea`
+
+- `run-03f616745275` passed all five gates on unchanged B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`: T=0.158166 s, M=41,398,272 B, S=699, D=1, K=30.400322, points=74.143909. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870).

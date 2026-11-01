@@ -808,3 +808,5 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Official run `run-9c879f4ce505` on `82d831033431c94a929d3c0eb99d62a0d061583a`; all five gates passed on unchanged A PR #3 source. T=0.021431 s, M=23,658,496 B, S=584, D=1, K=42.798034, points=81.571191. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
 
 - Official run `run-35745e9f9141` on `227bae88c5b80d003fdc3dda193ae499ffc8f66e`; all five gates passed on unchanged A PR #3 source. T=0.020412 s, M=21,532,672 B, S=584, D=1, K=44.686887, points=82.509005. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+- Official run `run-2a6ce9a594f5` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on unchanged A PR #3 source. T=0.020044 s, M=21,344,256 B, S=584, D=1, K=45.174574, points=82.744703. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

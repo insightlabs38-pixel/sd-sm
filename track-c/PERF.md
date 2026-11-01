@@ -829,3 +829,5 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - Official run `run-f55de9bd6fa6` on `82d831033431c94a929d3c0eb99d62a0d061583a`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.050291 s, M=11,730,944 B, S=657, D=1, K=25.742335, points=70.532397. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
 
 - Official run `run-b625ade658c6` on `227bae88c5b80d003fdc3dda193ae499ffc8f66e`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.050779 s, M=11,620,352 B, S=657, D=1, K=25.666919, points=70.468687. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+- Official run `run-f020e91bc766` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.051028 s, M=11,513,856 B, S=657, D=1, K=25.651410, points=70.455562. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).

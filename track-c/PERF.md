@@ -777,3 +777,7 @@ Run `run-d6f721bba982`; all five gates passed on source blob `be24e4ddc71817de5b
 ## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
 
 Run `run-893aa05f3cdc`; all five gates passed on the same valid-CSV frontier blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.063932 s, M=21,389,312 B, S=637, D=1, K=20.341129, points=65.418753. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304), on the same source. This repeat is 8.30% lower in K, with T +18.18% and M +1.62% versus that prior run; all correctness/build/sandbox gates still passed. The same C source is selected in the official tree, but this spread is materially larger than A/D repeats and needs another official measurement before final freeze. Build time was 18.373 s for `run-d6f721bba982` and 0.931 s for `run-893aa05f3cdc`; build time is reported separately from T, so the 18.18% T spread is not a build-time difference.
+
+## Official board result — commit 1633378 (2026-11-01 04:36:05 UTC)
+
+Run `run-65aa384d609d`; all five gates passed on the unchanged valid-CSV frontier source blob `be24e4ddc71817de5b5bc94ab4285ebc8d972bf6`. T=0.054927 s, M=21,409,792 B, S=637, D=1, K=21.941087, points=67.062907. **LATEST**; **BEST** remains `run-d6f721bba982` (K=22.181304) on this same source. Relative to the prior same-source run `run-893aa05f3cdc`, K rose 7.87%, T fell 14.08%, and M rose 20,480 B. The third reading is 1.08% below BEST and shows the prior low was not repeated; retain the tested frontier source and its PR #13 rollback.

@@ -714,3 +714,7 @@ Run `run-9bd4fa3b77b8`; all five gates passed. T=0.112929 s, M=67,596,288 B, S=7
 ## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
 
 Run `run-c6d4d4b15d34`; all five gates passed. T=0.114127 s, M=69,521,408 B, S=783, D=1, K=27.211059, points=71.737273. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), same D PR #10 source.
+
+## Official board result — commit 1633378 (2026-11-01 04:36:05 UTC)
+
+Run `run-327baed9cf95`; all five gates passed on D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.112463 s, M=71,090,176 B, S=783, D=1, K=27.289565, points=71.799831. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). This is within 0.29% K of same-source run `run-c6d4d4b15d34`; retain BEST.

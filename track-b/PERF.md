@@ -726,3 +726,7 @@ Run `run-3d30a604e3de`; all five gates passed on current B main blob `0bdeeb625c
 ## Official board result — commit f281e05 (2026-11-01 04:30:02 UTC)
 
 Run `run-d696476d1a86`; all five gates passed. T=0.165262 s, M=60,874,752 B, S=1111, D=1, K=25.999458, points=70.748215. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), same B source.
+
+## Official board result — commit 1633378 (2026-11-01 04:36:05 UTC)
+
+Run `run-e4e09943117e`; all five gates passed on B main source blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.166903 s, M=59,498,496 B, S=1111, D=1, K=25.989921, points=70.740248. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516) on the preceding B source. This is close to same-source LATEST `run-d696476d1a86` (K=25.999458); local five-seed evidence for B main remains only +0.2494% and is not an official score.

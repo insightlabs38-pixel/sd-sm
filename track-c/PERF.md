@@ -1179,3 +1179,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — D PR #17 trial, commit `e41565497e22f570dab2474001b8460272024f78`
 
 - Unchanged selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed all five gates in `run-7862d6b9d405`: T=0.065910 s, M=11,878,400 B, S=657, D=1, K=22.430163, points=67.541621. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official all-track receipt — D PR #17 repeat, commit `648afc7992a40d79ead4e56abe7abe56d310017a`
+
+- Unchanged selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed all five gates in `run-b793a25eb271`: T=0.065655 s, M=11,554,816 B, S=657, D=1, K=22.598164, points=67.703658. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Current C main candidate screened — not dispatched
+
+- Main source blob `0b6a6ef559781147f07ac541631ed36faeddac09` has exact qualification and twice-paired local complete-K proxies of +0.80% / +0.18% versus developer main's prior qualified blob `64e6c1f91f8ce859cf75c34990c964754e070b50`. That comparison base previously failed official `run-750055078f75` (K=22.562857 versus official BEST 25.979773), and there is no paired evidence against the currently selected official blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. Do not infer a gain over the selected official candidate; skip this dispatch pending a direct, meaningful baseline comparison.

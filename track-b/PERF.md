@@ -990,3 +990,9 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - **LATEST:** `run-28c1ed6b3332`; T=0.176619 s, M=41,992,192 bytes, S=699, D=1, K=28.768422, points=72.945802; all five gates passed.
 - **BEST remains:** `run-a4d307860273`, K=30.620459; latest K is -6.05% versus BEST. Against preceding same-source run `run-186b9d90850a` (K=30.611722), K changed -6.02%; source unchanged.
 - No source promotion or PR merge is supported by this run.
+
+## Official board receipt — 2026-11-01, commit `33914daf6197af1b5f3fbf564accbbf217b9b882`
+
+- **LATEST:** `run-1b24a8fe522a`; T=0.156913 s, M=41,402,368 bytes, S=699, D=1, K=30.521459, points=74.230264; all five gates passed.
+- **BEST remains:** `run-a4d307860273`, K=30.620459; latest K is -0.32% versus BEST. Against preceding same-source run `run-28c1ed6b3332` (K=28.768422), K changed +6.09%; source unchanged.
+- This source-identical rerun does not support promoting an open candidate.

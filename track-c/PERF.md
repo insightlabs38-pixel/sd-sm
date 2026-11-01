@@ -1155,3 +1155,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 - Current `sd-tc/main` source blob `64e6c1f91f8ce859cf75c34990c964754e070b50` passed all five gates in `run-750055078f75`: T=0.066492 s, M=11,231,232 B, S=661, D=1, K=22.562857, points=67.669704. Against official BEST `run-e7eab9673214` (K=25.979773), runtime regressed 32.6%, M fell 0.44%, S increased by 4, and K fell 13.15%. The developer's paired runner gains did not carry to the board. Reject this source and restore selected official blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; keep **BEST** `run-e7eab9673214`.
 - The board's five gates include build, correctness, timeout and sandbox. The exact official output and score are recorded; no PR was available to merge for this main-branch source.
+
+## Official all-track receipt — C rollback after main-source trial, commit `199e41df4695b591c909b064af49fb80ecd1388b`
+
+- Restored selected source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed build, check, correctness, timeout, and sandbox gates in `run-b626ba4dba2e`: T=0.068320 s, M=11,431,936 B, S=657, D=1, K=22.200450, points=67.318089. LATEST is this rollback run; BEST remains `run-e7eab9673214` (K=25.979773), 14.55% higher. The main-source candidate remains rejected (`run-750055078f75`, K=22.562857); the selected C source is restored.

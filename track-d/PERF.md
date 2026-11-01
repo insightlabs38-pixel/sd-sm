@@ -1069,3 +1069,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official all-track receipt — C main trial, commit `b9012e5073ea49c8f6e39079bfc43b4953eb6b2b`
 
 - `run-3d2e9d913d87` passed all five gates on unchanged D source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`: T=0.106435 s, M=60,674,048 B, S=592, D=1, K=30.195105, points=73.996827. This is 0.52% above previous same-source BEST `run-e09b1c34dd63` (K=30.040244); record `run-3d2e9d913d87` as raw **BEST** and **LATEST**. No D source change.
+
+## Official all-track receipt — restored selected tree, commit `199e41df4695b591c909b064af49fb80ecd1388b`
+
+- `run-bee999330bf5` passed build, check, correctness, timeout, and sandbox gates: T=0.117102 s, M=60,456,960 B, S=592, D=1, K=28.807658, points=72.975398. D source remained selected blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`; LATEST is this run. BEST remains same-source `run-3d2e9d913d87` (K=30.195105); this result is 4.60% below BEST.

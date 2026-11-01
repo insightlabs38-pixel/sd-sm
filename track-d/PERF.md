@@ -844,3 +844,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official D source confirmation `0874d1c` — latest
 
 - Run `run-8599db3389d7` passed all five gates: T=0.127310 s, M=67,735,552 B, S=783, D=1, K=25.898152, points=70.663438. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+## Official source confirmation `3e16ed7` — latest
+
+- Run `run-27c1571288b0` passed all five gates: T=0.115052 s, M=76,578,816 B, S=783, D=1, K=26.582422, points=71.229727. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

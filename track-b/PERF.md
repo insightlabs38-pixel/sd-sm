@@ -1006,3 +1006,11 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official board receipt — 2026-11-01, commit `43bdf2bbd64d9cdae24291dfe71431154bab61cf`
 
 - **LATEST before the A PR #7 trial:** `run-70dcc1fc3a8f`; T=0.159811 s, M=41,119,744 B, S=699, D=1, K=30.243456, points=74.031571; all five gates passed. Source B remained `b8ef489` and BEST remains `run-a4d307860273` (K=30.620459).
+
+## Official board receipt — all-track rerun, commit `65ac364be8965ab62a3ba737882b630a4bb126ae`
+
+- `run-66fff406c7d5`: T=0.161757 s, M=41,607,168 B, S=699, D=1, K=30.060985, points=73.900160; all gates passed.
+
+## Official board receipt — all-track rerun, commit `cffcacbe03237196298ec5c5e302392ec24f865d`
+
+- **LATEST:** `run-31985893fde4`; T=0.168040 s, M=41,492,480 B, S=699, D=1, K=29.493643, points=73.486421; all five gates passed. **BEST remains** `run-a4d307860273`, K=30.620459.

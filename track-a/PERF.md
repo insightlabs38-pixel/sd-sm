@@ -1044,3 +1044,11 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Exact candidate source blob `1ad533f7` is present on CI-tested commits `1961c148d35cc3a8114b68a5153dda8b271f447d` and `27a8927f4a80bca0ac5c009be3f02b505c137152`; CI runs [41332666362](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41332666362) and [41333014119](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41333014119) both succeeded. Developer qualification reports exact hashes, differential/adversarial CRC-collision cases, strict ASan/UBSan and TSan, and restricted Docker.
 - Developer paired pinned-Docker evidence reports candidate/champion 12-worker T ratios 0.9474/0.9489 and M ratios 0.8877/0.8441; S=578 (six fewer lines), D=1. Projected K≈52.65/53.14 is developer analysis only, not an official result.
 - Official trial: `run-786c2c61128b` passed all five gates: T=0.017286 s, M=21,168,128 B, S=578, D=1, K=48.801309, points=84.421574. This is +7.96% K versus the immediately prior same-source run `run-d5c85d097f0d` (K=45.201982), but -2.32% versus the recorded A BEST `run-118836ebd34c` (K=49.960098); T is slower than BEST. **Decision: not promoted.** Restored source blob `c91b9689`; PR #7 stays open and unmerged.
+
+## Official board receipt — A PR #7 trial, commit `65ac364be8965ab62a3ba737882b630a4bb126ae`
+
+- `run-786c2c61128b`: T=0.017286 s, M=21,168,128 B, S=578, D=1, K=48.801309, points=84.421574; all gates passed. It did not beat BEST; see the PR #7 decision above.
+
+## Official board receipt — A champion rollback, commit `cffcacbe03237196298ec5c5e302392ec24f865d`
+
+- **LATEST:** `run-b5fb88b93835`; T=0.017847 s, M=21,606,400 B, S=584, D=1, K=47.757697, points=83.952169; all five gates passed. **BEST remains** `run-118836ebd34c`, K=49.960098.

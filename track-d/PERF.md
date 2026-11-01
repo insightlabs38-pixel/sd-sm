@@ -969,3 +969,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - **LATEST:** `run-d4ccae117bbd`; T=0.113527 s, M=67,993,600 bytes, S=783, D=1, K=27.404392, points=71.891009; all five gates passed.
 - **BEST remains:** `run-dd6d11072ae7`, K=27.822987; latest K is -1.50% versus BEST. Against preceding same-source run `run-50fee11bc27f` (K=25.957141), K changed +5.58%; source unchanged.
 - This source-identical rerun does not support promoting an open candidate.
+
+## Official board receipt — 2026-11-01, commit `c97e128f086a883ce4a9b6287e345e6fce3b9565`
+
+- **LATEST:** `run-4abd32d13ea4`; T=0.115180 s, M=74,231,808 bytes, S=783, D=1, K=26.733561, points=71.352841; all five gates passed.
+- **BEST remains:** `run-dd6d11072ae7`, K=27.822987; latest K is -3.92% versus BEST. Against preceding same-source run `run-d4ccae117bbd` (K=27.404392), K changed -2.45%.
+- This source-identical rerun provides no promotion evidence.

@@ -1030,3 +1030,9 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - **LATEST:** `run-e1636100f54c`; T=0.020625 s, M=21,139,456 bytes, S=584, D=1, K=44.619708, points=82.476336; all five gates passed.
 - **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -10.69% versus BEST. Against preceding same-source run `run-e2e93406576d` (K=47.973873), K changed -6.99%; source unchanged.
 - This source-identical rerun does not support promoting an open candidate.
+
+## Official board receipt — 2026-11-01, commit `c97e128f086a883ce4a9b6287e345e6fce3b9565`
+
+- **LATEST:** `run-b71814a3d1e1`; T=0.020500 s, M=21,196,800 bytes, S=584, D=1, K=44.731296, points=82.530574; all five gates passed.
+- **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -10.47% versus BEST. Against preceding same-source run `run-e1636100f54c` (K=44.619708), K changed +0.25%.
+- This source-identical rerun provides no promotion evidence.

@@ -1053,3 +1053,9 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - **LATEST:** `run-fe2af791f56d`; T=0.051587 s, M=11,800,576 bytes, S=657, D=1, K=25.386855, points=70.230445; all five gates passed.
 - **BEST remains:** `run-e7eab9673214`, K=25.979773; latest K is -2.28% versus BEST. Against preceding same-source run `run-b7a30fe16702` (K=22.230654), K changed +14.20%; source unchanged.
 - No source promotion or PR merge is supported by this run.
+
+## Official board receipt — 2026-11-01, commit `269e0bb26368cb0d38f492561d8f11ab8b47a131`
+
+- **LATEST:** `run-6260a4531a7e`; T=0.050560 s, M=11,829,248 bytes, S=657, D=1, K=25.630951, points=70.438236; all five gates passed.
+- **BEST remains:** `run-e7eab9673214`, K=25.979773; latest K is -1.34% versus BEST. Against preceding same-source run `run-fe2af791f56d` (K=25.386855), K changed +0.96%; source unchanged.
+- No source promotion or PR merge is supported by this run.

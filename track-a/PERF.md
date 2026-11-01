@@ -1018,3 +1018,9 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - **LATEST:** `run-41276f576b63`; T=0.020007 s, M=21,241,856 bytes, S=584, D=1, K=45.259837, points=82.785649; all five gates passed.
 - **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -9.41% versus BEST. Against preceding same-source run `run-b94a33c52541` (K=47.667638), K changed -5.05%; source unchanged.
 - No source promotion or PR merge is supported by this run.
+
+## Official board receipt — 2026-11-01, commit `269e0bb26368cb0d38f492561d8f11ab8b47a131`
+
+- **LATEST:** `run-e2e93406576d`; T=0.017889 s, M=21,000,192 bytes, S=584, D=1, K=47.973873, points=84.050239; all five gates passed.
+- **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -3.98% versus BEST. Against preceding same-source run `run-41276f576b63` (K=45.259837), K changed +6.00%; source unchanged.
+- No source promotion or PR merge is supported by this run.

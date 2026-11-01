@@ -957,3 +957,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - **LATEST:** `run-3925ebc17933`; T=0.113608 s, M=69,828,608 bytes, S=783, D=1, K=27.249104, points=71.767611; all five gates passed.
 - **BEST remains:** `run-dd6d11072ae7`, K=27.822987; latest K is -2.06% versus BEST. Against preceding same-source run `run-e71ef96d4d83` (K=26.221251), K changed +3.92%; source unchanged.
 - No source promotion or PR merge is supported by this run.
+
+## Official board receipt — 2026-11-01, commit `269e0bb26368cb0d38f492561d8f11ab8b47a131`
+
+- **LATEST:** `run-50fee11bc27f`; T=0.122314 s, M=74,018,816 bytes, S=783, D=1, K=25.957141, points=70.712843; all five gates passed.
+- **BEST remains:** `run-dd6d11072ae7`, K=27.822987; latest K is -6.71% versus BEST. Against preceding same-source run `run-3925ebc17933` (K=27.249104), K changed -4.74%; source unchanged.
+- No source promotion or PR merge is supported by this run.

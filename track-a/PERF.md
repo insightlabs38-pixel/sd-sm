@@ -986,3 +986,9 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 
 - Staged exact PR head `c6cc55f64f19bbfbfb28f726ac9874313ab9b3d2`; imported only its `track-a/main.cpp` (source blob `e2713339cf44e515783d8671b1db074904070e3b`), retaining the official Dockerfile and all other tracks. The exact-head developer workflow `41290978319` passed. The candidate certifies the endpoint fingerprint table only after all 1,842 catalogue endpoints have been seen; that count is specified for full/sample, while tiny never reaches the fast path. The test suite includes forced signature collisions and exact output checks.
 - Developer paired local claim: 3–5% faster; not official score evidence. Official board T/M/S/D/K and correctness gates will determine promotion. Rollback is the immediately preceding A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.
+
+- Official result `run-c9c269752506` on `18d16b927ac28c90205dbfe4934b5951f0cfea48`: all five gates passed; T=0.019821 s, M=20,615,168 B, S=607, D=1, K=45.480574, points=82.891297. It is 0.21% above the prior same-source/other-track run `run-59577f7ee2ab` (K=45.383618), but below A **BEST** `run-118836ebd34c` (K=49.960098), and S increased 23 lines. Do not promote this candidate.
+
+## Frontier A PR #6 official trial (2026-11-01)
+
+- Staged exact PR head `33e0f543fa9bbcd084954ab950a86d91d6b19495`; imported only `track-a/main.cpp`, source blob `c8ec203b3460cf9073dce25c15e4b15bff7b222b`, retaining the official Dockerfile. Exact-head CI `41309800426` passed all listed correctness, sanitizer, Docker and performance checks. Its 31-run matched local medians showed 0.9828x runtime at default threads, 0.9857x at one thread, and 0.9863x at twelve threads; these are developer-box measurements, not official score evidence. Rollback is known-good A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.

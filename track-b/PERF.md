@@ -758,3 +758,5 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - Official run `run-d828b39f261e` on checkpoint `b70956dd71a72aec0c5bace4f41dcf3a9807f8ba`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.161069 s, M=60,743,680 B, S=1111, D=1, K=26.347052, points=71.036602. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).
 
 - Official run `run-34b780e46a8c` on `dde14ac917c8ad8642c734162b25804a4008cc90`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.199303 s, M=61,693,952 B, S=1111, D=1, K=23.612001, points=68.656640. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).
+
+- Official run `run-023f98f0664f` on `346a17e08d7356487484b804bbd9a0a456bfa4f5`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.168431 s, M=61,390,848 B, S=1111, D=1, K=25.710262, points=70.505325. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).

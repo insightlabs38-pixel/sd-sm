@@ -771,9 +771,11 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 - Official run `run-5046023263d9` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.161902 s, M=57,397,248 B, S=1111, D=1, K=26.578711, points=71.226696. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).
 
-## B PR #11 compact block engine — official scoring-box trial pending
+## B PR #11 compact block engine — promoted after official validation
 
 - Imported exact PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0` from head `1298a0db`; rollback remains selected main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d` (BEST source `fb67cede`). Dockerfile and dependencies are unchanged.
 - Exact source passed qualification CI `41288987144`: differential/adversarial/fuzz oracles (plain, ASan/UBSan, TSan), three full seeds, sample/tiny, pinned offline Docker as uid 65534 on read-only root, and 1/3/4/17/24-worker checks. CI head `3d7034a` contains this exact source blob.
 - Developer paired runner T (champion→candidate): 0.3234→0.3321, 0.3274→0.3340, 0.3271→0.3291 s; S 1111→691; local K ratios 1.060/1.063/1.071. At 12 workers with THP=always, candidate peak 37.9–40.5 MiB versus local 41.96 MiB saturation estimate. These are developer-runner results, not scoring-box measurements.
-- Projected box K is 29.9 at +2.7% T (versus BEST `run-1d48fc96e1ee`, K=26.690516), but box T/M remain unverified. Previous official B source run `run-5046023263d9` was T=0.161902 s, M=57,397,248 B, S=1111, D=1, K=26.578711. Official candidate axes/gates pending.
+- Projected box K is 29.9 at +2.7% T (versus BEST `run-1d48fc96e1ee`, K=26.690516), but box T/M remain unverified. Previous official B source run `run-5046023263d9` was T=0.161902 s, M=57,397,248 B, S=1111, D=1, K=26.578711. Official axes/gates passed: K rose to 29.637085 with lower M/S and a small T regression; the exact measured run is recorded below.
+
+- Official run `run-878b1adc7345` on `46b2beb7cea2f0305f7c972bca112c804151b241`; all five gates passed on candidate blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`. T=0.166993 s, M=41,185,280 B, S=691, D=1, K=29.637085, points=73.591774. Versus prior official B source run `run-5046023263d9` (T=0.161902, M=57,397,248, S=1111, K=26.578711), runtime rose 3.14%, memory fell 28.24%, S fell 37.80%, and K rose 11.51%. New **BEST/LATEST**; +11.04% versus old BEST `run-1d48fc96e1ee` (K=26.690516). PR #11 merged to B main as `c1b9e90f3916f009e4b3d3d64f3395ba0a680b6a`; retain pre-PR source blob above for rollback.

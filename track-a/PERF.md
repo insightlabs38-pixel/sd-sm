@@ -810,3 +810,10 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Official run `run-35745e9f9141` on `227bae88c5b80d003fdc3dda193ae499ffc8f66e`; all five gates passed on unchanged A PR #3 source. T=0.020412 s, M=21,532,672 B, S=584, D=1, K=44.686887, points=82.509005. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
 
 - Official run `run-2a6ce9a594f5` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on unchanged A PR #3 source. T=0.020044 s, M=21,344,256 B, S=584, D=1, K=45.174574, points=82.744703. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+
+## A PR #4 exact-catalog certificate — official trial pending
+
+- Candidate is open draft PR #4 (`c6cc55f6`), exact source blob `e2713339cf44e515783d8671b1db074904070e3b`; rollback is selected A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`. The certificate activates only at the frozen exact 1,842-key catalog, compares full strings for colliding fingerprints, and falls back before saturation. No Docker or dependency changes.
+- Two independent complete-program paired 31-run controls against current A main reported candidate/champion runtime ratios: CI `41290905376`: 0.9733x / 0.9582x / 0.9612x at 1/4/12 threads; CI `41290978319`: 0.9667x / 0.9501x / 0.9730x. Both exact-source CI workflows passed full/tiny/sample hashes, reference/random/reordered tests, ASan/UBSan, TSan, Docker sandbox and forced 42-way fingerprint-collision tests. These are runner ratios; candidate official M/S/K remain unmeasured.
+- Previous official A source run `run-3ba931887dae`: T=0.020080 s, M=20,897,792 B, S=584, D=1, K=45.325284. **BEST** remains `run-118836ebd34c` (K=49.960098).

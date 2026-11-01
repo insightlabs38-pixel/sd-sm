@@ -883,3 +883,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official B source confirmation `dbea191` — latest
 
 - Same metadata blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: run `run-1a57a8410d67` passed all five gates: T=0.164626 s, M=42,323,968 B, S=690, D=1, K=29.855871, points=73.751487. **LATEST**; **BEST** remains `run-f100bcaacc24` (K=30.595083). Source-identical rerun, not a new candidate.
+
+## Official B source confirmation `ba05448` — latest
+
+- Same metadata blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: run `run-7ceed24f2b3c` passed all five gates: T=0.159794 s, M=42,119,168 B, S=690, D=1, K=30.303914, points=74.074936. **LATEST**; **BEST** remains `run-f100bcaacc24` (K=30.595083). Source-identical rerun, not a new candidate.

@@ -722,3 +722,11 @@ Run `run-327baed9cf95`; all five gates passed on D PR #10 source blob `b7a527b05
 ## Official board result — commit 116914f (2026-11-01 04:41:53 UTC)
 
 Run `run-ee5a05a9a44f`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.114332 s, M=67,805,184 B, S=783, D=1, K=27.322906, points=71.826344. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+## Official board result — commit b5b3fec (2026-11-01 04:47:45 UTC)
+
+Run `run-cf9be292c16b`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.113268 s, M=78,319,616 B, S=783, D=1, K=26.670775, points=71.301782. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+## D fused-probe depth 128 frontier — official validation pending
+
+Branch `d/fused-owner-probe-20261101` head `54788fc7baa30f8b1baf0a2860cae60a29315eb6`, source blob `ba344a996df8b60d5aad7748a3ead12931460a92`. CI `41274089238` succeeded: 88 differential cases across worker/probe combinations and 17 interleaved full-input rounds with exact hashes at 4/6/12 workers. Default owner partition remains selected; only `SD_PROBE=128` is chosen. Against default `SD_PROBE=256`, median wall T was 0.202542→0.201805 s (4 workers, -0.36%), 0.214857→0.214096 s (6 workers, -0.35%), and 0.217176→0.214801 s (12 workers, -1.09%). These are developer runner results, not official board axes. Imported only `track-d/d_traverse.cpp` and set `-DSD_PROBE=128` in the official pinned static C++17 build. Exact official flags compiled locally. Rollback to PR #10 blob `b7a527b058991dce7967738d3695f8ab3917a75d` and Dockerfile remain in parent `b5b3fec`; do not promote until official board gates and K support it. No PR exists for this frontier branch.

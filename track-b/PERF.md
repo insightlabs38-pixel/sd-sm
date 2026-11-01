@@ -738,3 +738,7 @@ Imported only `track-b/main.cpp` from open PR #6 head `5af5468b541b5db4202ba3764
 ## Official result — B PR #6 frontier rejected (commit 116914f, 2026-11-01 04:41:53 UTC)
 
 Run `run-c1a576b7faaf` on exact PR #6 source blob `4486c2155ffa008c70aee056338770e8a9ecf16a`; all five gates passed. T=0.285812 s, M=58,347,520 B, S=781, D=1, K=21.020981, points=66.132649. Relative to the prior B main-source result `run-e4e09943117e` (K=25.989921), K fell 19.12% while T rose 71.25%; the 1.93% lower memory and smaller S=781 do not compensate. **Not promoted**; restore B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d` in the next official checkpoint. The candidate and this run remain in history for rollback/audit. PR #6 is unmerged; GitHub reports it conflicting with current B main.
+
+## Official board result — B main restored, commit b5b3fec (2026-11-01 04:47:45 UTC)
+
+Run `run-8aa91f742842`; all five gates passed on restored B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.159966 s, M=60,833,792 B, S=1111, D=1, K=26.429894, points=71.104771. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516) on the prior qualified B source. This is 1.69% above the same-source pre-trial `run-e4e09943117e` (K=25.989921) and 25.73% above rejected PR #6 run `run-c1a576b7faaf`; the PR #6 runtime regression was decisive.

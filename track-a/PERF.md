@@ -778,3 +778,7 @@ Run `run-1611d13f0c3d`; all five gates passed on the unchanged A PR #3 source. T
 ## Official board result — commit 116914f (2026-11-01 04:41:53 UTC)
 
 Run `run-6f9ba21a52e5`; all five gates passed on the unchanged A PR #3 source. T=0.016999 s, M=21,229,568 B, S=584, D=1, K=49.106903, points=84.557127. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same source.
+
+## Official board result — commit b5b3fec (2026-11-01 04:47:45 UTC)
+
+Run `run-6524054f5aa0`; all five gates passed on unchanged A PR #3 source. T=0.018677 s, M=21,368,832 B, S=584, D=1, K=46.787814, points=83.506638. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

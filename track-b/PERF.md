@@ -643,3 +643,7 @@ Run `run-f7556ef6c1bb`; all five gates passed. T=0.159570 s, M=59,879,424 B, S=1
 ## Official board result — commit d1cb0e5 (2026-11-01 00:22:52 UTC)
 
 Run `run-a9e60a59ab9e`; all five gates passed. T=0.161943 s, M=59,703,296 B, S=1111, D=1, K=26.366804, points=71.052874. **LATEST**; **BEST** remains `run-f7556ef6c1bb` (K=26.546489). The fast-dictionary source remains promoted. B PR #9 (supporting tests/evidence) merged to developer main as `80c1534769daf316c1402b4e35bcae286c9deb8d`; it made no solution-source change and was not imported into the official submission.
+
+## Official board result and new BEST — commit cf46ad7 (2026-11-01 00:32:52 UTC)
+
+Run `run-0e5818b15d82`; all five gates passed. T=0.160520 s, M=58,437,632 B, S=1111, D=1, K=26.597152, points=71.241757. **BEST = LATEST**, improving `run-f7556ef6c1bb` (K=26.546489) by 0.19%. Same promoted fast-dictionary source blob `fb67cede8d56f88faf543b57699b580cd9dab14a`; no source change in this checkpoint.

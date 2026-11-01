@@ -669,3 +669,11 @@ Run `run-0ceea23832a5`; all five gates passed. T=0.074715 s, M=14,336,000 B, S=5
 ## Official board result — commit d1cb0e5 (2026-11-01 00:22:52 UTC)
 
 Run `run-babf3d2dbe5f`; all five gates passed. T=0.074347 s, M=16,474,112 B, S=552, D=1, K=20.305397, points=65.380574. **LATEST**; **BEST** remains `run-df2932b2ba2d` (K=21.029207).
+
+## Official board result — commit cf46ad7 (2026-11-01 00:32:52 UTC)
+
+Run `run-0c7514c8de3b`; all five gates passed. T=0.074028 s, M=14,118,912 B, S=552, D=1, K=20.986758, points=66.097268. **LATEST**; **BEST** remains `run-df2932b2ba2d` (K=21.029207).
+
+## Frontier PR #12 confirmation trial — pending
+
+Re-testing only the exact previously qualified source blob `8bee2ee3a2cb027098f5b95a4279bfb9a30da785` from PR #12. Its prior official run `run-a7994e398a53` passed all gates with T=0.060680 s, M=21,413,888 B, S=622, K=20.949035, 0.38% below C BEST; the large runtime gain nearly offset higher memory and source size. PR #12 head `853ade9910fafa41324f0e792820a4b3089a8c39` was updated with a boundary test and PERF notes only; source blob is unchanged, but that latest head has no CI run. This is one controlled retest because the prior K gap is within recent run-to-run variation; parent `cf46ad7` preserves the C champion for rollback. No promotion until this run's full K and gates are verified.

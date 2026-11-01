@@ -754,3 +754,5 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - Repeat official run on source-identical commit `17a6d96ba2cf813bac7eea2225b51fdd4d34960a`: `run-d2c727c53bb1`, all five gates passed. T=0.164308 s, M=60,784,640 B, S=1111, D=1, K=26.082554, points=70.817506. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). No B source change.
 
 - Official run on `0d48c0b1302610385c4608b30b6842aa71e388cb`: `run-df18cfbb4075`, all five gates passed on unchanged B main source blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.191577 s, M=58,523,648 B, S=1111, D=1, K=24.338862, points=69.315014. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).
+
+- Official run `run-d828b39f261e` on checkpoint `b70956dd71a72aec0c5bace4f41dcf3a9807f8ba`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.161069 s, M=60,743,680 B, S=1111, D=1, K=26.347052, points=71.036602. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).

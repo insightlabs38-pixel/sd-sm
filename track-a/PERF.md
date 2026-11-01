@@ -794,3 +794,5 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Repeat official run on source-identical commit `17a6d96ba2cf813bac7eea2225b51fdd4d34960a`: `run-ea87ba793f05`, all five gates passed. T=0.016510 s, M=21,278,720 B, S=584, D=1, K=49.805790, points=84.863992. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). No A source change.
 
 - Official run on `0d48c0b1302610385c4608b30b6842aa71e388cb`: `run-6567df7d7299`, all five gates passed on unchanged A PR #3 source. T=0.017840 s, M=21,585,920 B, S=584, D=1, K=47.776126, points=83.960546. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+- Official run `run-434ebd60d4d5` on checkpoint `b70956dd71a72aec0c5bace4f41dcf3a9807f8ba`; all five gates passed on unchanged A PR #3 source. T=0.020811 s, M=21,110,784 B, S=584, D=1, K=44.431924, points=82.384756. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

@@ -697,3 +697,7 @@ Imported only `track-d/d_traverse.cpp` from open PR #10, head `0b0a71409399192ae
 ## Frontier PR #10 official promotion — commit 132ef00 (2026-11-01 04:06:36 UTC)
 
 Run `run-4dbbefad4adc`; all five gates passed on source `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.111756 s, M=67,698,688 B, S=783, D=1, K=27.644700, points=72.080594. **BEST = LATEST**, +14.4% K versus former BEST `run-68c15954870c` (K=24.163880), with T -8.6%, M -31.3%, S -79. PR #10 was merged to `sd-td/main` at `307f11c640d3013aa023f26a75fe8d9f4dac8abd`; D rollback remains available in prior official commits, exact old source `be15ac2e635af157cc8db71d2df5e218d0a78446`.
+
+## Official board result — commit 4a4461e (2026-11-01 04:11:36 UTC)
+
+Run `run-720d92385f68`; all five gates passed on D PR #10 blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.118737 s, M=73,125,888 B, S=783, D=1, K=26.409252, points=71.087805. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700), +9.3% over the former BEST `run-68c15954870c` (K=24.163880). Retain the promoted PR #10 source; no rollback is indicated by this lower repeat.

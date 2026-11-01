@@ -1150,3 +1150,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official all-track receipt — checkpoint `2470b6250a0cd834661b1ca5b21def7b4703ef50`
 
 - `run-6ed2d5bff9c8` passed all five gates on unchanged A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.021272 s, M=21,303,296 B, S=584, D=1, K=43.868112, points=82.107447. **LATEST** is this run; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official all-track receipt — checkpoint `19582b89b83bb4bdc46998fdbcd9c7d0fb7baadd`
+
+- `run-db050f90d048` passed all five gates on unchanged A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.020287 s, M=21,291,008 B, S=584, D=1, K=44.925644, points=82.624715. **LATEST** is this run; **BEST** remains `run-118836ebd34c` (K=49.960098).

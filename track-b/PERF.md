@@ -1094,3 +1094,12 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — checkpoint `2470b6250a0cd834661b1ca5b21def7b4703ef50`
 
 - `run-a253baab3636` passed all five gates on unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`: T=0.158810 s, M=41,025,536 B, S=699, D=1, K=30.338620, points=74.099791. **LATEST** is this run; **BEST** remains `run-a4d307860273` (K=30.620459).
+
+## Official all-track receipt — checkpoint `19582b89b83bb4bdc46998fdbcd9c7d0fb7baadd`
+
+- `run-218d2e195911` passed all five gates on unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`: T=0.161849 s, M=40,660,992 B, S=699, D=1, K=30.052440, points=73.893987. **LATEST** is this run; **BEST** remains `run-a4d307860273` (K=30.620459).
+
+## Frontier candidate screened without official dispatch — B PR #17 fusion
+
+- Exact-source qualification `41361075676` passed organizer seed/reference hashes, sample/tiny, differential/adversarial tests, ASan/UBSan, TSan, and pinned offline Docker. Source blob `e5605d03f3a18050df7eee2aa8816fdee619fac8` fuses the dictionary lookup into the evidence update loop; candidate D=1 and S=692 versus developer-main S=695.
+- Paired full-seed Docker K_local candidate/champion ratios were 0.967922, 0.976948, and 0.975600 (geomean 0.97348): all three seeds regressed about 2.3–3.2%, with no useful memory offset. The comparison base was developer main commit `8eb3029` / source `6450d009a5d07f719f3678becea49d89b136737a`; the official selected source remains `b8ef48979203564e806b78e66a18fe9c8cf60463`. No official trial or promotion; PR #17 remains draft.

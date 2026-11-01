@@ -1081,3 +1081,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official all-track receipt — checkpoint `2470b6250a0cd834661b1ca5b21def7b4703ef50`
 
 - `run-f5f113b794a4` passed all five gates on unchanged D source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`: T=0.106670 s, M=61,198,336 B, S=592, D=1, K=30.109968, points=73.935515. **LATEST** is this run; **BEST** remains `run-3d2e9d913d87` (K=30.195105).
+
+## Official all-track receipt — checkpoint `19582b89b83bb4bdc46998fdbcd9c7d0fb7baadd`
+
+- `run-820dca3523c4` passed all five gates on unchanged D source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`: T=0.116555 s, M=61,583,360 B, S=592, D=1, K=28.768766, points=72.946062. **LATEST** is this run; **BEST** remains `run-3d2e9d913d87` (K=30.195105).

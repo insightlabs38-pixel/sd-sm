@@ -743,3 +743,8 @@ Run `run-ed0ed9df98dc`; all five gates passed. T=0.020108 s, M=21,360,640 B, S=5
 ## Official board result — commit 62c5bf4 (2026-11-01 01:17:54 UTC)
 
 Run `run-34b2d7bd448d`; all five gates passed. T=0.021896 s, M=21,217,280 B, S=584, D=1, K=43.273511, points=81.811107. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same source.
+
+
+## Official board result — commit d411050 (2026-11-01 01:22:54 UTC)
+
+Run `run-e022f8648f11`; all five gates passed. T=0.019144 s, M=21,504,000 B, S=584, D=1, K=46.155374, points=83.211114. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same A source.

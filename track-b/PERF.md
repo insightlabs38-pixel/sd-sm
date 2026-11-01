@@ -691,3 +691,12 @@ Run `run-22f9b34b3564`; all five gates passed. T=0.161495 s, M=57,729,024 B, S=1
 ## Official board result — commit 62c5bf4 (2026-11-01 01:17:54 UTC)
 
 Run `run-b2ecc2bdf6e0`; all five gates passed. T=0.168820 s, M=59,219,968 B, S=1111, D=1, K=25.866201, points=70.636633. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), same source.
+
+
+## Official board result — commit d411050 (2026-11-01 01:22:54 UTC)
+
+Run `run-9d0435b31a4a`; all five gates passed. T=0.161128 s, M=59,449,344 B, S=1111, D=1, K=26.455947, points=71.126166. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), same B source.
+
+## Rejected B compact-probe branch (no official run)
+
+CI `41260455097` passed exact references, sanitizers and pinned production Docker. Candidate `track-b/compact-probe16-11` source `d631309c8cb17c7792153683830e1df45950f078` reduces per-token probe storage, but the paired full-data result was mixed: local K ratios versus current champion were 0.954, 1.011 and 0.995 for seeds 1/2/3; source axis rose 1111→1121, and memory fell only about 0.3–0.8 MB. Rejected for official dispatch because two seeds regressed and aggregate evidence does not justify the added complexity/size.

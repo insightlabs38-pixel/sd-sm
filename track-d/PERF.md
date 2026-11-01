@@ -683,3 +683,8 @@ Run `run-69641193c5c9`; all five gates passed on BEST D source blob `be15ac2e635
 ## Official board result — commit 62c5bf4 (2026-11-01 01:17:54 UTC)
 
 Run `run-6bb93f355d5c`; all five gates passed on exact BEST D source `be15ac2e635af157cc8db71d2df5e218d0a78446`. T=0.126878 s, M=98,791,424 B, S=862, D=1, K=23.711800, points=68.748226. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).
+
+
+## Official board result — commit d411050 (2026-11-01 01:22:54 UTC)
+
+Run `run-d267e4388d7c`; all five gates passed on exact BEST D source `be15ac2e635af157cc8db71d2df5e218d0a78446`. T=0.134675 s, M=99,012,608 B, S=862, D=1, K=23.004879, points=68.090997. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).

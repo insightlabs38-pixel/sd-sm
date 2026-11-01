@@ -738,3 +738,8 @@ Run `run-3a336d8f9e98`; all five gates passed on restored PR #13 source `c4b4145
 ## Current-main parser candidate queued after CI (2026-11-01)
 
 Source blob `3519869c67493e3e5da7c4ced30b38be438cfeca` from C main commit `942a040d57520768449281de1752582d17f99fa1`, the branchless mixed-newline parser. CI `41259948744` passed all references, page-aligned EOF, hostile fixtures, ASan/UBSan, TSan, pinned offline Docker and sandbox. Against the qualified safe champion, full-scale paired timing was 89.897→84.509 ms (process RSS 43,510→44,258 KiB); pinned PGO 82.500→78.786 ms (RSS 35,352→41,404 KiB); full-PGO 80.807→79.011 ms; official-BEST architecture 80.754→80.135 ms; short-path control 91.990→79.389 ms. The paired restricted-cgroup median was 10,496,000→10,498,048 B (+2 KiB); source falls from 545 to 534 lines, while official S is unmeasured. These repeated timing gains, small simplification and flat cgroup memory justify one official trial; **official T/M/S/D/K pending**. Safe PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a` remains in earlier commits for rollback.
+
+
+## Official board result — commit d411050 (2026-11-01 01:22:54 UTC)
+
+Run `run-994f040e654c`; all five gates passed on current C main source `3519869c67493e3e5da7c4ced30b38be438cfeca`. T=0.056477 s, M=21,401,600 B, S=646, D=1, K=21.594072, points=66.716727. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763) on safe PR #13 source `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. This candidate improves the low-scoring restored-source rerun `run-3a336d8f9e98` (K=21.200272) by 1.86%, with T -0.65% and M -8.3%, but remains 0.87% below BEST and increases S by 9. Keep as a provisional candidate for one exact-source repeat; do not claim promotion yet.

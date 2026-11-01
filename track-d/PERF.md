@@ -1017,3 +1017,13 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official board receipt — Track B champion rollback, commit `021d3bbbbb502e762e7402f38ff341f67bccd377`
 
 - `run-5208b85aaecd` passed all five gates: T=0.122566 s, M=73,846,784 B, S=783, D=1, K=25.942513, points=70.700602. D source unchanged; **BEST** remains `run-dd6d11072ae7` (K=27.822987).
+
+## Official board receipt — pre-D-PR #15 baseline, commit `c0bce0d013a45775ce9d470f0c33b774a28fc0a2`
+
+- `run-6e60489bf617` passed all five gates: T=0.124494 s, M=67,547,136 B, S=783, D=1, K=26.204010, points=70.918388. D source is champion blob `b7a527b058991dce7967738d3695f8ab3917a75d`; **BEST** remains `run-dd6d11072ae7` (K=27.822987).
+
+## Official trial — D PR #15 lean CSR challenger
+
+- Imported only the solution and Dockerfile from draft PR #15 head `19664ab0802e743e613940f13a70f21bb419abf2`: `d_traverse.cpp` blob `e43f8538f6c26f91681dc96b67a350ae73ed50da`, Dockerfile blob `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. The candidate stays within the pinned GCC 15 / Debian 13 image pair and builds `/traverse` with the official flags. The unrelated candidate tests, README and research were not imported.
+- PR-reported local evidence (not official board evidence): 5 Docker cgroup runs peak 59.2–59.4 MB vs champion 65.9–66.2 MB; native 12-worker median 519–527 ms vs 540 ms; exact output on full seeds 1/7/17 and sample/tiny seeds, 88 differential cases, 150 stress seeds, 60 2^32-boundary cases, sanitizer and pinned-Docker checks. Current PR head has no GitHub status checks; this official board trial is the independent validation.
+- PR projects 6–9% higher K than the current D source. **BEST before trial** remains `run-dd6d11072ae7` (K=27.822987). Candidate not promoted until actual official gates and score are reviewed; rollback parent `c0bce0d013a45775ce9d470f0c33b774a28fc0a2` contains champion source blob `b7a527b058991dce7967738d3695f8ab3917a75d` and its Dockerfile.

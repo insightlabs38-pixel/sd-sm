@@ -1107,3 +1107,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official board receipt — Track B champion rollback, commit `021d3bbbbb502e762e7402f38ff341f67bccd377`
 
 - `run-92291136630d` passed all five gates: T=0.050466 s, M=11,792,384 B, S=657, D=1, K=25.670830, points=70.471995. C source unchanged; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official board receipt — pre-D-PR #15 baseline, commit `c0bce0d013a45775ce9d470f0c33b774a28fc0a2`
+
+- `run-f52b32fb651c` passed all five gates: T=0.050262 s, M=11,694,080 B, S=657, D=1, K=25.765975, points=70.552329. C source unchanged; **BEST** remains `run-e7eab9673214` (K=25.979773).

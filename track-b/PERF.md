@@ -1043,3 +1043,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official board receipt — Track B champion rollback, commit `021d3bbbbb502e762e7402f38ff341f67bccd377`
 
 - Restored source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` scored `run-ef81be530263`: T=0.158476 s, M=41,394,176 B, S=699, D=1, K=30.370574, points=74.122650; all five gates passed. **LATEST** for the restored source; **BEST** remains `run-a4d307860273` (K=30.620459). The candidate's two official B runs were K=30.387910 and K=28.276940; neither beats BEST, and the second is 5.11% below the geometric mean of the two recent restored-source controls. Keep the known-good source.
+
+## Official board receipt — pre-D-PR #15 baseline, commit `c0bce0d013a45775ce9d470f0c33b774a28fc0a2`
+
+- `run-e4ce4c1dbd5c` passed all five gates: T=0.156632 s, M=41,455,616 B, S=699, D=1, K=30.548824, points=74.249725. B source is known-good blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; **BEST** remains `run-a4d307860273` (K=30.620459).

@@ -1076,3 +1076,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official board receipt — Track B champion rollback, commit `021d3bbbbb502e762e7402f38ff341f67bccd377`
 
 - `run-6afbd0fd73d5` passed all five gates: T=0.022074 s, M=21,192,704 B, S=584, D=1, K=43.108675, points=81.728234. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official board receipt — pre-D-PR #15 baseline, commit `c0bce0d013a45775ce9d470f0c33b774a28fc0a2`
+
+- `run-29002e5ece10` passed all five gates: T=0.021420 s, M=21,274,624 B, S=584, D=1, K=43.728075, points=82.038018. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).

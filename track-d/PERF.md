@@ -1093,6 +1093,8 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Official run `run-685fc910bcd1` on commit `bc7dcf4d5ec5f0a9da9db0018c83a89f712c38d0` passed all five gates, but measured T=0.147556 s, M=59,510,784 B, S=609, D=1, K=25.635244, points=70.441873. It is 15.10% below **BEST** `run-3d2e9d913d87` (K=30.195105) and 10.89% below the prior **LATEST** `run-820dca3523c4` (K=28.768766); reject PR #18 and restore the known-good source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`. This official result overrides the favorable 4-vCPU paired measurements for the capped construction variant.
 
 
-## Official trial queued for later comparison — D PR #17 uncapped c2
+## Official trial — D PR #17 uncapped c2 (repeat pending)
 
 - Candidate source blob `79617b5c40b01613797138b294a33c0a7b5c6e44` from fresh, ready PR #17 head `9e8e5129321a22713a27fb77bb0d0f15b75db29a`; exact qualification check passed. Its 13-round paired runner reports exact outputs and median wall-time gains vs PR #15 of 3.30–5.93% across 4/6/12 workers, with max RSS within 0.6 MB; independent 4-vCPU KVM trials report 3.1–10.5% wall-time gains. Unlike rejected PR #18, it does not cap construction at four workers. These are developer measurements, not official K. Rollback remains blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`; promote only if official D K beats BEST and every gate passes.
+
+- Official `run-fec0ec78f97e` on exact PR #17 source blob `79617b5c40b01613797138b294a33c0a7b5c6e44` passed all five gates: T=0.103011 s, M=60,162,048 B, S=607, D=1, K=30.629718, points=74.307150. This becomes numeric **BEST** and **LATEST**, 1.44% above prior BEST `run-3d2e9d913d87` (K=30.195105). Because this edge is inside the existing source-identical scoring spread, keep the exact candidate for one repeat before promotion; do not merge PR #17 yet. Rollback remains the qualified selected source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`.

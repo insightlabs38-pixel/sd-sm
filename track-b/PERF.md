@@ -1107,3 +1107,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — D PR #18 trial, commit `bc7dcf4d5ec5f0a9da9db0018c83a89f712c38d0`
 
 - Unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` passed all five gates in `run-add075487808`: T=0.153580 s, M=41,656,320 B, S=699, D=1, K=30.850870, points=74.463371. This becomes **BEST** and **LATEST** for B; it is the same selected source, not a source change.
+
+## Official all-track receipt — D PR #17 trial, commit `e41565497e22f570dab2474001b8460272024f78`
+
+- Unchanged selected B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` passed all five gates in `run-91d680f7e0bf`: T=0.157444 s, M=41,586,688 B, S=699, D=1, K=30.469947, points=74.193585. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870), on the same selected B source.

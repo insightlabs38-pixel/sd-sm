@@ -746,3 +746,5 @@ Run `run-8aa91f742842`; all five gates passed on restored B main blob `0bdeeb625
 ## Official board result — commit de9c67e (2026-11-01 04:53:02 UTC)
 
 Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.171632 s, M=59,445,248 B, S=1111, D=1, K=25.633958, points=70.440784. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). Against previous same-source run `run-8aa91f742842`, K fell 3.01%, T rose 7.29%, and M fell 2.28%; source unchanged, so this is board variance rather than a new source result.
+
+- Official `speed-demon` commit `eeec788784e06afa814bc442630cd2d3a1d42001`: run `run-fb5979325e36`, all five gates passed on unchanged restored B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.173081 s, M=59,179,008 B, S=1111, D=1, K=25.549359, points=70.369000. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516). No B source change; compare with other same-source runs as noisy board measurements.

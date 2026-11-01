@@ -354,7 +354,7 @@ struct alignas(64) Region {
 // survivor, so contraction, ordering and gathering share one pass. Walks of a
 // batch advance one hop per round, so their cache misses overlap.
 class Grower {
-  static constexpr u32 BATCH = 8;
+  static constexpr u32 BATCH = 32;
   struct Walk {
     u32 pos, root, prev, at, steps;
     u64 weight;

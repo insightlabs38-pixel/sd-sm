@@ -993,3 +993,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Based on merged `sd-td` PR #14 / main (`c8a929f60c6a69708b09eac228145b7970273c10`, source blob `55daa262f2916e61373922fbe4af41a9a4de5edf`), but imported only the `BATCH` tuning. Official source blob before this change was `b7a527b058991dce7967738d3695f8ab3917a75d` at BATCH=32; this trial tests 32→8, not the developer's measured 16→8 comparison.
 - Developer PERF reports 312 native paired comparisons (49/78 wins) and 234 pinned-PGO exact executions (52/78; all six medians 0.22–0.73% faster) for 16→8, with 88 differential fixtures per PGO variant and offline pinned Docker validation. Those measurements do not establish 32→8 performance on this official source.
 - Candidate source size and dependencies are unchanged. **Official result pending; promote only if its scored K and other axes justify it.**
+
+## Official board receipt — D batch-size 8 trial, commit `5b45d276d3f038daebbf8c290ea021507086b456`
+
+- `run-40a4a435db56` passed all five gates: T=0.112692 s, M=72,306,688 B, S=783, D=1, K=27.169467, points=71.704056. This is +1.62% K versus immediate BATCH=32 run `run-0368eed6d813` (K=26.736308), but -2.35% versus D BEST `run-dd6d11072ae7` (K=27.822987); BEST also has faster T (0.110267 s) and lower M (67,792,896 B). **Decision: not promoted.** Restored BATCH=32 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`.

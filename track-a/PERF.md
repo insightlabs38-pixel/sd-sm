@@ -1052,3 +1052,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official board receipt — A champion rollback, commit `cffcacbe03237196298ec5c5e302392ec24f865d`
 
 - **LATEST:** `run-b5fb88b93835`; T=0.017847 s, M=21,606,400 B, S=584, D=1, K=47.757697, points=83.952169; all five gates passed. **BEST remains** `run-118836ebd34c`, K=49.960098.
+
+## Official board receipt — D batch-size trial, commit `5b45d276d3f038daebbf8c290ea021507086b456`
+
+- `run-7a9147aaad6f` (A source c91): T=0.020975 s, M=20,762,624 B, S=584, D=1, K=44.405323, points=82.371752; all five gates passed. **BEST** remains `run-118836ebd34c`, K=49.960098.

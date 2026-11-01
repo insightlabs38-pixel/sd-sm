@@ -788,3 +788,5 @@ Run `run-6524054f5aa0`; all five gates passed on unchanged A PR #3 source. T=0.0
 Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.017414 s, M=21,221,376 B, S=584, D=1, K=48.521977, points=84.296924. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
 
 - Official `speed-demon` commit `eeec788784e06afa814bc442630cd2d3a1d42001`: run `run-619e73b6e7b2`, all five gates passed on unchanged Track A PR #3 source. T=0.019239 s, M=21,241,856 B, S=584, D=1, K=46.154359, points=83.210636. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Relative to the last same-source run `run-efa9f52448ad`, K and T vary downward by 4.88% and upward by 10.48%; no A source change.
+
+- Repeat official run on source-identical commit `6917275dbd2ee12fd19df6fe3b87a60920c86ef8`: `run-6b660c85f1ed`, all five gates passed. T=0.019388 s, M=21,463,040 B, S=584, D=1, K=45.881511, points=83.081886. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). No A source change.

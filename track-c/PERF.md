@@ -960,6 +960,10 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 - Run `run-e5c76b6abbaa` passed all five gates: T=0.050914 s, M=12,140,544 B, S=657, D=1, K=25.409343, points=70.249672. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Source-identical rerun, not a new candidate.
 
+## Official source confirmation `142a9fd` — latest
+
+- Run `run-5af6e9c83c2e` passed all five gates: T=0.068044 s, M=11,517,952 B, S=657, D=1, K=22.212104, points=67.329485. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Source-identical rerun, not a new candidate; this result is substantially below recent same-source C runs, so retain the selected code and treat it as score variance.
+
 ## C main denser-table trial reviewed — 2026-11-01
 
 - Main trial `f488fb0455ce` changed the shared-name table from 128×2048 to 128×1024 slots. CI 41316043568 passed correctness, holdout, sanitizer, Docker and sandbox gates, but paired full-PGO median T regressed 3.83%; memory fell 4.65%, while complete-K runner proxy fell 0.92% at unchanged S/D. Developer main reverted it in `f6b7fb9dd0ee`; current main `13f38d3be4df` adds only the rejection note. Do not import or dispatch this regression; retain official source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`, BEST run `run-e7eab9673214` (K=25.979773).

@@ -625,3 +625,12 @@ Run `run-f6e48fe3346f`; all five gates passed. T=0.363973 s, M=47,976,448 B, S=7
 ## Official board result — commit 7dc6a03 (2026-10-31 23:58:28 UTC)
 
 Run `run-462b30df0787`; all five gates passed. T=0.236546 s, M=50,044,928 B, S=925, D=1, K=23.229736, points=68.302213. **LATEST**; **BEST** remains `run-dcebadac870d` (K=23.250490). Restore the B champion from before PR #5; PR #5 was rejected at K=19.371243 on commit `c096950` and remains open/unmerged.
+
+
+## Official board result — commit f8cfd3d (2026-11-01 00:10:50 UTC)
+
+Run `run-c83bc3cbc0c0`; all five gates passed. T=0.258051 s, M=49,491,968 B, S=925, D=1, K=22.290221, points=67.405718. **LATEST**; **BEST** remains `run-dcebadac870d` (K=23.250490).
+
+## Mainline fast-dictionary engine — official validation pending
+
+Candidate source blob `fb67cede8d56f88faf543b57699b580cd9dab14a` is now on B main via merged PR #10; imported only `track-b/main.cpp`. CI `41247381171` passed full/sample/tiny hashes, differential/adversarial tests, ASan/UBSan, TSan and pinned offline Docker. Confirmation `41251942955` passed five full seeds × seven paired runs against the six-worker legacy champion, with exact outputs: candidate T=0.319–0.323 s and M=23.1–23.4 MB versus champion T=0.461–0.496 s and M=25.1–25.8 MB; local K ratios 1.175–1.186 across all seeds. Candidate S=1111 versus 874 in that comparison, D=1. Local CI results are not board scores. Dockerfile matches the official build; official T/M/S/D/K pending. Previous official B champion remains in parent `f8cfd3d` for rollback.

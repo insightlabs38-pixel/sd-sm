@@ -655,3 +655,8 @@ Run `run-9e82b6bece9f`; all five gates passed. T=0.072863 s, M=19,316,736 B, S=5
 ## Frontier PR #12 — official validation pending
 
 Imported only PR #12 source blob `8bee2ee3a2cb027098f5b95a4279bfb9a30da785`; it exactly matches the source tested by successful CI `41251942615` (run head `90da546`). The run passed full seed-1/holdout references, ASan/UBSan, TSan, page-tail/collision/overflow cases, pinned offline Docker and sandbox. Developer reports: pinned GCC15 PGO 68.679→59.927 ms against main and 72.254→60.703 ms against its official-BEST baseline; paired restricted-container median 145.858→129.350 ms, cgroup peak 10.168→10.150 MB. S rose 577→622, D=1; reported complete-K proxy +5% against main. These are development measurements, not board T/M/S/D/K. The previous C BEST remains in parent `c096950` for rollback; PR #12 remains open until official promotion.
+
+
+## Official board result — commit f8cfd3d (2026-11-01 00:10:50 UTC)
+
+Run `run-a7994e398a53`; all five gates passed. T=0.060680 s, M=21,413,888 B, S=622, D=1, K=20.949035, points=66.058201. **LATEST**; **BEST** remains `run-df2932b2ba2d` (K=21.029207). PR #12’s large runtime gain did not offset its higher memory and source-size axes, so it is not promoted. Restore the known-good C source blob `59974fd6328c2fabb1154ac4cc31bda1036bc6ca`; retain the PR branch open for any developer follow-up.

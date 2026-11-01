@@ -1,4 +1,4 @@
-#include <immintrin.h>
+#include <nmmintrin.h>
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -21,23 +21,18 @@
 
 struct File {
     const char *data;
-    size_t size, mapped;
+    size_t size;
     explicit File(const char *path) {
         int fd = open(path, O_RDONLY);
         if (fd < 0) throw std::runtime_error(std::string("open ") + path);
         struct stat st;
         if (fstat(fd, &st)) throw std::runtime_error("fstat");
         size = st.st_size;
-        size_t page = static_cast<size_t>(sysconf(_SC_PAGESIZE));
-        mapped = (size + page - 1) / page * page + page;
-        data = static_cast<const char *>(mmap(nullptr, mapped, PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
-        if (data == MAP_FAILED) { close(fd); throw std::runtime_error("reserve mmap"); }
-        if (size && mmap(const_cast<char *>(data), size, PROT_READ, MAP_PRIVATE | MAP_FIXED, fd, 0) == MAP_FAILED) {
-            munmap(const_cast<char *>(data), mapped); close(fd); throw std::runtime_error("file mmap");
-        }
+        data = static_cast<const char *>(mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0));
         close(fd);
+        if (data == MAP_FAILED) throw std::runtime_error("mmap");
     }
-    ~File() { munmap(const_cast<char *>(data), mapped); }
+    ~File() { munmap(const_cast<char *>(data), size); }
 };
 
 static void discard_consumed(const char *&cursor, const char *end) {
@@ -63,15 +58,6 @@ static_assert(sizeof(Field) == 24, "name slot layout");
 static constexpr uint32_t HASH_OFFSET = 5381U;
 
 static uint32_t raw_hash(const char *p, size_t n) {
-    if (n <= 16) {
-        alignas(16) static const unsigned char mask[32] = {
-            255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        __m128i key = _mm_and_si128(_mm_loadu_si128(reinterpret_cast<const __m128i *>(p)),
-                                  _mm_loadu_si128(reinterpret_cast<const __m128i *>(mask + 16 - n)));
-        uint32_t h = static_cast<uint32_t>(_mm_crc32_u64(HASH_OFFSET, static_cast<uint64_t>(_mm_cvtsi128_si64(key))));
-        return static_cast<uint32_t>(_mm_crc32_u64(h, static_cast<uint64_t>(_mm_extract_epi64(key, 1))));
-    }
     uint32_t h = HASH_OFFSET;
     while (n >= 8) {
         uint64_t word;
@@ -86,25 +72,6 @@ static uint32_t raw_hash(const char *p, size_t n) {
     return h;
 }
 
-static const char *find_quote(const char *p, const char *end) {
-    const __m256i quote32 = _mm256_set1_epi8('"');
-    while (end - p >= 32) {
-        __m256i block = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(p));
-        unsigned mask = static_cast<unsigned>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(block, quote32)));
-        if (mask) return p + __builtin_ctz(mask);
-        p += 32;
-    }
-    const __m128i quote16 = _mm_set1_epi8('"');
-    while (end - p >= 16) {
-        __m128i block = _mm_loadu_si128(reinterpret_cast<const __m128i *>(p));
-        unsigned mask = static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(block, quote16)));
-        if (mask) return p + __builtin_ctz(mask);
-        p += 16;
-    }
-    for (; p < end; ++p) if (*p == '"') return p;
-    return nullptr;
-}
-
 static Field text_field(const char *&p, const char *end, bool need_hash) {
     Field f{};
     f.quoted = p < end && *p == '"';
@@ -112,7 +79,7 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
         ++p;
         f.raw = p;
         for (;;) {
-            const char *q = find_quote(p, end);
+            const char *q = static_cast<const char *>(memchr(p, '"', end - p));
             if (!q) throw std::runtime_error("unclosed quote");
             f.len += static_cast<uint32_t>(q - p);
             if (q + 1 < end && q[1] == '"') {
@@ -137,7 +104,7 @@ static Field text_field(const char *&p, const char *end, bool need_hash) {
 }
 
 struct SharedNames {
-    static constexpr unsigned shard_bits = 7;
+    static constexpr unsigned shard_bits = 6;
     static constexpr size_t slots_per_shard = 1 << 11;
     static uint32_t spread(uint32_t h) { return h ^ (h >> 11) ^ (h >> 22); }
     static uint32_t tag(const Field &f) {
@@ -147,13 +114,7 @@ struct SharedNames {
         char key[16]{};
         std::atomic<uint64_t> seen[4]{};
         bool matches(const Field &f) const {
-            if (f.raw_len <= 16) {
-                __m128i a = _mm_loadu_si128(reinterpret_cast<const __m128i *>(key));
-                __m128i b = _mm_loadu_si128(reinterpret_cast<const __m128i *>(f.raw));
-                unsigned same = static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(a, b)));
-                unsigned valid = 0xffffU >> (16 - f.raw_len);
-                return (same & valid) == valid;
-            }
+            if (f.raw_len <= 16) return std::memcmp(key, f.raw, f.raw_len) == 0;
             const char *p;
             uint32_t length;
             std::memcpy(&p, key, sizeof(p));
@@ -300,19 +261,6 @@ static uint64_t number(const char *&p, const char *end) {
 static int64_t cents(const char *&p, const char *end) {
     bool neg = p < end && *p == '-';
     if (neg) ++p;
-    uint64_t word; std::memcpy(&word, p, 8);
-    uint64_t dots = word ^ 0x2e2e2e2e2e2e2e2eULL;
-    dots = (dots - 0x0101010101010101ULL) & ~dots & 0x8080808080808080ULL;
-    unsigned dot = dots ? __builtin_ctzll(dots) / 8 : 8;
-    if (dot && dot <= 5 && end - p >= dot + 3) {
-        uint64_t lower = (1ULL << (dot * 8)) - 1;
-        uint64_t x = ((word & lower) | ((word >> 8) & ~lower)) << ((6 - dot) * 8);
-        x &= 0x0f0f0f0f0f0f0f0fULL;
-        x = (x * 10 + (x >> 8)) & 0x00ff00ff00ff00ffULL;
-        x = (x * 100 + (x >> 16)) & 0x0000ffff0000ffffULL;
-        int64_t value = static_cast<int64_t>((x * 10000 + (x >> 32)) & 0xffffffffULL);
-        p += dot + 3; return neg ? -value : value;
-    }
     int64_t n = static_cast<int64_t>(number(p, end));
     if (p + 2 >= end || *p++ != '.') throw std::runtime_error("bad decimal");
     int64_t fraction = (p[0] - '0') * 10 + (p[1] - '0');
@@ -382,8 +330,8 @@ static void parse_range(const char *p, const char *end, const std::vector<uint8_
                 comma(p, end);
                 Field name = text_field(p, end, true);
                 uint32_t spread = SharedNames::spread(name.hash);
-                auto &shard = shared.shards[spread & 127];
-                __builtin_prefetch(&shard.index[(spread >> 7) & (SharedNames::slots_per_shard - 1)], 0, 1);
+                auto &shard = shared.shards[spread & 63];
+                __builtin_prefetch(&shard.index[(spread >> 6) & (SharedNames::slots_per_shard - 1)], 0, 1);
                 comma(p, end);
                 Field note = text_field(p, end, false);
                 comma(p, end);
@@ -435,7 +383,6 @@ int main() {
             newline(p, end);
         }
         if (country.size() > 255) throw std::runtime_error("too many countries");
-        (void)madvise(const_cast<char *>(lookup.data), lookup.size, MADV_DONTNEED);
         const unsigned unmatched = static_cast<unsigned>(country.size());
         File records("/data/records.csv");
         p = records.data;

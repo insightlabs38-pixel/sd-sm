@@ -673,3 +673,8 @@ Run `run-343ccd3f8d7a`; all five gates passed. T=0.019102 s, M=21,614,592 B, S=5
 ## Official board result — commit 7dc6a03 (2026-10-31 23:58:28 UTC)
 
 Run `run-58030833c069`; all five gates passed. T=0.019781 s, M=21,577,728 B, S=584, D=1, K=45.375059, points=82.840860. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039). PR #3 source remains rejected; restore the known-good A source blob `24926c0187974683c9e96ebac46d48073d5907d5`.
+
+
+## Official board result — commit f8cfd3d (2026-11-01 00:10:50 UTC)
+
+Run `run-db5b7041e475`; all five gates passed. T=0.022740 s, M=21,594,112 B, S=574, D=1, K=42.423384, points=81.380266. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).

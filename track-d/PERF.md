@@ -640,3 +640,8 @@ Run `run-7bc253d5404a`; all five gates passed. T=0.123252 s, M=98,529,280 B, S=8
 ## Official board result — commit b665afd (2026-11-01 00:37:52 UTC)
 
 Run `run-c4a700c109db`; all five gates passed. T=0.125372 s, M=98,639,872 B, S=862, D=1, K=23.861116, points=68.884538. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).
+
+
+## Official board result — commit 925095f (2026-11-01 00:42:54 UTC)
+
+Run `run-c17d46a610eb`; all five gates passed. T=0.123557 s, M=98,402,304 B, S=862, D=1, K=24.047327, points=69.053340. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880).

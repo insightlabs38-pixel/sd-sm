@@ -686,3 +686,8 @@ Run `run-f24670761e6b`; all five gates passed. T=0.056051 s, M=21,225,472 B, S=6
 ## Current C main trial — official validation pending
 
 Imported the exact `track-c/join.cpp` blob from current C main `bc38ad0921addb4492fa633f7f301e6b1f7c7026` (EOF-safe padded short-name CRC32C). Developer workflow `41257509982` passed exact references on full seeds 1, 11 and 29, hostile/page-tail cases, ASan/UBSan, TSan, pinned offline Docker, and the full official hash. Its 12 paired full-PGO trials report median 127.008→114.708 ms (9.68% faster) and median RSS unchanged at 16,588 KiB; these are development evidence, not official score axes. Exact source compiles here with official static flags; Dockerfile SHA-256 matches C main. The prior C frontier PR #13 BEST remains the rollback candidate pending official K for this trial.
+
+
+## Official board result — commit 925095f (2026-11-01 00:42:54 UTC)
+
+Run `run-0c2030ee4c92`; all five gates passed. T=0.062880 s, M=21,475,328 B, S=597, D=1, K=20.694460, points=65.792705. **LATEST**; **BEST** remains PR #13 run `run-f24670761e6b` (K=21.757571). The EOF-safe mainline hash trial is rejected: official K is 4.89% below the PR #13 BEST despite its developer PGO runtime gain. Restore exact PR #13 source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`, now merged into C main as `da7fe7bd83802ea10e5030c3e45983d495bddb9c`; this is the next C rollback/qualification candidate.

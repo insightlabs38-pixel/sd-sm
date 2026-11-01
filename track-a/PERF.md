@@ -700,3 +700,12 @@ Run `run-74c0b9c2985d`; all five gates passed. T=0.018832 s, M=21,082,112 B, S=5
 ## Official board result — commit b665afd (2026-11-01 00:37:52 UTC)
 
 Run `run-96f92ca92b57`; all five gates passed. T=0.019819 s, M=21,573,632 B, S=574, D=1, K=45.450858, points=82.877104. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+
+## Official board result — commit 925095f (2026-11-01 00:42:54 UTC)
+
+Run `run-1ddb335c734c`; all five gates passed. T=0.019901 s, M=21,303,296 B, S=574, D=1, K=45.471659, points=82.887040. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).
+
+## Frontier PR #3 — official validation pending
+
+Candidate source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` is an in-place output/writeback and worker-start change layered on the already merged PR #2 source. Exact source was exercised by CI `41233423569` (workflow head `db4c98a`): full/sample/tiny references, holdout samples, reordering, ASan/UBSan, TSan, Docker allowlist/offline sandbox, and scored-style cgroup checks all passed. Developer 4-vCPU end-to-end median was 0.780x the pinned champion, with peak memory 6.02 vs 5.73 MB (+5.1%); this is a developer measurement, not board T/M/S/D/K. Dockerfile matches the official track-A build. The PR includes an unneeded `__pycache__` artifact; only `main.cpp` is imported. Rollback remains the prior PR #2 source in parent `925095f`.

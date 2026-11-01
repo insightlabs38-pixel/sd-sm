@@ -761,3 +761,4 @@ Run `run-88c7e38bf865`; all five gates passed. T=0.021463 s, M=22,413,312 B, S=5
 ## Official board result — commit a13b5ef (2026-11-01 04:16:46 UTC)
 
 Run `run-3c456ffa2082`; all five gates passed. T=0.019652 s, M=21,663,744 B, S=584, D=1, K=45.487533, points=82.894619. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098), same A source.
+Sequential same-source board comparison: `run-88c7e38bf865` to `run-3c456ffa2082`, K 43.231076→45.487533 (+5.22%), T 0.021463→0.019652 s (-8.44%), M 22,413,312→21,663,744 B (-3.34%). Keep historical BEST; this repeat quantifies scoring variation.

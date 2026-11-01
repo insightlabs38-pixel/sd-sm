@@ -764,3 +764,4 @@ Set `track-c/join.cpp` back to exact PR #13 BEST blob `c4b41459c8ce1ea8d47e834a1
 ## Official board result — restored PR #13 source, commit a13b5ef (2026-11-01 04:16:46 UTC)
 
 Run `run-0a28df8c793f`; all five gates passed on exact source blob `c4b41459c8ce1ea8d47e834a136cb9d11b73cd2a`. T=0.057303 s, M=21,258,240 B, S=637, D=1, K=21.511932, points=66.633971. **LATEST**; **BEST** remains `run-181942cb429e` (K=21.782763), same source. The restored champion is 1.24% below its prior BEST reading, but 1.25% above the discarded C main candidate’s latest K=21.245497.
+Sequential official result after switching from C main blob `b31de...` (`run-440557638313`) to restored PR #13 blob `c4b414...` (`run-0a28df8c793f`): K 21.245497→21.511932 (+1.25%), M 23,912,448→21,258,240 B (-11.10%), S 644→637; T changed 0.055865→0.057303 s. These are sequential board trials, not a controlled A/B; **BEST** remains 21.782763 on the same restored source.

@@ -851,3 +851,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official rollback `4b31a19` — A selected champion after PR #5 rejection
 
 - Board run `run-751e772cabfa` on commit `4b31a195a1c7c4296ca7c3442e774fb9e3e59f91` passed all five gates after restoring selected A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`. T=0.019908 s, M=21,049,344 B, S=584, D=1, K=45.454924, points=82.879047. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Keep selected source; this is another noisy same-source repeat.
+
+## Official C-main trial dispatch `5f00315`
+
+- Board run `run-c3d414b0741e` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017672 s, M=22,147,072 B, S=584, D=1, K=47.756925, points=83.951818. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). No A source change.

@@ -808,3 +808,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official rollback `4b31a19` — selected B PR #11 source
 
 - Board run `run-9889f0114029` on commit `4b31a195a1c7c4296ca7c3442e774fb9e3e59f91` passed all five gates on unchanged blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.168681 s, M=41,431,040 B, S=691, D=1, K=29.488422, points=73.482577. **LATEST**; **BEST** remains `run-ca8cc5b1b8f2` (K=30.028956). No B source change.
+
+## Official C-main trial dispatch `5f00315`
+
+- Board run `run-9c66f115670d` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.161547 s, M=42,057,728 B, S=691, D=1, K=30.132500, points=73.951758. **BEST = LATEST**, 0.34% above same-source `run-ca8cc5b1b8f2` (K=30.028956); no B source change.

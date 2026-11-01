@@ -877,3 +877,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - The in-mask simple-quote path reuses the first 64-byte AVX2 quote mask to bypass PCLMUL only when quote/comma boundaries certify two quoted, unescaped fields; escaped quotes, long/unquoted fields retain the exact fallback.
 - Exact-source CI `41298153512` passed full seed-1 SHA-256, holdouts 11/29 repeated three times, hostile quote-boundary/collision/overflow tests, ASan/UBSan/TSan, pinned offline Docker and sandbox.
 - Two direct full-PGO paired studies: 77.017→75.639 ms (11/12 faster) and independent 82.285→80.238 ms (11/12 faster). Cgroup peaks 10,993,664→11,026,432 B and 11,016,192→11,036,672 B; physical source 540→567 lines. Complete-K runner proxies +0.11%/+0.49%; official scoring-box T/M/S/D/K pending. Run through the official scorer before promotion.
+
+## C developer-main candidate `5f00315` — rejected on official score, champion restored
+
+- Board run `run-1021b421c2ee` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on exact main-source blob `3b5e1392f49abdbb7fdcf6a36b5866366298143b`: T=0.065087 s, M=11,567,104 B, S=669, D=1, K=22.630206, points=67.734425. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+- Despite two exact-source paired full-PGO CI comparisons showing 1.8–2.5% faster and clean correctness/sanitizer/Docker gates, the official candidate was 29.8% slower than BEST, used 2.5% more memory, and had 12 more scored source units. It loses K by 12.9%; reject. Restore prior champion blob `0772ace04e358868f0b060b178d6ab77e93a15ab` and retain it as rollback.

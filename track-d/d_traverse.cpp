@@ -296,7 +296,7 @@ struct alignas(64) Region {
 // share one pass. The walks of a batch advance one hop per round, so their
 // cache misses overlap.
 struct Grower {
-  static constexpr u32 BATCH = 32;
+  static constexpr u32 BATCH = 8;
   struct Walk {
     u32 pos, root, prev, at, steps;
     u64 w;

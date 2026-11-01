@@ -1027,3 +1027,13 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Imported only the solution and Dockerfile from draft PR #15 head `19664ab0802e743e613940f13a70f21bb419abf2`: `d_traverse.cpp` blob `e43f8538f6c26f91681dc96b67a350ae73ed50da`, Dockerfile blob `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. The candidate stays within the pinned GCC 15 / Debian 13 image pair and builds `/traverse` with the official flags. The unrelated candidate tests, README and research were not imported.
 - PR-reported local evidence (not official board evidence): 5 Docker cgroup runs peak 59.2–59.4 MB vs champion 65.9–66.2 MB; native 12-worker median 519–527 ms vs 540 ms; exact output on full seeds 1/7/17 and sample/tiny seeds, 88 differential cases, 150 stress seeds, 60 2^32-boundary cases, sanitizer and pinned-Docker checks. Current PR head has no GitHub status checks; this official board trial is the independent validation.
 - PR projects 6–9% higher K than the current D source. **BEST before trial** remains `run-dd6d11072ae7` (K=27.822987). Candidate not promoted until actual official gates and score are reviewed; rollback parent `c0bce0d013a45775ce9d470f0c33b774a28fc0a2` contains champion source blob `b7a527b058991dce7967738d3695f8ab3917a75d` and its Dockerfile.
+
+## Official board receipt — D PR #15 BATCH=32 trial, commit `fb66a3774da75cd6cbe47b6b6a3f90d4eba930ca`
+
+- `run-b1194463b02c` passed all five gates: T=0.111112 s, M=61,321,216 B, S=592, D=1, K=29.490133, points=73.483837. Relative to prior BEST `run-dd6d11072ae7` (K=27.822987, T=0.110267, M=67,792,896, S=783), K improved 5.99%, M fell 9.55%, S fell 24.39%, and T was 0.77% slower. **BEST is now `run-b1194463b02c`.**
+
+## Official trial — D PR #15 eight-vertex growth batches
+
+- Current draft PR head `484035cd6e8059b9e13db187bcd248d310400b83`, source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`, changes only the lean candidate's growth batch from 32 to 8; pinned Dockerfile blob remains `8eabe09b96a60131ce5bfda3f098011e1f0863e6`.
+- Developer's latest paired 4-vCPU local comparison reports wall time 1.6%/3% lower at 4/12 workers, with 7/13 and 7/11 wins respectively. This is local evidence, not an official score; the PR head has no current GitHub checks. Official build/correctness/timeout/sandbox gates will evaluate this exact variant.
+- Rollback parent `fb66a3774da75cd6cbe47b6b6a3f90d4eba930ca` retains D PR #15's BATCH=32 source (blob `e43f8538f6c26f91681dc96b67a350ae73ed50da`), which is already the official BEST source at this point.

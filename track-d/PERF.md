@@ -780,3 +780,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official run `5f15f25` — selected D source
 
 - Board run `run-4f05dff0528b` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.113161 s, M=78,954,496 B, S=783, D=1, K=26.640330, points=71.276980. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). D source did not change; memory and K remain variable across same-source runs.
+
+## Official run `488ee43` — selected D source
+
+- Board run `run-0aca1692e65f` on commit `488ee43f787334f7c89060ebaaa785e069ea5982` passed all gates on unchanged D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.112188 s, M=70,017,024 B, S=783, D=1, K=27.406238, points=72.086882. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). No D source change.

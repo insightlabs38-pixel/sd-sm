@@ -843,3 +843,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official run `5f15f25` — selected A source
 
 - Board run `run-f119f0ce2f4a` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.020173 s, M=21,606,400 B, S=584, D=1, K=44.920103, points=82.622037. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). A source is unchanged; compare this low repeat with other same-source readings rather than attributing it to code.
+
+## A PR #5 official trial — candidate rejected, selected source restored
+
+- Official run `run-864112d4e759` on commit `488ee43f787334f7c89060ebaaa785e069ea5982` passed all five board gates on exact PR #5 source blob `ccf2219993e368f94cc507f1c2b83f046d45afb5`: T=0.017171 s, M=21,147,648 B, S=621, D=1, K=48.449628, points=84.325792. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Candidate was 14.9% faster and 2.1% lower-memory than the immediately preceding selected-source run `run-f119f0ce2f4a`, but added 37 counted lines and did not beat BEST. Reject official promotion and restore selected blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; PR #5 remains unmerged.

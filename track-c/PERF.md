@@ -862,3 +862,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official run `5f15f25` — C PR #14 source
 
 - Board run `run-e50afc3730a2` on commit `5f15f2543fbd6a9e18fc3f80490190399322a13d` passed all gates on C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050964 s, M=11,948,032 B, S=657, D=1, K=25.478194, points=70.308432. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). C source did not change.
+
+## Official run `488ee43` — selected C PR #14 source
+
+- Board run `run-97837456b295` on commit `488ee43f787334f7c89060ebaaa785e069ea5982` passed all gates on unchanged C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050322 s, M=11,907,072 B, S=657, D=1, K=25.657819, points=70.461023. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). No C source change.

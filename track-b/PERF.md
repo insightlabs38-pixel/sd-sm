@@ -800,3 +800,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 - Exact-head CI [41301306814](https://github.com/insightlabs38-pixel/sd-tb/actions/runs/41301306814) passed differential/adversarial tests, ASan/UBSan, TSan, full official hashes on seeds 1–5, sample/tiny, and pinned offline Docker. Candidate source blob `8a5be8d8ff4e5dc262846d7e1bdf37645fb05235` moves dictionary-bucket prefetch from a whole-document batch to an eight-key rolling lookahead; Docker is unchanged.
 - Seven-repeat paired full-run runner K ratios candidate/champion were 0.992399, 0.999715, 0.999504, 0.998065 and 0.997203 on seeds 1–5 (geometric mean 0.99737; all five regress). Candidate adds five counted source lines (S 691→696). It is not expected to improve complete K, so no official scorer slot or merge; retain the selected B PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`.
+
+## Official run `488ee43` — selected B PR #11 source
+
+- Board run `run-ca8cc5b1b8f2` on commit `488ee43f787334f7c89060ebaaa785e069ea5982` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.162663 s, M=41,373,696 B, S=691, D=1, K=30.028956, points=73.878148. **BEST = LATEST** in the raw feed, above `run-031c34192287` by 0.66% K on identical source. Keep source selection unchanged; this is a board result, not a PR promotion.

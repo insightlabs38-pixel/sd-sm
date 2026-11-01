@@ -978,3 +978,9 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - **LATEST:** `run-0f7276484742`; T=0.166294 s, M=41,340,928 bytes, S=699, D=1, K=29.648072, points=73.599823; check/build/correctness/timeout/sandbox gates all passed.
 - **BEST remains:** `run-a4d307860273`, K=30.620459; latest K is -3.18% versus BEST. Against preceding same-source receipt `run-1196a531b63d` (K=28.444305), K changed +4.23%; these measurements do not support a source promotion.
 - Sources unchanged: A `c91` / B `b8ef` / C `0772` / D `b7`; no PR merged.
+
+## Official board receipt — 2026-11-01, commit `542794bc00d4d346b65976f073a5f2cf1ec22593`
+
+- **LATEST:** `run-186b9d90850a`; T=0.155989 s, M=41,541,632 bytes, S=699, D=1, K=30.611722, points=74.294388; all five gates passed.
+- **BEST remains:** `run-a4d307860273`, K=30.620459; latest K is -0.03% versus BEST. Against preceding same-source run `run-0f7276484742` (K=29.648072), K changed +3.25%; source unchanged.
+- No source promotion or PR merge is supported by this run.

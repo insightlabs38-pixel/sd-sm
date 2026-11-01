@@ -695,3 +695,8 @@ Candidate from A main `cbfe267c5fc50fb52125484259dcb6d43913b8fa`, source blob `9
 ## Official board result — commit cf46ad7 (2026-11-01 00:32:52 UTC)
 
 Run `run-74c0b9c2985d`; all five gates passed. T=0.018832 s, M=21,082,112 B, S=574, D=1, K=46.842122, points=83.531828. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039). This run used the restored four-stream A champion source blob `24926c0187974683c9e96ebac46d48073d5907d5`.
+
+
+## Official board result — commit b665afd (2026-11-01 00:37:52 UTC)
+
+Run `run-96f92ca92b57`; all five gates passed. T=0.019819 s, M=21,573,632 B, S=574, D=1, K=45.450858, points=82.877104. **LATEST**; **BEST** remains `run-1d2fdbfbdd62` (K=49.769039).

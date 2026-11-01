@@ -647,3 +647,8 @@ Run `run-a9e60a59ab9e`; all five gates passed. T=0.161943 s, M=59,703,296 B, S=1
 ## Official board result and new BEST — commit cf46ad7 (2026-11-01 00:32:52 UTC)
 
 Run `run-0e5818b15d82`; all five gates passed. T=0.160520 s, M=58,437,632 B, S=1111, D=1, K=26.597152, points=71.241757. **BEST = LATEST**, improving `run-f7556ef6c1bb` (K=26.546489) by 0.19%. Same promoted fast-dictionary source blob `fb67cede8d56f88faf543b57699b580cd9dab14a`; no source change in this checkpoint.
+
+
+## Official board result and new BEST — commit b665afd (2026-11-01 00:37:52 UTC)
+
+Run `run-36a254980b3f`; all five gates passed. T=0.160777 s, M=57,315,328 B, S=1111, D=1, K=26.679158, points=71.308606. **BEST = LATEST**, improving `run-0e5818b15d82` (K=26.597152) by 0.31%. Same promoted fast-dictionary source blob `fb67cede8d56f88faf543b57699b580cd9dab14a`.

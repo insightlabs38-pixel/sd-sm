@@ -855,3 +855,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official C-main trial dispatch `5f00315`
 
 - Board run `run-c3d414b0741e` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017672 s, M=22,147,072 B, S=584, D=1, K=47.756925, points=83.951818. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). No A source change.
+
+## Official rollback `9ded4d1` — A selected champion after C trial
+
+- Board run `run-c197a43f3f04` passed all gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017183 s, M=21,430,272 B, S=584, D=1, K=48.751439, points=84.399372. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

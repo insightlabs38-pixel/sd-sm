@@ -812,3 +812,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official C-main trial dispatch `5f00315`
 
 - Board run `run-9c66f115670d` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.161547 s, M=42,057,728 B, S=691, D=1, K=30.132500, points=73.951758. **BEST = LATEST**, 0.34% above same-source `run-ca8cc5b1b8f2` (K=30.028956); no B source change.
+
+## Official rollback `9ded4d1` — selected B PR #11 source
+
+- Board run `run-8d998fb9e511` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.161096 s, M=41,439,232 B, S=691, D=1, K=30.174650, points=73.982112. **BEST = LATEST**, a 0.14% K increase over same-source `run-9c66f115670d` (K=30.132500); no B code change.

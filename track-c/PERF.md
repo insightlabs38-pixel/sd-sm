@@ -882,3 +882,12 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 - Board run `run-1021b421c2ee` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on exact main-source blob `3b5e1392f49abdbb7fdcf6a36b5866366298143b`: T=0.065087 s, M=11,567,104 B, S=669, D=1, K=22.630206, points=67.734425. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
 - Despite two exact-source paired full-PGO CI comparisons showing 1.8–2.5% faster and clean correctness/sanitizer/Docker gates, the official candidate was 29.8% slower than BEST, used 2.5% more memory, and had 12 more scored source units. It loses K by 12.9%; reject. Restore prior champion blob `0772ace04e358868f0b060b178d6ab77e93a15ab` and retain it as rollback.
+
+## Official C rollback `9ded4d1` — selected PR #14 source
+
+- Board run `run-e4aa47ede1a3` passed all gates on restored blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.050424 s, M=11,771,904 B, S=657, D=1, K=25.690448, points=70.488584. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## C seed-1 PGO training follow-up — not dispatched
+
+- Exact-head CI [41306717074](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41306717074) passed full/sample/tiny hashes, full holdouts 11/29, ASan/UBSan, TSan, pinned offline Docker and sandbox for main commit `aacb36be8c8eb9d31eb67d61c43546891a3be2eb`; its source remains blob `3b5e1392f49abdbb7fdcf6a36b5866366298143b`, while Docker training changes seed 37 to seed 1.
+- Paired full-PGO seed-37→seed-1 medians were 105.487→104.945 ms (-0.51%); cgroup medians 11,018,240→11,024,384 B (+6,144 B). This small runner-only effect does not justify another board run after the same source scored K=22.630206 on the official box. Keep the official champion; no PGO seed change imported.

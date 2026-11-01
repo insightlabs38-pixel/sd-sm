@@ -792,3 +792,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official C-main trial dispatch `5f00315`
 
 - Board run `run-76732f06c07c` on commit `5f00315f8696ca1853c5fb927ad5cd447c6253e9` passed all five gates on unchanged D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.117689 s, M=67,670,016 B, S=783, D=1, K=26.941153, points=71.520809. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). No D source change.
+
+## Official C rollback `9ded4d1` — selected D source
+
+- Board run `run-4d5144409329` passed all gates on unchanged D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.123224 s, M=67,981,312 B, S=783, D=1, K=26.304970, points=71.001890. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

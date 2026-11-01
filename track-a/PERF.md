@@ -1092,3 +1092,11 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official board receipt — D promotion checkpoint, commit `650272f4043d367210da65af1ca0d8f07f640f5f`
 
 - `run-bf05c8526c39` passed all five gates: T=0.021171 s, M=20,631,552 B, S=584, D=1, K=44.255311, points=82.298270. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official trial — frontier PR #5 four-byte records with overflow sidecar
+
+- Candidate is the exact `track-a/main.cpp` blob `ccf2219993e368f94cc507f1c2b83f046d45afb5` from `sd-ta` PR #5 head `d595162bebd3999c57b7c5d6a2bb36051a1723a3`. It packs common-case request records into 32-bit words and resolves the reserved latency sentinel through a lossless per-run overflow sidecar.
+- Exact-source CI run `41293374325` passed reference hashes, reordered/synthetic exactness including full `uint32` boundary cases, ASan/UBSan, TSan, and pinned offline Docker. Memory/axis CI `41293612626` used the identical source blob and passed.
+- Developer paired pinned-Docker measurements (not board scores): candidate/current-main runtime ratios across three independent CI runs were `0.9793`, `0.9362`, `0.9419`; candidate/certified-lookup ratios were `1.0299`, `1.0014`, `0.9980`. Ten interleaved cgroup peak-memory measurements had medians: main `6,096,896 B`, certified lookup `6,291,456 B`, candidate `5,765,120 B` (candidate −5.44% vs main). These are runner measurements, not official K/M.
+- Source changes from the current A champion are +41 formatted lines (+1,558 bytes); the official size/runtime/memory axes must decide whether the speed and memory evidence outweigh this.
+- **Pretrial BEST:** `run-118836ebd34c`, K=`49.960098`. **Rollback:** parent official commit source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`. Await the official all-track result before promoting/merging PR #5 or reverting.

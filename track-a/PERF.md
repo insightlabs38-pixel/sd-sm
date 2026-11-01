@@ -1036,3 +1036,11 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - **LATEST:** `run-b71814a3d1e1`; T=0.020500 s, M=21,196,800 bytes, S=584, D=1, K=44.731296, points=82.530574; all five gates passed.
 - **BEST remains:** `run-118836ebd34c`, K=49.960098; latest K is -10.47% versus BEST. Against preceding same-source run `run-e1636100f54c` (K=44.619708), K changed +0.25%.
 - This source-identical rerun provides no promotion evidence.
+
+## Frontier candidate trial — sd-ta PR #7 (2026-11-01)
+
+- Imported only `track-a/main.cpp` from PR HEAD `40a276405ea594f2f98d2e52912d66c84e3885e9`; source blob verified as `1ad533f716e9f898eeb0e174959bfb25cad52e85`. The PR's research artifacts and workflow edits were not imported. Prior A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` remains in the preceding submission commit for rollback.
+- Official baseline before this trial: `run-d5c85d097f0d` on source `c91b9689`, T=0.020231 s, M=20,791,296 B, S=584, D=1, K=45.201982, points=82.757874; all five gates passed. A BEST remains `run-118836ebd34c`, K=49.960098.
+- Exact candidate source blob `1ad533f7` is present on CI-tested commits `1961c148d35cc3a8114b68a5153dda8b271f447d` and `27a8927f4a80bca0ac5c009be3f02b505c137152`; CI runs [41332666362](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41332666362) and [41333014119](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41333014119) both succeeded. Developer qualification reports exact hashes, differential/adversarial CRC-collision cases, strict ASan/UBSan and TSan, and restricted Docker.
+- Developer paired pinned-Docker evidence reports candidate/champion 12-worker T ratios 0.9474/0.9489 and M ratios 0.8877/0.8441; S=578 (six fewer lines), D=1. Projected K≈52.65/53.14 is developer analysis only, not an official result.
+- **Official board result pending** for this imported source. Do not merge PR #7 or promote it until its actual T/M/S/D/K and all gates are reviewed.

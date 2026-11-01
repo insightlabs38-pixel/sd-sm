@@ -1071,3 +1071,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - **LATEST:** `run-bbca872b0646`; T=0.050805 s, M=11,894,784 bytes, S=657, D=1, K=25.540837, points=70.361757; all five gates passed.
 - **BEST remains:** `run-e7eab9673214`, K=25.979773; latest K is -1.69% versus BEST. Against preceding same-source run `run-46f2faee1791` (K=22.488152), K changed +13.57%.
 - This source-identical rerun provides no promotion evidence.
+
+## Official board receipt — 2026-11-01, commit `43bdf2bbd64d9cdae24291dfe71431154bab61cf`
+
+- **LATEST before the A PR #7 trial:** `run-6024552d33fc`; T=0.079287 s, M=11,878,400 B, S=657, D=1, K=20.450649, points=65.535355; all five gates passed. Source C remained `0772ace` and BEST remains `run-e7eab9673214` (K=25.979773).

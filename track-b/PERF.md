@@ -1002,3 +1002,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - **LATEST:** `run-52c691f311f5`; T=0.171947 s, M=40,902,656 bytes, S=699, D=1, K=29.156638, points=73.236872; all five gates passed.
 - **BEST remains:** `run-a4d307860273`, K=30.620459; latest K is -4.78% versus BEST. Against preceding same-source run `run-1b24a8fe522a` (K=30.521459), K changed -4.47%.
 - This source-identical rerun provides no promotion evidence.
+
+## Official board receipt — 2026-11-01, commit `43bdf2bbd64d9cdae24291dfe71431154bab61cf`
+
+- **LATEST before the A PR #7 trial:** `run-70dcc1fc3a8f`; T=0.159811 s, M=41,119,744 B, S=699, D=1, K=30.243456, points=74.031571; all five gates passed. Source B remained `b8ef489` and BEST remains `run-a4d307860273` (K=30.620459).

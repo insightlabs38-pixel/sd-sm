@@ -1088,3 +1088,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official board receipt — D PR #15 BATCH=8 trial, commit `eb21daa231bb1bddad8c277f186cd516c05025d4`
 
 - `run-bc6beaac8fde` passed all five gates: T=0.021645 s, M=21,147,648 B, S=584, D=1, K=43.552316, points=81.950563. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official board receipt — D promotion checkpoint, commit `650272f4043d367210da65af1ca0d8f07f640f5f`
+
+- `run-bf05c8526c39` passed all five gates: T=0.021171 s, M=20,631,552 B, S=584, D=1, K=44.255311, points=82.298270. A source unchanged; **BEST** remains `run-118836ebd34c` (K=49.960098).

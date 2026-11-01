@@ -1040,5 +1040,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 
 ## Official board receipt — D PR #15 BATCH=8 trial, commit `eb21daa231bb1bddad8c277f186cd516c05025d4`
 
-- `run-9757529e8b52` passed all five gates: T=0.108321 s, M=60,317,696 B, S=592, D=1, K=29.966367, points=73.831705. Compared with the official BATCH=32 CSR run `run-b1194463b02c` (K=29.490133, T=0.111112, M=61,321,216 B, S=592), K improved 1.61%, T improved 2.51%, M fell 1.64%, and S was unchanged. Compared with original D BEST `run-dd6d11072ae7` (K=27.822987, T=0.110267, M=67,792,896 B, S=783), K improved 7.71%, M fell 10.14%, S fell 24.39%, and T was 1.76% faster. **BEST is now `run-9757529e8b52`.**
+- `run-9757529e8b52` passed all five gates: T=0.108321 s, M=60,317,696 B, S=592, D=1, K=29.966367, points=73.831705. Compared with the official BATCH=32 CSR run `run-b1194463b02c` (K=29.490133, T=0.111112, M=61,321,216 B, S=592), K improved 1.61%, T improved 2.51%, M fell 1.64%, and S was unchanged. Compared with original D BEST `run-dd6d11072ae7` (K=27.822987, T=0.110267, M=67,792,896 B, S=783), K improved 7.70%, M fell 11.03%, S fell 24.39%, and T was 1.76% faster. **BEST is now `run-9757529e8b52`.**
 - Promoted PR #15 after this exact head/source/Dockerfile passed the official board: GitHub merge `e1be6c6ea78b8ed8214fe1992759e87bd25db51a`. Source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`; Dockerfile blob `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. Official image remains pinned GCC 15 / Debian 13.
+
+## Official board receipt — D promotion checkpoint, commit `650272f4043d367210da65af1ca0d8f07f640f5f`
+
+- `run-721f03e8045e` passed all five gates: T=0.109751 s, M=61,583,360 B, S=592, D=1, K=29.647116, points=73.599123. **LATEST** for the promoted PR #15 BATCH=8 source; **BEST remains** `run-9757529e8b52` (K=29.966367).

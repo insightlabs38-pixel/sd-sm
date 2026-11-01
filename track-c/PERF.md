@@ -1119,3 +1119,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official board receipt — D PR #15 BATCH=8 trial, commit `eb21daa231bb1bddad8c277f186cd516c05025d4`
 
 - `run-036c3fb187b0` passed all five gates: T=0.050923 s, M=11,685,888 B, S=657, D=1, K=25.601790, points=70.413517. C source unchanged; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official board receipt — D promotion checkpoint, commit `650272f4043d367210da65af1ca0d8f07f640f5f`
+
+- `run-e266894ac630` passed all five gates: T=0.052377 s, M=12,001,280 B, S=657, D=1, K=25.109834, points=69.992192. C source unchanged; **BEST** remains `run-e7eab9673214` (K=25.979773).

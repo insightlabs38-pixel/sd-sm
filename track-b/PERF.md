@@ -1055,3 +1055,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official board receipt — D PR #15 BATCH=8 trial, commit `eb21daa231bb1bddad8c277f186cd516c05025d4`
 
 - `run-411d33cdef0a` passed all five gates: T=0.163078 s, M=41,795,584 B, S=699, D=1, K=29.938984, points=73.811853. B source unchanged; **BEST** remains `run-a4d307860273` (K=30.620459).
+
+## Official board receipt — D promotion checkpoint, commit `650272f4043d367210da65af1ca0d8f07f640f5f`
+
+- `run-539073ff219b` passed all five gates: T=0.181053 s, M=41,508,864 B, S=699, D=1, K=28.413968, points=72.676594. B source unchanged; **BEST** remains `run-a4d307860273` (K=30.620459).

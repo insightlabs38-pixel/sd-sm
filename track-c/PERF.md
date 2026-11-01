@@ -831,3 +831,6 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 - Official run `run-b625ade658c6` on `227bae88c5b80d003fdc3dda193ae499ffc8f66e`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.050779 s, M=11,620,352 B, S=657, D=1, K=25.666919, points=70.468687. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
 
 - Official run `run-f020e91bc766` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on unchanged PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`. T=0.051028 s, M=11,513,856 B, S=657, D=1, K=25.651410, points=70.455562. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+
+- Follow-up official run `run-5952fe93a7c7` on commit `01966dd4c4464d08d4c2a5e44518a351cb102d07` passed all five gates on unchanged promoted PR #14 source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: T=0.052228 s, M=12,148,736 B, S=657, D=1, K=25.084287, points=69.970088. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Other tracks also scored below their same-source BESTs on this dispatch, so retain BEST and do not attribute the repeat delta to source.

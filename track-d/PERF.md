@@ -764,3 +764,6 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Official run `run-32b27b79a410` on `227bae88c5b80d003fdc3dda193ae499ffc8f66e`; all five gates passed on restored D blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.114928 s, M=67,080,192 B, S=783, D=1, K=27.310621, points=71.816579. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
 
 - Official run `run-ebb1ee6794fc` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on restored D blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.115393 s, M=70,971,392 B, S=783, D=1, K=26.949888, points=71.527848. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+
+- Follow-up official run `run-4c526e623c64` on commit `01966dd4c4464d08d4c2a5e44518a351cb102d07` passed all five gates on unchanged D source blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.111441 s, M=70,815,744 B, S=783, D=1, K=27.435628, points=71.915745. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). No source change.

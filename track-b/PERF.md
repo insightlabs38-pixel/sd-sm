@@ -855,3 +855,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official B metadata rollback verification `bfb66b` — latest
 
 - Metadata source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: run `run-95078ee94436` passed all five gates: T=0.161146 s, M=41,582,592 B, S=690, D=1, K=30.176523, points=73.983460. **LATEST**; **BEST** remains `run-f100bcaacc24` (K=30.595083) on the same source.
+
+## Official current-source confirmation `97de154` — latest
+
+- Metadata source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: run `run-1527d26ad247` passed all five gates: T=0.160810 s, M=41,787,392 B, S=690, D=1, K=30.208032, points=74.006122. **LATEST**; **BEST** remains `run-f100bcaacc24` (K=30.595083).

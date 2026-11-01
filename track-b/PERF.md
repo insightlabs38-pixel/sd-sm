@@ -676,3 +676,8 @@ Run `run-c85dcbcbc518`; all five gates passed. T=0.163479 s, M=60,452,864 B, S=1
 ## Official board result — commit 033819b (2026-11-01 01:02:54 UTC)
 
 Run `run-1d48fc96e1ee`; all five gates passed. T=0.159821 s, M=58,052,608 B, S=1111, D=1, K=26.690516, points=71.317848. **BEST = LATEST**, a 0.04% gain over `run-36a254980b3f` (K=26.679158); same B source. Treat the narrow win as a possible improvement pending repeatability.
+
+
+## Official board result — commit 832a496 (2026-11-01 01:07:54 UTC)
+
+Run `run-de8a132a20a6`; all five gates passed. T=0.175508 s, M=56,004,608 B, S=1111, D=1, K=25.653405, points=70.457251. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516), same B source. This and A/C/D all ran slower than their preceding receipts; revalidate the restored champion under the same dispatch conditions.

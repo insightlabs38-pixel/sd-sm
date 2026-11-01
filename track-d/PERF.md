@@ -668,3 +668,8 @@ Imported only source blob `e63d989d3f55eee80dbc5ffbadeed970d2977d19` from D main
 ## Official board result — commit 033819b (2026-11-01 01:02:54 UTC)
 
 Run `run-9c7910f04cb3`; all five gates passed, but cumulative D-main source regressed: T=0.170178 s, M=77,557,760 B, S=829, D=1, K=21.615620, points=66.738384. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880; T=0.122315 s, M=98,508,800 B, S=862). Rejected cumulative source `e63d989d3f55eee80dbc5ffbadeed970d2977d19`; this submission restores rollback source from `41fb666` (blob `be15ac2e635af157cc8db71d2df5e218d0a78446`). The result demonstrates the one-line prefetch benchmark against D main did not predict official score for the cumulative candidate.
+
+
+## Official board result — commit 832a496 (2026-11-01 01:07:54 UTC)
+
+Run `run-fa577b085e91`; all five gates passed on exact BEST D source blob `be15ac2e635af157cc8db71d2df5e218d0a78446`. T=0.132627 s, M=99,000,320 B, S=862, D=1, K=23.182392, points=68.257912. **LATEST**; **BEST** remains `run-68c15954870c` (K=24.163880). This lower same-source result occurred alongside slower A/B/C receipts and does not displace the champion.

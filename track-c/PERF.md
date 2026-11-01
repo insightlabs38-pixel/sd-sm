@@ -943,3 +943,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official source confirmation `3e16ed7` — latest
 
 - Run `run-7f539962bb1d` passed all five gates: T=0.056016 s, M=11,788,288 B, S=657, D=1, K=24.367640, points=69.340674. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+## Official source confirmation `63f6eed` — latest
+
+- Run `run-844363b8a68f` passed all five gates: T=0.050368 s, M=11,812,864 B, S=657, D=1, K=25.686875, points=70.485564. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). This was a source-identical rerun; it does not validate a new candidate.

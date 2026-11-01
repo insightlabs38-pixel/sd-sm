@@ -962,3 +962,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ### B PR #12 screened without official dispatch
 
 - Exact-head CI `41301306814` passed 5-seed paired production-Docker runs (7 repeats per seed, exact output hashes). Candidate/champion `K_local` ratios were 0.992399, 0.999715, 0.999504, 0.998065 and 0.997203; geometric mean 0.997374 (about 0.26% lower cost), with source axis S=696 versus 691 in that CI baseline. This was too small to justify a dispatch; PR #12's isolated experiment also asks for reproducible full qualification before merge. Current selected B source remains blob `b8ef48979203564e806b78e66a18fe9c8cf60463`.
+
+- Unchanged B source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-d86fde55cc7c` on `b098465d9c206e5f25fe2ccb1996689a1d676302` passed all five gates: T=0.158325 s, M=41,553,920 B, S=699, D=1, K=30.385053, points=74.133000. **LATEST at that head**; **BEST** remains `run-a4d307860273` (K=30.620459).
+
+- `run-91743fd51adb` on `ab84ec24be844316a3a88a8e8ad2edaca5824e88` also passed all five gates with the same B source blob: T=0.161352 s, M=41,496,576 B, S=699, D=1, K=30.098689, points=73.927379. **LATEST**; **BEST** remains `run-a4d307860273` (K=30.620459). No B code changed in either run.

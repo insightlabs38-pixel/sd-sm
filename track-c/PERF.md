@@ -1029,3 +1029,9 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Frontier C PR #20 official trial (2026-11-01)
 
 - Staged exact PR head `bf3052fbce35240010a5d0c74ab854f7d05412f9`; imported only `track-c/join.cpp`, source blob `339ae5c9acbd2581e3dea4a70ad87587789ab7de`, retaining the official Dockerfile. Exact-head CI `41293115199` passed reference checks on full seeds 11 and 29 plus ASan/UBSan/TSan. Its record path treats IDs outside the lookup table as `_UNMATCHED`, including valid 1–9,999,999 record IDs above 999,999. Developer reports native 140.758 ms vs 149.572 ms and pinned PGO 152.026 ms vs 156.468 ms, while 12-run cgroup medians were 12,597,248 B vs 11,034,624 B (+14.2%). The source diff is +274 net lines; complete K was not measured. Official score decides whether this trade is worthwhile. Rollback is the selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.
+
+- Selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; `run-d195cd2a8e41` on `b098465d9c206e5f25fe2ccb1996689a1d676302` passed all five gates: T=0.049815 s, M=11,513,856 B, S=657, D=1, K=25.961839, points=70.716772. **LATEST at that head**; **BEST** remains `run-e7eab9673214` (K=25.979773).
+
+### C PR #20 official result — rejected
+
+- `run-1947bda76ea6` on `ab84ec24be844316a3a88a8e8ad2edaca5824e88` passed all five gates: T=0.059533 s, M=13,086,720 B, S=802, D=1, K=22.465872, points=67.576164. Against the preceding selected-source run `run-6ea2c073b32f` (K=25.463688), official T was 15.9% slower, M 11.4% higher and S 145 larger. **BEST** remains `run-e7eab9673214` (K=25.979773). Reject PR #20 and restore selected source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; local speed claims did not carry to the scored build.

@@ -1142,3 +1142,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official all-track receipt — restored selected tree, commit `199e41df4695b591c909b064af49fb80ecd1388b`
 
 - `run-3d97ca0b093f` passed build, check, correctness, timeout, and sandbox gates: T=0.017351 s, M=22,007,808 B, S=584, D=1, K=48.257504, points=84.178243. A source remained selected blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; LATEST is this run. BEST remains `run-118836ebd34c` (K=49.960098); this result is 3.41% below BEST.
+
+## Official all-track receipt — evidence checkpoint `d70ce847a8dbef1a2881a017207d5ecb4f520d9f`
+
+- `run-7cb70fc3080d` passed all five gates on unchanged A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017517 s, M=21,282,816 B, S=584, D=1, K=48.351147, points=84.220339. **LATEST** is this run; **BEST** remains `run-118836ebd34c` (K=49.960098), 3.22% higher.

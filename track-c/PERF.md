@@ -1159,3 +1159,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — C rollback after main-source trial, commit `199e41df4695b591c909b064af49fb80ecd1388b`
 
 - Restored selected source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed build, check, correctness, timeout, and sandbox gates in `run-b626ba4dba2e`: T=0.068320 s, M=11,431,936 B, S=657, D=1, K=22.200450, points=67.318089. LATEST is this rollback run; BEST remains `run-e7eab9673214` (K=25.979773), 14.55% higher. The main-source candidate remains rejected (`run-750055078f75`, K=22.562857); the selected C source is restored.
+
+## Official all-track receipt — selected C source, evidence checkpoint `d70ce847a8dbef1a2881a017207d5ecb4f520d9f`
+
+- Restored selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab` passed all five gates in `run-ec4d456cfb8f`: T=0.051858 s, M=11,689,984 B, S=657, D=1, K=25.368162, points=70.214450. **LATEST** is this run; **BEST** remains `run-e7eab9673214` (K=25.979773), 2.35% higher. The rejected C main-source candidate is not present.

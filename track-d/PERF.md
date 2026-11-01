@@ -746,3 +746,9 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Official run `run-e56dda8710e9` on checkpoint `b70956dd71a72aec0c5bace4f41dcf3a9807f8ba`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.115098 s, M=67,723,264 B, S=783, D=1, K=27.238419, points=71.759095. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
 
 - Official run `run-3f140abb4931` on `dde14ac917c8ad8642c734162b25804a4008cc90`; all five gates passed on unchanged D PR #10 source blob `b7a527b058991dce7967738d3695f8ab3917a75d`. T=0.119360 s, M=71,426,048 B, S=783, D=1, K=26.464435, points=71.133132. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700). The simultaneous source-identical K dips on A–D reinforce timing variance; do not infer regression.
+
+## D PR #11 main promotion — official scoring-box trial pending
+
+- Imported exact selected D main source blob `484ed6182b9d2e0e3482b6818549077f637890a5` from merged PR #11 (`cd9464c8`, merge `638b9dff`); rollback is the parent-selected source blob `b7a527b058991dce7967738d3695f8ab3917a75d`.
+- The change caps graph-build workers at `min(4, query_workers)` while preserving query worker count and algorithms. The exact source passed qualification CI `41285935356` (offline pinned PGO Docker, 1/4/12 worker checks, 88 differential cases and official hashes). The developer's 255-run matched tournament found 4-build workers beat 6-build 15/17 at six query workers (0.255494 vs 0.272465 s) and 12-build 17/17 at 12 query workers (0.250649 vs 0.263268 s); local runner evidence, not official scoring evidence.
+- Previous official source result `run-3f140abb4931` on blob `b7a527b0`: T=0.119360 s, M=71,426,048 B, S=783, D=1, K=26.464435. PR #11's official T/M/S/D/K and gates are pending; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

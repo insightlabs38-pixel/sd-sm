@@ -938,3 +938,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## B eight-slot ring prefetch official promotion (2026-11-01)
 
 - Source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; official run `run-a4d307860273` on `6cb6df52c71f607af145c164a40fef274eea3c95` passed all five gates: T=0.155900 s, M=41,164,800 B, S=699, D=1, K=30.620459, points=74.300585. **New BEST** over `run-f100bcaacc24`, K=30.595083 (+0.08%). Versus that BEST, T improved 0.55%, M fell 2.19%, and S grew by nine lines; the measured combined K still improves slightly. Five-seed/seven-repeat CI `41310245864` won all five seeds (+1.4884% geometric-mean runner K), with exactness/sanitizer/Docker gates. This candidate is already on `sd-tb/main`; no open PR is being merged.
+
+
+## Exact current-head rerun after B main-source trial (2026-11-01)
+
+- Same candidate source blob `b8ef48979203564e806b78e66a18fe9c8cf60463`; `run-b772fecb474a` on `d90da4f39ac3c9cda07fbc7f57f816dc19976a25` passed all five gates: T=0.159934 s, M=41,598,976 B, S=699, D=1, K=30.231824, points=74.023217. **LATEST** is below **BEST** `run-a4d307860273` (K=30.620459) by 1.27%; report the latest score for this commit separately. Relative to the preceding selected-source run `run-88b7b1a4787f` (K=29.945775), the current result is +0.96%; paired developer CI remains +1.4884% geometric-mean K across five seeds. Keep this main-source candidate under consideration; do not claim a reproducible official BEST over the previous champion on this single repeat.

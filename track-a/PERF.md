@@ -967,3 +967,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Team-wide run during B main-source trial (2026-11-01)
 
 - Unchanged selected A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; run `run-4a7eef6577b1` on commit `6cb6df52c71f607af145c164a40fef274eea3c95` passed all five gates: T=0.017386 s, M=21,557,248 B, S=584, D=1, K=48.408761. **BEST** remains `run-118836ebd34c`, K=49.960098.
+
+
+## Exact current-head rerun after B source trial (2026-11-01)
+
+- Unchanged selected A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; `run-a7effc2ef04d` on `d90da4f39ac3c9cda07fbc7f57f816dc19976a25` passed all five gates: T=0.020444 s, M=20,971,520 B, S=584, D=1, K=44.888340. **BEST** remains `run-118836ebd34c`, K=49.960098.

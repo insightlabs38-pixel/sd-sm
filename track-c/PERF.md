@@ -1005,3 +1005,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Team-wide run during B main-source trial (2026-11-01)
 
 - Unchanged selected C source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; run `run-9beb6187a6f9` on commit `6cb6df52c71f607af145c164a40fef274eea3c95` passed all five gates: T=0.050214 s, M=11,702,272 B, S=657, D=1, K=25.774677. **BEST** remains `run-e7eab9673214`, K=25.979773.
+
+
+## Exact current-head rerun after B source trial (2026-11-01)
+
+- Unchanged selected C blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; `run-af85a674414e` on `d90da4f39ac3c9cda07fbc7f57f816dc19976a25` passed all five gates: T=0.054130 s, M=11,956,224 B, S=657, D=1, K=24.718485. **BEST** remains `run-e7eab9673214`, K=25.979773.

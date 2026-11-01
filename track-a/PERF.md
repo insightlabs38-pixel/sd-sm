@@ -800,3 +800,5 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 - Official run `run-c7e55a07625c` on `dde14ac917c8ad8642c734162b25804a4008cc90`; all five gates passed, unchanged A PR #3 source. T=0.020319 s, M=21,372,928 B, S=584, D=1, K=44.855789, points=82.590925. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
 
 - Official run `run-c0b8f1f7fd59` on `346a17e08d7356487484b804bbd9a0a456bfa4f5`; all five gates passed on unchanged A PR #3 source. T=0.017224 s, M=21,299,200 B, S=584, D=1, K=48.753163, points=84.400140. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+- Official run `run-7ba51c8e9fff` on rollback checkpoint `d3af7efd6ac8fd8982cbaae3b759052ccd74547f`; all five gates passed on unchanged A PR #3 source. T=0.020153 s, M=21,061,632 B, S=584, D=1, K=45.172509, points=82.743711. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

@@ -907,3 +907,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official B source confirmation `7753f18` — latest
 
 - Same metadata blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`: run `run-32b77332d49a` passed all five gates: T=0.166903 s, M=41,463,808 B, S=690, D=1, K=29.651515, points=73.602345. **LATEST**; **BEST** remains `run-f100bcaacc24` (K=30.595083).
+
+## B main four-/six-slot lookahead screen reviewed — 2026-11-01
+
+- Main commit `0f055de4bfcc` is documentation only. Exact CI 41315585073 and 41315597349 passed correctness/sanitizer/Docker gates, but four-slot and six-slot lookahead lost all three paired seeds against eight-slot (geometric K ratios 0.981810 and 0.990742, respectively). No candidate source was promoted; no official trial is warranted. Keep selected metadata blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; the eight-slot blob `b8ef48979203564e806b78e66a18fe9c8cf60463` already failed to beat official BEST `run-f100bcaacc24` (K=30.595083).

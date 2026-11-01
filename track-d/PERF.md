@@ -796,3 +796,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official C rollback `9ded4d1` — selected D source
 
 - Board run `run-4d5144409329` passed all gates on unchanged D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.123224 s, M=67,981,312 B, S=783, D=1, K=26.304970, points=71.001890. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).
+
+## Official evidence refresh `5d08af1`
+
+- `run-be6a16054ed9` passed all gates on unchanged D blob `b7a527b058991dce7967738d3695f8ab3917a75d`: T=0.112260 s, M=68,853,760 B, S=783, D=1, K=27.489403, points=71.958266. **LATEST**; **BEST** remains `run-4dbbefad4adc` (K=27.644700).

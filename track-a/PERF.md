@@ -859,3 +859,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official rollback `9ded4d1` — A selected champion after C trial
 
 - Board run `run-c197a43f3f04` passed all gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017183 s, M=21,430,272 B, S=584, D=1, K=48.751439, points=84.399372. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).
+
+## Official evidence refresh `5d08af1`
+
+- `run-293b0b1d57c9` passed all gates on unchanged A blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: T=0.017433 s, M=21,209,088 B, S=584, D=1, K=48.501146, points=84.287600. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098).

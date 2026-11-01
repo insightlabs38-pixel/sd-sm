@@ -816,3 +816,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official rollback `9ded4d1` — selected B PR #11 source
 
 - Board run `run-8d998fb9e511` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.161096 s, M=41,439,232 B, S=691, D=1, K=30.174650, points=73.982112. **BEST = LATEST**, a 0.14% K increase over same-source `run-9c66f115670d` (K=30.132500); no B code change.
+
+## Official evidence refresh `5d08af1`
+
+- `run-523889c20844` passed all gates on unchanged B blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0`: T=0.182924 s, M=41,906,176 B, S=691, D=1, K=28.317133, points=72.602464. **LATEST**; **BEST** remains `run-8d998fb9e511` (K=30.174650). Large same-source swing reinforces that sub-percent BEST changes are board noise.

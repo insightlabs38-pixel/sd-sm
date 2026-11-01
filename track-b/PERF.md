@@ -770,3 +770,10 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 - Official run `run-99e9eb4cb778` on `227bae88c5b80d003fdc3dda193ae499ffc8f66e`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.217888 s, M=60,354,560 B, S=1111, D=1, K=22.681907, points=67.783978. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516); same-source run spread confirms substantial runtime variance.
 
 - Official run `run-5046023263d9` on `dbbef62bc1668f45d4544f8fde7cb6c758996b68`; all five gates passed on unchanged B main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d`. T=0.161902 s, M=57,397,248 B, S=1111, D=1, K=26.578711, points=71.226696. **LATEST**; **BEST** remains `run-1d48fc96e1ee` (K=26.690516).
+
+## B PR #11 compact block engine — official scoring-box trial pending
+
+- Imported exact PR #11 source blob `8a6290207a01a8c71bbac2c46dec57fc12b561a0` from head `1298a0db`; rollback remains selected main blob `0bdeeb625cb9e8b6b9d4555d8a7abcb84a04d13d` (BEST source `fb67cede`). Dockerfile and dependencies are unchanged.
+- Exact source passed qualification CI `41288987144`: differential/adversarial/fuzz oracles (plain, ASan/UBSan, TSan), three full seeds, sample/tiny, pinned offline Docker as uid 65534 on read-only root, and 1/3/4/17/24-worker checks. CI head `3d7034a` contains this exact source blob.
+- Developer paired runner T (champion→candidate): 0.3234→0.3321, 0.3274→0.3340, 0.3271→0.3291 s; S 1111→691; local K ratios 1.060/1.063/1.071. At 12 workers with THP=always, candidate peak 37.9–40.5 MiB versus local 41.96 MiB saturation estimate. These are developer-runner results, not scoring-box measurements.
+- Projected box K is 29.9 at +2.7% T (versus BEST `run-1d48fc96e1ee`, K=26.690516), but box T/M remain unverified. Previous official B source run `run-5046023263d9` was T=0.161902 s, M=57,397,248 B, S=1111, D=1, K=26.578711. Official candidate axes/gates pending.

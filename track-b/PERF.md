@@ -927,3 +927,9 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Team-wide rollback confirmation (2026-11-01)
 
 - Unchanged source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; run `run-88b7b1a4787f` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.163639 s, M=41,365,504 B, S=690, D=1, K=29.945775. **BEST** remains `run-f100bcaacc24`, K=30.595083.
+
+
+## Developer-main eight-slot ring prefetch — official B trial pending (2026-11-01)
+
+- Candidate source blob `b8ef48979203564e806b78e66a18fe9c8cf60463` from current `sd-tb/main` `6e3f5cf6073786eda48240b310d24eda958ed726`. Five-seed/seven-repeat CI `41310245864` passed exact hashes, differential/adversarial tests, ASan/UBSan, TSan and pinned offline Docker. Runner-local K ratios were 1.006168/1.015275/1.017636/1.018046/1.017343 (geometric mean +1.4884%, 5/5 seeds); source S=699 versus 690, D unchanged, no new dependency.
+- This is runner evidence only; board must decide against B BEST `run-f100bcaacc24` (K=30.595083). Official rollback source is `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; official run pending.

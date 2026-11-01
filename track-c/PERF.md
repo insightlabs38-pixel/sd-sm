@@ -995,3 +995,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Team-wide rerun during Track A rollback / D trial (2026-11-01)
 
 - Unchanged C source; `run-8ed05d97bf7e` on commit `0df4790f0becf12bb8935e6edc9470873d73c406` passed all gates: T=0.050247 s, M=12,263,424 B, S=657, D=1, K=25.525970. **BEST** remains `run-e7eab9673214`, K=25.979773.
+
+
+## Team-wide rollback confirmation (2026-11-01)
+
+- Unchanged source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`; run `run-159bf394b910` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.053703 s, M=11,935,744 B, S=657, D=1, K=24.825071. **BEST** remains `run-e7eab9673214`, K=25.979773.

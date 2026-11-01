@@ -905,3 +905,8 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 
 - Candidate blob `09270462259085787ac2925485b5e1cd7e56647f` from developer-main `0a8077f50a47e308c6297c7de4c29c3da6bb59ab` passed all official gates on `run-9b7f0c04b812`, commit `0df4790f0becf12bb8935e6edc9470873d73c406`: T=0.157752 s, M=65,863,680 B, S=784, D=1, K=23.391797.
 - Against D BEST `run-dd6d11072ae7` (K=27.822987), K regressed 15.9%; versus the preceding D baseline run `run-d00e1b74e673`, T increased 36.8% while M fell 14.4% and S grew by one line. Despite strong developer PGO/local receipts, the scoring-box result rejects this source combination. Restore official source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; developer main remains untouched.
+
+
+## Official D champion confirmation after batch-16 rejection (2026-11-01)
+
+- Restored source blob `b7a527b058991dce7967738d3695f8ab3917a75d`; run `run-3296866f16a0` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.111487 s, M=71,086,080 B, S=783, D=1, K=27.409072. **BEST** remains `run-dd6d11072ae7`, K=27.822987.

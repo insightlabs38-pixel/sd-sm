@@ -922,3 +922,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Team-wide rerun during Track A rollback / D trial (2026-11-01)
 
 - Unchanged B source; `run-b261c0eb513f` on commit `0df4790f0becf12bb8935e6edc9470873d73c406` passed all gates: T=0.158909 s, M=41,615,360 B, S=690, D=1, K=30.388182. **BEST** remains `run-f100bcaacc24`, K=30.595083.
+
+
+## Team-wide rollback confirmation (2026-11-01)
+
+- Unchanged source blob `51b7e4a0544b3c73332bfc9ca783955f8bce37aa`; run `run-88b7b1a4787f` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.163639 s, M=41,365,504 B, S=690, D=1, K=29.945775. **BEST** remains `run-f100bcaacc24`, K=30.595083.

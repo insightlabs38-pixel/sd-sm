@@ -957,3 +957,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## A source rollback confirmation after PR #5 rejection (2026-11-01)
 
 - Restored selected source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`; run `run-21dd156e1528` on commit `0df4790f0becf12bb8935e6edc9470873d73c406` passed all gates: T=0.017494 s, M=21,393,408 B, S=584, D=1, K=48.332795. **BEST** remains `run-118836ebd34c`, K=49.960098.
+
+
+## Selected-source rollback run after A #5 trial (2026-11-01)
+
+- Official source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5` was restored; run `run-ec273c5aec73` on commit `39bc3db91faaa25fcaf344a62c3f973ed6ff8a9e` passed all five gates: T=0.019947 s, M=21,524,480 B, S=584, D=1, K=45.208192. **BEST** remains `run-118836ebd34c`, K=49.960098. No A source promotion.

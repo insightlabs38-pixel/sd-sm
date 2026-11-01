@@ -981,3 +981,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Exact current-head run after receipt update (2026-11-01)
 
 - `run-59577f7ee2ab` on `f3e5fbd8ece8535c3142c8a914813075dddff341` passed all five gates: T=0.019918 s, M=21,188,608 B, S=584, D=1, K=45.383618, points=82.844956. **BEST** remains `run-118836ebd34c` (K=49.960098); this is **LATEST**.
+
+## Frontier A PR #4 official trial (2026-11-01)
+
+- Staged exact PR head `c6cc55f64f19bbfbfb28f726ac9874313ab9b3d2`; imported only its `track-a/main.cpp` (source blob `e2713339cf44e515783d8671b1db074904070e3b`), retaining the official Dockerfile and all other tracks. The exact-head developer workflow `41290978319` passed. The candidate certifies the endpoint fingerprint table only after all 1,842 catalogue endpoints have been seen; that count is specified for full/sample, while tiny never reaches the fast path. The test suite includes forced signature collisions and exact output checks.
+- Developer paired local claim: 3–5% faster; not official score evidence. Official board T/M/S/D/K and correctness gates will determine promotion. Rollback is the immediately preceding A source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`.

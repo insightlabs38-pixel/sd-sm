@@ -1382,3 +1382,7 @@ Unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7
 ## Selected-source rollback receipt — Nov 2
 
 `run-cf66631caef8` on official commit `383ad58` passed all gates on unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=25.302290, T=0.051471 s, M=12,066,816 B, S=657, D=1. BEST remains `run-e7eab9673214`, K=25.979773.
+
+## Selected-source repeat on D-owner head — Nov 2
+
+On official commit `ab541b93850e2fe9615d9d10a95e1cc93894f04c` (Track D-only source change), unchanged selected C source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65` passed all gates in `run-959d738db26f`: K=25.849468, T=0.050128 s, M=11,583,488 B, S=657, D=1. BEST remains `run-e7eab9673214`, K=25.979773.

@@ -1322,3 +1322,7 @@ Candidate source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714
 ## Selected-source rollback receipt — Nov 2
 
 `run-bb5ea9fd4bf4` on official commit `383ad58` passed all gates on restored source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=29.822811, T=0.164351 s, M=41,349,120 B, S=699, D=1. BEST remains `run-add075487808`, K=30.850870.
+
+## Selected-source repeat on D-owner head — Nov 2
+
+On official commit `ab541b93850e2fe9615d9d10a95e1cc93894f04c` (Track D-only source change), unchanged selected B source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1` passed all gates in `run-3e59ab948037`: K=30.078655, T=0.161567 s, M=41,095,168 B, S=699, D=1. BEST remains `run-add075487808`, K=30.850870.

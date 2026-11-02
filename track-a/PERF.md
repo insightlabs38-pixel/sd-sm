@@ -1350,3 +1350,7 @@ PR #2 source SHA-256 `0e5009a411be383ed5d35310e716d28a3682c0bde4bb37cbd19d1bd36c
 ## Selected-source rollback receipt — Nov 2
 
 `run-bdbcaf3e8117` on official commit `383ad58` passed all gates on restored source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=44.669117, T=0.020650 s, M=20,959,232 B, S=584, D=1. This restores the previously selected source; BEST remains `run-118836ebd34c`, K=49.960098. The official single-run timing spread is material.
+
+## Selected-source repeat on D-owner head — Nov 2
+
+On official commit `ab541b93850e2fe9615d9d10a95e1cc93894f04c` (Track D-only source change), unchanged selected A source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5` passed all gates in `run-c8878c390519`: K=45.636246, T=0.019639 s, M=21,348,352 B, S=584, D=1. BEST remains `run-118836ebd34c`, K=49.960098.

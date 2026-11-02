@@ -1301,3 +1301,8 @@ The exact PR #6 source SHA-256 `f6a1fc1a4e724db71dedd0ea5fd750826a4a8775061578e2
 ## Track A PR #7 official trial — rejected; restored known-good source
 
 PR #7 exact head `e89698513f251534f87933f0ed91dad5dcab2818`, source SHA-256 `04db0a0c355d13e1f44f14c583ab99be2834782439bf4a28c11b4956a51ea51f` (blob `1ad533f716e9f898eeb0e174959bfb25cad52e85`), S=578, D=1. Exact-head CI `41332666362` and `41333014119` passed hashes/references, reordered inputs, ASan/UBSan/TSan and restricted Docker. The PR reports an earlier official K=48.801309 (T=0.017286 s, M=21,168,128 B); official repeats `run-43f2553cdb3e` and `run-55a73bbc0e27` passed all five gates at K=45.371266 (T=0.020593 s, M=19,673,088 B) and K=44.583236 (T=0.021142 s, M=20,107,264 B). These remain below BEST `run-118836ebd34c` K=49.960098. Despite lower S and repeatable lower T/M than some noisy controls, the measured complete K does not displace BEST; restore source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`.
+
+
+## Latest selected-source confirmation — rollback commit `238ec67`
+
+`run-35968f7daf6b` passed all five gates on restored source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=45.861065, T=0.019560 s, M=21,041,152 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098).

@@ -11,7 +11,6 @@
 #include <cstring>
 #include <fcntl.h>
 #include <immintrin.h>
-#include <malloc.h>
 #include <memory>
 #include <mutex>
 #include <sched.h>
@@ -32,12 +31,8 @@ struct __attribute__((packed)) Rec {
   uint16_t tag;
 }; // tag: id | 5xx << 11
 using Run = std::pair<Rec *, uint32_t>;
-// A completed hour waits as exact numeric results, not expanded output text.
-struct Result {
-  uint32_t count, p50, p95, p99, errors;
-  uint16_t id;
-};
-using Part = std::pair<std::unique_ptr<Result[]>, uint32_t>;
+using Part =
+    std::pair<std::unique_ptr<char[]>, size_t>; // output text, its length
 
 [[noreturn]] void fail(const char *what) {
   std::perror(what);
@@ -335,8 +330,7 @@ struct Job {
   std::atomic<size_t> zapped{0}; // 4 MiB steps of the mapping released
   std::vector<Rec *> runbufs; // free buffers, guarded by mu
   std::vector<std::vector<int32_t>> latbufs;
-  std::vector<std::unique_ptr<Result[]>> resultbufs;
-  std::unique_ptr<char[]> text = std::make_unique<char[]>(kPartCap + 256);
+  std::vector<std::unique_ptr<char[]>> outbufs;
 
   Job(const char *b, size_t n, uint32_t l, int f, uint32_t t)
       : base(b), size(n), lag(l), nblocks((n + kBlock - 1) / kBlock),
@@ -475,20 +469,19 @@ struct Job {
       seen += n != 0;
     }
     std::vector<int32_t> lat = take(latbufs);
+    lat.reserve(1 << 17);
     lat.resize(total + 16);
     for (const auto &[rec, n] : mine)
       for (uint32_t i = 0; i < n; ++i)
         lat[pos[rec[i].tag % kIds]++] = rec[i].lat ^ 0x80000000;
 
-    {
-      std::lock_guard<std::mutex> lock(mu);
-      for (const auto &[rec, n] : mine)
-        runbufs.push_back(rec);
-    }
     static thread_local std::vector<int32_t> scratch;
-    auto result = take(resultbufs);
-    if (!result)
-      result = std::make_unique<Result[]>(kIds);
+    std::unique_ptr<char[]> text = take(outbufs);
+    if (!text)
+      text.reset(new char[kPartCap + 256]);
+    char *out = text.get(), label[22];
+    std::snprintf(label, sizeof label, "%sT%02u:00:00Z ",
+                  kDays[(hour + 18) / 24], (hour + 18) % 24);
     for (uint32_t i = 0; i < seen; ++i) {
       const uint16_t id = live[i];
       const uint32_t errors = count[id + kIds], n = count[id] + errors;
@@ -499,15 +492,25 @@ struct Job {
       if (scratch.size() < n + 16)
         scratch.resize(n + 16);
       multiselect(a, scratch.data(), 0, n, ranks, 3, value);
-      result[i] = {n, uint32_t(value[0]) ^ 0x80000000,
-                   uint32_t(value[1]) ^ 0x80000000,
-                   uint32_t(value[2]) ^ 0x80000000, errors, id};
+      std::memcpy(out, label, 21);
+      for (uint32_t i = 0; i < 128; i += 32)
+        _mm256_storeu_si256((__m256i *)(out + 21 + i), load(names.img[id] + i));
+      out += 21 + names.len[id];
+      out = put(put(put(put(put(out, n), uint32_t(value[0]) ^ 0x80000000),
+                        uint32_t(value[1]) ^ 0x80000000),
+                    uint32_t(value[2]) ^ 0x80000000),
+                errors);
+      out = errors ? put(out, uint64_t{errors} * 1000000 / n) : put(out, 0);
+      *out++ = '\n';
     }
+    const size_t length = out - text.get();
     {
       std::lock_guard<std::mutex> lock(mu);
       latbufs.push_back(std::move(lat));
+      for (const auto &[rec, n] : mine)
+        runbufs.push_back(rec);
     }
-    emit(hour, {std::move(result), seen});
+    emit(hour, {std::move(text), length});
   }
 
   // Whoever completes an hour writes all hours that are ready in order (a
@@ -521,36 +524,22 @@ struct Job {
     for (writing = true; written < kHours && parts[written].first; ++written) {
       Part part = std::move(parts[written]);
       lock.unlock();
-      char *out = text.get(), label[22];
-      std::snprintf(label, sizeof label, "%sT%02u:00:00Z ",
-                    kDays[(written + 18) / 24], (written + 18) % 24);
-      for (uint32_t i = 0; i < part.second; ++i) {
-        const Result &r = part.first[i];
-        std::memcpy(out, label, 21);
-        for (uint32_t j = 0; j < 128; j += 32)
-          _mm256_storeu_si256((__m256i *)(out + 21 + j), load(names.img[r.id] + j));
-        out += 21 + names.len[r.id];
-        out = put(put(put(put(put(out, r.count), r.p50), r.p95), r.p99), r.errors);
-        out = put(out, uint64_t{r.errors} * 1000000 / r.count);
-        *out++ = '\n';
-      }
-      const size_t length = out - text.get();
-      for (size_t done = 0; done < length;) {
+      for (size_t done = 0; done < part.second;) {
         const ssize_t w =
-            write(fd, text.get() + done, length - done);
+            write(fd, part.first.get() + done, part.second - done);
         if (w <= 0)
           fail("write summary");
         done += w;
       }
-      end[written + 1] = end[written] + length;
+      end[written + 1] = end[written] + part.second;
       if (written + 1 == kHours && ftruncate(fd, end[kHours]))
         fail("size summary");
-      sync_file_range(fd, end[written], length, SYNC_FILE_RANGE_WRITE);
+      sync_file_range(fd, end[written], part.second, SYNC_FILE_RANGE_WRITE);
       if (written >= kKeep)
         posix_fadvise(fd, 0, end[written - kKeep + 1], POSIX_FADV_DONTNEED);
       {
         std::lock_guard<std::mutex> pool_lock(mu);
-        resultbufs.push_back(std::move(part.first));
+        outbufs.push_back(std::move(part.first));
       }
       lock.lock();
     }
@@ -615,9 +604,6 @@ struct Job {
 } // namespace
 
 int main() {
-  // Return transient large allocations via mmap; bound per-thread arenas.
-  mallopt(M_MMAP_THRESHOLD, 64 << 10);
-  mallopt(M_ARENA_MAX, 2);
   const char *const dir = std::getenv("SD_DATA_DIR"),
                     *const out = std::getenv("SD_OUT_DIR"),
                     *const forced = std::getenv("SD_THREADS");

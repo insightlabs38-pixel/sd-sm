@@ -1304,3 +1304,11 @@ Exact PR head `865c90abfe89580f9249128312110e9e600f750a`, candidate SHA-256 `fca
 ## Latest selected-source control — `7abe37e`
 
 `run-e559af93f4d3` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=28.466767, T=0.180382 s, M=41,721,856 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870).
+
+## Official selected-source controls — Nov 2
+
+The same selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1` scored K=29.975309 in `run-31f47da8b721` (commit `f71d444`, T=0.162683 s, M=41,541,632 B, S=699, D=1) and K=30.260218 in `run-240bc6ec62c0` (commit `6b37a16`, T=0.159634 s, M=41,869,312 B, S=699, D=1); all gates passed. BEST remains `run-add075487808`, K=30.850870.
+
+## Row-prefetch-elision candidate queued for official trial
+
+Developer main source blob `6450d009a5d07f719f3678becea49d89b136737a` removes two redundant row-prefetch lines. CI `41330605787` passed exactness, full seeds, sanitizers and offline Docker; five of five full-seed matched local comparisons favored it (geometric-mean K proxy +0.8309%) and source S falls 699→695, D=1. This is runner-local evidence, not official K. The candidate is included in the next A/B/C qualification commit; official score pending.

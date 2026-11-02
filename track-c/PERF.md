@@ -1370,3 +1370,7 @@ The exact PR #8 source SHA-256 `a9f7ff9186a75c29fe781c3c398a96d136c8555083cd9f4a
 ## Latest selected-source control — `7abe37e`
 
 `run-fa08c386b915` passed all five gates on source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=21.389999, T=0.072287 s, M=11,956,224 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773).
+
+## Official selected-source repeat — Nov 2
+
+Unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65` scored K=22.592825 in `run-bdf2192c81b8` (commit `f71d444`, T=0.065742 s, M=11,530,240 B, S=657, D=1) and K=25.038540 in `run-6bcae0510960` (commit `6b37a16`, T=0.053473 s, M=11,558,912 B, S=657, D=1); all gates passed. BEST remains `run-e7eab9673214`, K=25.979773. The spread is a reminder that single board timings vary; the source is unchanged.

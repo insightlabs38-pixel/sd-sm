@@ -1338,3 +1338,7 @@ PR #7 exact head `e89698513f251534f87933f0ed91dad5dcab2818`, source SHA-256 `04d
 ## Latest selected-source control — `7abe37e`
 
 `run-5db97bc31eb0` passed all five gates on source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=47.047171, T=0.018325 s, M=21,798,912 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098).
+
+## Official PR #9 trial — rejected, Nov 2
+
+`run-c1bfb1eb4a55` on commit `6b37a16` passed all gates with candidate SHA-256 `fe2ad4d123c091de95eb045b43bc5e134c342d4d90b0d22bc147aa6f162eb686`: K=44.444020, T=0.021110 s, M=19,935,232 B, S=600, D=1. The prior selected-source control `run-b0c86eee3e32` (same as BEST source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`) had K=46.431197, T=0.019050 s, M=21,131,264 B, S=584, D=1. Despite passing CI and a small positive local complete-K proxy, this single official result is lower; reject the candidate and restore the known-good source. BEST remains `run-118836ebd34c`, K=49.960098. Board-time variance is material, so this is not a repeated-pair claim.

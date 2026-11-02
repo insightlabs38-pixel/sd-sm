@@ -1267,3 +1267,8 @@ run-e6e9e2af6800 passed all five gates on PR #2: K=46.461317, T=0.018357 s, M=23
 ## Official scored commit `c74c924` — known-good source
 
 `run-0d842cbcf441` passed all five gates: K=42.605184, T=0.021831 s, M=23,105,536 B, S=584, D=1. LATEST; BEST remains `run-118836ebd34c` (K=49.960098). A source is unchanged; record this timing as a board observation, not a source regression.
+
+## Official Track A PR #5 trial and rollback — commit `ed99667e37ebe80216a1d55689c6c2578cb0a581`
+
+- Prior selected source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`; run `run-9e304ccdb597` passed all five gates (K=44.654750, T=0.020358 s, M=21,753,856 B, S=584, D=1). BEST remains `run-118836ebd34c`, K=49.960098.
+- PR #5 trial source SHA-256 `d37a299e7d01e2496a6c6d6d81947082cc667afec5afa6821976e9f8ea41c608`; run `run-736a0bc600c9` passed all five gates (K=43.854157, T=0.020955 s, M=21,155,840 B, S=621, D=1). It did not improve official K; reject and restore source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5` as rollback.

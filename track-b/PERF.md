@@ -1195,3 +1195,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 
 Official all-track receipt — candidate commit 57bf5df:
 run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.175320 s, M=41,963,520 B, S=699, D=1. LATEST; BEST remains run-add075487808 (K=30.850870). This cross-track run tested A/C candidates; B did not change.
+
+## Official rollback verification — commit `701732d`
+
+`run-704032eaf3ac` passed all five gates on unchanged B source: K=30.299533, T=0.159220 s, M=41,521,152 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870). The A/C rollback did not alter B.

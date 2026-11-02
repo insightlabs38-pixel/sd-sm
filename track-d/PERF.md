@@ -1224,3 +1224,7 @@ Six official runs on unchanged PR #23 source/Dockerfile, all passing all five ga
 
 Official all-track receipt — safe claim-fix commit 57bf5df:
 run-95260dc5cc5c passed all five gates on the same safe source: K=32.314743, T=0.090606 s, M=60,473,344 B, S=647, D=1. This is the eligible safe-source BEST/LATEST so far; the numerical feed BEST still refers to the disqualified racing source.
+
+## Official rollback verification — commit `701732d`
+
+`run-eac59526a360` passed all five gates on the safe atomic-claim source: K=32.386125, T=0.090460 s, M=60,051,456 B, S=647, D=1. This is the eligible safe-source BEST and LATEST, superseding `run-95260dc5cc5c` (K=32.314743); the higher raw-feed historical score `run-b2b5c42472eb` used the correctness-defective source and remains disqualified.

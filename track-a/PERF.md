@@ -1247,3 +1247,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 
 Official all-track receipt — candidate commit 57bf5df:
 run-e6e9e2af6800 passed all five gates on PR #2: K=46.461317, T=0.018357 s, M=23,408,640 B, S=574, D=1. This is 7.0% below BEST run-118836ebd34c (K=49.960098), with 12.0% slower T and 9.7% higher M despite ten fewer source lines. Reject this trial and restore the official A source.
+
+## Official rollback verification — commit `701732d`
+
+`run-1fbec7c804d8` passed all five gates on restored source blob `c91b9689529c9c92472be91dbc36f0716e2c98e5`: K=45.440431, T=0.019833 s, M=21,282,816 B, S=584, D=1. This source is the known-good A implementation, but this latest run is below BEST `run-118836ebd34c` (K=49.960098); keep BEST/LATEST distinct. Compared with preceding same-source receipt `run-2a1d6be0e834`, runtime was slower in this observation, consistent with board variance; no source change.

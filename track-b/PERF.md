@@ -1240,3 +1240,8 @@ Candidate source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714
 ## Current-main official trial — not selected; restored B champion
 
 Source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714481b7c9380`, Dockerfile SHA-256 `6d8cc241e5a90aec6417605c98f7e5b3597021a5d05678b8d38b1021a00c71d2`; `run-6d45b234e50b` passed all five gates (K=29.930650, T=0.163450 s, M=41,009,152 B, S=695, D=1). The selected-source control `run-5b024ccb1c82` scored K=29.883512. The 0.16% difference is within board variance; the candidate remains below BEST `run-add075487808` (K=30.850870), so restore source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1` and Dockerfile SHA-256 `f4d2a9871e7031cda3d430eca40bd30bf4167b33a07c1214c85ad93cf8096388`.
+
+
+## Latest selected-source receipt — `25d2056`
+
+`run-9ba6fe78dbba` passed all five gates on selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.391580, T=0.158257 s, M=41,570,304 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); this control is below BEST and leaves B source unchanged.

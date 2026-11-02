@@ -1382,3 +1382,8 @@ run-9d277af3f049 K31.337779/T0.098000/M55582720/S684/D1, all gates passed;
 rejected. Next trial keeps twelve query workers and changes only wide metadata:
 solverad32b206a03b158ae7a50706a4c651b233ecf4e7, fully qualified41441562232,
 S683 D1 with original Docker. Rollback remains02e0764e, valid K33.672416.
+
+Twelve-worker compact-wide triald7c92b48e07e413d8c90ac8d8dbfb6198c478f51:
+run-37c8e633dca8 K33.627070 T0.084061 M57397248 S683 D1, all gates pass.
+Restore02e0764ef534a8a6694006b12911776e0a9f2860, strongest valid K33.672416.
+No A/B/C or shared configuration changes. Qualified alternatives stay preserved.

@@ -580,7 +580,7 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
 // push always writes the entry but counts it only when `take`, so relaxations
 // need no branch.
 template <bool BOUNDED> struct Queue {
-  static constexpr u32 B = BOUNDED ? 512 : 128;
+  static constexpr u32 B = BOUNDED ? 512 : 2048;
   struct Bucket {
     u32 *data = nullptr, size = 0, cap = 0;
   } bucket[B];

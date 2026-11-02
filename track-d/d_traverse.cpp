@@ -11,6 +11,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <thread>
+#include <tmmintrin.h>
 #include <unistd.h>
 #include <vector>
 
@@ -75,7 +76,8 @@ u64 separators(const char *p) {
 
 // Value of the digits [a, b). Up to eight digits are converted at once from
 // the 8 bytes ending at b, the bytes before a masked off.
-u32 decimal(const char *a, const char *b, const char *file) {
+__attribute__((target("ssse3"))) u32 decimal(const char *a, const char *b,
+                                             const char *file) {
   u32 len = b - a, v = 0;
   if (len > 8 || b - file < 8) {
     for (; a < b; ++a)
@@ -85,31 +87,37 @@ u32 decimal(const char *a, const char *b, const char *file) {
   u64 x, m = 0x000000FF000000FF;
   memcpy(&x, b - 8, 8);
   x &= (~u64(0) << (64 - 8 * len)) & 0x0F0F0F0F0F0F0F0F;
-  x = x * 10 + (x >> 8); // adjacent digit pairs
-  x = (x & m) * 0x000F424000000064 + ((x >> 16) & m) * 0x0000271000000001;
-  return x >> 32;
+  __m128i z = _mm_setzero_si128(), digits = _mm_cvtsi64_si128(x);
+  __m128i pairs = _mm_maddubs_epi16(digits, _mm_set1_epi16(0x010a));
+  __m128i quads = _mm_madd_epi16(pairs, _mm_set1_epi32(0x00010064));
+  return u32(_mm_cvtsi128_si32(quads)) * 10000 +
+         u32(_mm_cvtsi128_si32(_mm_srli_si128(quads, 4)));
 }
 
 // Calls emit(u, v, w) for each line in [begin, end) of the file [lo, hi).
 template <class Emit>
-void parse(const char *lo, const char *hi, const char *begin, const char *end,
-           Emit emit) {
-  const char *field = begin;
-  u32 val[3], k = 0;
+__attribute__((target("ssse3"))) void parse(const char *lo, const char *hi,
+                                            const char *begin, const char *end,
+                                            Emit emit) {
+  const char *field = begin, *chunk = begin, *block = begin;
+  u64 mask = 0;
   char pad[64];
-  for (const char *q = begin; q < end; q += 64) {
-    // The file's last block is scanned from a copy padded with digits.
-    if (hi - q < 64)
-      memset(pad, '0', 64), memcpy(pad, q, hi - q);
-    u64 m = separators(hi - q < 64 ? pad : q);
-    if (end - q < 64)
-      m &= (u64(1) << (end - q)) - 1;
-    for (; m; m &= m - 1) {
-      const char *sep = q + __builtin_ctzll(m);
-      val[k] = decimal(field, sep, lo), field = sep + 1;
-      if (++k == 3)
-        emit(val[0], val[1], val[2]), k = 0;
+  auto next = [&]() __attribute__((target("ssse3"))) {
+    while (!mask) {
+      block = chunk, chunk += 64;
+      if (hi - block < 64)
+        memset(pad, '0', 64), memcpy(pad, block, hi - block);
+      mask = separators(hi - block < 64 ? pad : block);
     }
+    const char *sep = block + __builtin_ctzll(mask);
+    mask &= mask - 1;
+    return sep;
+  };
+  while (field < end) {
+    const char *a = next(), *b = next(), *c = next();
+    u32 u = decimal(field, a, lo), v = decimal(a + 1, b, lo);
+    u32 w = decimal(b + 1, c, lo);
+    emit(u, v, w), field = c + 1;
   }
 }
 

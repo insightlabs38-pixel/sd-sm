@@ -1337,3 +1337,11 @@ run-0d133c703f56 K33.085626 T0.088345 M55525376 S674 D1, all gates pass.
 Restore twelve-worker solver5d56a5bebdf1d82633e6e643801213f5df987578:
 strongest valid official run-23cf9ab622c1 K33.106317. Keep eight/six-worker
 qualified alternatives; the small eight/twelve gap is within observed noise.
+
+2026-11-02 streamed SIMD trial: solverf12bffd9e449e091ba565c6f1c523c0216b0d3cb,
+S683 D1, original Docker8eabe09b. CI41432811061 passes every pinned/oracle,
+forced claim/capacity/skew, ASan/UBSan/TSan and offline 4/6/12 gate.
+306 independent interleaved full runs against current safe solver5d56a5be:
+all exact, candidate CPU roughly3.6–4.5% lower across seeds1/7/17 and4/6/12.
+Host is not official hardware; no official K projection. Rollback5d56a5be,
+qualified twelve-worker prefix champion, prior valid K33.106317.

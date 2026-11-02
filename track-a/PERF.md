@@ -1297,3 +1297,7 @@ PR #6 exact head `33e0f543fa9bbcd084954ab950a86d91d6b19495`, source SHA-256 `f6a
 ## Track A PR #6 official trial — rejected; restored selected source
 
 The exact PR #6 source SHA-256 `f6a1fc1a4e724db71dedd0ea5fd750826a4a8775061578e2a98c563018530ffe` passed all five gates in `run-856de9f035b4`: K=44.415947, T=0.020433 s, M=21,860,352 B, S=594, D=1. The selected-source control `run-7a67da0ad340` scored K=44.402826, T=0.020663 s, M=21,561,344 B, S=584; the 0.03% K difference is within observed timing variance and the candidate costs 10 source units plus memory. It does not beat BEST `run-118836ebd34c` (K=49.960098); restore source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`.
+
+## Track A PR #7 repeated official trial — candidate under variance check
+
+PR #7 exact head `e89698513f251534f87933f0ed91dad5dcab2818`, source SHA-256 `04db0a0c355d13e1f44f14c583ab99be2834782439bf4a28c11b4956a51ea51f` (source blob `1ad533f716e9f898eeb0e174959bfb25cad52e85`), S=578, D=1. Exact architecture CI `41332666362` and `41333014119` passed official hashes/references, arbitrary-order cases, strict ASan/UBSan/TSan and restricted Docker. Its prior official trial (reported in PR #7) passed gates at K=48.801309, T=0.017286 s, M=21,168,128 B; it was below BEST `run-118836ebd34c` (K=49.960098), but close enough to justify one repeat given observed A timing variance and its lower S. This is an official scorer trial only; retain selected source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5` for rollback.

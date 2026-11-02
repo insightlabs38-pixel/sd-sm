@@ -1407,3 +1407,10 @@ passes all mandatory gates and306 matched executions of the SAME qualified PGO
 binary against control; binaryf6acc5599067add4e9a643bff504453ab395e49e754d5658298f6f438843b948.
 No official gain projected. Rollback: Docker8eabe09b and REMOVE pgo_train_graph.cpp,
 with unchanged solver02e0764e, valid K33.672416. All training artifacts stay out of runtime.
+
+PGO-only c6fac935a48f93be49454bf3d81d51d1f34ef39f scored run-7a06ee6ddcc4:
+K32.446648 T0.087918 M58298368 S731 D1, all gates pass; no promotion.
+Next qualified combination uses Dockerf18c5fa99266b05feeed93182f4d2ab6343bfbd0,
+same solver02e0764e and counted helperff6eaf42. CI41450827729 passes every gate
+and306 exact same-binary comparisons. Rollback still Docker8eabe09b and DELETE
+pgo_train_graph.cpp, preserving solver02e0764e and valid K33.672416.

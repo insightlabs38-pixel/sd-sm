@@ -1345,3 +1345,8 @@ forced claim/capacity/skew, ASan/UBSan/TSan and offline 4/6/12 gate.
 all exact, candidate CPU roughly3.6–4.5% lower across seeds1/7/17 and4/6/12.
 Host is not official hardware; no official K projection. Rollback5d56a5be,
 qualified twelve-worker prefix champion, prior valid K33.106317.
+
+SIMD trial0a5eef9de49ad524dab2afa206908fe22c13fecf: run-94452b0065c5,
+K32.633545 T0.088591 M58482688 S683 D1; all gates pass. No official improvement
+established despite independent-runner CPU gains. Restore strongest valid solver
+5d56a5bebdf1d82633e6e643801213f5df987578, prior K33.106317. Original Docker unchanged.

@@ -1293,3 +1293,7 @@ PR #6 exact head `33e0f543fa9bbcd084954ab950a86d91d6b19495`, source SHA-256 `f6a
 ## Latest selected-source reference before PR #6 — `dc0f4e4`
 
 `run-75193199839f` passed all five gates on rollback source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=46.288449, T=0.019193 s, M=21,061,632 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); this is the official baseline for the queued PR #6 trial.
+
+## Track A PR #6 official trial — rejected; restored selected source
+
+The exact PR #6 source SHA-256 `f6a1fc1a4e724db71dedd0ea5fd750826a4a8775061578e2a98c563018530ffe` passed all five gates in `run-856de9f035b4`: K=44.415947, T=0.020433 s, M=21,860,352 B, S=594, D=1. The selected-source control `run-7a67da0ad340` scored K=44.402826, T=0.020663 s, M=21,561,344 B, S=584; the 0.03% K difference is within observed timing variance and the candidate costs 10 source units plus memory. It does not beat BEST `run-118836ebd34c` (K=49.960098); restore source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`.

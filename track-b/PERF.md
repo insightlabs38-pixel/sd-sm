@@ -1163,3 +1163,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official latest run — commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9`
 
 `run-cd1e7e63d2e5` passed check/build/correctness/timeout/sandbox: K=30.554384, T=0.156575 s, M=41,394,176 B, S=699, D=1, points=74.253677. BEST remains `run-add075487808` (K=30.850870). Track B source was unchanged; this is a latest observation, not a B candidate promotion.
+
+## Official champion-restoration run — `8fc0d908aeadb934648e44e70f1e0dcd1b35173f`
+
+`run-1420c8e5cb0d` passed all five gates: K=30.320107, T=0.159004 s, M=41,050,112 B, S=699, D=1, points=74.086536. BEST remains `run-add075487808` (K=30.850870). Source unchanged; this is another baseline observation, not a B promotion.

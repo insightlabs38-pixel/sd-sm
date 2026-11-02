@@ -1210,3 +1210,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official latest run — commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9`
 
 `run-0ac459f91a88` passed check/build/correctness/timeout/sandbox: K=44.776815, T=0.020327 s, M=21,540,864 B, S=584, D=1, points=82.552660. BEST remains `run-118836ebd34c` (K=49.960098). Track A source was unchanged; this is a new baseline observation, not an A candidate promotion.
+
+## Official champion-restoration run — `8fc0d908aeadb934648e44e70f1e0dcd1b35173f`
+
+`run-64771385ab4c` passed all five gates: K=44.543790, T=0.020492 s, M=21,667,840 B, S=584, D=1, points=82.439358. BEST remains `run-118836ebd34c` (K=49.960098). Source unchanged; compare with PR #22 trial `run-0ac459f91a88` only as a noisy repeat, not an A change.

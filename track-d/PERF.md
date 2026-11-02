@@ -1414,3 +1414,12 @@ Next qualified combination uses Dockerf18c5fa99266b05feeed93182f4d2ab6343bfbd0,
 same solver02e0764e and counted helperff6eaf42. CI41450827729 passes every gate
 and306 exact same-binary comparisons. Rollback still Docker8eabe09b and DELETE
 pgo_train_graph.cpp, preserving solver02e0764e and valid K33.672416.
+
+Final nonalias member trial: solver 8fe0643256d5771f27e5805530a6d1df10c69f27,
+original pinned Docker. CI 41454634557 passed pinned restricted Docker,
+full seeds 1/7/17 at 4/6/12 workers, differential/boundary/saturation,
+forced claim/capacity regressions and ASan/UBSan/TSan. Matched comparisons
+improve all nine runner timing cells; local parent-cgroup receipts retained.
+PGO/BMI rejected: run-e19032dfddcb K31.072955, S731.
+Rollback: solver 02e0764ef534a8a6694006b12911776e0a9f2860,
+Docker 8eabe09b96a60131ce5bfda3f098011e1f0863e6; no training helper.

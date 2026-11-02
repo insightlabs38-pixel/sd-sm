@@ -1284,3 +1284,10 @@ Safe rollback: solver `4e45be05890b6228c8df88702da48f51a15fc712`, unchanged Dock
 `run-18ef0828aacc`, commit `0f64279be629cbfcff2f166868b6e4ff68d6447a`, passed all gates: K31.934344/T0.093237/M60149760/S641/D1. It does not beat safe PR24 BEST K32.780740; preserve it for matched repeats, not promotion from local timings alone.
 
 Next qualified trial: compact degrees, solver `4025847191c1022a70503c185311c648edb9c028`, original Dockerfile, S664/D1. Exact overflow escapes preserve arbitrary legal degrees. `mremap` shrinking is checked; atomic claims remain globally unique. Full qualification and independent three-seed comparison passed CI41395815104. Local225-run complete-K matrix improved8/9 cells for byte degrees (diagnostic geometric-mean ratio1.0192); official improvement is unproven. Rollback remains PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, original Dockerfile, valid BEST run-2e268a627927. Other tracks unchanged.
+
+
+## Compact-degree result and eight-query-worker trial
+
+`run-e6a3048b86cd`, commit `f0fc43c0e3ea8844e851a39642a485364e8710c5`, passed every gate: K30.369166/T0.103164/M58482688/S664/D1. This first result does not beat safe PR24 BEST K32.780740. Do not promote from the local memory gain alone.
+
+Next qualified variant limits queries to eight workers while construction keeps the configured count: solver `35569da8c7458df743a4a5f64834cb654bd47497`, original Dockerfile, S664/D1, exact-source qualification CI41397966495 passed all mandatory reference, sanitizer, adversarial and sandbox gates. Its local225-run matrix was positive8/9 cells (geometric-mean K ratio1.02034 against PR24 across separate local configurations; not an official projection). Evaluate the actual six-physical-core result before selection. Safe rollback remains solver `4e45be05890b6228c8df88702da48f51a15fc712` / Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`, valid BEST run-2e268a627927. Other tracks unchanged.

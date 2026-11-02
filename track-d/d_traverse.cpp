@@ -94,22 +94,25 @@ u32 decimal(const char *a, const char *b, const char *file) {
 template <class Emit>
 void parse(const char *lo, const char *hi, const char *begin, const char *end,
            Emit emit) {
-  const char *field = begin;
-  u32 val[3], k = 0;
+  const char *field = begin, *chunk = begin, *block = begin;
+  u64 mask = 0;
   char pad[64];
-  for (const char *q = begin; q < end; q += 64) {
-    // The file's last block is scanned from a copy padded with digits.
-    if (hi - q < 64)
-      memset(pad, '0', 64), memcpy(pad, q, hi - q);
-    u64 m = separators(hi - q < 64 ? pad : q);
-    if (end - q < 64)
-      m &= (u64(1) << (end - q)) - 1;
-    for (; m; m &= m - 1) {
-      const char *sep = q + __builtin_ctzll(m);
-      val[k] = decimal(field, sep, lo), field = sep + 1;
-      if (++k == 3)
-        emit(val[0], val[1], val[2]), k = 0;
+  auto next = [&] {
+    while (!mask) {
+      block = chunk, chunk += 64;
+      if (hi - block < 64)
+        memset(pad, '0', 64), memcpy(pad, block, hi - block);
+      mask = separators(hi - block < 64 ? pad : block);
     }
+    const char *sep = block + __builtin_ctzll(mask);
+    mask &= mask - 1;
+    return sep;
+  };
+  while (field < end) {
+    const char *a = next(), *b = next(), *c = next();
+    u32 u = decimal(field, a, lo), v = decimal(a + 1, b, lo);
+    u32 w = decimal(b + 1, c, lo);
+    emit(u, v, w), field = c + 1;
   }
 }
 

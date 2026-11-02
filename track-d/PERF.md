@@ -1303,3 +1303,10 @@ Next qualified variant limits queries to eight workers while construction keeps 
 Solver `038e25ac5d2b90e2e2db52b130f1acd1fb1c6795`, original Dockerfile, S664/D1. Only the compact-degree variant's query cap changes8 to6; parsing/growth/CSR keep up to12 workers. Exact-source qualification CI41402547668 passed all mandatory sanitizer, forced-full-size guard, differential/boundary/saturation/stress and restricted-Docker reference gates. Local full1/7/17 parent-cgroup comparisons are preserved in research receipts. This tests the actual six-physical-core scorer rather than extrapolating from local quotas.
 
 Previous cap8 run-c0fd6e318ce4 measured K32.408480/T0.091973/M56307712/S664/D1. Official restored control atf71d444/run-26d8e5a4fb1d measured K31.759092/T0.094263/M59740160/S647/D1. The valid champion remains PR24 K32.780740/run-2e268a627927, solver `4e45be05890b6228c8df88702da48f51a15fc712`. Preserve that exact rollback. A/B/C and shared configuration are unchanged.
+
+
+## Six-query-worker observation and bounded-queue trial
+
+Exact compact-degree six-query-worker source `038e25ac5d2b90e2e2db52b130f1acd1fb1c6795` passed all official gates in run-14d33bcc113a atcommit777ef7d8: K31.395680/T0.098678/M55349248/S664/D1. Compare source blobs rather than only the metadata commit. Valid historical BEST remains PR24 K32.780740; no promotion is claimed.
+
+Next fully qualified candidate: solver `98464939ea3971f366fdb08bcc927fde72051457`, original Dockerfile, narrow queues specialized for exact keys below65535 while 64-bit fallback keeps the general queue. Global atomic claims and frontier/SSE2 architecture are preserved. CI41402876536 passed all qualification jobs and independent full1/7/17 matched comparisons. Local native timing is promising but not an official gain. Preserve exact PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712` / Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6` for rollback. A/B/C unchanged.

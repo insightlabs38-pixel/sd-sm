@@ -4,7 +4,6 @@
 #include <cstring>
 #include <emmintrin.h>
 #include <fcntl.h>
-#include <malloc.h>
 #include <numeric>
 #include <queue>
 #include <string>
@@ -299,8 +298,7 @@ std::pair<u32, u32> row(const Graph &raw, u32 u) {
 // One worker's share of the search order: vertices in discovery order, the
 // end of each one's out-edges, and those edges with their raw heads.
 struct alignas(64) Region {
-  u32 *order, *out, len = 0, edges = 0;
-  uint8_t *ends;
+  u32 *order, *ends, *out, len = 0, edges = 0;
   Escapes esc; // keyed by position in out
 };
 
@@ -389,14 +387,8 @@ struct Grower {
       for (u32 h = hi; h < std::min(reg.len, hi + 2 * BATCH); ++h)
         __builtin_prefetch(&raw.adj[4 * size_t(reg.order[h])]);
       size_t walking = 0;
-      for (u32 h = lo; h < hi; ++h) {
-        u32 before = reg.edges;
-        expand(reg.order[h], walking);
-        u32 degree = reg.edges - before;
-        reg.ends[h] = std::min(degree, 255u);
-        if (degree >= 255)
-          reg.esc.push_back({~size_t(0) - h, degree});
-      }
+      for (u32 h = lo; h < hi; ++h)
+        expand(reg.order[h], walking), reg.ends[h] = reg.edges;
       while (walking) {
         size_t kept = 0;
         for (size_t i = 0; i < walking; ++i)
@@ -463,7 +455,7 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
   std::vector<Region> regions(threads);
   parallel(threads, [&](unsigned t) {
     Region &reg = regions[t];
-    reg.order = alloc<u32>(n), reg.ends = alloc<uint8_t>(n),
+    reg.order = alloc<u32>(n), reg.ends = alloc<u32>(n),
     reg.out = alloc<u32>(m);
     Grower grower{*raw, bypass, claimed, reg};
     for (u32 x = cut(n, t, threads); x < cut(n, t + 1, threads); ++x)
@@ -492,10 +484,6 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
         f(t, std::max(cuts[k], base[t]) - base[t],
           std::min(cuts[k + 1], base[t + 1]) - base[t]);
   };
-  if (mremap(where, (size_t(4) * n + m) * 4 + 64,
-             (size_t(n) + total + edges[threads] + 1) * 4 + 64,
-             0) == MAP_FAILED)
-    exit(2);
   // Raw id -> new id. A vertex claimed twice is named by the entry that lands
   // last, the same for every head.
   parallel(threads, [&](unsigned k) {
@@ -519,22 +507,12 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
     std::fill(rev.r->off + cuts[k], rev.r->off + cuts[k + 1], 0);
     each(k, [&](unsigned t, u32 lo, u32 hi) {
       Region &reg = regions[t];
-      u32 pos = std::accumulate(reg.ends, reg.ends + lo, 0u), shift = edges[t];
-      for (auto it = std::lower_bound(reg.esc.begin(), reg.esc.end(),
-                                      std::pair(~size_t(0) - reg.len, 0ul));
-           it != reg.esc.end(); ++it)
-        if (~it->first < lo)
-          pos += it->second - 255;
+      u32 pos = lo ? reg.ends[lo - 1] : 0, shift = edges[t];
       auto esc = std::lower_bound(reg.esc.begin(), reg.esc.end(),
                                   std::pair(size_t(pos), u64(0)));
       for (u32 i = lo; i < hi; ++i) {
         g->off[base[t] + i] = shift + pos;
-        u32 degree = reg.ends[i];
-        if (degree == 255)
-          degree = std::lower_bound(reg.esc.begin(), reg.esc.end(),
-                                    std::pair(~size_t(0) - i, 0ul))
-                       ->second;
-        for (u32 end = pos + degree; pos < end; ++pos) {
+        for (; pos < reg.ends[i]; ++pos) {
           __builtin_prefetch(
               &where[reg.out[std::min(pos + 24, reg.edges - 1)] >> wbits]);
           u32 e = reg.out[pos], w = e & mask, h = where[e >> wbits];
@@ -565,8 +543,8 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
 // Monotone queue: a ring of buckets 2^shift wide; larger jumps wait in a heap.
 // push always writes the entry but counts it only when `take`, so relaxations
 // need no branch.
-struct Queue {
-  static constexpr u32 B = 2048;
+template <bool BOUNDED> struct Queue {
+  static constexpr u32 B = BOUNDED ? 512 : 2048;
   struct Bucket {
     u32 *data = nullptr, size = 0, cap = 0;
   } bucket[B];
@@ -584,7 +562,7 @@ struct Queue {
     far = {}, cur = near = 0;
   }
   void push(u64 d, u32 v, bool take = true) {
-    if ((d >> shift) - cur >= B) {
+    if (!BOUNDED && (d >> shift) - cur >= B) {
       if (take)
         far.push({d, v});
       return;
@@ -604,14 +582,16 @@ struct Queue {
       u32 b = cur % B, w = b / 64;
       u64 bits = occupied[w] & (~u64(0) << b % 64);
       while (!bits)
-        bits = occupied[w = (w + 1) % (B / 64)];
-      cur += (w * 64 + __builtin_ctzll(bits) - b) % B;
-    } else if (!far.empty()) {
+        bits = occupied[w = BOUNDED ? w + 1 : (w + 1) % (B / 64)];
+      cur = BOUNDED ? w * 64 + __builtin_ctzll(bits)
+                    : cur + (w * 64 + __builtin_ctzll(bits) - b) % B;
+    } else if (!BOUNDED && !far.empty()) {
       cur = far.top().first >> shift;
     } else {
       return INF;
     }
-    for (; !far.empty() && (far.top().first >> shift) - cur < B; far.pop())
+    for (; !BOUNDED && !far.empty() && (far.top().first >> shift) - cur < B;
+         far.pop())
       push(far.top().first, far.top().second);
     return cur << shift;
   }
@@ -652,7 +632,8 @@ template <class L> struct Labels {
 template <class L> struct Side {
   const Graph &g;
   Labels<L> dist;
-  Queue queue;
+  using QueueType = Queue<sizeof(L) == 2>;
+  QueueType queue;
   explicit Side(const Graph &g) : g(g), dist(g.n), queue(g.n) {}
   void start(u32 s) {
     dist.reset(), queue.clear();
@@ -662,7 +643,7 @@ template <class L> struct Side {
   // the entries ahead; returns the number of vertices settled. Relaxations are
   // branch-free: nd + other(v) is a real path length either way.
   template <unsigned W = 0> void drain_bits(const Side &other, u64 &best) {
-    Queue::Bucket &bk = queue.bucket[queue.cur % Queue::B];
+    typename QueueType::Bucket &bk = queue.bucket[queue.cur % QueueType::B];
     u32 mask = (1u << queue.node_bits) - 1;
     for (u32 k = 0; k < bk.size; ++k) {
       u32 ahead = bk.data[std::min(k + 8, bk.size - 1)] & mask;
@@ -685,7 +666,8 @@ template <class L> struct Side {
       }
     }
     queue.near -= bk.size, bk.size = 0;
-    queue.occupied[queue.cur % Queue::B / 64] &= ~(u64(1) << queue.cur % 64);
+    queue.occupied[queue.cur % QueueType::B / 64] &=
+        ~(u64(1) << queue.cur % 64);
   }
   void drain(const Side &other, u64 &best) {
     if (g.wbits == 11)
@@ -740,7 +722,6 @@ int main() {
   for (u32 v : ends)
     set(terminal, v);
   Graph *raw = read_graph(graph, graph + gsize, terminal, bypass, threads);
-  malloc_trim(0);
   auto [fwd, rev] = contract(raw, bypass, threads, ends);
   size_t queries = ends.size() / 2;
   std::vector<int64_t> answers(queries);
@@ -749,7 +730,7 @@ int main() {
   std::sort(by_source.begin(), by_source.end(),
             [&](u32 a, u32 b) { return ends[2 * a] < ends[2 * b]; });
   std::atomic<size_t> next{0};
-  parallel(std::min<size_t>(std::min(threads, 6u), queries + 1), [&](unsigned) {
+  parallel(std::min<size_t>(threads, queries + 1), [&](unsigned) {
     // Paths below 65535 are exact with 16-bit labels. Saturated or
     // unreachable results are rerun with exact 64-bit labels.
     Worker<uint16_t> narrow{Side<uint16_t>(*fwd), Side<uint16_t>(*rev)};

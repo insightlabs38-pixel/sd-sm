@@ -1245,3 +1245,8 @@ Source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714481b7c9380
 ## Latest selected-source receipt — `25d2056`
 
 `run-9ba6fe78dbba` passed all five gates on selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.391580, T=0.158257 s, M=41,570,304 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); this control is below BEST and leaves B source unchanged.
+
+
+## Latest selected-source receipt — A PR #7 trial commit `5d0fa39`
+
+`run-5e895f5a89b5` passed all five gates on unchanged B source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=29.655295, T=0.166213 s, M=41,664,512 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); no B candidate change.

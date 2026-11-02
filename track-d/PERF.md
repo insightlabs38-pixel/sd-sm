@@ -1387,3 +1387,10 @@ Twelve-worker compact-wide triald7c92b48e07e413d8c90ac8d8dbfb6198c478f51:
 run-37c8e633dca8 K33.627070 T0.084061 M57397248 S683 D1, all gates pass.
 Restore02e0764ef534a8a6694006b12911776e0a9f2860, strongest valid K33.672416.
 No A/B/C or shared configuration changes. Qualified alternatives stay preserved.
+
+2026-11-02 compiler trial: solver unchanged02e0764ef534a8a6694006b12911776e0a9f2860;
+Docker40ecac36f199e7e9bdc426b6e60f62d8c4119ef2 adds BMI/BMI2 and32-byte loop
+alignment with pinned GCC15. Qualification41447957574 passes all mandatory gates
+and306 interleaved full executions. This is a distinct compiled candidate;
+no local CPU result is claimed as official K. Rollback original Docker8eabe09b,
+with the same solver02e0764e, valid K33.672416. No extra scored source files.

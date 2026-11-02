@@ -1154,3 +1154,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Frontier PR #19 local qualification result — not submitted
 
 - Workflow `41366393032` passed full-seed hashes (seeds 1/2/3), sample/tiny, differential/adversarial, ASan/UBSan/TSan, pinned Docker and sandbox gates. Its five-repeat production-Docker measurements versus developer-main source blob `6450d009a5d07f719f3678becea49d89b136737a` were slower on all three full seeds: T=0.296758→0.330646 s (seed 1), 0.298688→0.332888 s (seed 2), 0.298600→0.331763 s (seed 3); candidate/champion local-K ratios 0.944340/0.944210/0.945670 (geomean 0.944740, -5.53%), with S=710 vs 695 and D=1. **Skip official trial.** The PR removes the old hot-row prefetch present in official B blob `b8ef48979203564e806b78e66a18fe9c8cf60463`, so its CI baseline is not the exact official source either.
+
+
+## Official all-track receipt — D PR #23 combined traversal trial commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`
+
+- `run-1389428b127f` passed all five gates: T=0.156906 s, M=41,312,256 B, S=699, D=1, K=30.522140, points=74.230749. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870). Cross-track rerun only; B source unchanged.

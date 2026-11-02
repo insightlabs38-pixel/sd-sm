@@ -1193,3 +1193,7 @@ Developer main commit `2f219fb6224d02545d8502b8b11054ed5fd6efa1` records native/
 ## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
 
 `run-0c111e40947c` passed all five gates on unchanged PR #23 source/Dockerfile: K=32.769415, T=0.088349 s, M=60,063,744 B, S=647, D=1. LATEST; BEST remains `run-b2b5c42472eb` (K=32.868729, T=0.087625 s, M=60,391,424 B), so this run is 0.30% lower in K. PR #23 remains the selected champion; no source change.
+
+## Official latest run — `73c861213ac0e54ce07f817e0e9daa3c51b70d04`
+
+`run-aabd8fda29f6` passed all five gates on unchanged PR #23 source/Dockerfile: K=32.080367, T=0.092306 s, M=59,867,136 B, S=647, D=1. LATEST only; BEST remains `run-b2b5c42472eb` (K=32.868729, T=0.087625 s, M=60,391,424 B). K is 2.40% lower and T 5.34% slower, while M is 524,288 B lower. No code changed, so do not interpret this as a candidate regression.

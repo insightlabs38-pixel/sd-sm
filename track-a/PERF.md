@@ -1222,3 +1222,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
 
 `run-a1c1177b8dd8` passed all five gates: K=48.531104, T=0.017267 s, M=21,655,552 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); source unchanged.
+
+## Official latest run — `73c861213ac0e54ce07f817e0e9daa3c51b70d04`
+
+`run-39833bd0f9e5` passed all five gates: K=42.657890, T=0.021605 s, M=23,568,384 B, S=584, D=1. LATEST only; BEST remains `run-118836ebd34c` (K=49.960098). No source changed; treat as a noisy run.

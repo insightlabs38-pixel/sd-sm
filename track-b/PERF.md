@@ -1175,3 +1175,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
 
 `run-243d687f21f8` passed all five gates: K=30.790084, T=0.154187 s, M=40,751,104 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); source unchanged.
+
+## Official latest run — `73c861213ac0e54ce07f817e0e9daa3c51b70d04`
+
+`run-44a84f14f6e8` passed all five gates: K=27.330191, T=0.195697 s, M=41,496,576 B, S=699, D=1. LATEST only; BEST remains `run-add075487808` (K=30.850870). No source changed; treat as a noisy run.

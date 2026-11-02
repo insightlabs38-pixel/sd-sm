@@ -1369,3 +1369,10 @@ same solver5d56a5be, new strongest valid result. Trial qualified SIMD+256-page
 combination02e0764ef534a8a6694006b12911776e0a9f2860, CI41434298002 passes
 all pinned/oracle/sanitizer gates. S683 D1; original Docker unchanged.
 Both independent changes remain measured; no additive gain assumed.
+
+2026-11-02 compact-wide/ten-worker combination: solverd4a666f5d4c8925363c2b04ee0bc11448e28a8b1,
+qualification41441569754 passes all pinned/oracle/forced/sanitizer gates and306
+matched exact full executions against champion02e0764e. S684 D1, Docker unchanged.
+Local parent-cgroup matrix180 runs covers1/7/17 at4/6/12; at12 threads, M falls
+2.4–3.4% and complete-K ratios1.0014–1.0104. Local quota differs from official.
+Current valid rollback02e0764e: run-3cf937618e77 K33.672416/T0.083599/M57802752/S683/D1.

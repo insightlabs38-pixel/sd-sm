@@ -1171,3 +1171,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
 
 `run-39785ebd1c15` passed all five gates: K=29.818638, T=0.164397 s, M=41,631,744 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); source unchanged.
+
+## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
+
+`run-243d687f21f8` passed all five gates: K=30.790084, T=0.154187 s, M=40,751,104 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); source unchanged.

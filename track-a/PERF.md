@@ -1218,3 +1218,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
 
 `run-ea1cfb55cc8d` passed all five gates: K=48.788061, T=0.017038 s, M=21,807,104 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); source unchanged.
+
+## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
+
+`run-a1c1177b8dd8` passed all five gates: K=48.531104, T=0.017267 s, M=21,655,552 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); source unchanged.

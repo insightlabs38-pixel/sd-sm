@@ -1239,3 +1239,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
 
 `run-35a5813e697a` passed all five gates: K=25.753283, T=0.050496 s, M=11,587,584 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773); source unchanged.
+
+## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
+
+`run-39fcf0692704` passed all five gates: K=25.282219, T=0.051469 s, M=12,115,968 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773); source unchanged.

@@ -1189,3 +1189,7 @@ PR #22 failed to beat BEST, so the official submission source is restored to PR 
 ## Developer-main threshold tournament — not transferred to submission
 
 Developer main commit `2f219fb6224d02545d8502b8b11054ed5fd6efa1` records native/pinned GCC15 tournaments on its older source blob `fcd4c4e7` (not the selected submission blob `e11b09e3`). Outputs were exact; threshold 128 regressed seed 1 by 0.18–0.43% and improved seed 7 by only 0.19–0.26%; threshold 192 was mixed/neutral across seeds. The developer rejected all variants. Keep submission PR #23 unchanged; these measurements do not establish a gain on its different source.
+
+## Official latest run — `36ce0278de8128b5ebacad3fd88fc60da4dec86d`
+
+`run-0c111e40947c` passed all five gates on unchanged PR #23 source/Dockerfile: K=32.769415, T=0.088349 s, M=60,063,744 B, S=647, D=1. LATEST; BEST remains `run-b2b5c42472eb` (K=32.868729, T=0.087625 s, M=60,391,424 B), so this run is 0.30% lower in K. PR #23 remains the selected champion; no source change.

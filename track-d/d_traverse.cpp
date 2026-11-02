@@ -338,13 +338,16 @@ struct Grower {
   // branch ends the walk at a survivor; a dead end or a way back to the root
   // leaves a useless self-loop.
   bool step(Walk &w) {
-    auto [i, end] = row(raw, w.at);
-    u32 ahead = 0, next = w.at, which = i;
-    for (; i < end; ++i) {
-      u32 h = raw.head(raw.adj[i]);
-      if (h != w.prev && h != w.at)
-        ++ahead, next = h, which = i;
-    }
+    // Every active walk is at a bypass vertex, whose raw degree is <= 2.
+    u32 i = 4 * w.at;
+    __m128i edges = _mm_loadu_si128((const __m128i *)(raw.adj + i));
+    __m128i heads = _mm_srl_epi32(edges, _mm_cvtsi32_si128(raw.wbits));
+    __m128i skip = _mm_or_si128(_mm_cmpeq_epi32(heads, _mm_set1_epi32(w.prev)),
+                                _mm_cmpeq_epi32(heads, _mm_set1_epi32(w.at)));
+    skip = _mm_or_si128(skip, _mm_cmpeq_epi32(edges, _mm_set1_epi32(-1)));
+    u32 valid = ~u32(_mm_movemask_ps(_mm_castsi128_ps(skip))) & 3;
+    u32 ahead = (valid & 1) + (valid >> 1), which = i + !(valid & 1);
+    u32 next = raw.head(raw.adj[which]);
     if (ahead > 1) {
       next = w.at;
     } else if (ahead == 0 || next == w.root) {
@@ -636,9 +639,9 @@ template <class L> struct Side {
   // Settles the current bucket in FIFO order, prefetching rows and labels of
   // the entries ahead; returns the number of vertices settled. Relaxations are
   // branch-free: nd + other(v) is a real path length either way.
-  template <unsigned W = 0> size_t drain_bits(const Side &other, u64 &best) {
+  template <unsigned W = 0> void drain_bits(const Side &other, u64 &best) {
     Queue::Bucket &bk = queue.bucket[queue.cur % Queue::B];
-    u32 mask = (1u << queue.node_bits) - 1, settled = 0;
+    u32 mask = (1u << queue.node_bits) - 1;
     for (u32 k = 0; k < bk.size; ++k) {
       u32 ahead = bk.data[std::min(k + 8, bk.size - 1)] & mask;
       __builtin_prefetch(&g.off[ahead]), __builtin_prefetch(dist.at(ahead));
@@ -648,7 +651,6 @@ template <class L> struct Side {
       u64 d = queue.cur << queue.shift | bk.data[k] >> queue.node_bits;
       if (dist.get(u) != d)
         continue;
-      ++settled;
       for (u32 i = g.off[u]; i < g.off[u + 1]; ++i) {
         u32 v = g.adj[i] >> (W ? W : g.wbits);
         L *x = dist.slot(v);
@@ -662,11 +664,12 @@ template <class L> struct Side {
     }
     queue.near -= bk.size, bk.size = 0;
     queue.occupied[queue.cur % Queue::B / 64] &= ~(u64(1) << queue.cur % 64);
-    return settled;
   }
-  size_t drain(const Side &other, u64 &best) {
-    return g.wbits == 11 ? drain_bits<11>(other, best)
-                         : drain_bits<>(other, best);
+  void drain(const Side &other, u64 &best) {
+    if (g.wbits == 11)
+      drain_bits<11>(other, best);
+    else
+      drain_bits<>(other, best);
   }
 };
 
@@ -681,26 +684,18 @@ template <class L> struct Worker {
       return 0;
     if (fwd.g.off[s] == fwd.g.off[s + 1] || bwd.g.off[t] == bwd.g.off[t + 1])
       return INF;
-    bwd.dist.reset(), fwd.start(s);
-    u64 best = INF, fs = 0, bs = 0;
-    while (fs < 256) {
-      u64 f = fwd.queue.lower_bound(), known = fwd.dist.get(t);
-      if (known < f || f == INF) // t is settled, or the forward side ran out
-        return known < Labels<L>::NONE ? known : INF;
-      fs += fwd.drain(bwd, best);
-    }
-    bwd.start(t);
-    best = fwd.dist.get(t);
+    fwd.start(s), bwd.start(t);
+    u64 best = INF;
     for (;;) {
       u64 f = fwd.queue.lower_bound(), b = bwd.queue.lower_bound();
       if (f == INF || b == INF) // one side has seen all it can reach
         return best < Labels<L>::NONE ? best : INF;
       if (f + b >= best)
         return best;
-      if (fs <= bs)
-        fs += fwd.drain(bwd, best);
+      if (fwd.queue.near <= bwd.queue.near)
+        fwd.drain(bwd, best);
       else
-        bs += bwd.drain(fwd, best);
+        bwd.drain(fwd, best);
     }
   }
 };

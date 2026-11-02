@@ -1270,3 +1270,10 @@ Safe rollback remains PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, va
 ## Stream parser first official result — restore valid champion
 
 `run-8b3db1745a15`, commit `f8c35e81ccc211a3ac87768a8b7a71a89667abb2`, passed all five gates: K31.275460/T0.097000/M59,772,928/S651/D1. The independent 306-run pinned comparison CI41393151550 passed every full1/7/17 hash and improved eight of nine median cells locally, but that does not prove official improvement. This run is below valid atomic PR24 BEST K32.780740. Restore Track D solver `4e45be05890b6228c8df88702da48f51a15fc712` while further architectures qualify. Original Dockerfile retained; all other tracks preserved.
+
+
+## Official frontier/SSE2 trial
+
+Solver `af0e2ac05e7814cca98b100a1e4d1ffc20992efe`, original Dockerfile, S641/D1. One frontier-balanced bidirectional loop removes the separate probe/counters; SSE2 classifies the two possible outgoing edges of bypass vertices. Atomic PR24 ownership and exact saturation/64-bit fallback remain intact. Full qualification CI41395812791 passed pinned restricted Docker references1/7/17 at4/6/12, 88/60/110/stress, both forced full-size guard schedules, ASan/UBSan and TSan; its independent 306-run three-seed paired comparison passed every hash. The separate local parent-cgroup matrix contains225 runs across safe control, candidate, byte degrees and query caps. Official result pending.
+
+Safe rollback: solver `4e45be05890b6228c8df88702da48f51a15fc712`, unchanged Dockerfile, valid BEST K32.780740/run-2e268a627927. Latest restored control run-e3507ded51e6 at23af0eb measured K32.049292/T0.092011/M60641280/S647/D1. No other tracks are changed.

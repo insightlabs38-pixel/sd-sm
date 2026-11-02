@@ -1322,3 +1322,7 @@ PR #7 exact head `e89698513f251534f87933f0ed91dad5dcab2818`, source SHA-256 `04d
 ## Selected-source receipt — B PR #16 scorer commit `932c18e`
 
 `run-4c675c12c3cb` passed all five gates on unchanged source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=45.405465, T=0.020028 s, M=20,848,640 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098).
+
+## Latest selected-source receipt — rollback/evidence commit `8c549ae`
+
+`run-a34da6f557c9` passed all five gates on source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=47.943896, T=0.017634 s, M=21,835,776 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098).

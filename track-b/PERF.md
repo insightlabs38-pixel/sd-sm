@@ -1288,3 +1288,7 @@ Exact PR head `865c90abfe89580f9249128312110e9e600f750a`, source SHA-256 `fcad0f
 ## PR #16 SIMD Boolean bitmap evaluation — rejected; restored selected source
 
 Exact PR head `865c90abfe89580f9249128312110e9e600f750a`, candidate SHA-256 `fcad0fcb6af70940dd73e9a228b0a7ce0bd86e9fdd5cbce75ad4fa594a8d332f`; `run-00057a3e8ea8` passed all five official gates at K=29.981317, T=0.162409 s, M=41,308,160 B, S=702, D=1. This is 0.82% below selected-source control `run-4111a47c8070` (K=30.227761; T=0.159977 s) and below BEST `run-add075487808` (K=30.850870). The three-seed local +2.57% complete-K proxy did not transfer to the scorer; reject and restore source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`.
+
+## Latest selected-source receipt — rollback/evidence commit `8c549ae`
+
+`run-3dc00c6fd82b` passed all five gates on restored selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.733726, T=0.154753 s, M=41,418,752 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870).

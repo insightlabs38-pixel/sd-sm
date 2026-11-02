@@ -1277,3 +1277,10 @@ Safe rollback remains PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, va
 Solver `af0e2ac05e7814cca98b100a1e4d1ffc20992efe`, original Dockerfile, S641/D1. One frontier-balanced bidirectional loop removes the separate probe/counters; SSE2 classifies the two possible outgoing edges of bypass vertices. Atomic PR24 ownership and exact saturation/64-bit fallback remain intact. Full qualification CI41395812791 passed pinned restricted Docker references1/7/17 at4/6/12, 88/60/110/stress, both forced full-size guard schedules, ASan/UBSan and TSan; its independent 306-run three-seed paired comparison passed every hash. The separate local parent-cgroup matrix contains225 runs across safe control, candidate, byte degrees and query caps. Official result pending.
 
 Safe rollback: solver `4e45be05890b6228c8df88702da48f51a15fc712`, unchanged Dockerfile, valid BEST K32.780740/run-2e268a627927. Latest restored control run-e3507ded51e6 at23af0eb measured K32.049292/T0.092011/M60641280/S647/D1. No other tracks are changed.
+
+
+## Frontier/SSE2 result and compact-degree trial
+
+`run-18ef0828aacc`, commit `0f64279be629cbfcff2f166868b6e4ff68d6447a`, passed all gates: K31.934344/T0.093237/M60149760/S641/D1. It does not beat safe PR24 BEST K32.780740; preserve it for matched repeats, not promotion from local timings alone.
+
+Next qualified trial: compact degrees, solver `4025847191c1022a70503c185311c648edb9c028`, original Dockerfile, S664/D1. Exact overflow escapes preserve arbitrary legal degrees. `mremap` shrinking is checked; atomic claims remain globally unique. Full qualification and independent three-seed comparison passed CI41395815104. Local225-run complete-K matrix improved8/9 cells for byte degrees (diagnostic geometric-mean ratio1.0192); official improvement is unproven. Rollback remains PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, original Dockerfile, valid BEST run-2e268a627927. Other tracks unchanged.

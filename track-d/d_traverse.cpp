@@ -4,6 +4,7 @@
 #include <cstring>
 #include <emmintrin.h>
 #include <fcntl.h>
+#include <malloc.h>
 #include <numeric>
 #include <queue>
 #include <string>
@@ -298,7 +299,8 @@ std::pair<u32, u32> row(const Graph &raw, u32 u) {
 // One worker's share of the search order: vertices in discovery order, the
 // end of each one's out-edges, and those edges with their raw heads.
 struct alignas(64) Region {
-  u32 *order, *ends, *out, len = 0, edges = 0;
+  u32 *order, *out, len = 0, edges = 0;
+  uint8_t *ends;
   Escapes esc; // keyed by position in out
 };
 
@@ -387,8 +389,14 @@ struct Grower {
       for (u32 h = hi; h < std::min(reg.len, hi + 2 * BATCH); ++h)
         __builtin_prefetch(&raw.adj[4 * size_t(reg.order[h])]);
       size_t walking = 0;
-      for (u32 h = lo; h < hi; ++h)
-        expand(reg.order[h], walking), reg.ends[h] = reg.edges;
+      for (u32 h = lo; h < hi; ++h) {
+        u32 before = reg.edges;
+        expand(reg.order[h], walking);
+        u32 degree = reg.edges - before;
+        reg.ends[h] = std::min(degree, 255u);
+        if (degree >= 255)
+          reg.esc.push_back({~size_t(0) - h, degree});
+      }
       while (walking) {
         size_t kept = 0;
         for (size_t i = 0; i < walking; ++i)
@@ -455,7 +463,7 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
   std::vector<Region> regions(threads);
   parallel(threads, [&](unsigned t) {
     Region &reg = regions[t];
-    reg.order = alloc<u32>(n), reg.ends = alloc<u32>(n),
+    reg.order = alloc<u32>(n), reg.ends = alloc<uint8_t>(n),
     reg.out = alloc<u32>(m);
     Grower grower{*raw, bypass, claimed, reg};
     for (u32 x = cut(n, t, threads); x < cut(n, t + 1, threads); ++x)
@@ -484,6 +492,10 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
         f(t, std::max(cuts[k], base[t]) - base[t],
           std::min(cuts[k + 1], base[t + 1]) - base[t]);
   };
+  if (mremap(where, (size_t(4) * n + m) * 4 + 64,
+             (size_t(n) + total + edges[threads] + 1) * 4 + 64,
+             0) == MAP_FAILED)
+    exit(2);
   // Raw id -> new id. A vertex claimed twice is named by the entry that lands
   // last, the same for every head.
   parallel(threads, [&](unsigned k) {
@@ -507,12 +519,22 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
     std::fill(rev.r->off + cuts[k], rev.r->off + cuts[k + 1], 0);
     each(k, [&](unsigned t, u32 lo, u32 hi) {
       Region &reg = regions[t];
-      u32 pos = lo ? reg.ends[lo - 1] : 0, shift = edges[t];
+      u32 pos = std::accumulate(reg.ends, reg.ends + lo, 0u), shift = edges[t];
+      for (auto it = std::lower_bound(reg.esc.begin(), reg.esc.end(),
+                                      std::pair(~size_t(0) - reg.len, 0ul));
+           it != reg.esc.end(); ++it)
+        if (~it->first < lo)
+          pos += it->second - 255;
       auto esc = std::lower_bound(reg.esc.begin(), reg.esc.end(),
                                   std::pair(size_t(pos), u64(0)));
       for (u32 i = lo; i < hi; ++i) {
         g->off[base[t] + i] = shift + pos;
-        for (; pos < reg.ends[i]; ++pos) {
+        u32 degree = reg.ends[i];
+        if (degree == 255)
+          degree = std::lower_bound(reg.esc.begin(), reg.esc.end(),
+                                    std::pair(~size_t(0) - i, 0ul))
+                       ->second;
+        for (u32 end = pos + degree; pos < end; ++pos) {
           __builtin_prefetch(
               &where[reg.out[std::min(pos + 24, reg.edges - 1)] >> wbits]);
           u32 e = reg.out[pos], w = e & mask, h = where[e >> wbits];
@@ -718,6 +740,7 @@ int main() {
   for (u32 v : ends)
     set(terminal, v);
   Graph *raw = read_graph(graph, graph + gsize, terminal, bypass, threads);
+  malloc_trim(0);
   auto [fwd, rev] = contract(raw, bypass, threads, ends);
   size_t queries = ends.size() / 2;
   std::vector<int64_t> answers(queries);

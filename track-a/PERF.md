@@ -1281,3 +1281,7 @@ run-e6e9e2af6800 passed all five gates on PR #2: K=46.461317, T=0.018357 s, M=23
 ## Track A PR #4 certificate trial — rejected; rollback on `e9a5789`
 
 The exact candidate source SHA-256 `3cdc0931cef5525503709080cf15e87d83c1ab0c8715707f33cd7582d1a1df7f` passed all five gates in official run `run-bf7b60edc26b`: K=45.052920, T=0.019750 s, M=21,807,104 B, S=607, D=1. This is below BEST `run-118836ebd34c` (K=49.960098), with higher S than the selected source; reject and restore source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`. The preceding selected-source run `run-9c0f90e8aa19` scored K=45.574654; both are lower than BEST and reflect timing variation.
+
+## Track A PR #6 small-group rank fast path — queued trial candidate
+
+PR #6 exact head `33e0f543fa9bbcd084954ab950a86d91d6b19495`, source SHA-256 `f6a1fc1a4e724db71dedd0ea5fd750826a4a8775061578e2a98c563018530ffe`. Exact-head CI `41309800426` passed seed-1 tiny/sample/full hashes, seeds 2/3, reordered inputs, ASan/UBSan, TSan and offline Docker. Matched 31-run local timing medians vs main were 0.9828× at default threads, 0.9857× at one thread, and 0.9863× at twelve threads; local memory was noisy and no official K was claimed. Official rollback source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`. Await official complete-K before selection.

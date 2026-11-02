@@ -1224,3 +1224,7 @@ run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.1
 ## Official unchanged-source receipt — `e9a5789`
 
 `run-f69cc39a52f9` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=29.148502, T=0.172043 s, M=41,369,600 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); no Track B source change.
+
+## Track B current main trial — row-prefetch elision + Alder Lake tuning
+
+Candidate source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714481b7c9380` and Dockerfile SHA-256 `6d8cc241e5a90aec6417605c98f7e5b3597021a5d05678b8d38b1021a00c71d2` are from developer main `27f55c354ebbc4df3c8216b29c8a67b2bd092720`. Relative to selected official source `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`, the engine elides two redundant hot-row prefetch instructions and the Docker build adds `-mtune=alderlake`. Developer main exact correctness/sanitizer/Docker evidence: CI `41330605787` and `41387126659`; five-seed, seven-repeat paired runner-local K ratios were +0.8309% for row-prefetch elision and +0.5051% for Alder Lake tuning (both five of five seeds; S=695, D=1 on the row-prefetch qualification). These are separate runner-local results, not official K. Preserve official B rollback source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`; official complete-K trial pending.

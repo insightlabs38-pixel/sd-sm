@@ -1357,3 +1357,8 @@ forced-claim/capacity/skew and ASan/UBSan/TSan gates. S674 D1; Docker unchanged.
 Parent-cgroup matrix225 executions across full1/7/17 and4/6/12 preserves exact
 outputs. At12 workers peak M falls0.5–1.6%; complete-K timing tradeoffs are mixed.
 Use official scoring to decide. Rollback5d56a5be, strongest valid K33.106317.
+
+Page-only trialdbdd62cbfc500ada45fbf63d4115b5779174146a:
+run-bc493dad4cba K31.553341 T0.095452 M58003456 S674 D1; all gates pass.
+Restore solver5d56a5be as matched safe control and strongest valid K33.106317.
+The qualified SIMD+page combination remains separate; no additive gain assumed.

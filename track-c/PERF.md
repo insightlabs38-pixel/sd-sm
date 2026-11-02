@@ -1276,3 +1276,7 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Official scored commit `794e8f7` — restored source
 
 `run-0273dfa0ab04` passed all five gates: K=25.856414, T=0.049932 s, M=11,681,792 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). C source is restored to its prior selected implementation.
+
+## Official scored commit `a4b6ed1` — restored source
+
+`run-b5c0d525f1cb` passed all five gates: K=25.544787, T=0.051411 s, M=11,538,432 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). Source unchanged.

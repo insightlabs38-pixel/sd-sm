@@ -1276,3 +1276,7 @@ Exact head `cc49af51f8c2b9fbec09c0927592bc8d0290a46c`, source SHA-256 `e9e12f8cf
 ## Official selected-source receipt — `d24472f`
 
 `run-5f47a7570782` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.349802, T=0.158693 s, M=41,541,632 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870).
+
+## Latest selected-source receipt — rollback commit `4145f0e`
+
+`run-4111a47c8070` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.227761, T=0.159977 s, M=41,283,584 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870).

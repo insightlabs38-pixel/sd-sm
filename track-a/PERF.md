@@ -1314,3 +1314,7 @@ PR #7 exact head `e89698513f251534f87933f0ed91dad5dcab2818`, source SHA-256 `04d
 ## Official selected-source receipt — `d24472f`
 
 `run-d124ff3906d3` passed all five gates on source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=44.135784, T=0.020838 s, M=21,757,952 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098).
+
+## Latest selected-source receipt — rollback commit `4145f0e`
+
+`run-dd5b363f3f9c` passed all five gates on source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=48.608155, T=0.017211 s, M=21,659,648 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098).

@@ -1296,3 +1296,10 @@ Next qualified variant limits queries to eight workers while construction keeps 
 ## Eight-query-worker result and matched safe control
 
 `run-c0fd6e318ce4`, commit `9af49acdea4d27da73263a7e49d4524107c537c6`, passed all gates: K32.408480/T0.091973/M56307712/S664/D1. Eight query workers substantially recover the preceding compact-degree trial's runtime and lower its memory, but this first result remains below valid PR24 BEST K32.780740. Restore safe solver `4e45be05890b6228c8df88702da48f51a15fc712` with unchanged Dockerfile for a matched control before judging another repeat. Preserve PR29 as a qualified alternative. Six-query-worker and phase-specific six-growth-worker variants are qualifying independently; no official improvement is claimed. A/B/C unchanged.
+
+
+## Qualified six-query-worker trial
+
+Solver `038e25ac5d2b90e2e2db52b130f1acd1fb1c6795`, original Dockerfile, S664/D1. Only the compact-degree variant's query cap changes8 to6; parsing/growth/CSR keep up to12 workers. Exact-source qualification CI41402547668 passed all mandatory sanitizer, forced-full-size guard, differential/boundary/saturation/stress and restricted-Docker reference gates. Local full1/7/17 parent-cgroup comparisons are preserved in research receipts. This tests the actual six-physical-core scorer rather than extrapolating from local quotas.
+
+Previous cap8 run-c0fd6e318ce4 measured K32.408480/T0.091973/M56307712/S664/D1. Official restored control atf71d444/run-26d8e5a4fb1d measured K31.759092/T0.094263/M59740160/S647/D1. The valid champion remains PR24 K32.780740/run-2e268a627927, solver `4e45be05890b6228c8df88702da48f51a15fc712`. Preserve that exact rollback. A/B/C and shared configuration are unchanged.

@@ -1331,3 +1331,9 @@ K33.106317 T0.086270 M58740736 S674 D1; all official gates pass. Solver5d56a5be
 supersedes six-worker24aff529 as valid rollback champion. Now trial eight workers:
 solvera599c41c945028da700ddfd405a6c0214ed07502, fully qualified CI41428295422.
 Only query concurrency changes; original Docker remains8eabe09b.
+
+Eight-worker trial e51fe85b450890c67bccaa62b701e91a99034149 scored
+run-0d133c703f56 K33.085626 T0.088345 M55525376 S674 D1, all gates pass.
+Restore twelve-worker solver5d56a5bebdf1d82633e6e643801213f5df987578:
+strongest valid official run-23cf9ab622c1 K33.106317. Keep eight/six-worker
+qualified alternatives; the small eight/twelve gap is within observed noise.

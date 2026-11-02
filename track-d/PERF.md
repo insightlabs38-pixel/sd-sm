@@ -1265,3 +1265,8 @@ Public competitor leader observed at 04:31 UTC: SweetDreams K34.117253, T0.08556
 Qualified solver `84bfcf0d88933af8f8f87e70e06f6aee543d2881`, original Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`, S651/D1. Reads three SIMD-mask separators per edge before decoding, preserving PR24 atomic claims and all graph/query algorithms. Full exact pinned qualification passed CI41392615886, including ASan/UBSan, TSan, both forced full-size guard regressions, 88/60/110/stress and organizer restricted-Docker full1/7/17 worker matrices. Local seed1 complete-K ratios at4/6/12 workers are positive but are not official gains; independent full-seed comparison CI41393151550 is running.
 
 Safe rollback remains PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, valid BEST K32.780740/run-2e268a627927; latest same-source run-f150bb13a0fa atcommit66a7ed52 measured K32.546058/T0.089478/M60211200/S647/D1. Trial result pending.
+
+
+## Stream parser first official result — restore valid champion
+
+`run-8b3db1745a15`, commit `f8c35e81ccc211a3ac87768a8b7a71a89667abb2`, passed all five gates: K31.275460/T0.097000/M59,772,928/S651/D1. The independent 306-run pinned comparison CI41393151550 passed every full1/7/17 hash and improved eight of nine median cells locally, but that does not prove official improvement. This run is below valid atomic PR24 BEST K32.780740. Restore Track D solver `4e45be05890b6228c8df88702da48f51a15fc712` while further architectures qualify. Original Dockerfile retained; all other tracks preserved.

@@ -1272,3 +1272,8 @@ run-e6e9e2af6800 passed all five gates on PR #2: K=46.461317, T=0.018357 s, M=23
 
 - Prior selected source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`; run `run-9e304ccdb597` passed all five gates (K=44.654750, T=0.020358 s, M=21,753,856 B, S=584, D=1). BEST remains `run-118836ebd34c`, K=49.960098.
 - PR #5 trial source SHA-256 `d37a299e7d01e2496a6c6d6d81947082cc667afec5afa6821976e9f8ea41c608`; run `run-736a0bc600c9` passed all five gates (K=43.854157, T=0.020955 s, M=21,155,840 B, S=621, D=1). It did not improve official K; reject and restore source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5` as rollback.
+
+## Track A PR #4 certificate trial — CI-qualified candidate
+
+- Candidate source SHA-256 `3cdc0931cef5525503709080cf15e87d83c1ab0c8715707f33cd7582d1a1df7f`; exact-head CI `41290978319` passed the organizer hashes, adversarial collision differential, sanitizers and offline Docker checks. Paired 31-run full-input T ratios vs current main were 0.9667 / 0.9501 / 0.9730 at 1 / 4 / 12 threads; official M and K remain unmeasured. Rollback source SHA-256 is `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`.
+- Restored-source official run `run-9c0f90e8aa19` passed all five gates: K=45.574654, T=0.019629 s, M=21,520,384 B, S=584, D=1. LATEST; BEST remains `run-118836ebd34c`, K=49.960098.

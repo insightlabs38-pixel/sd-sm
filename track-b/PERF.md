@@ -1215,3 +1215,8 @@ run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.1
 ## Official scored commit `c74c924`
 
 `run-ff922a3ff306` passed all five gates on unchanged B source: K=29.223252, T=0.171164 s, M=41,840,640 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870).
+
+## Official unchanged-source receipt and PR #22 qualification — commit `bcd1623ebc491ba088c9af48dcbb1380eae4b9d7`
+
+- Source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1b`; `run-1fa15bd0f5f5` passed all five gates (K=29.629192, T=0.166506 s, M=41,713,664 B, S=699, D=1). LATEST; BEST remains `run-add075487808`, K=30.850870.
+- PR #22 source SHA-256 `8852c764f32ca69881c5686f98c22b76027a466605f723881c878874ddb193dc`; exact-head CI `41387241736` passed correctness/sanitizers/Docker, but paired Docker candidate/champion K ratios were 0.9529 / 0.9581 / 0.9480 on seeds 1/2/3. Reject; no official scorer trial.

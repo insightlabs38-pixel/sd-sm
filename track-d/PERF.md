@@ -1394,3 +1394,8 @@ alignment with pinned GCC15. Qualification41447957574 passes all mandatory gates
 and306 interleaved full executions. This is a distinct compiled candidate;
 no local CPU result is claimed as official K. Rollback original Docker8eabe09b,
 with the same solver02e0764e, valid K33.672416. No extra scored source files.
+
+BMI/layout trialb5ebfde23ac6268f89a38cb2d31c5fb26ad49076:
+run-f8d39a16d7a4 K33.583278 T0.084103 M57700352 S683 D1, all gates pass.
+Restore original Docker8eabe09b with champion solver02e0764e, valid K33.672416.
+PGO candidates are separate and include their counted training helper source.

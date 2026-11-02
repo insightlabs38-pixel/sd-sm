@@ -1325,3 +1325,9 @@ CI41428299130 passes every pinned/oracle/sanitizer gate. Only query concurrency 
 from the qualified six-worker prefix champion24aff529 (run-e055d3802c43,
 K32.933888/T0.089314/M55287808/S674/D1). Original Docker8eabe09b unchanged.
 The official 6P/12SMT runner decides concurrency; local quota measurements do not.
+
+2026-11-02 twelve-worker result: run-23cf9ab622c1 at90e1ec7b48e9ca5bf423853e27af5ba04c2e0a85,
+K33.106317 T0.086270 M58740736 S674 D1; all official gates pass. Solver5d56a5be
+supersedes six-worker24aff529 as valid rollback champion. Now trial eight workers:
+solvera599c41c945028da700ddfd405a6c0214ed07502, fully qualified CI41428295422.
+Only query concurrency changes; original Docker remains8eabe09b.

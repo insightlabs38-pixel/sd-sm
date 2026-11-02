@@ -1264,3 +1264,11 @@ Source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714481b7c9380
 ## PR #24 mandatory-pair pruning — qualified locally, not submitted
 
 Exact PR head `499919627a73f4c2405ff07f393d320b6d5630a2`, candidate source SHA-256 `dc97b02b69929189f88873086464345d30de8416363654670375f4b5ccd66113`, S=736, D=1. CI `41406712624` passed reference hashes for seeds 1/2/3/42/123/2026/99991, differential/adversarial fixtures, ASan/UBSan/TSan, restricted Docker, and the three-seed paired full run. Runner-local K ratios versus developer main `72244d4` were 1.00884 / 1.00410 / 0.99711 (geomean +0.334%); source S grew 695→736. This is a small local result against developer main, whose official K `run-6d45b234e50b` (29.930650) trails selected B BEST `run-add075487808` (30.850870). No official K evidence; not enough to consume a scorer slot.
+
+## Selected-source control — evidence commit `e06b59b`
+
+`run-e3e0319da0d5` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=29.801150, T=0.164590 s, M=41,545,728 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870).
+
+## PR #25 second-support-clause — rejected locally
+
+Exact head `cc49af51f8c2b9fbec09c0927592bc8d0290a46c`, source SHA-256 `e9e12f8cf5280c262b8e7aeb5344ba9d96320b630c9ab3ee6109640ce0a05827`, S=720, D=1. CI `41407758499` passed full seed/reference, differential/adversarial, ASan/UBSan/TSan, sample/tiny and pinned offline Docker gates. Five-repeat runner-local K ratios versus developer main `72244d4` were 0.977452 / 0.993507 / 0.992010, geomean 0.987630 (-1.2370%), with all three seeds losing and S=720 vs 695. Reject; no official trial.

@@ -1334,3 +1334,7 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Latest unchanged-source receipt — A rollback commit `238ec67`
 
 `run-c7c1f8d1e259` passed all five gates on unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=22.313028, T=0.067003 s, M=11,702,272 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773); no C candidate change.
+
+## Unchanged-source control — evidence commit `e06b59b`
+
+`run-87efd12ca8ee` passed all five gates on source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=22.359322, T=0.067314 s, M=11,448,320 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773).

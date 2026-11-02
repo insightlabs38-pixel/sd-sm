@@ -1423,3 +1423,10 @@ improve all nine runner timing cells; local parent-cgroup receipts retained.
 PGO/BMI rejected: run-e19032dfddcb K31.072955, S731.
 Rollback: solver 02e0764ef534a8a6694006b12911776e0a9f2860,
 Docker 8eabe09b96a60131ce5bfda3f098011e1f0863e6; no training helper.
+
+Final extracted nonalias helper trial: solver7b4b872edde4b529449ce6413755f0b84230b0f2,
+original Docker8eabe09b96a60131ce5bfda3f098011e1f0863e6, S689/D1.
+CI41454639180 passes all mandatory gates and306 matched full executions.
+Member trial run-13f2958e8c41 lost: K32.601432/T.089139/M57745408/S685/D1.
+Helper improved all independent runner cells but mixed local complete-K cells;
+only the actual official result can promote it. Rollback remains02e0764e/8eabe09b.

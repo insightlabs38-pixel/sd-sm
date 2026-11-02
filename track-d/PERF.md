@@ -1319,3 +1319,9 @@ skew overflow, ASan/UBSan and TSan gates. Exact overflow storage retained.
 Matched parent-cgroup local complete-K ratios 1.0182–1.0731, nine cells;
 quota-limited measurements are not official gains. Rollback: atomic solver
 4e45be05890b6228c8df88702da48f51a15fc712 with unchanged Dockerfile.
+
+2026-11-02 twelve-query-worker prefix trial: solver5d56a5bebdf1d82633e6e643801213f5df987578,
+CI41428299130 passes every pinned/oracle/sanitizer gate. Only query concurrency changes
+from the qualified six-worker prefix champion24aff529 (run-e055d3802c43,
+K32.933888/T0.089314/M55287808/S674/D1). Original Docker8eabe09b unchanged.
+The official 6P/12SMT runner decides concurrency; local quota measurements do not.

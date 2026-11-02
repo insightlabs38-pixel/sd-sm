@@ -759,7 +759,7 @@ int main() {
   std::sort(by_source.begin(), by_source.end(),
             [&](u32 a, u32 b) { return ends[2 * a] < ends[2 * b]; });
   std::atomic<size_t> next{0};
-  parallel(std::min<size_t>(std::min(threads, 6u), queries + 1), [&](unsigned) {
+  parallel(std::min<size_t>(threads, queries + 1), [&](unsigned) {
     // Paths below 65535 are exact with 16-bit labels. Saturated or
     // unreachable results are rerun with exact 64-bit labels.
     Worker<uint16_t> narrow{Side<uint16_t>(*fwd), Side<uint16_t>(*rev)};

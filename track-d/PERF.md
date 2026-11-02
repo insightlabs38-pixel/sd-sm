@@ -1185,3 +1185,7 @@ PR #22 failed to beat BEST, so the official submission source is restored to PR 
 ## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
 
 `run-b2b5c42472eb` passed all five gates on PR #23 source/Dockerfile: K=32.868729, T=0.087625 s, M=60,391,424 B, S=647, D=1. This is **LATEST and new BEST**; K improves 0.36% and T improves 0.86% over `run-7cbf51892a7c` (K=32.750840, T=0.088389 s). Source blobs are unchanged. Retain the PR #22 run as a failed build-flag experiment.
+
+## Developer-main threshold tournament — not transferred to submission
+
+Developer main commit `2f219fb6224d02545d8502b8b11054ed5fd6efa1` records native/pinned GCC15 tournaments on its older source blob `fcd4c4e7` (not the selected submission blob `e11b09e3`). Outputs were exact; threshold 128 regressed seed 1 by 0.18–0.43% and improved seed 7 by only 0.19–0.26%; threshold 192 was mixed/neutral across seeds. The developer rejected all variants. Keep submission PR #23 unchanged; these measurements do not establish a gain on its different source.

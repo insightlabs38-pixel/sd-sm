@@ -1247,3 +1247,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official latest run — `73c861213ac0e54ce07f817e0e9daa3c51b70d04`
 
 `run-409106e60ddb` passed all five gates: K=25.611153, T=0.050986 s, M=11,628,544 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773). Source unchanged; this is another below-BEST observation.
+
+## Official latest run — `1a1ebdc1e28bb233773fa663e92886c9fd5e0b26`
+
+`run-3393050cab5f` passed all five gates: K=25.758980, T=0.050205 s, M=11,743,232 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773); source unchanged.

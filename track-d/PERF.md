@@ -1200,4 +1200,8 @@ Developer main commit `2f219fb6224d02545d8502b8b11054ed5fd6efa1` records native/
 
 ## Same-source PR #23 repeat summary
 
-Five official runs on unchanged PR #23 source/Dockerfile, all passing all five gates, measured D K values `run-7cbf51892a7c` 32.750840, `run-cea5b5d2d8ef` 32.576800, `run-b2b5c42472eb` 32.868729, `run-0c111e40947c` 32.769415, and `run-aabd8fda29f6` 32.080367. Median K=32.750840; range=32.080367–32.868729 (2.41% of median). The lowest is LATEST, not a code regression; retain the best verified PR #23 implementation.
+Six official runs on unchanged PR #23 source/Dockerfile, all passing all five gates, measured D K values `run-7cbf51892a7c` 32.750840, `run-cea5b5d2d8ef` 32.576800, `run-b2b5c42472eb` 32.868729, `run-0c111e40947c` 32.769415, `run-aabd8fda29f6` 32.080367, and `run-04a9f8f6d4da` 31.540102. Median K=32.663820; range=31.540102–32.868729 (4.07% of median). The last two lower scores are LATEST observations, not code regressions; retain the best verified PR #23 implementation.
+
+## Official latest run — `1a1ebdc1e28bb233773fa663e92886c9fd5e0b26`
+
+`run-04a9f8f6d4da` passed all five gates on unchanged PR #23 source/Dockerfile: K=31.540102, T=0.095212 s, M=60,313,600 B, S=647, D=1. LATEST only; BEST remains `run-b2b5c42472eb` (K=32.868729, T=0.087625 s, M=60,391,424 B). K is 4.04% lower and T 8.67% slower; no code changed.

@@ -1430,3 +1430,14 @@ CI41454639180 passes all mandatory gates and306 matched full executions.
 Member trial run-13f2958e8c41 lost: K32.601432/T.089139/M57745408/S685/D1.
 Helper improved all independent runner cells but mixed local complete-K cells;
 only the actual official result can promote it. Rollback remains02e0764e/8eabe09b.
+
+Final selection: restore fully qualified PR36, K33.672416/run-3cf937618e77,
+solver02e0764ef534a8a6694006b12911776e0a9f2860,
+Docker8eabe09b96a60131ce5bfda3f098011e1f0863e6, S683/D1, no training helper.
+Helper trial run-9e3c75401896 lost: K32.850288/T.087790/M57499648/S689/D1.
+Champion CI41434298002 all jobs pass. Exact binary SHA256
+0927ee891e16dc991f20aac9ff27235bf4b2f4957d55c799fc67f26963a027d6.
+Final matched full seeds1/7/17,12workers,5runs each, parent-cgroup peak:
+complete-K ratios vs PR24 1.06206/1.05763/1.05389; versus PR33
+1.01838/1.04185/1.01900. Local diagnostics do not project official K.
+All experimental code and raw receipts remain in developer research/codex-final.

@@ -678,21 +678,6 @@ template <class L> struct Side {
   // Settles the current bucket in FIFO order, prefetching rows and labels of
   // the entries ahead; returns the number of vertices settled. Relaxations are
   // branch-free: nd + other(v) is a real path length either way.
-  template <unsigned W>
-  __attribute__((always_inline)) void
-  relax(u32 u, u64 d, const u32 *__restrict adj, const u32 *__restrict off,
-        const Side &other, u64 &best) __restrict {
-    for (u32 i = off[u]; i < off[u + 1]; ++i) {
-      u32 v = adj[i] >> (W ? W : g.wbits);
-      L *x = dist.slot(v);
-      u32 mask = W ? (1u << W) - 1 : g.mask;
-      u64 w = adj[i] & mask;
-      u64 nd = d + (w == mask ? g.weight(i) : w), old = *x;
-      *x = L(std::min(nd, old));
-      queue.push(nd, v, nd < old);
-      best = std::min(best, nd + other.dist.get(v));
-    }
-  }
   template <unsigned W = 0> void drain_bits(const Side &other, u64 &best) {
     typename QueueType::Bucket &bk = queue.bucket[queue.cur % QueueType::B];
     u32 mask = (1u << queue.node_bits) - 1;
@@ -705,7 +690,16 @@ template <class L> struct Side {
       u64 d = queue.cur << queue.shift | bk.data[k] >> queue.node_bits;
       if (dist.get(u) != d)
         continue;
-      relax<W>(u, d, g.adj, g.off, other, best);
+      for (u32 i = g.off[u]; i < g.off[u + 1]; ++i) {
+        u32 v = g.adj[i] >> (W ? W : g.wbits);
+        L *x = dist.slot(v);
+        u32 mask = W ? (1u << W) - 1 : g.mask;
+        u64 w = g.adj[i] & mask;
+        u64 nd = d + (w == mask ? g.weight(i) : w), old = *x;
+        *x = L(std::min(nd, old));
+        queue.push(nd, v, nd < old);
+        best = std::min(best, nd + other.dist.get(v));
+      }
     }
     queue.near -= bk.size, bk.size = 0;
     queue.occupied[queue.cur % QueueType::B / 64] &=

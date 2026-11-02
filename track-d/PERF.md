@@ -1244,3 +1244,10 @@ run-95260dc5cc5c passed all five gates on the same safe source: K=32.314743, T=0
 ## Official scored commit `c74c924` — safe claim source
 
 `run-a87f0c9acdce` passed all five gates: K=32.254620, T=0.091414 s, M=59,699,200 B, S=647, D=1. LATEST; eligible safe-source BEST remains `run-2e268a627927` (K=32.780740). The numerical feed BEST still points at the disqualified unsafe source.
+
+
+## Codex official trial — qualified PR25 byte claims
+
+Trial solver blob `308304cde5e02be22fe33fbce25b9fb5eef9a2cc`, unchanged Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`, S655/D1. Monotone byte claims prevent within-worker replay; checked recycled-buffer expansion covers inter-worker copies. Full pinned qualification including both deterministic full-size guard regressions passed CI 41374714910. The 189-run local parent-cgroup complete-K matrix is mixed; this trial obtains the actual official hardware result, not a projected improvement.
+
+Safe rollback: PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, same Dockerfile, valid BEST `run-2e268a627927`, K32.780740/T0.088603/M59,531,264/S647/D1. Preserve all other tracks. Board result pending; do not promote without comparing valid official receipts.

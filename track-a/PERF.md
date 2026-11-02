@@ -1285,3 +1285,7 @@ The exact candidate source SHA-256 `3cdc0931cef5525503709080cf15e87d83c1ab0c8715
 ## Track A PR #6 small-group rank fast path — queued trial candidate
 
 PR #6 exact head `33e0f543fa9bbcd084954ab950a86d91d6b19495`, source SHA-256 `f6a1fc1a4e724db71dedd0ea5fd750826a4a8775061578e2a98c563018530ffe`. Exact-head CI `41309800426` passed seed-1 tiny/sample/full hashes, seeds 2/3, reordered inputs, ASan/UBSan, TSan and offline Docker. Matched 31-run local timing medians vs main were 0.9828× at default threads, 0.9857× at one thread, and 0.9863× at twelve threads; local memory was noisy and no official K was claimed. Official rollback source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`. Await official complete-K before selection.
+
+## Official selected-source reference — `0f64279`
+
+`run-7a67da0ad340` passed all five gates on rollback source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=44.402826, T=0.020663 s, M=21,561,344 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); this noisy run is the same selected implementation used as the PR #6 trial baseline.

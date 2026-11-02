@@ -1302,3 +1302,7 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Official unchanged-source receipt — `e9a5789`
 
 `run-505ce5d11297` passed all five gates on source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=25.061442, T=0.052906 s, M=11,816,960 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773); no Track C source change.
+
+## Official unchanged-source receipt — `0f64279`
+
+`run-ab7a877452c6` passed all five gates on source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=21.483663, T=0.071796 s, M=11,898,880 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773). No Track C change; record as a noisy lower result.

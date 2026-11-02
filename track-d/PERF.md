@@ -1093,7 +1093,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 - Official run `run-685fc910bcd1` on commit `bc7dcf4d5ec5f0a9da9db0018c83a89f712c38d0` passed all five gates, but measured T=0.147556 s, M=59,510,784 B, S=609, D=1, K=25.635244, points=70.441873. It is 15.10% below **BEST** `run-3d2e9d913d87` (K=30.195105) and 10.89% below the prior **LATEST** `run-820dca3523c4` (K=28.768766); reject PR #18 and restore the known-good source blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`. This official result overrides the favorable 4-vCPU paired measurements for the capped construction variant.
 
 
-## Official trial — D PR #17 uncapped c2 (five official samples; main cap-4 rejected)
+## Official trial — D PR #17 uncapped c2 (six official samples; main cap-4 rejected)
 
 - Candidate source blob `79617b5c40b01613797138b294a33c0a7b5c6e44` from fresh, ready PR #17 head `9e8e5129321a22713a27fb77bb0d0f15b75db29a`; exact qualification check passed. Its 13-round paired runner reports exact outputs and median wall-time gains vs PR #15 of 3.30–5.93% across 4/6/12 workers, with max RSS within 0.6 MB; independent 4-vCPU KVM trials report 3.1–10.5% wall-time gains. Unlike rejected PR #18, it does not cap construction at four workers. These are developer measurements, not official K. Rollback remains blob `d0a25aea3da74f7e9031c5591ecf1524049675ed`; promote only if official D K beats BEST and every gate passes.
 
@@ -1118,3 +1118,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official all-track receipt — D README/performance-log checkpoint `5e2c127efce867d05e8bee41d20d5b7f0a058d21`
 
 - `run-127fca336dc8` passed all five gates on unchanged PR #17 D source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`: T=0.102920 s, M=60,059,648 B, S=607, D=1, K=30.653698, points=74.324144. **LATEST**; **BEST** remains `run-1b8d7ec1c331` (K=31.079228). The source-identical PR #17 sequence is K=30.629718, 30.276660, 30.308048, 31.079228, 30.653698; median K=30.629718. This repeated evidence keeps PR #17 ahead of the old selected source without treating the highest single run as the frozen score.
+
+## Official all-track receipt — D PR #17 outcome checkpoint `128993129f41ea3cc850aaadcfccf1f4a3b8f791`
+
+- `run-f74487302b35` passed all five gates on unchanged PR #17 source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`: T=0.102394 s, M=60,309,504 B, S=607, D=1, K=30.706825, points=74.361746. **LATEST**; **BEST** remains `run-1b8d7ec1c331` (K=31.079228). This gives six source-identical official PR #17 K samples; their median is 30.641708. The sixth remains above the former selected D BEST 30.195105.

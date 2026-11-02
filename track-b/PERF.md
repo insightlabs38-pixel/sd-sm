@@ -1167,3 +1167,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official champion-restoration run — `8fc0d908aeadb934648e44e70f1e0dcd1b35173f`
 
 `run-1420c8e5cb0d` passed all five gates: K=30.320107, T=0.159004 s, M=41,050,112 B, S=699, D=1, points=74.086536. BEST remains `run-add075487808` (K=30.850870). Source unchanged; this is another baseline observation, not a B promotion.
+
+## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
+
+`run-39785ebd1c15` passed all five gates: K=29.818638, T=0.164397 s, M=41,631,744 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); source unchanged.

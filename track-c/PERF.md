@@ -1235,3 +1235,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official champion-restoration run — `8fc0d908aeadb934648e44e70f1e0dcd1b35173f`
 
 `run-f92e1a419a8f` passed all five gates: K=25.714938, T=0.050321 s, M=11,776,000 B, S=657, D=1, points=70.509274. BEST remains `run-e7eab9673214` (K=25.979773). Source unchanged; this observation does not verify draft PR #20.
+
+## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
+
+`run-35a5813e697a` passed all five gates: K=25.753283, T=0.050496 s, M=11,587,584 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773); source unchanged.

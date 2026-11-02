@@ -1181,3 +1181,7 @@ PR #22 failed to beat BEST, so the official submission source is restored to PR 
 ## Official champion-restoration run — `8fc0d908aeadb934648e44e70f1e0dcd1b35173f`
 
 `run-cea5b5d2d8ef` passed all five gates on restored PR #23 source/Dockerfile: K=32.576800, T=0.089431 s, M=60,006,400 B, S=647, D=1, points=75.645421. BEST remains `run-7cbf51892a7c` (K=32.750840, T=0.088389 s, M=60,166,144 B). The 0.53% K gap is consistent with run variance and the exact solver source is unchanged.
+
+## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
+
+`run-b2b5c42472eb` passed all five gates on PR #23 source/Dockerfile: K=32.868729, T=0.087625 s, M=60,391,424 B, S=647, D=1. This is **LATEST and new BEST**; K improves 0.36% and T improves 0.86% over `run-7cbf51892a7c` (K=32.750840, T=0.088389 s). Source blobs are unchanged. Retain the PR #22 run as a failed build-flag experiment.

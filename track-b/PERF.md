@@ -1211,3 +1211,7 @@ run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.1
 ## Official scored commit `0b4dcbf`
 
 `run-5dab758253c2` passed all five gates on unchanged B source: K=28.915321, T=0.174829 s, M=41,234,432 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870).
+
+## Official scored commit `c74c924`
+
+`run-ff922a3ff306` passed all five gates on unchanged B source: K=29.223252, T=0.171164 s, M=41,840,640 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870).

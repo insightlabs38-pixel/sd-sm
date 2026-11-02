@@ -1240,3 +1240,7 @@ run-95260dc5cc5c passed all five gates on the same safe source: K=32.314743, T=0
 ## Official scored commit `0b4dcbf` — safe claim source
 
 `run-2e268a627927` passed all five gates: K=32.780740, T=0.088603 s, M=59,531,264 B, S=647, D=1. This is the eligible safe-source BEST/LATEST, superseding `run-bbcf25c774ff` (K=32.447889); the numerical feed BEST remains tied to the disqualified unsafe source.
+
+## Official scored commit `c74c924` — safe claim source
+
+`run-a87f0c9acdce` passed all five gates: K=32.254620, T=0.091414 s, M=59,699,200 B, S=647, D=1. LATEST; eligible safe-source BEST remains `run-2e268a627927` (K=32.780740). The numerical feed BEST still points at the disqualified unsafe source.

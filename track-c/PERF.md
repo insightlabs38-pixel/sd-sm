@@ -1290,3 +1290,7 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Track C main cut-repair official trial — rejected
 
 `run-64df72c1167c` passed all five gates on candidate `b1386c0` / source blob `c60485189842d4cd151bedc76c27d16dafc4755f`: K=25.158693, T=0.053673 s, M=10,919,936 B, S=678, D=1. This is 3.16% below BEST `run-e7eab9673214` (K=25.979773), and 1.51% below preceding source run `run-b5c0d525f1cb`; official S was 678 versus 657 on the prior source, contrary to the expected source-axis gain. Rejected; restore `0772ace04e358868f0b060b178d6ab77e93a15ab`.
+
+## Official C rollback verification — commit `c74c924`
+
+`run-db1be5b76c09` passed all five gates on restored source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`: K=25.064927, T=0.052928 s, M=11,796,480 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). The lower score reflects this timing sample; code is restored from the rejected `b1386c0` trial.

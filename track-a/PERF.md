@@ -1263,3 +1263,7 @@ run-e6e9e2af6800 passed all five gates on PR #2: K=46.461317, T=0.018357 s, M=23
 ## Official scored commit `0b4dcbf`
 
 `run-de578d31d284` passed all five gates on unchanged A source: K=42.041867, T=0.023317 s, M=20,946,944 B, S=584, D=1. LATEST; BEST remains `run-118836ebd34c` (K=49.960098). This is a noisy timing observation, not a source regression.
+
+## Official scored commit `c74c924` — known-good source
+
+`run-0d842cbcf441` passed all five gates: K=42.605184, T=0.021831 s, M=23,105,536 B, S=584, D=1. LATEST; BEST remains `run-118836ebd34c` (K=49.960098). A source is unchanged; record this timing as a board observation, not a source regression.

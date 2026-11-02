@@ -1399,3 +1399,11 @@ BMI/layout trialb5ebfde23ac6268f89a38cb2d31c5fb26ad49076:
 run-f8d39a16d7a4 K33.583278 T0.084103 M57700352 S683 D1, all gates pass.
 Restore original Docker8eabe09b with champion solver02e0764e, valid K33.672416.
 PGO candidates are separate and include their counted training helper source.
+
+2026-11-02 qualified PGO trial: solver02e0764ef534a8a6694006b12911776e0a9f2860,
+Docker018fdea0b307a4beee4dcb8c68f903258a64e2d1, counted training helper
+ff6eaf4238237eadaa54dfded2456cabcf131d5a. Expected S731 D1. CI41450823873
+passes all mandatory gates and306 matched executions of the SAME qualified PGO
+binary against control; binaryf6acc5599067add4e9a643bff504453ab395e49e754d5658298f6f438843b948.
+No official gain projected. Rollback: Docker8eabe09b and REMOVE pgo_train_graph.cpp,
+with unchanged solver02e0764e, valid K33.672416. All training artifacts stay out of runtime.

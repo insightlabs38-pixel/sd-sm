@@ -1284,3 +1284,7 @@ Exact head `cc49af51f8c2b9fbec09c0927592bc8d0290a46c`, source SHA-256 `e9e12f8cf
 ## PR #16 SIMD Boolean bitmap evaluation — official trial queued
 
 Exact PR head `865c90abfe89580f9249128312110e9e600f750a`, source SHA-256 `fcad0fcb6af70940dd73e9a228b0a7ce0bd86e9fdd5cbce75ad4fa594a8d332f`. Exact-head CI `41350926249` passed its full-seed, differential/adversarial, sanitizer and pinned Docker qualification. Its 3-seed, 5-repeat runner-local complete-K proxy ratios versus its measured champion were 1.070307 / 1.007625 / 1.000588 (geomean +2.57%, all seeds positive), with S=702 vs 695. This is not official K; official Track B scorer trial pending. Official rollback source SHA-256 remains `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`.
+
+## PR #16 SIMD Boolean bitmap evaluation — rejected; restored selected source
+
+Exact PR head `865c90abfe89580f9249128312110e9e600f750a`, candidate SHA-256 `fcad0fcb6af70940dd73e9a228b0a7ce0bd86e9fdd5cbce75ad4fa594a8d332f`; `run-00057a3e8ea8` passed all five official gates at K=29.981317, T=0.162409 s, M=41,308,160 B, S=702, D=1. This is 0.82% below selected-source control `run-4111a47c8070` (K=30.227761; T=0.159977 s) and below BEST `run-add075487808` (K=30.850870). The three-seed local +2.57% complete-K proxy did not transfer to the scorer; reject and restore source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`.

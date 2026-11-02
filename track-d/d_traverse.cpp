@@ -319,15 +319,15 @@ struct Grower {
   Region &reg;
   std::vector<Walk> walks;
 
-  // Claims race without locked instructions: a vertex claimed twice leaves a
-  // copy that no edge reaches, as every head resolves through one map entry.
+  // The relaxed OR linearizes a claim. The initial load avoids locked
+  // operations for vertices that are already claimed.
   void claim(u32 z) {
     u64 bit = u64(1) << (z & 63), *word = &claimed[z >> 6];
     u64 seen = __atomic_load_n(word, __ATOMIC_RELAXED);
     if (seen & bit)
       return;
-    __atomic_store_n(word, seen | bit, __ATOMIC_RELAXED);
-    reg.order[reg.len++] = z;
+    if (!(__atomic_fetch_or(word, bit, __ATOMIC_RELAXED) & bit))
+      reg.order[reg.len++] = z;
   }
   void put(u32 pos, u32 z, u64 w) {
     if (w >= raw.mask)
@@ -546,8 +546,8 @@ struct Queue {
     u32 *data = nullptr, size = 0, cap = 0;
   } bucket[B];
   u64 occupied[B / 64] = {}, cur = 0, near = 0;
-  // Vertex ids stay far below 2^25 (a vertex is claimed twice only when
-  // a racing store loses its bit), leaving seven bits for the key remainder.
+  // Claims are globally unique, so legal vertex ids fit in 25 bits,
+  // leaving seven bits for the key remainder.
   static constexpr u32 shift = 7, node_bits = 25;
   using Far = std::pair<u64, u32>;
   std::priority_queue<Far, std::vector<Far>, std::greater<Far>> far;

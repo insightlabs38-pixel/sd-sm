@@ -1314,3 +1314,7 @@ The same selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b01
 Developer main source blob `6450d009a5d07f719f3678becea49d89b136737a` removes two redundant row-prefetch lines. CI `41330605787` passed exactness, full seeds, sanitizers and offline Docker; five of five full-seed matched local comparisons favored it (geometric-mean K proxy +0.8309%) and source S falls 699→695, D=1. This is runner-local evidence, not official K. The candidate is included in the next A/B/C qualification commit; official score pending.
 
 `run-fcc23ca892f8` on `b546f14` also ran the unchanged selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.272926, T=0.159500 s, M=41,369,600 B, S=699, D=1; all gates passed. The row-prefetch-elision candidate remains pending an official score.
+
+## Row-prefetch-elision official qualification — rejected
+
+Candidate source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714481b7c9380` (blob `6450d009a5d07f719f3678becea49d89b136737a`) passed all gates in `run-21af83849b9d` on `777ef7d`: K=29.862489, T=0.164197 s, M=41,340,928 B, S=695, D=1. The unchanged selected source in `run-fcc23ca892f8` scored K=30.272926, T=0.159500 s, M=41,369,600 B, S=699, D=1; BEST remains `run-add075487808`, K=30.850870. Despite five-of-five local proxy wins, this official result is lower; reject and restore source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`.

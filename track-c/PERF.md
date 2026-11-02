@@ -1280,3 +1280,9 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Official scored commit `a4b6ed1` — restored source
 
 `run-b5c0d525f1cb` passed all five gates: K=25.544787, T=0.051411 s, M=11,538,432 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). Source unchanged.
+
+## Track C main cut-repair trial — candidate `b1386c0`
+
+- Imported exact source blob `c60485189842d4cd151bedc76c27d16dafc4755f` and matching README from developer main `b1386c0a8f90577812bdd286c799bdfaea5a0dd7`; official Dockerfile and generator are byte-identical to the qualified context.
+- Exact-source CI `41378281829` and independent read-only Docker qualification `41378625208` passed the full seed-1 hash, repeated full holdouts 11/29, aligned-cut and quoted numeric-LF fixtures, ASan/UBSan/TSan, offline Docker and sandbox.
+- Developer matched PGO comparison was nearly neutral against its own prior main: T 71.974→71.711 ms, M 10,309,632→10,262,528 B, S 570→579, complete-K proxy +0.04%. The candidate measured S=579 versus official C S=657, a meaningful source-axis opportunity; complete official K is pending this board trial. Rollback is `0772ace04e358868f0b060b178d6ab77e93a15ab`.

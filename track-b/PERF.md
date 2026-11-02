@@ -1145,3 +1145,8 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — D PR #19 repeated trial commit `2d6609b2d6a26f79b20b3df8a5dc2dbd9fa6f7e6`
 
 - `run-835939de1176` passed all five gates: T=0.156181 s, M=41,533,440 B, S=699, D=1, K=30.592900, points=74.281032. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870). Cross-track rerun only; B source unchanged.
+
+
+## Official all-track receipt — D PR #20 trial commit `a8ff46e16509338f515a4569f0de934e175825a5`
+
+- `run-a89082bc36a1` passed all five gates: T=0.159476 s, M=41,349,120 B, S=699, D=1, K=30.275204, points=74.054354. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870). Cross-track rerun only; B source unchanged.

@@ -1256,6 +1256,11 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 
 `run-a6b759291054` passed all five gates: K=22.101588, T=0.068063 s, M=11,800,576 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). Track C source did not change.
 
+## Track C frontier PR #8 — official trial
+
+- Candidate is PR #8 head `252788a42652b525330b690b5939c9c8a9d2f519`, `join.cpp` Git blob `11bfcc0ba501d22454a8f21a06e23ad020183efd`, with its exact pinned GCC 15/Debian 13 Dockerfile. Exact-head CI [41230704547](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41230704547) passed; the earlier code qualification [41228157740](https://github.com/insightlabs38-pixel/sd-tc/actions/runs/41228157740) also passed full/sample/tiny references, adversarial cases, sanitizers and restricted Docker.
+- Developer's paired complete-K proxies claim +9.2% on CI and +6.3% in local Docker; neither is an official result. This trial follows the requested Track A PR #2 trial in the same independent-track board push. The existing C champion remains in the parent commit pending actual per-track K.
+
 ## Official all-track receipt — D claim-correction commit `4e018992`
 
 `run-a6b759291054` passed all five gates: K=22.101588, T=0.068063 s, M=11,800,576 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). Track C source did not change.

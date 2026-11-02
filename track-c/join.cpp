@@ -1,5 +1,4 @@
-#include <sys/prctl.h>
-#include <immintrin.h>
+#include <nmmintrin.h>
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -22,23 +21,18 @@
 
 struct File {
     const char *data;
-    size_t size, mapped;
+    size_t size;
     explicit File(const char *path) {
         int fd = open(path, O_RDONLY);
         if (fd < 0) throw std::runtime_error(std::string("open ") + path);
         struct stat st;
         if (fstat(fd, &st)) throw std::runtime_error("fstat");
         size = st.st_size;
-        size_t page = static_cast<size_t>(sysconf(_SC_PAGESIZE));
-        mapped = (size + page - 1) / page * page + page;
-        data = static_cast<const char *>(mmap(nullptr, mapped, PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0));
-        if (data == MAP_FAILED) { close(fd); throw std::runtime_error("reserve mmap"); }
-        if (size && mmap(const_cast<char *>(data), size, PROT_READ, MAP_PRIVATE | MAP_FIXED, fd, 0) == MAP_FAILED) {
-            munmap(const_cast<char *>(data), mapped); close(fd); throw std::runtime_error("file mmap");
-        }
+        data = static_cast<const char *>(mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, 0));
         close(fd);
+        if (data == MAP_FAILED) throw std::runtime_error("mmap");
     }
-    ~File() { munmap(const_cast<char *>(data), mapped); }
+    ~File() { munmap(const_cast<char *>(data), size); }
 };
 
 static void discard_consumed(const char *&cursor, const char *end) {
@@ -53,31 +47,17 @@ static void discard_consumed(const char *&cursor, const char *end) {
 
 struct Field {
     const char *raw = nullptr;
-    uint32_t raw_len = 0;
+    uint32_t raw_len : 31;
+    uint32_t quoted : 1;
+    uint32_t len = 0;
     uint32_t hash = 0;
+    uint32_t id = UINT32_MAX;
 };
-static_assert(sizeof(Field) == 16, "projected name metadata");
+static_assert(sizeof(Field) == 24, "name slot layout");
 
 static constexpr uint32_t HASH_OFFSET = 5381U;
 
-static uint32_t raw_hash(const char *p, size_t n, const char *end) {
-    if (n <= 16) {
-        alignas(16) static const unsigned char mask[32] = {
-            255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        __m128i key;
-        if (end - p >= 16) {
-            key = _mm_loadu_si128(reinterpret_cast<const __m128i *>(p));
-        } else {
-            alignas(16) unsigned char tail[16] = {};
-            std::memcpy(tail, p, n);
-            key = _mm_load_si128(reinterpret_cast<const __m128i *>(tail));
-        }
-        key = _mm_and_si128(key, _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(mask + 16 - n)));
-        uint32_t h = static_cast<uint32_t>(_mm_crc32_u64(HASH_OFFSET, static_cast<uint64_t>(_mm_cvtsi128_si64(key))));
-        return static_cast<uint32_t>(_mm_crc32_u64(h, static_cast<uint64_t>(_mm_extract_epi64(key, 1))));
-    }
+static uint32_t raw_hash(const char *p, size_t n) {
     uint32_t h = HASH_OFFSET;
     while (n >= 8) {
         uint64_t word;
@@ -92,39 +72,56 @@ static uint32_t raw_hash(const char *p, size_t n, const char *end) {
     return h;
 }
 
+static Field text_field(const char *&p, const char *end, bool need_hash) {
+    Field f{};
+    f.quoted = p < end && *p == '"';
+    if (f.quoted) {
+        ++p;
+        f.raw = p;
+        for (;;) {
+            const char *q = static_cast<const char *>(memchr(p, '"', end - p));
+            if (!q) throw std::runtime_error("unclosed quote");
+            f.len += static_cast<uint32_t>(q - p);
+            if (q + 1 < end && q[1] == '"') {
+                ++f.len;
+                p = q + 2;
+                continue;
+            }
+            f.raw_len = static_cast<uint32_t>(q - f.raw);
+            f.hash = need_hash ? raw_hash(f.raw, f.raw_len) : HASH_OFFSET;
+            p = q + 1;
+            return f;
+        }
+    }
+    f.raw = p;
+    while (p < end && *p != ',' && *p != '\r' && *p != '\n') {
+        ++p;
+        ++f.len;
+    }
+    f.raw_len = f.len;
+    f.hash = need_hash ? raw_hash(f.raw, f.raw_len) : HASH_OFFSET;
+    return f;
+}
+
 struct SharedNames {
-    static constexpr unsigned shard_bits = 7;
+    static constexpr unsigned shard_bits = 6;
     static constexpr size_t slots_per_shard = 1 << 11;
     static uint32_t spread(uint32_t h) { return h ^ (h >> 11) ^ (h >> 22); }
-    static uint32_t tag(const Field &f) {
-        return (f.hash & 0xfffc0000U) | ((f.raw_len <= 32 ? f.raw_len : 63U) << 12);
-    }
-    struct alignas(64) Slot {
-        char key[32]{};
-        std::atomic<uint64_t> seen[4]{};
-        bool matches(const Field &f, const char *end) const {
-            if (f.raw_len <= 32) {
-                __m256i input;
-                if (end - f.raw >= 32) input = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(f.raw));
-                else {
-                    alignas(32) char tail[32]{};
-                    std::memcpy(tail, f.raw, f.raw_len);
-                    input = _mm256_load_si256(reinterpret_cast<const __m256i *>(tail));
-                }
-                __m256i saved = _mm256_load_si256(reinterpret_cast<const __m256i *>(key));
-                uint32_t same = static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(saved, input)));
-                uint32_t valid = f.raw_len == 32 ? UINT32_MAX : (uint32_t(1) << f.raw_len) - 1;
-                return (same & valid) == valid;
-            }
+    struct Slot {
+        char key[16]{};
+        uint32_t raw_len = 0;
+        uint32_t padding = 0;
+        bool matches(const Field &f) const {
+            if (raw_len != f.raw_len) return false;
+            if (raw_len <= 16) return std::memcmp(key, f.raw, raw_len) == 0;
             const char *p;
-            uint32_t length;
             std::memcpy(&p, key, sizeof(p));
-            std::memcpy(&length, key + 8, sizeof(length));
-            return length == f.raw_len && std::memcmp(key + 12, f.raw, 4) == 0 &&
-                   std::memcmp(p + 4, f.raw + 4, f.raw_len - 4) == 0;
+            return std::memcmp(key + 8, f.raw, 8) == 0 &&
+                   std::memcmp(p + 8, f.raw + 8, raw_len - 8) == 0;
         }
+        std::atomic<uint64_t> seen[4]{};
     };
-    static_assert(sizeof(Slot) == 64, "exact AVX2 name slot");
+    static_assert(sizeof(Slot) == 56, "compact shared name slot");
     struct Shard {
         struct Overflow {
             Field field;
@@ -157,19 +154,18 @@ struct SharedNames {
             remaining -= f.raw_len;
             return dst;
         }
-        std::pair<Slot *, bool> probe(const Field &f, size_t *empty = nullptr, bool verify = true, const char *end = nullptr) {
-            const uint32_t signature = tag(f);
+        std::pair<Slot *, bool> probe(const Field &f, size_t *empty = nullptr) {
             size_t i = (spread(f.hash) >> shard_bits) & (slots_per_shard - 1);
             for (size_t n = 0; n < slots_per_shard; ++n) {
                 uint32_t entry = index[i].load(std::memory_order_acquire);
-                uint16_t id = static_cast<uint16_t>(entry & 0xfffU);
+                uint16_t id = static_cast<uint16_t>(entry);
                 if (!id) {
                     if (empty) *empty = i;
                     return {nullptr, false};
                 }
-                if ((entry & 0xfffff000U) == signature) {
+                if ((entry & 0xffff0000U) == (f.hash & 0xffff0000U)) {
                     Slot &slot = pool[id - 1];
-                    if (!verify || slot.matches(f, end))
+                    if (slot.matches(f))
                         return {&slot, true};
                 }
                 i = (i + 1) & (slots_per_shard - 1);
@@ -183,10 +179,10 @@ struct SharedNames {
         for (size_t i = 0; i < shards.size(); ++i)
             shards[i].pool = storage + i * slots_per_shard;
     }
-    __attribute__((noinline, cold)) static bool slow_first(Shard &s, const Field &name, unsigned group, const char *end) {
+    __attribute__((noinline, cold)) static bool slow_first(Shard &s, const Field &name, unsigned group) {
         std::lock_guard<std::mutex> lock(s.mutex);
         size_t empty = slots_per_shard;
-        auto match = s.probe(name, &empty, true, end);
+        auto match = s.probe(name, &empty);
         Slot *slot = match.first;
         if (!match.second && empty == slots_per_shard) {
             const uint64_t bit = 1ULL << (group & 63);
@@ -206,33 +202,26 @@ struct SharedNames {
         }
         if (!match.second) {
             slot = &s.pool[s.used];
-            if (name.raw_len <= 32) std::memcpy(slot->key, name.raw, name.raw_len);
+            if (name.raw_len <= 16) std::memcpy(slot->key, name.raw, name.raw_len);
             else {
                 const char *saved = s.keep(name);
                 std::memcpy(slot->key, &saved, sizeof(saved));
-                uint32_t length = name.raw_len;
-                std::memcpy(slot->key + 8, &length, sizeof(length));
-                std::memcpy(slot->key + 12, name.raw, 4);
+                std::memcpy(slot->key + 8, name.raw, 8);
             }
-            s.index[empty].store(tag(name) | ++s.used,
+            slot->raw_len = name.raw_len;
+            s.index[empty].store((name.hash & 0xffff0000U) | ++s.used,
                                  std::memory_order_release);
         }
         const uint64_t mask = 1ULL << (group & 63);
         return !(slot->seen[group >> 6].fetch_or(mask, std::memory_order_relaxed) & mask);
     }
-    Slot *prepare(const Field &name) {
+    bool first(const Field &name, unsigned group) {
         Shard &s = shards[spread(name.hash) & (shards.size() - 1)];
-        return s.probe(name, nullptr, false).first;
-    }
-    bool first(const Field &name, unsigned group, Slot *slot, const char *end) {
-        if (!slot || !slot->matches(name, end)) {
-            Shard &s = shards[spread(name.hash) & (shards.size() - 1)];
-            return slow_first(s, name, group, end);
-        }
+        auto match = s.probe(name);
+        if (__builtin_expect(!match.second, 0)) return slow_first(s, name, group);
         const uint64_t mask = 1ULL << (group & 63);
-        return !(slot->seen[group >> 6].fetch_or(mask, std::memory_order_relaxed) & mask);
+        return !(match.first->seen[group >> 6].fetch_or(mask, std::memory_order_relaxed) & mask);
     }
-
 };
 
 static uint64_t number(const char *&p, const char *end) {
@@ -268,21 +257,6 @@ static uint64_t number(const char *&p, const char *end) {
 static int64_t cents(const char *&p, const char *end) {
     bool neg = p < end && *p == '-';
     if (neg) ++p;
-    if (end - p >= 8) {
-        uint64_t word; std::memcpy(&word, p, 8);
-        uint64_t dots = word ^ 0x2e2e2e2e2e2e2e2eULL;
-        dots = (dots - 0x0101010101010101ULL) & ~dots & 0x8080808080808080ULL;
-        unsigned dot = dots ? __builtin_ctzll(dots) / 8 : 8;
-        if (dot && dot <= 5 && end - p >= dot + 3) {
-            uint64_t lower = (1ULL << (dot * 8)) - 1;
-            uint64_t x = ((word & lower) | ((word >> 8) & ~lower)) << ((6 - dot) * 8);
-            x &= 0x0f0f0f0f0f0f0f0fULL;
-            x = (x * 10 + (x >> 8)) & 0x00ff00ff00ff00ffULL;
-            x = (x * 100 + (x >> 16)) & 0x0000ffff0000ffffULL;
-            int64_t value = static_cast<int64_t>((x * 10000 + (x >> 32)) & 0xffffffffULL);
-            p += dot + 3; return neg ? -value : value;
-        }
-    }
     int64_t n = static_cast<int64_t>(number(p, end));
     if (p + 2 >= end || *p++ != '.') throw std::runtime_error("bad decimal");
     int64_t fraction = (p[0] - '0') * 10 + (p[1] - '0');
@@ -293,8 +267,10 @@ static void comma(const char *&p, const char *end) {
     if (p == end || *p++ != ',') throw std::runtime_error("missing comma");
 }
 static void newline(const char *&p, const char *end) {
-    p += (p < end && *p == '\r');
-    if (p < end && *p++ != '\n') throw std::runtime_error("missing LF");
+    if (p < end && *p == '\r') ++p;
+    if (p < end) {
+        if (*p++ != '\n') throw std::runtime_error("missing LF");
+    }
 }
 static void bom(const char *&p, const char *end) {
     if (end - p >= 3 && static_cast<unsigned char>(p[0]) == 0xef &&
@@ -305,13 +281,13 @@ struct Group {
     uint64_t count = 0, id_sum = 0, name_bytes = 0, note_bytes = 0;
     int64_t sum = 0, min = 0, max = 0;
     uint32_t distinct = 0;
-    void add(uint64_t id, int64_t amount, uint32_t name_len, uint32_t note_len, bool first) {
+    void add(uint64_t id, int64_t amount, const Field &name, uint32_t note_len, bool first) {
         if (!count || amount < min) min = amount;
         if (!count || amount > max) max = amount;
         ++count;
         id_sum += id;
         sum += amount;
-        name_bytes += name_len;
+        name_bytes += name.len;
         note_bytes += note_len;
         distinct += first;
     }
@@ -330,74 +306,17 @@ struct Worker {
     explicit Worker(size_t group_count) : groups(group_count) { }
 };
 
-__attribute__((target("pclmul")))
-static Field text_pair(const char *&p, const char *end, uint32_t &name_len,
-                       uint32_t &note_len, SharedNames &shared) {
-    const char *start = p;
-    Field name{};
-    uint64_t quote_total = 0, name_quotes = 0, carry = 0;
-    bool have_name = false;
-    const __m256i quote = _mm256_set1_epi8('"'), comma = _mm256_set1_epi8(',');
-    for (const char *block = p; block < end; block += std::min<ptrdiff_t>(64, end - block)) {
-        unsigned bytes = std::min<ptrdiff_t>(64, end - block);
-        alignas(32) char tail[64]{};
-        const char *load = block;
-        if (bytes < 64) { std::memcpy(tail, block, bytes); load = tail; }
-        __m256i a = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(load));
-        __m256i b = _mm256_loadu_si256(reinterpret_cast<const __m256i *>(load + 32));
-        uint64_t quotes = static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(a, quote))) |
-            (uint64_t(static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(b, quote)))) << 32);
-        uint64_t commas = static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(a, comma))) |
-            (uint64_t(static_cast<uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(b, comma)))) << 32);
-        uint64_t inside = static_cast<uint64_t>(_mm_cvtsi128_si64(_mm_clmulepi64_si128(
-            _mm_cvtsi64_si128(quotes), _mm_set1_epi32(-1), 0)));
-        inside ^= carry;
-        carry = 0 - (inside >> 63);
-        uint64_t separators = commas & ~inside;
-        if (bytes < 64) separators &= (uint64_t(1) << bytes) - 1;
-        while (separators) {
-            unsigned bit = __builtin_ctzll(separators);
-            uint64_t lower = bit == 63 ? UINT64_MAX : (uint64_t(1) << (bit + 1)) - 1;
-            uint64_t total = quote_total + __builtin_popcountll(quotes & lower);
-            const char *finish = block + bit;
-            if (!have_name) {
-                bool quoted = *start == '"';
-                name = {start + quoted, static_cast<uint32_t>(finish - start - 2 * quoted), 0};
-                name_len = static_cast<uint32_t>(finish - start) - total / 2 - quoted;
-                name.hash = raw_hash(name.raw, name.raw_len, end);
-                uint32_t spread = SharedNames::spread(name.hash);
-                auto &shard = shared.shards[spread & 127];
-                __builtin_prefetch(&shard.index[(spread >> 7) & (SharedNames::slots_per_shard - 1)], 0, 1);
-                name_quotes = total;
-                start = finish + 1;
-                have_name = true;
-            } else {
-                bool quoted = *start == '"';
-                note_len = static_cast<uint32_t>(finish - start) - (total - name_quotes) / 2 - quoted;
-                p = finish + 1;
-                return name;
-            }
-            separators &= separators - 1;
-        }
-        quote_total += __builtin_popcountll(quotes);
-    }
-    throw std::runtime_error("missing text delimiters");
-}
-
-__attribute__((target("pclmul")))
 static void parse_range(const char *p, const char *end, const std::vector<uint8_t> &regions,
                         unsigned unmatched, Worker &w, SharedNames &shared) {
     struct Pending {
         uint64_t id;
-        int64_t amount;
         Field name;
-        uint32_t name_len, note_len;
+        uint32_t note_len;
+        int64_t amount;
         unsigned group;
     };
-    static_assert(sizeof(Pending) == 48, "compact pending row");
     try {
         std::array<Pending, 32> batch;
-        std::array<SharedNames::Slot *, 32> slots;
         const char *reclaimed = p;
         while (p < end) {
             unsigned count = 0;
@@ -405,28 +324,28 @@ static void parse_range(const char *p, const char *end, const std::vector<uint8_
                 bom(p, end);
                 uint64_t id = number(p, end);
                 comma(p, end);
-                uint32_t name_len, note_len;
-                Field name = text_pair(p, end, name_len, note_len, shared);
+                Field name = text_field(p, end, true);
+                uint32_t spread = SharedNames::spread(name.hash);
+                auto &shard = shared.shards[spread & 63];
+                __builtin_prefetch(&shard.index[(spread >> 6) & (SharedNames::slots_per_shard - 1)], 0, 1);
+                comma(p, end);
+                Field note = text_field(p, end, false);
+                comma(p, end);
                 uint64_t region = number(p, end);
                 uint32_t region_key = region < regions.size()
                                           ? static_cast<uint32_t>(region) : UINT32_MAX;
                 if (region_key != UINT32_MAX) __builtin_prefetch(&regions[region_key], 0, 1);
                 comma(p, end);
                 int64_t amount = cents(p, end);
-                unsigned group = region_key != UINT32_MAX && regions[region_key] != UINT8_MAX
-                                     ? regions[region_key] : unmatched;
-                SharedNames::Slot *slot = shared.prepare(name);
-                if (slot) {
-                    __builtin_prefetch(slot, 0, 3);
-                    __builtin_prefetch(&slot->seen[group >> 6], 1, 3);
-                }
                 newline(p, end);
-                batch[count] = Pending{id, amount, name, name_len, note_len, group};
-                slots[count++] = slot;
+                batch[count++] = Pending{id, name, note.len, amount, region_key};
             } while (count < batch.size() && p < end);
             for (unsigned i = 0; i < count; ++i) {
                 const Pending &r = batch[i];
-                w.groups[r.group].add(r.id, r.amount, r.name_len, r.note_len, shared.first(r.name, r.group, slots[i], end));
+                unsigned group = r.group < regions.size() && regions[r.group] != UINT8_MAX
+                                     ? regions[r.group] : unmatched;
+                w.groups[group].add(r.id, r.amount, r.name, r.note_len,
+                                    shared.first(r.name, group));
             }
             if (p - reclaimed >= (1 << 20)) discard_consumed(reclaimed, p);
         }
@@ -435,7 +354,6 @@ static void parse_range(const char *p, const char *end, const std::vector<uint8_
 
 int main() {
     try {
-        (void)prctl(PR_SET_THP_DISABLE, 1, 0, 0, 0);
         File lookup("/data/regions.csv");
         const char *p = lookup.data, *end = p + lookup.size;
         const char *header = "region_id,country\n";
@@ -461,7 +379,6 @@ int main() {
             newline(p, end);
         }
         if (country.size() > 255) throw std::runtime_error("too many countries");
-        (void)madvise(const_cast<char *>(lookup.data), lookup.size, MADV_DONTNEED);
         const unsigned unmatched = static_cast<unsigned>(country.size());
         File records("/data/records.csv");
         p = records.data;

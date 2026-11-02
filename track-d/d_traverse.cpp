@@ -36,6 +36,20 @@ template <class T> T *alloc(size_t n) {
 }
 template <class T> void release(T *p, size_t n) { munmap(p, n * sizeof(T)); }
 
+// Storage for n values, made of the written pages of the buffers {start,
+// bytes written}, which are moved rather than faulted in afresh.
+using Parts = std::vector<std::pair<void *, size_t>>;
+template <class T> T *splice(const Parts &parts, size_t n) {
+  size_t page = 4096, want = (n * sizeof(T) + 64 + page - 1) / page * page;
+  char *p = alloc<char>(want), *at = p;
+  for (auto [part, used] : parts) {
+    size_t move =
+        std::min<size_t>((used + page - 1) / page * page, p + want - at);
+    mremap(part, move, move, MREMAP_MAYMOVE | MREMAP_FIXED, at), at += move;
+  }
+  return (T *)p;
+}
+
 template <class F> void parallel(unsigned threads, F f) {
   std::vector<std::thread> pool;
   for (unsigned t = 1; t < threads; ++t)
@@ -119,15 +133,18 @@ const char *map(const std::string &path, size_t &size) {
 
 // ---------------------------------------------------------------- graphs
 
+// Empty raw slot, and the first slot of a vertex with its edges spilled.
+constexpr u32 NONE = ~0u, SPILL = ~1u;
+
 // Compressed rows of packed edges, head << wbits | weight. A weight that does
 // not fit leaves the field all ones and sits in the escape table.
 struct Graph {
   u32 n, m, wbits, mask, *off, *adj;
   Escapes esc;
-  Graph(u32 n, u32 m)
+  // Allocates the rows unless given storage.
+  Graph(u32 n, u32 m, u32 *off = nullptr, u32 *adj = nullptr)
       : n(n), m(m), wbits(32 - id_bits(n + 1)), mask((1u << wbits) - 1),
-        off(alloc<u32>(n + 1)), adj(alloc<u32>(m)) {}
-  ~Graph() { release(off, n + 1), release(adj, m); }
+        off(off ? off : alloc<u32>(n + 1)), adj(adj ? adj : alloc<u32>(m)) {}
   u32 head(u32 e) const { return e >> wbits; }
   u64 weight(size_t i) const {
     if ((adj[i] & mask) != mask)
@@ -179,9 +196,6 @@ struct alignas(64) Bins {
     u32 key = (u & ((1u << shift) - 1)) << bits | v;
     pool[fill[b]++] = {key, uint16_t(std::min<u64>(w, 0xFFFF))};
   }
-  u32 size(u32 b) const {
-    return chunks[b].size() * CHUNK - (CHUNK - fill[b] % CHUNK) % CHUNK;
-  }
   template <class F> void each(u32 b, F f) const {
     for (u32 c : chunks[b])
       for (u32 i = c; i < std::min(c + CHUNK, fill[b]); ++i)
@@ -191,7 +205,8 @@ struct alignas(64) Bins {
 
 // Parses the edges into per-worker bins, then builds the raw graph's rows one
 // bucket of tails at a time in cache, releasing a group's bins once its rows
-// exist. Marks the vertices that can be bypassed: out-degree <= 2 and no query
+// exist. A row is four slots, or for more edges a pointer to spilled ones.
+// Marks the vertices that can be bypassed: out-degree <= 2 and no query
 // endpoint.
 Graph *read_graph(const char *lo, const char *hi, const Bits &terminal,
                   Bits &bypass, unsigned threads) {
@@ -219,19 +234,16 @@ Graph *read_graph(const char *lo, const char *hi, const Bits &terminal,
           [&](u32 u, u32 v, u32 w) { bin.add(u, v, w); });
     std::sort(bin.heavy.begin(), bin.heavy.end());
   });
-  Graph *g = new Graph(n, m);
-  // Bucket b's edges start after those of the buckets before it.
-  std::vector<u32> start(buckets + 2, 0);
-  for (u32 b = 0; b <= buckets; ++b)
-    for (const Bins &bin : bins)
-      start[b + 1] += bin.size(b);
-  std::partial_sum(start.begin(), start.end(), start.begin());
+  // Four slots per vertex, then the spill area. The map and the contracted
+  // graph reuse this storage.
+  u32 *rows = alloc<u32>(size_t(4) * n + m);
+  Graph *g = new Graph(n, m, rows, rows);
+  std::atomic<u32> spilled{0};
   std::vector<std::atomic<u32>> left(buckets / Bins::GROUP + 1);
   for (u32 b = 0; b <= buckets; ++b)
     ++left[b / Bins::GROUP]; // buckets not yet built
   std::vector<Escapes> escapes(threads);
   std::atomic<u32> next{0};
-  g->off[0] = 0;
   parallel(threads, [&](unsigned t) {
     std::vector<u32> at(1u << shift);
     for (u32 b; (b = next++) <= buckets;) {
@@ -239,10 +251,20 @@ Graph *read_graph(const char *lo, const char *hi, const Bits &terminal,
       std::fill(at.begin(), at.end(), 0);
       for (const Bins &bin : bins)
         bin.each(b, [&](Entry e, u32) { ++at[e.key >> bits]; });
-      for (u32 x = 0, pos = start[b]; x < size; ++x) {
-        if (at[x] <= 2 && !test(terminal, first + x))
-          set(bypass, first + x); // buckets are word aligned
-        g->off[first + x + 1] = pos += at[x], at[x] = pos - at[x];
+      u32 extra = 0;
+      for (u32 x = 0; x < size; ++x)
+        extra += at[x] > 4 ? at[x] : 0;
+      u32 pos = 4 * n + spilled.fetch_add(extra);
+      for (u32 x = 0; x < size; ++x) {
+        u32 v = first + x, *row = rows + 4 * size_t(v);
+        if (at[x] <= 2 && !test(terminal, v))
+          set(bypass, v); // buckets are word aligned
+        std::fill(row, row + 4, NONE);
+        if (at[x] > 4)
+          row[0] = SPILL, row[1] = pos, row[2] = at[x], at[x] = pos,
+          pos += row[2];
+        else
+          at[x] = 4 * v;
       }
       for (const Bins &bin : bins)
         bin.each(b, [&](Entry e, u32 i) {
@@ -264,6 +286,15 @@ Graph *read_graph(const char *lo, const char *hi, const Bits &terminal,
 
 // ---------------------------------------------------------------- ordering
 
+// The edge indices [first, end) of raw vertex u.
+std::pair<u32, u32> row(const Graph &raw, u32 u) {
+  const u32 *r = raw.adj + 4 * size_t(u);
+  if (r[0] == SPILL)
+    return {r[1], r[1] + r[2]};
+  return {4 * u, 4 * u + (r[0] != NONE) + (r[1] != NONE) + (r[2] != NONE) +
+                     (r[3] != NONE)};
+}
+
 // One worker's share of the search order: vertices in discovery order, the
 // end of each one's out-edges, and those edges with their raw heads.
 struct alignas(64) Region {
@@ -284,22 +315,19 @@ struct Grower {
   };
   const Graph &raw;
   const Bits &bypass;
-  Bits &claimed, mine;
+  Bits &claimed;
   Region &reg;
   std::vector<Walk> walks;
-  u64 sink = 0;
 
   // Claims race without locked instructions: a vertex claimed twice leaves a
   // copy that no edge reaches, as every head resolves through one map entry.
-  // The private bitmap answers most checks, as a region mostly meets itself.
   void claim(u32 z) {
     u64 bit = u64(1) << (z & 63), *word = &claimed[z >> 6];
-    if (mine[z >> 6] & bit)
-      return;
-    mine[z >> 6] |= bit;
     u64 seen = __atomic_load_n(word, __ATOMIC_RELAXED);
-    __atomic_store_n(seen & bit ? &sink : word, seen | bit, __ATOMIC_RELAXED);
-    reg.order[reg.len] = z, reg.len += !(seen & bit);
+    if (seen & bit)
+      return;
+    __atomic_store_n(word, seen | bit, __ATOMIC_RELAXED);
+    reg.order[reg.len++] = z;
   }
   void put(u32 pos, u32 z, u64 w) {
     if (w >= raw.mask)
@@ -310,8 +338,9 @@ struct Grower {
   // branch ends the walk at a survivor; a dead end or a way back to the root
   // leaves a useless self-loop.
   bool step(Walk &w) {
-    u32 ahead = 0, next = w.at, i = raw.off[w.at], which = i;
-    for (; i < raw.off[w.at + 1]; ++i) {
+    auto [i, end] = row(raw, w.at);
+    u32 ahead = 0, next = w.at, which = i;
+    for (; i < end; ++i) {
       u32 h = raw.head(raw.adj[i]);
       if (h != w.prev && h != w.at)
         ++ahead, next = h, which = i;
@@ -323,7 +352,7 @@ struct Grower {
     } else {
       w.w += raw.weight(which), w.prev = w.at, w.at = next;
       if (test(bypass, next) && ++w.steps < 64)
-        return __builtin_prefetch(&raw.off[next]), true;
+        return __builtin_prefetch(&raw.adj[4 * size_t(next)]), true;
     }
     if (next != w.root)
       claim(next);
@@ -331,7 +360,7 @@ struct Grower {
     return false;
   }
   void expand(u32 u, size_t &walking) {
-    for (u32 i = raw.off[u]; i < raw.off[u + 1]; ++i) {
+    for (auto [i, end] = row(raw, u); i < end; ++i) {
       u32 y = raw.head(raw.adj[i]), pos = reg.edges;
       if (y == u)
         continue;
@@ -343,26 +372,24 @@ struct Grower {
       if (walks.size() == walking)
         walks.resize(2 * walking + 64);
       walks[walking++] = {pos, u, u, y, 0, raw.weight(i)};
-      __builtin_prefetch(&raw.off[y]);
+      __builtin_prefetch(&raw.adj[4 * size_t(y)]);
     }
   }
-  // Grows a region from z unless z is already claimed. Rows are prefetched
-  // two batches ahead: first the offsets, then the edges.
+  // Grows a region from z unless z is already claimed. The rows of the next
+  // two batches are prefetched.
   void grow(u32 z) {
     u32 lo = reg.len, hi;
     for (claim(z); lo < reg.len; lo = hi) {
       hi = std::min(reg.len, lo + BATCH);
-      for (u32 h = hi; h < std::min(reg.len, hi + BATCH); ++h)
-        __builtin_prefetch(&raw.adj[raw.off[reg.order[h]]]);
-      for (u32 h = hi + BATCH; h < std::min(reg.len, hi + 2 * BATCH); ++h)
-        __builtin_prefetch(&raw.off[reg.order[h]]);
+      for (u32 h = hi; h < std::min(reg.len, hi + 2 * BATCH); ++h)
+        __builtin_prefetch(&raw.adj[4 * size_t(reg.order[h])]);
       size_t walking = 0;
       for (u32 h = lo; h < hi; ++h)
         expand(reg.order[h], walking), reg.ends[h] = reg.edges;
       while (walking) {
         size_t kept = 0;
         for (size_t i = 0; i < walking; ++i)
-          __builtin_prefetch(&raw.adj[raw.off[walks[i].at]]);
+          __builtin_prefetch(&raw.adj[4 * size_t(walks[i].at)]);
         for (size_t i = 0; i < walking; ++i)
           if (step(walks[i]))
             walks[kept++] = walks[i];
@@ -379,8 +406,9 @@ struct Reverse {
   Graph *r;
   std::vector<u32> cuts; // slice t is [cuts[t], cuts[t + 1])
   std::vector<std::vector<std::pair<u32, u32>>> mail; // (tail, edge), to x from
-  Reverse(u32 n, u32 m, const std::vector<u32> &cuts)
-      : r(new Graph(n, m)), cuts(cuts), mail(cuts.size() * cuts.size()) {}
+  Reverse(u32 n, u32 m, const std::vector<u32> &cuts, u32 *off)
+      : r(new Graph(n, m, off, off)), cuts(cuts),
+        mail(cuts.size() * cuts.size()) {}
   // Worker t made edge i from u to h.
   void count(unsigned t, u32 u, u32 h, u32 i) {
     if (h - cuts[t] < cuts[t + 1] - cuts[t])
@@ -419,19 +447,21 @@ struct Reverse {
 // concatenates them into the forward graph and renames the query endpoints.
 std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
                                      unsigned threads, std::vector<u32> &ends) {
-  u32 n = raw->n, m = raw->off[n];
+  u32 n = raw->n, m = raw->m;
   Bits claimed(bypass.size());
   std::vector<Region> regions(threads);
   parallel(threads, [&](unsigned t) {
     Region &reg = regions[t];
     reg.order = alloc<u32>(n), reg.ends = alloc<u32>(n),
     reg.out = alloc<u32>(m);
-    Grower grower{*raw, bypass, claimed, Bits(claimed.size()), reg};
+    Grower grower{*raw, bypass, claimed, reg};
     for (u32 x = cut(n, t, threads); x < cut(n, t + 1, threads); ++x)
       if (!test(bypass, x))
         grower.grow(x);
   });
   u32 wbits = raw->wbits, mask = raw->mask;
+  // The raw rows' pages become the map and the forward graph.
+  u32 *where = raw->adj, *spare = where + n;
   delete raw;
   // Region t's vertices and edges follow those of the regions before it.
   std::vector<u32> base(threads + 1, 0), edges(threads + 1, 0);
@@ -439,35 +469,60 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
     base[t + 1] = base[t] + regions[t].len;
     edges[t + 1] = edges[t] + regions[t].edges;
   }
+  // Work is split into equal slices of new ids, as regions can differ widely
+  // in size. Calls f(region, first index, end index) on slice k.
+  u32 total = base[threads];
+  std::vector<u32> cuts;
+  for (unsigned k = 0; k <= threads; ++k)
+    cuts.push_back(cut(total, k, threads));
+  auto each = [&](unsigned k, auto f) {
+    for (unsigned t = 0; t < threads; ++t)
+      if (std::max(cuts[k], base[t]) < std::min(cuts[k + 1], base[t + 1]))
+        f(t, std::max(cuts[k], base[t]) - base[t],
+          std::min(cuts[k + 1], base[t + 1]) - base[t]);
+  };
   // Raw id -> new id. A vertex claimed twice is named by the entry that lands
   // last, the same for every head.
-  u32 *where = alloc<u32>(n);
-  parallel(threads, [&](unsigned t) {
-    for (u32 i = 0; i < regions[t].len; ++i)
-      __atomic_store_n(&where[regions[t].order[i]], base[t] + i,
-                       __ATOMIC_RELAXED);
-    release(regions[t].order, n);
+  parallel(threads, [&](unsigned k) {
+    each(k, [&](unsigned t, u32 lo, u32 hi) {
+      for (u32 i = lo; i < hi; ++i)
+        __atomic_store_n(&where[regions[t].order[i]], base[t] + i,
+                         __ATOMIC_RELAXED);
+    });
   });
-  Graph *g = new Graph(base[threads], edges[threads]);
-  Reverse rev(g->n, g->m, base);
-  std::vector<Escapes> escapes(threads);
-  parallel(threads, [&](unsigned t) {
-    Region &reg = regions[t];
+  // The pages of the regions' orders and edges become the reverse graph.
+  Parts orders, outs;
+  for (Region &reg : regions) {
     std::sort(reg.esc.begin(), reg.esc.end());
-    auto esc = reg.esc.begin();
-    for (u32 i = 0, pos = 0; i < reg.len; ++i) {
-      g->off[base[t] + i] = edges[t] + pos;
-      for (; pos < reg.ends[i]; ++pos) {
-        __builtin_prefetch(
-            &where[reg.out[std::min(pos + 24, reg.edges - 1)] >> wbits]);
-        u32 e = reg.out[pos], w = e & mask, h = where[e >> wbits];
-        u64 weight = w == mask ? esc++->second : w;
-        g->put(edges[t] + pos, h, weight, escapes[t]);
-        rev.count(t, base[t] + i, h, edges[t] + pos);
+    orders.push_back({reg.order, reg.len * 4ul});
+    outs.push_back({reg.out, reg.edges * 4ul});
+  }
+  Graph *g = new Graph(total, edges[threads], spare + edges[threads], spare);
+  Reverse rev(g->n, g->m, cuts, splice<u32>(orders, total + 1));
+  std::vector<Escapes> escapes(threads);
+  parallel(threads, [&](unsigned k) {
+    std::fill(rev.r->off + cuts[k], rev.r->off + cuts[k + 1], 0);
+    each(k, [&](unsigned t, u32 lo, u32 hi) {
+      Region &reg = regions[t];
+      u32 pos = lo ? reg.ends[lo - 1] : 0, shift = edges[t];
+      auto esc = std::lower_bound(reg.esc.begin(), reg.esc.end(),
+                                  std::pair(size_t(pos), u64(0)));
+      for (u32 i = lo; i < hi; ++i) {
+        g->off[base[t] + i] = shift + pos;
+        for (; pos < reg.ends[i]; ++pos) {
+          __builtin_prefetch(
+              &where[reg.out[std::min(pos + 24, reg.edges - 1)] >> wbits]);
+          u32 e = reg.out[pos], w = e & mask, h = where[e >> wbits];
+          u64 weight = w == mask ? esc++->second : w;
+          g->put(shift + pos, h, weight, escapes[k]);
+          rev.count(k, base[t] + i, h, shift + pos);
+        }
       }
-    }
-    release(reg.ends, n), release(reg.out, m);
+    });
   });
+  for (Region &reg : regions)
+    release(reg.ends, n);
+  rev.r->adj = splice<u32>(outs, g->m);
   g->off[g->n] = edges[threads];
   g->merge(escapes);
   std::vector<Escapes> back(threads);
@@ -476,7 +531,7 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
   rev.r->merge(back);
   for (u32 &v : ends)
     v = where[v];
-  release(where, n);
+  munmap(where, n * 4ul / 4096 * 4096);
   return {g, rev.r};
 }
 

@@ -1122,3 +1122,10 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official all-track receipt — D PR #17 outcome checkpoint `128993129f41ea3cc850aaadcfccf1f4a3b8f791`
 
 - `run-f74487302b35` passed all five gates on unchanged PR #17 source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`: T=0.102394 s, M=60,309,504 B, S=607, D=1, K=30.706825, points=74.361746. **LATEST**; **BEST** remains `run-1b8d7ec1c331` (K=31.079228). This gives six source-identical official PR #17 K samples; their median is 30.641708. The sixth remains above the former selected D BEST 30.195105.
+
+## Frontier trial — D PR #19 equal-slice renaming and recycled pages (not yet official)
+
+- Exact source blob `15e1a45dec8f2272c965ca3b3d70b3928f872097` from ready PR #19 head `d6cceafd15e6f24d5aa713f4f3a6fb2711753f5c`, based on D main `ede72218d675fea1dce189fb6ce6a278d78e4e84`. Imported only `d_traverse.cpp` and the matching README; official Dockerfile remains pinned GCC 15/Debian 13 blob `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. Source size is S=643 including Dockerfile (+36 vs PR #17, S=607); D=1.
+- Developer reports 21 interleaved full seed-1 rounds on a 4-vCPU runner: wall time -9.6% at 12 workers (17/21 wins) and -11.6% at 4 workers (17/21). Reported 12-worker cgroup peak 58.4–59.3 MB vs 58.5 MB for PR #17. This is local evidence, not official K.
+- Developer reports exact full seeds 1/7 at 1/4/12 workers, sample seed 1 reference parity, 88 differential, 60 boundary and 30 stress tests, and clean ASan/UBSan/TSan. No GitHub CI status was registered for this PR at integration; host GCC 14.2 pinned-flag compile succeeded locally. Local Docker replay is unavailable because the daemon storage previously failed layer registration with `no space left on device`.
+- Official comparison baseline: restored PR #17 `run-f74487302b35` K=30.706825 and BEST `run-1b8d7ec1c331` K=31.079228. Keep rollback source blob `79617b5c40b01613797138b294a33c0a7b5c6e44`; select PR #19 only if official all-gates K is a repeatable improvement.

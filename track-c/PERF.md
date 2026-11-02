@@ -1338,3 +1338,11 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Unchanged-source control — evidence commit `e06b59b`
 
 `run-87efd12ca8ee` passed all five gates on source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=22.359322, T=0.067314 s, M=11,448,320 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773).
+
+## Official C control — `d24472f`
+
+`run-a8e88b8a694a` passed all five gates on selected source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=23.707933, T=0.059218 s, M=11,767,808 B, S=657, D=1. BEST remains `run-e7eab9673214` (K=25.979773).
+
+## Track C PR #8 dense inline pools — rejected; restored selected source
+
+The exact PR #8 source SHA-256 `a9f7ff9186a75c29fe781c3c398a96d136c8555083cd9f4a64759a8917e4a1e7` and Dockerfile SHA-256 `1c399e1b17971daf2d2dea57a5915e85dc2f88149cb364806790070f6b03405a` passed all five official gates in `run-0a0cb1ac9199`: K=20.335042, T=0.078760 s, M=14,295,040 B, S=545, D=1. This is 14.2% below the selected-source control `run-a8e88b8a694a` and 21.7% below BEST `run-e7eab9673214` (K=25.979773); the lower S did not offset the official time and memory regression. Reject and restore source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65` and the selected Dockerfile.

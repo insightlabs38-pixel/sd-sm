@@ -1272,3 +1272,7 @@ Exact PR head `499919627a73f4c2405ff07f393d320b6d5630a2`, candidate source SHA-2
 ## PR #25 second-support-clause — rejected locally
 
 Exact head `cc49af51f8c2b9fbec09c0927592bc8d0290a46c`, source SHA-256 `e9e12f8cf5280c262b8e7aeb5344ba9d96320b630c9ab3ee6109640ce0a05827`, S=720, D=1. CI `41407758499` passed full seed/reference, differential/adversarial, ASan/UBSan/TSan, sample/tiny and pinned offline Docker gates. Five-repeat runner-local K ratios versus developer main `72244d4` were 0.977452 / 0.993507 / 0.992010, geomean 0.987630 (-1.2370%), with all three seeds losing and S=720 vs 695. Reject; no official trial.
+
+## Official selected-source receipt — `d24472f`
+
+`run-5f47a7570782` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.349802, T=0.158693 s, M=41,541,632 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870).

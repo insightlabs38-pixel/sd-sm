@@ -1362,3 +1362,10 @@ Page-only trialdbdd62cbfc500ada45fbf63d4115b5779174146a:
 run-bc493dad4cba K31.553341 T0.095452 M58003456 S674 D1; all gates pass.
 Restore solver5d56a5be as matched safe control and strongest valid K33.106317.
 The qualified SIMD+page combination remains separate; no additive gain assumed.
+
+Matched restored-control002ba5754699462d56beb61f2e58b1419064dacf:
+run-f085dc929155 K33.161862 T0.086295 M58208256 S674 D1, all gates pass;
+same solver5d56a5be, new strongest valid result. Trial qualified SIMD+256-page
+combination02e0764ef534a8a6694006b12911776e0a9f2860, CI41434298002 passes
+all pinned/oracle/sanitizer gates. S683 D1; original Docker unchanged.
+Both independent changes remain measured; no additive gain assumed.

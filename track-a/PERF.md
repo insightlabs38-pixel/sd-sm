@@ -1289,3 +1289,7 @@ PR #6 exact head `33e0f543fa9bbcd084954ab950a86d91d6b19495`, source SHA-256 `f6a
 ## Official selected-source reference — `0f64279`
 
 `run-7a67da0ad340` passed all five gates on rollback source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=44.402826, T=0.020663 s, M=21,561,344 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); this noisy run is the same selected implementation used as the PR #6 trial baseline.
+
+## Latest selected-source reference before PR #6 — `dc0f4e4`
+
+`run-75193199839f` passed all five gates on rollback source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=46.288449, T=0.019193 s, M=21,061,632 B, S=584, D=1. BEST remains `run-118836ebd34c` (K=49.960098); this is the official baseline for the queued PR #6 trial.

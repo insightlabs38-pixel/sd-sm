@@ -1232,3 +1232,7 @@ Candidate source SHA-256 `b1f1e812dca5f7fd40abe34f64bd98e915981f9df626d334d38714
 ## Official selected-source reference — `0f64279`
 
 `run-6618744061de` passed all five gates on selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.421390, T=0.157947 s, M=41,365,504 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870). This is the complete-K baseline for the current-main candidate trial.
+
+## Latest selected-source reference before current-main trial — `dc0f4e4`
+
+`run-5b024ccb1c82` passed all five gates on source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=29.883512, T=0.163684 s, M=41,324,544 B, S=699, D=1. BEST remains `run-add075487808` (K=30.850870); this is the official baseline for the current-main trial.

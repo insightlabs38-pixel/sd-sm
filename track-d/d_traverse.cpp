@@ -633,17 +633,17 @@ template <class L> struct Labels {
   static constexpr L NONE = std::min<u64>(INF, L(-1));
   std::vector<L *> dir;
   std::vector<u32> used;
-  L *store, blank[128];
-  explicit Labels(u32 n) : dir(n / 128 + 1, blank), store(alloc<L>(n + 128)) {
-    std::fill(blank, blank + 128, NONE);
+  L *store, blank[256];
+  explicit Labels(u32 n) : dir(n / 256 + 1, blank), store(alloc<L>(n + 256)) {
+    std::fill(blank, blank + 256, NONE);
   }
-  L *at(u32 v) const { return dir[v / 128] + v % 128; }
+  L *at(u32 v) const { return dir[v / 256] + v % 256; }
   u64 get(u32 v) const { return *at(v); }
   // Any finite distance improves a blank label, so writes go to real pages.
   L *slot(u32 v) {
-    if (dir[v / 128] == blank) {
-      dir[v / 128] = std::fill_n(store + used.size() * 128, 128, NONE) - 128;
-      used.push_back(v / 128);
+    if (dir[v / 256] == blank) {
+      dir[v / 256] = std::fill_n(store + used.size() * 256, 256, NONE) - 256;
+      used.push_back(v / 256);
     }
     return at(v);
   }

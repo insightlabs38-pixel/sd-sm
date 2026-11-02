@@ -1350,3 +1350,10 @@ SIMD trial0a5eef9de49ad524dab2afa206908fe22c13fecf: run-94452b0065c5,
 K32.633545 T0.088591 M58482688 S683 D1; all gates pass. No official improvement
 established despite independent-runner CPU gains. Restore strongest valid solver
 5d56a5bebdf1d82633e6e643801213f5df987578, prior K33.106317. Original Docker unchanged.
+
+2026-11-02 page-size trial: 256-entry label pages on the twelve-worker prefix
+champion; qualification CI41434296018 passes all pinned Docker/oracle,
+forced-claim/capacity/skew and ASan/UBSan/TSan gates. S674 D1; Docker unchanged.
+Parent-cgroup matrix225 executions across full1/7/17 and4/6/12 preserves exact
+outputs. At12 workers peak M falls0.5–1.6%; complete-K timing tradeoffs are mixed.
+Use official scoring to decide. Rollback5d56a5be, strongest valid K33.106317.

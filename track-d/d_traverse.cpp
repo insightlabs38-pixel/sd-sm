@@ -546,12 +546,12 @@ struct Queue {
     u32 *data = nullptr, size = 0, cap = 0;
   } bucket[B];
   u64 occupied[B / 64] = {}, cur = 0, near = 0;
-  u32 shift, node_bits;
+  // Vertex ids stay far below 2^25 (a vertex is claimed twice only when
+  // a racing store loses its bit), leaving seven bits for the key remainder.
+  static constexpr u32 shift = 7, node_bits = 25;
   using Far = std::pair<u64, u32>;
   std::priority_queue<Far, std::vector<Far>, std::greater<Far>> far;
-  explicit Queue(u32 n) : shift(std::min(7u, 32 - id_bits(n))) {
-    node_bits = 32 - shift;
-  }
+  explicit Queue(u32) {}
   void clear() {
     for (u32 w = 0; w < B / 64; occupied[w++] = 0)
       for (u64 bits = occupied[w]; bits; bits &= bits - 1)
@@ -621,14 +621,13 @@ template <class L> struct Labels {
   }
 };
 
-// One direction of a search with labels of type L. A distance that does not
-// fit L sets `wide`, which voids the search. With narrow labels a blank one
-// reads as 2^32 - 1, so nd + other(v) stays a path length or at least that.
+// One direction with saturating labels of type L. A missing label reads
+// NONE, so a meeting below NONE always represents a real directed path.
+// Nonnegative weights ensure saturation cannot hide a path below NONE.
 template <class L> struct Side {
   const Graph &g;
   Labels<L> dist;
   Queue queue;
-  bool wide = false;
   explicit Side(const Graph &g) : g(g), dist(g.n), queue(g.n) {}
   void start(u32 s) {
     dist.reset(), queue.clear();
@@ -637,10 +636,9 @@ template <class L> struct Side {
   // Settles the current bucket in FIFO order, prefetching rows and labels of
   // the entries ahead; returns the number of vertices settled. Relaxations are
   // branch-free: nd + other(v) is a real path length either way.
-  size_t drain(const Side &other, u64 &best) {
+  template <unsigned W = 0> size_t drain_bits(const Side &other, u64 &best) {
     Queue::Bucket &bk = queue.bucket[queue.cur % Queue::B];
     u32 mask = (1u << queue.node_bits) - 1, settled = 0;
-    bool overflow = false;
     for (u32 k = 0; k < bk.size; ++k) {
       u32 ahead = bk.data[std::min(k + 8, bk.size - 1)] & mask;
       __builtin_prefetch(&g.off[ahead]), __builtin_prefetch(dist.at(ahead));
@@ -652,19 +650,23 @@ template <class L> struct Side {
         continue;
       ++settled;
       for (u32 i = g.off[u]; i < g.off[u + 1]; ++i) {
-        u32 v = g.head(g.adj[i]);
+        u32 v = g.adj[i] >> (W ? W : g.wbits);
         L *x = dist.slot(v);
-        u64 nd = d + g.weight(i), old = *x;
+        u32 mask = W ? (1u << W) - 1 : g.mask;
+        u64 w = g.adj[i] & mask;
+        u64 nd = d + (w == mask ? g.weight(i) : w), old = *x;
         *x = L(std::min(nd, old));
-        overflow |= nd >= Labels<L>::NONE;
         queue.push(nd, v, nd < old);
         best = std::min(best, nd + other.dist.get(v));
       }
     }
     queue.near -= bk.size, bk.size = 0;
     queue.occupied[queue.cur % Queue::B / 64] &= ~(u64(1) << queue.cur % 64);
-    wide |= overflow;
     return settled;
+  }
+  size_t drain(const Side &other, u64 &best) {
+    return g.wbits == 11 ? drain_bits<11>(other, best)
+                         : drain_bits<>(other, best);
   }
 };
 
@@ -675,7 +677,6 @@ template <class L> struct Side {
 template <class L> struct Worker {
   Side<L> fwd, bwd;
   u64 solve(u32 s, u32 t) {
-    fwd.wide = bwd.wide = false;
     if (s == t)
       return 0;
     if (fwd.g.off[s] == fwd.g.off[s + 1] || bwd.g.off[t] == bwd.g.off[t + 1])
@@ -711,7 +712,7 @@ int main() {
   unsigned threads = std::min(12u, std::thread::hardware_concurrency());
   if (getenv("SD_THREADS"))
     threads = atoi(getenv("SD_THREADS"));
-  threads = std::max(1u, threads);
+  threads = std::clamp(threads, 1u, 12u);
   size_t qsize, gsize;
   const char *q = map(data + "/queries.txt", qsize), *qend = q + qsize;
   std::vector<u32> ends; // s0 t0 s1 t1 ...
@@ -731,14 +732,14 @@ int main() {
             [&](u32 a, u32 b) { return ends[2 * a] < ends[2 * b]; });
   std::atomic<size_t> next{0};
   parallel(std::min<size_t>(threads, queries + 1), [&](unsigned) {
-    // 32-bit labels, unless a query's distances need all 64 bits.
-    Worker<u32> narrow{Side<u32>(*fwd), Side<u32>(*rev)};
+    // Paths below 65535 are exact with 16-bit labels. Saturated or
+    // unreachable results are rerun with exact 64-bit labels.
+    Worker<uint16_t> narrow{Side<uint16_t>(*fwd), Side<uint16_t>(*rev)};
     Worker<u64> *wide = nullptr;
     for (size_t k; (k = next++) < queries;) {
       u32 i = by_source[k], s = ends[2 * i], t = ends[2 * i + 1];
       u64 d = narrow.solve(s, t);
-      if (narrow.fwd.wide || narrow.bwd.wide ||
-          (d >= Labels<u32>::NONE && d < INF)) {
+      if (d >= Labels<uint16_t>::NONE) {
         if (!wide)
           wide = new Worker<u64>{Side<u64>(*fwd), Side<u64>(*rev)};
         d = wide->solve(s, t);

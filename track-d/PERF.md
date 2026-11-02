@@ -1173,3 +1173,7 @@ Run `run-40e0cc1582ec`; all five gates passed on source blob `ba344a996df8b60d5a
 ## Official latest run — D PR #22 build-flag trial
 
 Commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9` used PR #22 source blob `15e1a45dec8f2272c965ca3b3d70b3928f872097` and Dockerfile blob `86317a4ba941ba9576a7be479f3fb4c0fd51230a` (`-march=x86-64-v3`). `run-34ed1558cbbb` passed check/build/correctness/timeout/sandbox: K=32.034892, T=0.091404 s, M=61,648,896 B, S=649, D=1, points=75.281163. This is LATEST; BEST remains PR #23 `run-7cbf51892a7c` at K=32.750840, T=0.088389 s, M=60,166,144 B, S=647. PR #22 is down 2.19% in K, 3.41% slower in T, uses 1,482,752 B more memory and adds 2 source lines. Do not promote; preserve PR #23 as champion/rollback.
+
+## Current official candidate restored after PR #22
+
+PR #22 failed to beat BEST, so the official submission source is restored to PR #23 blobs from known-good commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`: `d_traverse.cpp` `e11b09e30d2ac0fdfada01317b5dce3deae5f6dd`, Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. This preserves PR #23 `run-7cbf51892a7c` (K=32.750840) as the current champion while retaining PR #22 `run-34ed1558cbbb` as LATEST failed trial.

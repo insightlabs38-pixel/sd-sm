@@ -1227,3 +1227,7 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — D PR #23 combined traversal trial commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`
 
 - `run-ee9b9afc4401` passed all five gates: T=0.067480 s, M=11,542,528 B, S=657, D=1, K=22.295230, points=67.410597. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Cross-track rerun only; C source unchanged; this unusually slow latest run does not replace C BEST.
+
+## Official latest run — commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9`
+
+`run-b648c2339f8f` passed check/build/correctness/timeout/sandbox: K=25.686260, T=0.050532 s, M=11,718,656 B, S=657, D=1, points=70.485043. BEST remains `run-e7eab9673214` (K=25.979773). Track C source was unchanged; this is a latest observation, not a C candidate promotion.

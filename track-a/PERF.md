@@ -1206,3 +1206,7 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official all-track receipt — D PR #23 combined traversal trial commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`
 
 - `run-315569e77f7b` passed all five gates: T=0.020446 s, M=21,434,368 B, S=584, D=1, K=44.690597, points=82.510808. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Cross-track rerun only; A source unchanged.
+
+## Official latest run — commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9`
+
+`run-0ac459f91a88` passed check/build/correctness/timeout/sandbox: K=44.776815, T=0.020327 s, M=21,540,864 B, S=584, D=1, points=82.552660. BEST remains `run-118836ebd34c` (K=49.960098). Track A source was unchanged; this is a new baseline observation, not an A candidate promotion.

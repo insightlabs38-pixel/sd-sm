@@ -1159,3 +1159,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — D PR #23 combined traversal trial commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`
 
 - `run-1389428b127f` passed all five gates: T=0.156906 s, M=41,312,256 B, S=699, D=1, K=30.522140, points=74.230749. **LATEST**; **BEST** remains `run-add075487808` (K=30.850870). Cross-track rerun only; B source unchanged.
+
+## Official latest run — commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9`
+
+`run-cd1e7e63d2e5` passed check/build/correctness/timeout/sandbox: K=30.554384, T=0.156575 s, M=41,394,176 B, S=699, D=1, points=74.253677. BEST remains `run-add075487808` (K=30.850870). Track B source was unchanged; this is a latest observation, not a B candidate promotion.

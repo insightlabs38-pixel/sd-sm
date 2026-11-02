@@ -1376,3 +1376,9 @@ matched exact full executions against champion02e0764e. S684 D1, Docker unchange
 Local parent-cgroup matrix180 runs covers1/7/17 at4/6/12; at12 threads, M falls
 2.4–3.4% and complete-K ratios1.0014–1.0104. Local quota differs from official.
 Current valid rollback02e0764e: run-3cf937618e77 K33.672416/T0.083599/M57802752/S683/D1.
+
+Ten-worker combinationb58f45364e243eb6832baef3dce43bf67db0e9fc scored
+run-9d277af3f049 K31.337779/T0.098000/M55582720/S684/D1, all gates passed;
+rejected. Next trial keeps twelve query workers and changes only wide metadata:
+solverad32b206a03b158ae7a50706a4c651b233ecf4e7, fully qualified41441562232,
+S683 D1 with original Docker. Rollback remains02e0764e, valid K33.672416.

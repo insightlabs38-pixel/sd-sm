@@ -1228,3 +1228,7 @@ run-95260dc5cc5c passed all five gates on the same safe source: K=32.314743, T=0
 ## Official rollback verification — commit `701732d`
 
 `run-eac59526a360` passed all five gates on the safe atomic-claim source: K=32.386125, T=0.090460 s, M=60,051,456 B, S=647, D=1. This is the eligible safe-source BEST and LATEST, superseding `run-95260dc5cc5c` (K=32.314743); the higher raw-feed historical score `run-b2b5c42472eb` used the correctness-defective source and remains disqualified.
+
+## Official scored commit `794e8f7` — safe claim source
+
+`run-bbcf25c774ff` passed all five gates: K=32.447889, T=0.090254 s, M=59,822,080 B, S=647, D=1. This is the eligible safe-source BEST and LATEST, superseding `run-eac59526a360` (K=32.386125); the unsafe-source numerical feed BEST remains disqualified.

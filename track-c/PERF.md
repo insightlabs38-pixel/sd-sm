@@ -1272,3 +1272,7 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 ## Official rollback verification — commit `701732d`
 
 `run-296161c10415` passed all five gates on restored C source: K=25.507976, T=0.051148 s, M=11,771,904 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). The PR #8 source was removed after its losing official result; this run scores the known-good source blob `0772ace04e358868f0b060b178d6ab77e93a15ab`.
+
+## Official scored commit `794e8f7` — restored source
+
+`run-0273dfa0ab04` passed all five gates: K=25.856414, T=0.049932 s, M=11,681,792 B, S=657, D=1. LATEST; BEST remains `run-e7eab9673214` (K=25.979773). C source is restored to its prior selected implementation.

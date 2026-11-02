@@ -1199,3 +1199,7 @@ run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.1
 ## Official rollback verification — commit `701732d`
 
 `run-704032eaf3ac` passed all five gates on unchanged B source: K=30.299533, T=0.159220 s, M=41,521,152 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870). The A/C rollback did not alter B.
+
+## Official scored commit `794e8f7`
+
+`run-a4134faded7a` passed all five gates: K=30.652918, T=0.155570 s, M=41,447,424 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870). B source is unchanged.

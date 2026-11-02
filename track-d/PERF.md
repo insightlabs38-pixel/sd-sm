@@ -1220,3 +1220,7 @@ Six official runs on unchanged PR #23 source/Dockerfile, all passing all five ga
 ## Official all-track receipt — safe claim-fix commit `4e018992`
 
 `run-92971f1f95cc` passed check/build/correctness/timeout/sandbox on the exact atomic-claim correction: K=31.932285, T=0.092659 s, M=60,686,336 B, S=647, D=1. This is the first safe-source board result and therefore the eligible D BEST/LATEST so far. The numerical feed BEST `run-b2b5c42472eb` remains an unsafe-source historical result and is not a valid correctness champion.
+
+
+Official all-track receipt — safe claim-fix commit 57bf5df:
+run-95260dc5cc5c passed all five gates on the same safe source: K=32.314743, T=0.090606 s, M=60,473,344 B, S=647, D=1. This is the eligible safe-source BEST/LATEST so far; the numerical feed BEST still refers to the disqualified racing source.

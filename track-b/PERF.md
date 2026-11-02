@@ -1191,3 +1191,7 @@ Run `run-27c758db655f`; all five gates passed on unchanged restored B main blob 
 ## Official all-track receipt — D claim-correction commit `4e018992`
 
 `run-76c15880194e` passed all five gates: K=28.336601, T=0.182043 s, M=41,566,208 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870). Track B source did not change.
+
+
+Official all-track receipt — candidate commit 57bf5df:
+run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.175320 s, M=41,963,520 B, S=699, D=1. LATEST; BEST remains run-add075487808 (K=30.850870). This cross-track run tested A/C candidates; B did not change.

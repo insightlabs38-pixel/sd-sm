@@ -1238,8 +1238,12 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Requested historical PR #2 candidate — official trial
 
 - Candidate source is the merged Track A PR #2 head `50b33bb7d0085acf296e5f34a55e30b4958fb07d`, source SHA-256 `0e5009a411be383ed5d35310e716d28a3682c0bde4bb37cbd19d1bd36caa9b49`; its pinned Dockerfile is imported with it. Exact-head CI [41232109362](https://github.com/insightlabs38-pixel/sd-ta/actions/runs/41232109362) passed official seed-1 hashes, seed-2/3 sample references, synthetic/dense/disorder tests, ASan/UBSan, TSan and restricted Docker. Independent local synthetic, length, latency, group, size and dense tests also passed.
-- The current official A source remains the known-good rollback (BEST `run-118836ebd34c`, K=49.960098). PR #2's local CPU report is not a board result; this trial will be judged on official complete K, and will not replace that BEST unless the measured result supports promotion.
+- The current official A source is the known-good rollback (BEST run-118836ebd34c, K=49.960098). PR #2's local CPU report was not treated as a board result; the official trial below scored lower and was rejected.
 
 ## Official all-track receipt — D claim-correction commit `4e018992`
 
 `run-2a1d6be0e834` passed all five gates: K=48.658840, T=0.017374 s, M=21,045,248 B, S=584, D=1. LATEST; BEST remains `run-118836ebd34c` (K=49.960098). Track A source did not change.
+
+
+Official all-track receipt — candidate commit 57bf5df:
+run-e6e9e2af6800 passed all five gates on PR #2: K=46.461317, T=0.018357 s, M=23,408,640 B, S=574, D=1. This is 7.0% below BEST run-118836ebd34c (K=49.960098), with 12.0% slower T and 9.7% higher M despite ten fewer source lines. Reject this trial and restore the official A source.

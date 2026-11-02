@@ -1286,3 +1286,7 @@ run-97172da95185 passed all five gates on PR #8: K=20.307170, T=0.078814 s, M=14
 - Imported exact source blob `c60485189842d4cd151bedc76c27d16dafc4755f` and matching README from developer main `b1386c0a8f90577812bdd286c799bdfaea5a0dd7`; official Dockerfile and generator are byte-identical to the qualified context.
 - Exact-source CI `41378281829` and independent read-only Docker qualification `41378625208` passed the full seed-1 hash, repeated full holdouts 11/29, aligned-cut and quoted numeric-LF fixtures, ASan/UBSan/TSan, offline Docker and sandbox.
 - Developer matched PGO comparison was nearly neutral against its own prior main: T 71.974→71.711 ms, M 10,309,632→10,262,528 B, S 570→579, complete-K proxy +0.04%. The candidate measured S=579 versus official C S=657, a meaningful source-axis opportunity; complete official K is pending this board trial. Rollback is `0772ace04e358868f0b060b178d6ab77e93a15ab`.
+
+## Track C main cut-repair official trial — rejected
+
+`run-64df72c1167c` passed all five gates on candidate `b1386c0` / source blob `c60485189842d4cd151bedc76c27d16dafc4755f`: K=25.158693, T=0.053673 s, M=10,919,936 B, S=678, D=1. This is 3.16% below BEST `run-e7eab9673214` (K=25.979773), and 1.51% below preceding source run `run-b5c0d525f1cb`; official S was 678 versus 657 on the prior source, contrary to the expected source-axis gain. Rejected; restore `0772ace04e358868f0b060b178d6ab77e93a15ab`.

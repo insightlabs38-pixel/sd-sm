@@ -1207,3 +1207,7 @@ run-ff71b0ecdd0e passed all five gates on unchanged B source: K=28.874802, T=0.1
 ## Official scored commit `a4b6ed1`
 
 `run-e53573fac2d1` passed all five gates: K=27.932676, T=0.187346 s, M=41,992,192 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870). Source unchanged; the low score is a noisy timing observation, not a B source regression.
+
+## Official scored commit `0b4dcbf`
+
+`run-5dab758253c2` passed all five gates on unchanged B source: K=28.915321, T=0.174829 s, M=41,234,432 B, S=699, D=1. LATEST; BEST remains `run-add075487808` (K=30.850870).

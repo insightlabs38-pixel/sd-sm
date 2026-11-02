@@ -1176,11 +1176,11 @@ Commit `56f3cabeab3c780111683a9b9f67e6b54dc824b9` used PR #22 source blob `15e1a
 
 ## Current official candidate restored after PR #22
 
-PR #22 failed to beat BEST, so the official submission source is restored to PR #23 blobs from known-good commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`: `d_traverse.cpp` `e11b09e30d2ac0fdfada01317b5dce3deae5f6dd`, Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. This preserves PR #23 `run-7cbf51892a7c` (K=32.750840) as the current champion while retaining PR #22 `run-34ed1558cbbb` as LATEST failed trial.
+PR #22 failed to beat BEST, so the official submission source is restored to PR #23 blobs from known-good commit `a5b6172a946ed30ffc912ea7e2c09474851e6768`: `d_traverse.cpp` `e11b09e30d2ac0fdfada01317b5dce3deae5f6dd`, Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. At rollback time PR #23 `run-7cbf51892a7c` (K=32.750840) was BEST; a later same-source repeat, `run-b2b5c42472eb`, raised the current BEST to K=32.868729. PR #22 `run-34ed1558cbbb` remains a failed trial.
 
 ## Official champion-restoration run — `8fc0d908aeadb934648e44e70f1e0dcd1b35173f`
 
-`run-cea5b5d2d8ef` passed all five gates on restored PR #23 source/Dockerfile: K=32.576800, T=0.089431 s, M=60,006,400 B, S=647, D=1, points=75.645421. BEST remains `run-7cbf51892a7c` (K=32.750840, T=0.088389 s, M=60,166,144 B). The 0.53% K gap is consistent with run variance and the exact solver source is unchanged.
+`run-cea5b5d2d8ef` passed all five gates on restored PR #23 source/Dockerfile: K=32.576800, T=0.089431 s, M=60,006,400 B, S=647, D=1, points=75.645421. At this run BEST was `run-7cbf51892a7c` (K=32.750840, T=0.088389 s, M=60,166,144 B); the later repeat `run-b2b5c42472eb` is current BEST. The 0.53% K gap is consistent with run variance and the exact solver source is unchanged.
 
 ## Official receipt-checkpoint run — `75376b0a3d67c033a4b12d4d950b68b503c4921e`
 

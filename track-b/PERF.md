@@ -1312,3 +1312,5 @@ The same selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b01
 ## Row-prefetch-elision candidate queued for official trial
 
 Developer main source blob `6450d009a5d07f719f3678becea49d89b136737a` removes two redundant row-prefetch lines. CI `41330605787` passed exactness, full seeds, sanitizers and offline Docker; five of five full-seed matched local comparisons favored it (geometric-mean K proxy +0.8309%) and source S falls 699→695, D=1. This is runner-local evidence, not official K. The candidate is included in the next A/B/C qualification commit; official score pending.
+
+`run-fcc23ca892f8` on `b546f14` also ran the unchanged selected source SHA-256 `1f008180ceb939719ca2ebb4c63ff82ab4451038c73b010a0aed42c2784bba1`: K=30.272926, T=0.159500 s, M=41,369,600 B, S=699, D=1; all gates passed. The row-prefetch-elision candidate remains pending an official score.

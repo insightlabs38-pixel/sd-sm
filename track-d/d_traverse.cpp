@@ -315,18 +315,19 @@ struct Grower {
   };
   const Graph &raw;
   const Bits &bypass;
-  std::vector<uint8_t> &claimed;
+  Bits &claimed;
   Region &reg;
   std::vector<Walk> walks;
 
-  // Byte flags only change from zero to one, so a worker never revisits a
-  // vertex. Racing workers may each retain a copy; renaming chooses one.
+  // The relaxed OR linearizes a claim. The initial load avoids locked
+  // operations for vertices that are already claimed.
   void claim(u32 z) {
-    uint8_t *flag = &claimed[z];
-    if (__atomic_load_n(flag, __ATOMIC_RELAXED))
+    u64 bit = u64(1) << (z & 63), *word = &claimed[z >> 6];
+    u64 seen = __atomic_load_n(word, __ATOMIC_RELAXED);
+    if (seen & bit)
       return;
-    __atomic_store_n(flag, uint8_t(1), __ATOMIC_RELAXED);
-    reg.order[reg.len++] = z;
+    if (!(__atomic_fetch_or(word, bit, __ATOMIC_RELAXED) & bit))
+      reg.order[reg.len++] = z;
   }
   void put(u32 pos, u32 z, u64 w) {
     if (w >= raw.mask)
@@ -447,7 +448,7 @@ struct Reverse {
 std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
                                      unsigned threads, std::vector<u32> &ends) {
   u32 n = raw->n, m = raw->m;
-  std::vector<uint8_t> claimed(n);
+  Bits claimed(bypass.size());
   std::vector<Region> regions(threads);
   parallel(threads, [&](unsigned t) {
     Region &reg = regions[t];
@@ -460,7 +461,7 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
   });
   u32 wbits = raw->wbits, mask = raw->mask;
   // The raw rows' pages become the map and the forward graph.
-  u32 *where = raw->adj;
+  u32 *where = raw->adj, *spare = where + n;
   delete raw;
   // Region t's vertices and edges follow those of the regions before it.
   std::vector<u32> base(threads + 1, 0), edges(threads + 1, 0);
@@ -468,17 +469,6 @@ std::pair<Graph *, Graph *> contract(Graph *raw, const Bits &bypass,
     base[t + 1] = base[t] + regions[t].len;
     edges[t + 1] = edges[t] + regions[t].edges;
   }
-  // Racing byte claims may retain inter-worker copies. Ensure that the
-  // recycled raw allocation can hold all actual forward rows and edges.
-  size_t old_bytes = (size_t(4) * n + m) * 4 + 64;
-  size_t needed = (size_t(n) + base[threads] + edges[threads] + 1) * 4 + 64;
-  if (needed > old_bytes) {
-    void *p = mremap(where, old_bytes, needed, MREMAP_MAYMOVE);
-    if (p == MAP_FAILED)
-      exit(2);
-    where = static_cast<u32 *>(p);
-  }
-  u32 *spare = where + n;
   // Work is split into equal slices of new ids, as regions can differ widely
   // in size. Calls f(region, first index, end index) on slice k.
   u32 total = base[threads];
@@ -556,8 +546,8 @@ struct Queue {
     u32 *data = nullptr, size = 0, cap = 0;
   } bucket[B];
   u64 occupied[B / 64] = {}, cur = 0, near = 0;
-  // Each of at most twelve regions visits each input vertex at most once.
-  // 12 * 1,740,512 < 2^25, leaving seven bits for the key remainder.
+  // Claims are globally unique, so legal vertex ids fit in 25 bits,
+  // leaving seven bits for the key remainder.
   static constexpr u32 shift = 7, node_bits = 25;
   using Far = std::pair<u64, u32>;
   std::priority_queue<Far, std::vector<Far>, std::greater<Far>> far;

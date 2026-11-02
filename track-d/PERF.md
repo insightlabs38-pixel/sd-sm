@@ -1251,3 +1251,10 @@ run-95260dc5cc5c passed all five gates on the same safe source: K=32.314743, T=0
 Trial solver blob `308304cde5e02be22fe33fbce25b9fb5eef9a2cc`, unchanged Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`, S655/D1. Monotone byte claims prevent within-worker replay; checked recycled-buffer expansion covers inter-worker copies. Full pinned qualification including both deterministic full-size guard regressions passed CI 41374714910. The 189-run local parent-cgroup complete-K matrix is mixed; this trial obtains the actual official hardware result, not a projected improvement.
 
 Safe rollback: PR24 solver `4e45be05890b6228c8df88702da48f51a15fc712`, same Dockerfile, valid BEST `run-2e268a627927`, K32.780740/T0.088603/M59,531,264/S647/D1. Preserve all other tracks. Board result pending; do not promote without comparing valid official receipts.
+
+
+## Official PR25 result and safe rollback
+
+`run-e696b8644680`, commit `2244048e64033b137daf4bc94242a91069a4b9d1`, passed all five gates: K30.342851, T0.101688 s, M61,517,824 B, S655, D1. The byte-claim architecture loses to valid atomic PR24 BEST K32.780740 (`run-2e268a627927`, T0.088603, M59,531,264, S647/D1). Reject this trial and restore only Track D solver blob `4e45be05890b6228c8df88702da48f51a15fc712` with unchanged Dockerfile `8eabe09b96a60131ce5bfda3f098011e1f0863e6`. All other tracks are preserved.
+
+Public competitor leader observed at 04:31 UTC: SweetDreams K34.117253, T0.085564, M57,888,768, S578/D1; our valid BEST is behind by 1.336513 K (4.077% uplift required). The board's numerical HighVelocity BEST still identifies the unsafe PR23 and is not used for selection.

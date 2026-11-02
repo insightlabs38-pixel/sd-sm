@@ -1191,3 +1191,8 @@ Run `run-efa9f52448ad`; all five gates passed on unchanged A PR #3 source. T=0.0
 ## Official all-track receipt — D PR #19 trial commit `798c15d26ee3132bbc5d29541ee3d1de2534839a`
 
 - `run-da07f2b68c90` passed all five gates: T=0.017783 s, M=21,491,712 B, S=584, D=1, K=47.894512. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). This is a cross-track rerun while testing D PR #19; no A source changed.
+
+
+## Official all-track receipt — D PR #19 repeated trial commit `2d6609b2d6a26f79b20b3df8a5dc2dbd9fa6f7e6`
+
+- `run-fe94a5b4bcea` passed all five gates: T=0.020431 s, M=21,475,328 B, S=584, D=1, K=44.689932, points=82.510485. **LATEST**; **BEST** remains `run-118836ebd34c` (K=49.960098). Cross-track rerun only; A source unchanged.

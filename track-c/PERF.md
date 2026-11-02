@@ -1212,3 +1212,8 @@ Run `run-45f06d79e387`; all five gates passed on unchanged valid-CSV frontier bl
 ## Official all-track receipt — D PR #19 trial commit `798c15d26ee3132bbc5d29541ee3d1de2534839a`
 
 - `run-f4c01c39a4b8` passed all five gates: T=0.050638 s, M=11,870,208 B, S=657, D=1, K=25.593503. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). This is a cross-track rerun while testing D PR #19; no C source changed.
+
+
+## Official all-track receipt — D PR #19 repeated trial commit `2d6609b2d6a26f79b20b3df8a5dc2dbd9fa6f7e6`
+
+- `run-efd916b77251` passed all five gates: T=0.051224 s, M=11,776,000 B, S=657, D=1, K=25.487273, points=70.316168. **LATEST**; **BEST** remains `run-e7eab9673214` (K=25.979773). Cross-track rerun only; C source unchanged.

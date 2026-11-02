@@ -1378,3 +1378,7 @@ Unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7
 `run-dd688b17e352` on `b546f14` ran the unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=22.314131, T=0.066987 s, M=11,706,368 B, S=657, D=1; all gates passed. BEST remains `run-e7eab9673214`, K=25.979773.
 
 `run-f2adbb91b4d1` on `777ef7d` passed all gates with unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=25.733430, T=0.050361 s, M=11,710,464 B, S=657, D=1. BEST remains `run-e7eab9673214`, K=25.979773.
+
+## Selected-source rollback receipt — Nov 2
+
+`run-cf66631caef8` on official commit `383ad58` passed all gates on unchanged source SHA-256 `90ff49b2dbf26bc3d33e62c6e2e86ed990f19280e6b99d3e8dfca7426ec7ac65`: K=25.302290, T=0.051471 s, M=12,066,816 B, S=657, D=1. BEST remains `run-e7eab9673214`, K=25.979773.

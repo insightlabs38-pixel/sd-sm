@@ -1346,3 +1346,7 @@ Candidate SHA-256 `fe2ad4d123c091de95eb045b43bc5e134c342d4d90b0d22bc147aa6f162eb
 ## PR #2 official qualification — rejected; selected source restored
 
 PR #2 source SHA-256 `0e5009a411be383ed5d35310e716d28a3682c0bde4bb37cbd19d1bd36caa9b49` (Git blob `24926c018797db75`) passed CI `41232109362` (completed/success on `50b33bb7d0085acf296e5f34a55e30b4958fb07d`) and all official gates in `run-20b4bca8188f` on `777ef7d`: K=47.186046, T=0.018249 s, M=21,987,328 B, S=574, D=1. This is below BEST `run-118836ebd34c`, K=49.960098, on the selected source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`. The PR's large 4-vCPU timing gain did not transfer to official K. Reject and restore the selected source; PR #2 remains recoverable from commit history.
+
+## Selected-source rollback receipt — Nov 2
+
+`run-bdbcaf3e8117` on official commit `383ad58` passed all gates on restored source SHA-256 `a653f53a18fe1befe508e0806e8964cfb6259dfb6516d60a1940de63b06719b5`: K=44.669117, T=0.020650 s, M=20,959,232 B, S=584, D=1. This restores the previously selected source; BEST remains `run-118836ebd34c`, K=49.960098. The official single-run timing spread is material.
